@@ -1,0 +1,525 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type AuthTokenOutput {
+  token: String!
+}
+
+type Cast {
+  cineast: Cineast!
+  movieCast: MovieCast!
+  role: String!
+  seriesCast: SeriesCast!
+}
+
+type Cineast {
+  DOB: Float!
+  award: [String!]!
+  bio: String!
+  cast: Cast!
+  contactNo: String!
+  country: String!
+  crew: Crew!
+  email: String!
+  fullName: String!
+  gender: String!
+}
+
+input CreateCastInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateCineastInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateCrewInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateEpisodeInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateErrorLogInput {
+  message: String!
+  statusCode: Float!
+  type: String!
+}
+
+input CreateExternalLinkInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateManagerActivityInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateMediaImageInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateMediaInfoInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateMediaInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateMovieCastInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateMovieCrewInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateProfileInfoInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateReviewInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateSeasonInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateSeriesCastInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateSeriesCrewInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateSeriesInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateUserActivityInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Crew {
+  cineast: Cineast!
+  movieCrew: MovieCrew!
+  role: String!
+  seriesCrew: SeriesCrew!
+}
+
+type Episode {
+  IMDbRating: Float!
+  episodeNo: Float!
+  externalLink: [ExternalLink!]!
+  media: [Media!]!
+  mediaImage: [MediaImage!]!
+  releaseDate: Float!
+  review: [Review!]!
+  runTime: Float!
+  season: Season!
+  title: String!
+}
+
+type ErrorLog {
+  message: String!
+  statusCode: Float!
+  type: String!
+}
+
+type ExternalLink {
+  episode: Episode!
+  movie: Movie!
+  resourceName: String!
+  series: Series!
+  type: String!
+  url: String!
+}
+
+input GetS3UploadVdeoUrlInput {
+  height: Float!
+  mime: String!
+  size: Float!
+  width: Float!
+}
+
+type GetS3UploadVdeoUrlOutput {
+  url: String!
+}
+
+type Manager {
+  accountStatus: String!
+  email: String!
+  lastLogin: Float!
+  managerActivity: ManagerActivity!
+  movie: Movie!
+  password: String!
+  profileInfo: ProfileInfo!
+  series: Series!
+}
+
+type ManagerActivity {
+  action: String!
+  contentId: String!
+  manager: Manager!
+  status: String!
+}
+
+input ManagerLoginInput {
+  email: String!
+  password: String!
+}
+
+input ManagerRegisterInput {
+  email: String!
+  password: String!
+}
+
+type Media {
+  S3ObjectKey: String!
+  episode: Episode!
+  movie: Movie!
+  season: Season!
+  series: Series!
+  type: String!
+}
+
+type MediaImage {
+  episode: Episode!
+  movie: Movie!
+  season: Season!
+  series: Series!
+  type: String!
+  url: String!
+}
+
+type MediaInfo {
+  IMDbRating: Float!
+  OMDbRating: Float!
+  award: [String!]!
+  budget: Float!
+  genre: String!
+  movie: Movie!
+  netProfit: Float!
+  originCountry: String!
+  originalLanguage: String!
+  plotSummary: String!
+  quality: String!
+  releaseDate: Float!
+  revenue: Float!
+  runTime: Float!
+  series: Series!
+  status: String!
+  title: String!
+}
+
+type Movie {
+  externalLink: ExternalLink!
+  isFree: Float!
+  manager: Manager!
+  media: Media!
+  mediaImage: MediaImage!
+  mediaInfo: MediaInfo!
+  movieCast: MovieCast!
+  movieCrew: MovieCrew!
+  price: Float!
+  review: Review!
+}
+
+type MovieCast {
+  cast: Cast!
+  movie: Movie!
+}
+
+type MovieCrew {
+  crew: Crew!
+  movie: Movie!
+}
+
+type Mutation {
+  createCast(createCastInput: CreateCastInput!): Cast!
+  createCineast(createCineastInput: CreateCineastInput!): Cineast!
+  createCrew(createCrewInput: CreateCrewInput!): Crew!
+  createEpisode(createEpisodeInput: CreateEpisodeInput!): Episode!
+  createErrorLog(CreateErrorLogInput: CreateErrorLogInput!): ErrorLog!
+  createExternalLink(createExternalLinkInput: CreateExternalLinkInput!): ExternalLink!
+  createManagerActivity(createManagerActivityInput: CreateManagerActivityInput!): ManagerActivity!
+  createMedia(createMediaInput: CreateMediaInput!): Media!
+  createMediaImage(createMediaImageInput: CreateMediaImageInput!): MediaImage!
+  createMediaInfo(createMediaInfoInput: CreateMediaInfoInput!): MediaInfo!
+  createMovieCast(createMovieCastInput: CreateMovieCastInput!): MovieCast!
+  createMovieCrew(createMovieCrewInput: CreateMovieCrewInput!): MovieCrew!
+  createProfileInfo(createProfileInfoInput: CreateProfileInfoInput!): ProfileInfo!
+  createReview(createReviewInput: CreateReviewInput!): Review!
+  createSeason(createSeasonInput: CreateSeasonInput!): Season!
+  createSeries(createSeriesInput: CreateSeriesInput!): Series!
+  createSeriesCast(createSeriesCastInput: CreateSeriesCastInput!): SeriesCast!
+  createSeriesCrew(createSeriesCrewInput: CreateSeriesCrewInput!): SeriesCrew!
+  createUserActivity(createUserActivityInput: CreateUserActivityInput!): UserActivity!
+  getS3UploadVideoUrl(GetS3UploadVdeoUrlInput: GetS3UploadVdeoUrlInput!): GetS3UploadVdeoUrlOutput!
+  managerRegister(Register: ManagerRegisterInput!): AuthTokenOutput!
+  removeCast(id: Int!): Cast!
+  removeCineast(id: Int!): Cineast!
+  removeCrew(id: Int!): Crew!
+  removeEpisode(id: Int!): Episode!
+  removeExternalLink(id: Int!): ExternalLink!
+  removeManagerActivity(id: Int!): ManagerActivity!
+  removeMedia(id: Int!): Media!
+  removeMediaImage(id: Int!): MediaImage!
+  removeMediaInfo(id: Int!): MediaInfo!
+  removeMovieCast(id: Int!): MovieCast!
+  removeMovieCrew(id: Int!): MovieCrew!
+  removeProfileInfo(id: Int!): ProfileInfo!
+  removeReview(id: Int!): Review!
+  removeSeason(id: Int!): Season!
+  removeSeries(id: Int!): Series!
+  removeSeriesCast(id: Int!): SeriesCast!
+  removeSeriesCrew(id: Int!): SeriesCrew!
+  removeUserActivity(id: Int!): UserActivity!
+  updateCast(updateCastInput: UpdateCastInput!): Cast!
+  updateCineast(updateCineastInput: UpdateCineastInput!): Cineast!
+  updateCrew(updateCrewInput: UpdateCrewInput!): Crew!
+  updateEpisode(updateEpisodeInput: UpdateEpisodeInput!): Episode!
+  updateExternalLink(updateExternalLinkInput: UpdateExternalLinkInput!): ExternalLink!
+  updateManagerActivity(updateManagerActivityInput: UpdateManagerActivityInput!): ManagerActivity!
+  updateMedia(updateMediaInput: UpdateMediaInput!): Media!
+  updateMediaImage(updateMediaImageInput: UpdateMediaImageInput!): MediaImage!
+  updateMediaInfo(updateMediaInfoInput: UpdateMediaInfoInput!): MediaInfo!
+  updateMovieCast(updateMovieCastInput: UpdateMovieCastInput!): MovieCast!
+  updateMovieCrew(updateMovieCrewInput: UpdateMovieCrewInput!): MovieCrew!
+  updateProfileInfo(updateProfileInfoInput: UpdateProfileInfoInput!): ProfileInfo!
+  updateReview(updateReviewInput: UpdateReviewInput!): Review!
+  updateSeason(updateSeasonInput: UpdateSeasonInput!): Season!
+  updateSeries(updateSeriesInput: UpdateSeriesInput!): Series!
+  updateSeriesCast(updateSeriesCastInput: UpdateSeriesCastInput!): SeriesCast!
+  updateSeriesCrew(updateSeriesCrewInput: UpdateSeriesCrewInput!): SeriesCrew!
+  updateUserActivity(updateUserActivityInput: UpdateUserActivityInput!): UserActivity!
+  userLogin(UserLoginInput: ManagerLoginInput!): AuthTokenOutput!
+  userRegister(UserRegisterInput: UserRegisterInput!): AuthTokenOutput!
+}
+
+type ProfileInfo {
+  DOB: Float!
+  address: String!
+  contactNumber: String!
+  firstName: String!
+  gender: String!
+  lastName: String!
+  manager: Manager!
+  profilePic: String!
+  user: User!
+}
+
+type Query {
+  cast(id: Int!): Cast!
+  cineast(id: Int!): Cineast!
+  crew(id: Int!): Crew!
+  episode(id: Int!): Episode!
+  externalLink(id: Int!): ExternalLink!
+  managerActivity(id: Int!): ManagerActivity!
+  media(id: Int!): Media!
+  mediaImage(id: Int!): MediaImage!
+  mediaInfo(id: Int!): MediaInfo!
+  movieCast(id: Int!): MovieCast!
+  movieCrew(id: Int!): MovieCrew!
+  profileInfo(id: Int!): ProfileInfo!
+  review(id: Int!): Review!
+  season(id: Int!): Season!
+  series(id: Int!): Series!
+  seriesCast(id: Int!): SeriesCast!
+  seriesCrew(id: Int!): SeriesCrew!
+  userActivity(id: Int!): UserActivity!
+}
+
+type Review {
+  comment: String!
+  episode: Episode!
+  movie: Movie!
+  rating: Float!
+  series: Series!
+  user: User!
+}
+
+type Season {
+  episode: Episode!
+  media: Media!
+  mediaImage: MediaImage!
+  plotSummary: String!
+  releaseDate: Float!
+  seasonNo: Float!
+  series: Series!
+  title: String!
+}
+
+type Series {
+  externalLink: ExternalLink!
+  isFree: Float!
+  manager: Manager!
+  media: Media!
+  mediaImage: MediaImage!
+  mediaInfo: MediaInfo!
+  price: Float!
+  review: Review!
+  season: Season!
+  seriesCast: SeriesCast!
+  seriesCrew: SeriesCrew!
+}
+
+type SeriesCast {
+  cast: Cast!
+  series: Series!
+}
+
+type SeriesCrew {
+  crew: Crew!
+  series: Series!
+}
+
+input UpdateCastInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Float!
+}
+
+input UpdateCineastInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Float!
+}
+
+input UpdateCrewInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Float!
+}
+
+input UpdateEpisodeInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Float!
+}
+
+input UpdateExternalLinkInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Float!
+}
+
+input UpdateManagerActivityInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Float!
+}
+
+input UpdateMediaImageInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Float!
+}
+
+input UpdateMediaInfoInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Float!
+}
+
+input UpdateMediaInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Float!
+}
+
+input UpdateMovieCastInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Float!
+}
+
+input UpdateMovieCrewInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Float!
+}
+
+input UpdateProfileInfoInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Float!
+}
+
+input UpdateReviewInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Float!
+}
+
+input UpdateSeasonInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Float!
+}
+
+input UpdateSeriesCastInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Float!
+}
+
+input UpdateSeriesCrewInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Float!
+}
+
+input UpdateSeriesInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Float!
+}
+
+input UpdateUserActivityInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Float!
+}
+
+type User {
+  email: String!
+  password: String!
+  profileInfo: ProfileInfo!
+  review: Review!
+  userActivity: UserActivity!
+}
+
+type UserActivity {
+  action: String!
+  contentId: String!
+  status: String!
+  user: User!
+}
+
+input UserRegisterInput {
+  email: String!
+  password: String!
+}

@@ -1,0 +1,23 @@
+{
+    "manager ": "yarn migration:generate manager &&",
+    "user ": "yarn migration:generate user &&",
+    "profile-info ": "yarn migration:generate profile-info &&",
+    "movie ": "yarn migration:generate movie &&",
+    "series ": "yarn migration:generate series &&",
+    "season ": "yarn migration:generate season &&",
+    "episode ": "yarn migration:generate episode &&",
+    "user-activity ": "yarn migration:generate user-activity &&",
+    "manager-activity": "yarn migration:generate manager-activity &&",
+    "media ": "yarn migration:generate media && ",
+    "media-info ": "yarn migration:generate media-info &&",
+    "media-image ": "yarn migration:generate media-image &&",
+    "crew ": "yarn migration:generate crew &&",
+    "cast ": "yarn migration:generate cast &&",
+    "cineast ": "yarn migration:generate cineast &&",
+    "movie-crew ": "yarn migration:generate movie-crew &&",
+    "movie-cast ": "yarn migration:generate movie-cast &&",
+    "series-crew ": "yarn migration:generate series-crew &&",
+    "series-cast ": "yarn migration:generate series-cast &&",
+    "review ": "yarn migration:generate review &&",
+    "external-link": "yarn migration:generate external-link"
+}
