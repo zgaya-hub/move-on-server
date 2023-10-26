@@ -1,4 +1,4 @@
-import { Module, forwardRef } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { CacheModule } from '@nestjs/cache-manager';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -7,7 +7,6 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PrometheusModule, makeCounterProvider } from '@willsoto/nestjs-prometheus';
 import { UserModule } from './user/user.module';
 import { MovieModule } from './movie/movie.module';
 import { AuthModule } from './auth/auth.module';
@@ -19,7 +18,6 @@ import { ManagerModule } from './manager/manager.module';
 import { ProfileInfoModule } from './profile-info/profile-info.module';
 import { UserActivityModule } from './user-activity/user-activity.module';
 import { ManagerActivityModule } from './manager-activity/manager-activity.module';
-import { MediaInfoModule } from './media-info/media-info.module';
 import { CrewModule } from './crew/crew.module';
 import { CineastModule } from './cineast/cineast.module';
 import { CastModule } from './cast/cast.module';
@@ -36,6 +34,9 @@ import { ErrorLogModule } from './error-log/error-log.module';
 import { CallerModule } from './caller/caller.module';
 import { addTransactionalDataSource } from 'typeorm-transactional';
 import { DataSource } from 'typeorm';
+import { MediaInformationModule } from './media-information/media-information.module';
+import { FinancialInfoModule } from './financial-info/financial-info.module';
+import { AchievementInfoModule } from './achievement-info/achievement-info.module';
 
 @Module({
   imports: [
@@ -90,7 +91,6 @@ import { DataSource } from 'typeorm';
     ProfileInfoModule,
     UserActivityModule,
     ManagerActivityModule,
-    MediaInfoModule,
     CrewModule,
     CineastModule,
     CastModule,
@@ -105,6 +105,9 @@ import { DataSource } from 'typeorm';
     VideoModule,
     ErrorLogModule,
     CallerModule,
+    MediaInformationModule,
+    FinancialInfoModule,
+    AchievementInfoModule,
   ],
   controllers: [AppController],
   providers: [AppService],

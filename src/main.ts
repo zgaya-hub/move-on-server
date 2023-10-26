@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { FastifyAdapter } from '@nestjs/platform-fastify';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { initializeTransactionalContext } from 'typeorm-transactional';
-import { ExceptionFilter } from './filters/exception.filter';
+import { ExceptionFilter } from './filter/exception.filter';
 
 const logger = new Logger('main.ts');
 const port = process.env.PORT || 8000;
