@@ -7,10 +7,10 @@ import { CommonOutputDto } from '../common/dto/common.dto';
 export class MovieResolver {
   constructor(private readonly movieService: MovieService) {}
 
-  @Mutation(() => )
+  /*   @Mutation(() => )
   async userRegister(@Args('UserRegisterInput') input: UserInputDto.UserRegisterInput): Promise<CommonOutputDto.AuthTokenOutput> {
     const user = await this.userService.userRegister(input);
     const token = this.authService.signToken(user);
     return { token };
-  }
+  } */
 }

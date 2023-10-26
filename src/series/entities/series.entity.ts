@@ -5,12 +5,15 @@ import { Season } from '@/season/entities/season.entity';
 import { Manager } from '@/manager/entities/manager.entity';
 import { Media } from '@/media/entities/media.entity';
 import { DecimalColumn, JoinColumn, TinyintColumn } from '@/decorator/entity/entity.decorator';
-import { MediaInfo } from '@/media-info/entities/media-info.entity';
 import { SeriesCast } from '@/series-cast/entities/series-cast.entity';
 import { SeriesCrew } from '@/series-crew/entities/series-crew.entity';
 import { MediaImage } from '@/media-image/entities/media-image.entity';
 import { ExternalLink } from '@/external-link/entities/external-link.entity';
 import { Review } from '@/review/entities/review.entity';
+import { AchievementInfo } from '@/achievement-info/entities/achievement-info.entity';
+import { FinancialInfo } from '@/financial-info/entities/financial-info.entity';
+import { MediaInformation } from '@/media-information/entities/media-information.entity';
+import { Video } from '@/video/entities/video.entity';
 
 @ObjectType()
 @Entity({ name: 'series' })
@@ -25,9 +28,21 @@ export class Series extends EntityBase {
   @TinyintColumn({ name: 'is_free', default: true })
   isFree: number;
 
-  @Field(() => MediaInfo)
-  @OneToOne(() => MediaInfo, (mediaInfo) => mediaInfo.series)
-  mediaInfo: MediaInfo;
+  @Field(() => AchievementInfo)
+  @OneToOne(() => AchievementInfo, (achievementInfo) => achievementInfo.series)
+  achievementInfo: AchievementInfo;
+
+  @Field(() => FinancialInfo)
+  @OneToOne(() => FinancialInfo, (financialInfo) => financialInfo.series)
+  financialInfo: FinancialInfo;
+
+  @Field(() => MediaInformation)
+  @OneToOne(() => MediaInformation, (mediaInformation) => mediaInformation.series)
+  mediaInformation: MediaInformation;
+
+  @Field(() => Video)
+  @OneToOne(() => Video, (video) => video.series)
+  video: Video;
 
   @Field(() => Manager)
   @ManyToOne(() => Manager, (manager) => manager.series)

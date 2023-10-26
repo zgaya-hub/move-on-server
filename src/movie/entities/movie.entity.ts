@@ -2,7 +2,6 @@ import { Entity, OneToOne, ManyToOne, OneToMany } from 'typeorm';
 import { ObjectType, Field } from '@nestjs/graphql';
 import { EntityBase } from '@/base/entity.base';
 import { Manager } from '@/manager/entities/manager.entity';
-import { MediaInfo } from '@/media-info/entities/media-info.entity';
 import { Media } from '@/media/entities/media.entity';
 import { DecimalColumn, JoinColumn, TinyintColumn } from '@/decorator/entity/entity.decorator';
 import { MovieCast } from '@/movie-cast/entities/movie-cast.entity';
@@ -10,6 +9,10 @@ import { MovieCrew } from '@/movie-crew/entities/movie-crew.entity';
 import { MediaImage } from '@/media-image/entities/media-image.entity';
 import { ExternalLink } from '@/external-link/entities/external-link.entity';
 import { Review } from '@/review/entities/review.entity';
+import { AchievementInfo } from '@/achievement-info/entities/achievement-info.entity';
+import { FinancialInfo } from '@/financial-info/entities/financial-info.entity';
+import { MediaInformation } from '@/media-information/entities/media-information.entity';
+import { Video } from '@/video/entities/video.entity';
 
 @ObjectType()
 @Entity({ name: 'movie' })
@@ -25,10 +28,21 @@ export class Movie extends EntityBase {
   isFree: number;
 
   // JOIN COLUMNS //
+  @Field(() => AchievementInfo)
+  @OneToOne(() => AchievementInfo, (achievementInfo) => achievementInfo.movie)
+  achievementInfo: AchievementInfo;
 
-  @Field(() => MediaInfo)
-  @OneToOne(() => MediaInfo, (mediaInfo) => mediaInfo.movie)
-  mediaInfo: MediaInfo;
+  @Field(() => FinancialInfo)
+  @OneToOne(() => FinancialInfo, (financialInfo) => financialInfo.movie)
+  financialInfo: FinancialInfo;
+
+  @Field(() => MediaInformation)
+  @OneToOne(() => MediaInformation, (mediaInformation) => mediaInformation.movie)
+  mediaInformation: MediaInformation;
+
+  @Field(() => Video)
+  @OneToOne(() => Video, (video) => video.movie)
+  video: Video;
 
   @Field(() => Manager)
   @ManyToOne(() => Manager, (manager) => manager.movie)

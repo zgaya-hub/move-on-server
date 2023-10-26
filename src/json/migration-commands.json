@@ -1,23 +1,25 @@
 {
-    "manager ": "yarn migration:generate manager &&",
-    "user ": "yarn migration:generate user &&",
-    "profile-info ": "yarn migration:generate profile-info &&",
-    "movie ": "yarn migration:generate movie &&",
-    "series ": "yarn migration:generate series &&",
-    "season ": "yarn migration:generate season &&",
-    "episode ": "yarn migration:generate episode &&",
-    "user-activity ": "yarn migration:generate user-activity &&",
-    "manager-activity": "yarn migration:generate manager-activity &&",
-    "media ": "yarn migration:generate media && ",
-    "media-info ": "yarn migration:generate media-info &&",
-    "media-image ": "yarn migration:generate media-image &&",
-    "crew ": "yarn migration:generate crew &&",
-    "cast ": "yarn migration:generate cast &&",
-    "cineast ": "yarn migration:generate cineast &&",
-    "movie-crew ": "yarn migration:generate movie-crew &&",
-    "movie-cast ": "yarn migration:generate movie-cast &&",
-    "series-crew ": "yarn migration:generate series-crew &&",
-    "series-cast ": "yarn migration:generate series-cast &&",
-    "review ": "yarn migration:generate review &&",
-    "external-link": "yarn migration:generate external-link"
-}
+    yarn migration:generate src/achievement-info/migrations/achievement-info &&
+    yarn migration:generate src/cast/migrations/cast &&
+    yarn migration:generate src/cineast/migrations/cineast &&
+    yarn migration:generate src/error-log/migrations/error-log &&
+    yarn migration:generate src/external-link/migrations/external-link &&
+    yarn migration:generate src/financial-info/migrations/financial-info &&
+    yarn migration:generate src/manager/migrations/manager &&
+    yarn migration:generate src/manager-activity/migrations/manager-activity &&
+    yarn migration:generate src/media/migrations/media &&
+    yarn migration:generate src/media-image/migrations/media-image &&
+    yarn migration:generate src/media-information/migrations/media-information &&
+    yarn migration:generate src/movie/migrations/movie &&
+    yarn migration:generate src/movie-cast/migrations/movie-cast &&
+    yarn migration:generate src/movie-crew/migrations/movie-crew &&
+    yarn migration:generate src/profile-info/migrations/profile-info &&
+    yarn migration:generate src/review/migrations/review &&
+    yarn migration:generate src/season/migrations/season &&
+    yarn migration:generate src/series/migrations/series &&
+    yarn migration:generate src/series-cast/migrations/series-cast &&
+    yarn migration:generate src/series-crew/migrations/series-crew &&
+    yarn migration:generate src/user/migrations/user &&
+    yarn migration:generate src/user-activity/migrations/user-activity &&
+    yarn migration:generate src/video/migrations/video
+    yarn migration:generate src/crew/migrations/crew
