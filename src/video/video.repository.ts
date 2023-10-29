@@ -7,7 +7,7 @@ import { Repository } from '../base/repository.base';
 @Injectable()
 export class VideoRepository extends Repository<Video> {
   constructor(@InjectEntityManager() entityManager: EntityManager) {
-    super(entityManager);
+    super(Video, entityManager);
   }
 
   public async findVideoById(ID: string): Promise<Video> {

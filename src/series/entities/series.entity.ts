@@ -21,8 +21,8 @@ import { MediaBasicInfo } from '@/media-basic-info/entities/media-basic-info.ent
 export class Series extends EntityBase {
   // have default value
   @Field()
-  @DecimalColumn({ name: 'price' })
-  price: number;
+  @DecimalColumn({ name: 'price_in_dollar' })
+  priceInDollar: number;
 
   // have default value
   @Field()

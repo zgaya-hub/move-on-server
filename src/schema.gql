@@ -268,7 +268,7 @@ type Movie {
   achievementInfo: AchievementInfo!
   externalLink: ExternalLink!
   financialInfo: FinancialInfo!
-  isFree: Float!
+  isFree: Boolean!
   manager: Manager!
   media: Media!
   mediaAdditionalInfo: MediaAdditionalInfo!
@@ -276,7 +276,7 @@ type Movie {
   mediaImage: MediaImage!
   movieCast: MovieCast!
   movieCrew: MovieCrew!
-  price: Float!
+  priceInDollar: Float!
   review: Review!
   video: Video!
 }
@@ -315,7 +315,8 @@ type Mutation {
   createSeriesCrew(createSeriesCrewInput: CreateSeriesCrewInput!): SeriesCrew!
   createUserActivity(createUserActivityInput: CreateUserActivityInput!): UserActivity!
   getS3UploadVideoUrl(GetS3UploadVdeoUrlInput: GetS3UploadVdeoUrlInput!): GetS3UploadVdeoUrlOutput!
-  managerRegister(Register: ManagerRegisterInput!): AuthTokenOutput!
+  managerLogin(UserLoginInput: ManagerLoginInput!): AuthTokenOutput!
+  managerRegister(ManagerRegisterInput: ManagerRegisterInput!): AuthTokenOutput!
   removeAchievementInfo(id: Int!): AchievementInfo!
   removeCast(id: Int!): Cast!
   removeCineast(id: Int!): Cineast!
@@ -358,7 +359,7 @@ type Mutation {
   updateSeriesCast(updateSeriesCastInput: UpdateSeriesCastInput!): SeriesCast!
   updateSeriesCrew(updateSeriesCrewInput: UpdateSeriesCrewInput!): SeriesCrew!
   updateUserActivity(updateUserActivityInput: UpdateUserActivityInput!): UserActivity!
-  userLogin(UserLoginInput: ManagerLoginInput!): AuthTokenOutput!
+  userLogin(UserLoginInput: UserLoginInput!): AuthTokenOutput!
   userRegister(UserRegisterInput: UserRegisterInput!): AuthTokenOutput!
 }
 
@@ -427,7 +428,7 @@ type Series {
   mediaAdditionalInfo: MediaAdditionalInfo!
   mediaBasicInfo: MediaBasicInfo!
   mediaImage: MediaImage!
-  price: Float!
+  priceInDollar: Float!
   review: Review!
   season: Season!
   seriesCast: SeriesCast!
@@ -584,6 +585,11 @@ type UserActivity {
   contentId: String!
   status: String!
   user: User!
+}
+
+input UserLoginInput {
+  email: String!
+  password: String!
 }
 
 input UserRegisterInput {

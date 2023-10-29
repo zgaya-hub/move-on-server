@@ -1,26 +1,26 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
 import { VideoInputDto } from './dto/video.input.dto';
-import { ShortDetectoPipe } from './short-detector/short-detector.pipe';
+import { ShortDetectorPipe } from './short-detector/short-detector.pipe';
 import { UseGuards, UsePipes } from '@nestjs/common';
 import { VideoValidatorPipe } from './video-validator/video-validator.pipe';
 import { VideoOutputDto } from './dto/video.output.dto';
 import { VideoService } from './video.service';
-import { ManagerAuthentor } from '../auth/decorator/current-manager/current-manager.decorder';
+import { JwtManagerAuthGuard } from '../auth/guards/current-manager.jwt.guard';
+import { CurrentUser } from '../auth/guards/current-user.jwt.guard';
 
 @Resolver()
-@UseGuards(ManagerAuthentor)
+@UseGuards(JwtManagerAuthGuard)
 export class VideoResolver {
   constructor(private readonly videoService: VideoService) {}
 
   @Mutation(() => VideoOutputDto.GetS3UploadVdeoUrlOutput)
-  @UsePipes(ShortDetectoPipe)
-  @UsePipes(VideoValidatorPipe)
   async getS3UploadVideoUrl(
-    @Args('GetS3UploadVdeoUrlInput')
+    @Args('GetS3UploadVdeoUrlInput', ShortDetectorPipe, VideoValidatorPipe)
     input: VideoInputDto.GetS3UploadVdeoUrlInput,
+    @CurrentUser() manager: CurrentManagerType,
   ): Promise<VideoOutputDto.GetS3UploadVdeoUrlOutput> {
     try {
-      return this.videoService.getS3UploadVideoUrl(input);
+      return this.videoService.getS3UploadVideoUrl(input, manager);
     } catch (error) {
       return error;
     }

@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { Repository } from '../base/repository.base';
 import { ErrorLog } from './entities/error-log.entity';
 import { Injectable } from '@nestjs/common';
 

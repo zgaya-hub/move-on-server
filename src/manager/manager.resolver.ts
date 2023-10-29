@@ -10,14 +10,14 @@ export class ManagerResolver {
   constructor(private readonly managerService: ManagerService, private readonly authService: AuthService) {}
 
   @Mutation(() => CommonOutputDto.AuthTokenOutput)
-  async userLogin(@Args('UserLoginInput') input: ManagerInputDto.ManagerLoginInput): Promise<CommonOutputDto.AuthTokenOutput> {
+  async managerLogin(@Args('UserLoginInput') input: ManagerInputDto.ManagerLoginInput): Promise<CommonOutputDto.AuthTokenOutput> {
     const user = await this.managerService.managerLogin(input);
     const token = this.authService.signToken(user);
     return { token };
   }
 
   @Mutation(() => CommonOutputDto.AuthTokenOutput)
-  async managerRegister(@Args('Register') input: ManagerInputDto.ManagerRegisterInput): Promise<CommonOutputDto.AuthTokenOutput> {
+  async managerRegister(@Args('ManagerRegisterInput') input: ManagerInputDto.ManagerRegisterInput): Promise<CommonOutputDto.AuthTokenOutput> {
     const manager = await this.managerService.managerRegister(input);
     const token = this.authService.signToken(manager);
     return { token };

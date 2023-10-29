@@ -21,9 +21,9 @@ export class VideoService {
     currentManager?: CurrentManagerType,
   ): Promise<VideoOutputDto.GetS3UploadVdeoUrlOutput> {
     const signedUrl = await this.awsS3Service.generateMovieUploadUrl(input.mime, input.mime, currentManager);
-    const videoInfo = await this.createVideoInfo(input, currentManager);
+    const video = await this.createVideoInfo(input, currentManager);
 
-    return { url: signedUrl, videoInfoId: videoInfo.ID };
+    return { url: signedUrl, videoInfoId: video.ID };
   }
 
   @Transactional()
@@ -57,9 +57,10 @@ export class VideoService {
       if (media instanceof Series) video.series = media;
       if (media instanceof Season) video.season = media;
       if (media instanceof Episode) video.episode = media;
-      // video.
 
-      // this.videoRepository.manager.update(video);
+      await media.save();
+
+      // this.videoRepository.update(1, video);
 
       return video;
     } catch (error) {
@@ -67,7 +68,6 @@ export class VideoService {
     }
   }
 
-  @Transactional()
   async findVideoById(videoId: string): Promise<Video> {
     try {
       return this.videoRepository.findVideoById(videoId);

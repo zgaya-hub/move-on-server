@@ -20,13 +20,13 @@ import { MediaAdditionalInfo } from '@/media-additional-info/entities/media-addi
 export class Movie extends EntityBase {
   // have default value
   @Field()
-  @DecimalColumn({ name: 'price' })
-  price: number;
+  @DecimalColumn({ name: 'price_in_dollar' })
+  priceInDollar: number;
 
   // have default value
   @Field()
   @TinyintColumn({ name: 'is_free', default: true })
-  isFree: number;
+  isFree: boolean;
 
   // JOIN COLUMNS //
   @Field(() => AchievementInfo)
