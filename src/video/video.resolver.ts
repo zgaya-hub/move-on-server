@@ -1,12 +1,14 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { VideoInputDto } from './dto/video.input.dto';
 import { ShortDetectoPipe } from './short-detector/short-detector.pipe';
-import { UsePipes } from '@nestjs/common';
+import { UseGuards, UsePipes } from '@nestjs/common';
 import { VideoValidatorPipe } from './video-validator/video-validator.pipe';
 import { VideoOutputDto } from './dto/video.output.dto';
 import { VideoService } from './video.service';
+import { ManagerAuthentor } from '../auth/decorator/current-manager/current-manager.decorder';
 
 @Resolver()
+@UseGuards(ManagerAuthentor)
 export class VideoResolver {
   constructor(private readonly videoService: VideoService) {}
 
@@ -17,6 +19,10 @@ export class VideoResolver {
     @Args('GetS3UploadVdeoUrlInput')
     input: VideoInputDto.GetS3UploadVdeoUrlInput,
   ): Promise<VideoOutputDto.GetS3UploadVdeoUrlOutput> {
-    return this.videoService.getS3UploadVideoUrl(input);
+    try {
+      return this.videoService.getS3UploadVideoUrl(input);
+    } catch (error) {
+      return error;
+    }
   }
 }

@@ -7,7 +7,7 @@ const ormConfig: DataSourceOptions = {
   host: '127.0.0.1',
   port: 3306,
   username: 'root',
-  password: 'password',
+  password: '',
   database: 'wordpress',
   entities: ['dist/**/entities/*.entity.js'],
   migrations: [`dist/**/${process.env.MR}/*.js`],

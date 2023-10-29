@@ -34,9 +34,11 @@ import { ErrorLogModule } from './error-log/error-log.module';
 import { CallerModule } from './caller/caller.module';
 import { addTransactionalDataSource } from 'typeorm-transactional';
 import { DataSource } from 'typeorm';
-import { MediaInformationModule } from './media-information/media-information.module';
 import { FinancialInfoModule } from './financial-info/financial-info.module';
 import { AchievementInfoModule } from './achievement-info/achievement-info.module';
+import { MediaAdditionalInfoModule } from './media-additional-info/media-additional-info.module';
+import { MediaBasicInfoModule } from './media-basic-info/media-basic-info.module';
+import { RadisModule } from './radis/radis.module';
 
 @Module({
   imports: [
@@ -105,9 +107,11 @@ import { AchievementInfoModule } from './achievement-info/achievement-info.modul
     VideoModule,
     ErrorLogModule,
     CallerModule,
-    MediaInformationModule,
     FinancialInfoModule,
     AchievementInfoModule,
+    MediaAdditionalInfoModule,
+    MediaBasicInfoModule,
+    RadisModule,
   ],
   controllers: [AppController],
   providers: [AppService],

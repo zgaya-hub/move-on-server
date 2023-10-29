@@ -1,44 +1,35 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { EntityBase } from '@/base/entity.base';
-import { Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { Season } from '@/season/entities/season.entity';
 import { Media } from '@/media/entities/media.entity';
-// import { DecimalColumn, IntColumn, JoinColumn, VarcharColumn } from ;
 import { MediaImage } from '@/media-image/entities/media-image.entity';
 import { ExternalLink } from '@/external-link/entities/external-link.entity';
 import { Review } from '@/review/entities/review.entity';
-import { DecimalColumn, IntColumn, VarcharColumn } from '@/decorator/entity/entity.decorator';
+import { IntColumn } from '@/decorator/entity/entity.decorator';
+import { MediaBasicInfo } from '@/media-basic-info/entities/media-basic-info.entity';
+import { Video } from '../../video/entities/video.entity';
 
 @ObjectType()
 @Entity({ name: 'episode' })
 export class Episode extends EntityBase {
   @Field()
-  @VarcharColumn({ name: 'title' })
-  title: string;
-
-  @Field()
   @IntColumn({ name: 'episode_no' })
   episodeNo: number;
 
-  @Field()
-  @IntColumn({ name: 'release_date' })
-  releaseDate: number;
-
-  // in milliseconds
-  @Field()
-  @IntColumn({ name: 'run_time' })
-  runTime: number;
-
-  @Field()
-  @DecimalColumn({ name: 'IMDb_rating' })
-  IMDbRating: number;
-
   // JOIN COLUMNS //
+  @Field(() => MediaBasicInfo)
+  @OneToOne(() => MediaBasicInfo, (mediaBasicInfo) => mediaBasicInfo.episode)
+  mediaBasicInfo: MediaBasicInfo;
 
   @Field(() => Season)
   @ManyToOne(() => Season, (season) => season.episode)
   @JoinColumn({ name: 'season_id' })
   season: Season;
+
+  @Field(() => Video)
+  @OneToOne(() => Video, (video) => video.episode)
+  video: Video;
 
   @Field(() => [Media])
   @OneToMany(() => Media, (media) => media.episode)

@@ -15,12 +15,17 @@ export namespace VideoInputDto {
     @IsNumber()
     height: number;
 
-    // In Bytes
+    // in second
     @Field(() => Number)
     @IsNumber()
-    @Max(100000)
-    @Min(100)
-    size: number;
+    runTime: number;
+
+    // In Kbs
+    @Field(() => Number)
+    @IsNumber()
+    @Max(6291456)
+    @Min(500)
+    sizeInKb: number;
 
     // Extension
     @Field(() => String)
@@ -30,4 +35,7 @@ export namespace VideoInputDto {
     @IsOptional()
     isShort: boolean;
   }
+
+  @InputType()
+  export class CreateVideoInfoInput {}
 }

@@ -1,19 +1,19 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
 import { EnumColumn, JoinColumn, VarcharColumn } from '@/decorator/entity/entity.decorator';
 import { Movie } from '@/movie/entities/movie.entity';
 import { Entity, ManyToOne } from 'typeorm';
 import { Series } from '@/series/entities/series.entity';
 import { Season } from '@/season/entities/season.entity';
 import { Episode } from '@/episode/entities/episode.entity';
-import { MediaImagesTypesEnum } from '../enum/media-image.enum';
+import { MediaImagesTypeEnum } from '../enum/media-image.enum';
 import { EntityBase } from '@/base/entity.base';
 
 @ObjectType()
 @Entity({ name: 'media_image' })
 export class MediaImage extends EntityBase {
   @Field()
-  @EnumColumn({ name: 'type', enum: MediaImagesTypesEnum })
-  type: MediaImagesTypesEnum;
+  @EnumColumn({ name: 'type', enum: MediaImagesTypeEnum })
+  type: MediaImagesTypeEnum;
 
   @Field()
   @VarcharColumn({ name: 'url' })

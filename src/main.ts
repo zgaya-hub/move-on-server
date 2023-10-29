@@ -2,14 +2,14 @@ import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { FastifyAdapter } from '@nestjs/platform-fastify';
 import { Logger, ValidationPipe } from '@nestjs/common';
-import { initializeTransactionalContext } from 'typeorm-transactional';
+import { initializeTransactionalContext, StorageDriver } from 'typeorm-transactional';
 import { ExceptionFilter } from './filter/exception.filter';
 
 const logger = new Logger('main.ts');
 const port = process.env.PORT || 8000;
 
 async function bootstrap() {
-  initializeTransactionalContext();
+  initializeTransactionalContext({ storageDriver: StorageDriver.AUTO });
 
   const adapter = new FastifyAdapter({
     logger: false,
@@ -17,10 +17,9 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule, adapter);
 
-  const httpAdapterHost = app.get(HttpAdapterHost);
-
   app.useGlobalPipes(new ValidationPipe());
-  app.useGlobalFilters(new ExceptionFilter(httpAdapterHost));
+  // const httpAdapterHost = app.get(HttpAdapterHost);
+  // app.useGlobalFilters(new ExceptionFilter(httpAdapterHost));
 
   app.enableCors();
 

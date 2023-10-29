@@ -8,7 +8,7 @@ export class EntityBase extends BaseEntity {
 
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid', { name: 'ID' })
-  ID: number;
+  ID: string;
 
   @Field(() => Number)
   @BigIntColumn({ name: 'created_at' })
