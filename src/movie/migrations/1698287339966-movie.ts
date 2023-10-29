@@ -5,7 +5,7 @@ export class Movie1698287339966 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `CREATE TABLE \`movie\` (\`ID\` varchar(36) NOT NULL, \`created_at\` bigint NOT NULL, \`updated_at\` bigint NULL, \`deleted_at\` bigint NULL, \`price\` decimal(3,1) NOT NULL DEFAULT '0.0', \`is_free\` tinyint NOT NULL DEFAULT 1, \`manager_id\` varchar(36) NULL, PRIMARY KEY (\`ID\`)) ENGINE=InnoDB`,
+      `CREATE TABLE \`movie\` (\`ID\` varchar(36) NOT NULL, \`created_at\` bigint NOT NULL, \`updated_at\` bigint NULL, \`deleted_at\` bigint NULL, \`price_in_dollar\` decimal(3,1) NOT NULL DEFAULT '0.0', \`is_free\` tinyint NOT NULL DEFAULT 1, \`manager_id\` varchar(36) NULL, PRIMARY KEY (\`ID\`)) ENGINE=InnoDB`,
     );
     await queryRunner.query(
       `ALTER TABLE \`movie\` ADD CONSTRAINT \`FK_6b1a38438f024c95c0e17d8a4fc\` FOREIGN KEY (\`manager_id\`) REFERENCES \`manager\`(\`ID\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,

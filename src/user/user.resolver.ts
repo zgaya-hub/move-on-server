@@ -8,8 +8,8 @@ import { AuthService } from '../auth/auth.service';
 import { UserOutputDto } from './dto/user.output.dto';
 import { CommonOutputDto } from '../common/dto/common.dto';
 
-@Resolver(() => User)
 @Injectable()
+@Resolver(() => User)
 export class UserResolver {
   constructor(private readonly userService: UserService, private readonly authService: AuthService) {}
 

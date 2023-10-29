@@ -51,6 +51,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "config": "^3.3.9",
+    "fastify": "^4.24.3",
     "global": "^4.4.0",
     "graphql": "^16.8.1",
     "ioredis": "^5.3.2",

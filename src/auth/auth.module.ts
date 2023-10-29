@@ -4,8 +4,8 @@ import { PassportModule } from '@nestjs/passport';
 import { UserModule } from '@/user/user.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ManagerModule } from '../manager/manager.module';
+import { JwtManagerAuthGuard } from './guards/current-manager.jwt.guard';
 
-// @Global()
 @Module({
   imports: [
     JwtModule.register({
@@ -17,7 +17,7 @@ import { ManagerModule } from '../manager/manager.module';
     forwardRef(() => ManagerModule),
     forwardRef(() => UserModule),
   ],
-  providers: [AuthService],
-  exports: [AuthService],
+  providers: [AuthService, JwtManagerAuthGuard],
+  exports: [AuthService, JwtManagerAuthGuard],
 })
 export class AuthModule {}

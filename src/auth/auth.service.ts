@@ -12,7 +12,7 @@ export class AuthService {
   async authenticateUser(email: string): Promise<User> {
     try {
       const user = await this.userService.findByEmail(email);
-      if (!user) throw new NotFoundException(`Invalid authentication specified`);
+      if (!user) throw new NotFoundException(`User authentication falied`);
 
       return user;
     } catch (error) {
@@ -23,7 +23,7 @@ export class AuthService {
   async authenticateManager(email: string): Promise<Manager> {
     try {
       const manager = await this.managerService.findByEmail(email);
-      if (!manager) throw new NotFoundException(`Invalid authentication specified`);
+      if (!manager) throw new NotFoundException(`Manager authentication failed`);
 
       return manager;
     } catch (error) {
