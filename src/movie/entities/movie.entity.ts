@@ -11,8 +11,9 @@ import { ExternalLink } from '@/external-link/entities/external-link.entity';
 import { Review } from '@/review/entities/review.entity';
 import { AchievementInfo } from '@/achievement-info/entities/achievement-info.entity';
 import { FinancialInfo } from '@/financial-info/entities/financial-info.entity';
-import { MediaInformation } from '@/media-information/entities/media-information.entity';
 import { Video } from '@/video/entities/video.entity';
+import { MediaBasicInfo } from '@/media-basic-info/entities/media-basic-info.entity';
+import { MediaAdditionalInfo } from '@/media-additional-info/entities/media-additional-info.entity';
 
 @ObjectType()
 @Entity({ name: 'movie' })
@@ -36,9 +37,13 @@ export class Movie extends EntityBase {
   @OneToOne(() => FinancialInfo, (financialInfo) => financialInfo.movie)
   financialInfo: FinancialInfo;
 
-  @Field(() => MediaInformation)
-  @OneToOne(() => MediaInformation, (mediaInformation) => mediaInformation.movie)
-  mediaInformation: MediaInformation;
+  @Field(() => MediaBasicInfo)
+  @OneToOne(() => MediaBasicInfo, (mediaBasicInfo) => mediaBasicInfo.movie)
+  mediaBasicInfo: MediaBasicInfo;
+
+  @Field(() => MediaAdditionalInfo)
+  @OneToOne(() => MediaAdditionalInfo, (mediaAdditionalInfo) => mediaAdditionalInfo.movie)
+  mediaAdditionalInfo: MediaAdditionalInfo;
 
   @Field(() => Video)
   @OneToOne(() => Video, (video) => video.movie)

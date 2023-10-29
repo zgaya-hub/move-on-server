@@ -1,4 +1,4 @@
-export enum MediaImagesTypesEnum {
+export enum MediaImagesTypeEnum {
   MOVIE_POSTER = 'Movie Poster',
   MOVIE_BACKDROP = 'Movie Backdrop',
   SERIES_POSTER = 'Series Poster',

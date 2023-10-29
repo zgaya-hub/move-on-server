@@ -1,10 +1,11 @@
-import { Module, forwardRef } from '@nestjs/common';
+import { Global, Module, forwardRef } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { PassportModule } from '@nestjs/passport';
 import { UserModule } from '@/user/user.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ManagerModule } from '../manager/manager.module';
 
+// @Global()
 @Module({
   imports: [
     JwtModule.register({

@@ -2,13 +2,14 @@ import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { MovieService } from './movie.service';
 import { Movie } from './entities/movie.entity';
 import { CommonOutputDto } from '../common/dto/common.dto';
+import { MovieInputDto } from './dto/movie.input.dto';
 
 @Resolver(() => Movie)
 export class MovieResolver {
   constructor(private readonly movieService: MovieService) {}
 
-  /*   @Mutation(() => )
-  async userRegister(@Args('UserRegisterInput') input: UserInputDto.UserRegisterInput): Promise<CommonOutputDto.AuthTokenOutput> {
+  /*  @Mutation(() => CommonOutputDto.SuccessOutput)
+  async userRegister(@Args('UserRegisterInput') input: MovieInputDto.MovieBasicInfoCreateInput): Promise<CommonOutputDto.AuthTokenOutput> {
     const user = await this.userService.userRegister(input);
     const token = this.authService.signToken(user);
     return { token };

@@ -10,8 +10,8 @@ export namespace CommonOutputDto {
   }
 
   @ObjectType()
-  export class MessageOutput {
-    @Field(() => String)
-    message: string;
+  export class SuccessOutput {
+    @Field(() => Boolean)
+    isSuccess: boolean;
   }
 }

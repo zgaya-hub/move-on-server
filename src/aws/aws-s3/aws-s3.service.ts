@@ -16,20 +16,20 @@ export class AwsS3Service {
     });
   }
 
-  async generateMovieUploadUrl(fileName: string, mine: VideoMineType, currentUser?: CurrentUserType) {
+  async generateMovieUploadUrl(fileName: string, mine: VideoMineType, currentManager?: CurrentManagerType) {
     const command = new PutObjectCommand({
       Bucket: this.configService.get<string>('S3_VIDEO_BACKET'),
-      Key: `${currentUser.ID}/${fileName}.${Date.now()}`,
+      Key: `${currentManager.ID}/${fileName}.${Date.now()}`,
       ContentType: mine,
     });
 
     return this.getSignedUrl(command);
   }
 
-  async generateShortUploadUrl(fileName: string, mine: VideoMineType, currentUser?: CurrentUserType) {
+  async generateShortUploadUrl(fileName: string, mine: VideoMineType, currentManager?: CurrentManagerType) {
     const command = new PutObjectCommand({
       Bucket: this.configService.get<string>('S3_SHORT_BACKET'),
-      Key: `${currentUser.ID}/${fileName}.${Date.now()}`,
+      Key: `${currentManager.ID}/${fileName}.${Date.now()}`,
       ContentType: mine,
     });
 

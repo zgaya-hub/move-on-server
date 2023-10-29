@@ -12,8 +12,9 @@ import { ExternalLink } from '@/external-link/entities/external-link.entity';
 import { Review } from '@/review/entities/review.entity';
 import { AchievementInfo } from '@/achievement-info/entities/achievement-info.entity';
 import { FinancialInfo } from '@/financial-info/entities/financial-info.entity';
-import { MediaInformation } from '@/media-information/entities/media-information.entity';
 import { Video } from '@/video/entities/video.entity';
+import { MediaAdditionalInfo } from '@/media-additional-info/entities/media-additional-info.entity';
+import { MediaBasicInfo } from '@/media-basic-info/entities/media-basic-info.entity';
 
 @ObjectType()
 @Entity({ name: 'series' })
@@ -36,9 +37,13 @@ export class Series extends EntityBase {
   @OneToOne(() => FinancialInfo, (financialInfo) => financialInfo.series)
   financialInfo: FinancialInfo;
 
-  @Field(() => MediaInformation)
-  @OneToOne(() => MediaInformation, (mediaInformation) => mediaInformation.series)
-  mediaInformation: MediaInformation;
+  @Field(() => MediaAdditionalInfo)
+  @OneToOne(() => MediaAdditionalInfo, (mediaAdditionalInfo) => mediaAdditionalInfo.series)
+  mediaAdditionalInfo: MediaAdditionalInfo;
+
+  @Field(() => MediaBasicInfo)
+  @OneToOne(() => MediaBasicInfo, (mediaBasicInfo) => mediaBasicInfo.series)
+  mediaBasicInfo: MediaBasicInfo;
 
   @Field(() => Video)
   @OneToOne(() => Video, (video) => video.series)

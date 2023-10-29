@@ -2,6 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type AchievementInfo {
+  IMDbRating: Float!
+  OMDbRating: Float!
+  award: [String!]!
+  movie: Movie!
+  series: Series!
+}
+
 type AuthTokenOutput {
   token: String!
 }
@@ -24,6 +32,11 @@ type Cineast {
   email: String!
   fullName: String!
   gender: String!
+}
+
+input CreateAchievementInfoInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
 }
 
 input CreateCastInput {
@@ -57,17 +70,27 @@ input CreateExternalLinkInput {
   exampleField: Int!
 }
 
+input CreateFinancialInfoInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 input CreateManagerActivityInput {
   """Example field (placeholder)"""
   exampleField: Int!
 }
 
-input CreateMediaImageInput {
+input CreateMediaAdditionalInfoInput {
   """Example field (placeholder)"""
   exampleField: Int!
 }
 
-input CreateMediaInfoInput {
+input CreateMediaBasicInfoInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateMediaImageInput {
   """Example field (placeholder)"""
   exampleField: Int!
 }
@@ -130,16 +153,14 @@ type Crew {
 }
 
 type Episode {
-  IMDbRating: Float!
   episodeNo: Float!
   externalLink: [ExternalLink!]!
   media: [Media!]!
+  mediaBasicInfo: MediaBasicInfo!
   mediaImage: [MediaImage!]!
-  releaseDate: Float!
   review: [Review!]!
-  runTime: Float!
   season: Season!
-  title: String!
+  video: Video!
 }
 
 type ErrorLog {
@@ -157,15 +178,25 @@ type ExternalLink {
   url: String!
 }
 
+type FinancialInfo {
+  budget: Float!
+  movie: Movie!
+  netProfit: Float!
+  revenue: Float!
+  series: Series!
+}
+
 input GetS3UploadVdeoUrlInput {
   height: Float!
   mime: String!
-  size: Float!
+  runTime: Float!
+  sizeInKb: Float!
   width: Float!
 }
 
 type GetS3UploadVdeoUrlOutput {
   url: String!
+  videoInfoId: String!
 }
 
 type Manager {
@@ -205,6 +236,25 @@ type Media {
   type: String!
 }
 
+type MediaAdditionalInfo {
+  genre: String!
+  movie: Movie!
+  originCountry: String!
+  originalLanguage: String!
+  series: Series!
+  status: String!
+}
+
+type MediaBasicInfo {
+  episode: Episode!
+  movie: Movie!
+  plotSummary: String!
+  releaseDate: Float!
+  season: Season!
+  series: Series!
+  title: String!
+}
+
 type MediaImage {
   episode: Episode!
   movie: Movie!
@@ -214,37 +264,21 @@ type MediaImage {
   url: String!
 }
 
-type MediaInfo {
-  IMDbRating: Float!
-  OMDbRating: Float!
-  award: [String!]!
-  budget: Float!
-  genre: String!
-  movie: Movie!
-  netProfit: Float!
-  originCountry: String!
-  originalLanguage: String!
-  plotSummary: String!
-  quality: String!
-  releaseDate: Float!
-  revenue: Float!
-  runTime: Float!
-  series: Series!
-  status: String!
-  title: String!
-}
-
 type Movie {
+  achievementInfo: AchievementInfo!
   externalLink: ExternalLink!
+  financialInfo: FinancialInfo!
   isFree: Float!
   manager: Manager!
   media: Media!
+  mediaAdditionalInfo: MediaAdditionalInfo!
+  mediaBasicInfo: MediaBasicInfo!
   mediaImage: MediaImage!
-  mediaInfo: MediaInfo!
   movieCast: MovieCast!
   movieCrew: MovieCrew!
   price: Float!
   review: Review!
+  video: Video!
 }
 
 type MovieCast {
@@ -258,16 +292,19 @@ type MovieCrew {
 }
 
 type Mutation {
+  createAchievementInfo(createAchievementInfoInput: CreateAchievementInfoInput!): AchievementInfo!
   createCast(createCastInput: CreateCastInput!): Cast!
   createCineast(createCineastInput: CreateCineastInput!): Cineast!
   createCrew(createCrewInput: CreateCrewInput!): Crew!
   createEpisode(createEpisodeInput: CreateEpisodeInput!): Episode!
   createErrorLog(CreateErrorLogInput: CreateErrorLogInput!): ErrorLog!
   createExternalLink(createExternalLinkInput: CreateExternalLinkInput!): ExternalLink!
+  createFinancialInfo(createFinancialInfoInput: CreateFinancialInfoInput!): FinancialInfo!
   createManagerActivity(createManagerActivityInput: CreateManagerActivityInput!): ManagerActivity!
   createMedia(createMediaInput: CreateMediaInput!): Media!
+  createMediaAdditionalInfo(createMediaAdditionalInfoInput: CreateMediaAdditionalInfoInput!): MediaAdditionalInfo!
+  createMediaBasicInfo(createMediaBasicInfoInput: CreateMediaBasicInfoInput!): MediaBasicInfo!
   createMediaImage(createMediaImageInput: CreateMediaImageInput!): MediaImage!
-  createMediaInfo(createMediaInfoInput: CreateMediaInfoInput!): MediaInfo!
   createMovieCast(createMovieCastInput: CreateMovieCastInput!): MovieCast!
   createMovieCrew(createMovieCrewInput: CreateMovieCrewInput!): MovieCrew!
   createProfileInfo(createProfileInfoInput: CreateProfileInfoInput!): ProfileInfo!
@@ -279,15 +316,18 @@ type Mutation {
   createUserActivity(createUserActivityInput: CreateUserActivityInput!): UserActivity!
   getS3UploadVideoUrl(GetS3UploadVdeoUrlInput: GetS3UploadVdeoUrlInput!): GetS3UploadVdeoUrlOutput!
   managerRegister(Register: ManagerRegisterInput!): AuthTokenOutput!
+  removeAchievementInfo(id: Int!): AchievementInfo!
   removeCast(id: Int!): Cast!
   removeCineast(id: Int!): Cineast!
   removeCrew(id: Int!): Crew!
   removeEpisode(id: Int!): Episode!
   removeExternalLink(id: Int!): ExternalLink!
+  removeFinancialInfo(id: Int!): FinancialInfo!
   removeManagerActivity(id: Int!): ManagerActivity!
   removeMedia(id: Int!): Media!
+  removeMediaAdditionalInfo(id: Int!): MediaAdditionalInfo!
+  removeMediaBasicInfo(id: Int!): MediaBasicInfo!
   removeMediaImage(id: Int!): MediaImage!
-  removeMediaInfo(id: Int!): MediaInfo!
   removeMovieCast(id: Int!): MovieCast!
   removeMovieCrew(id: Int!): MovieCrew!
   removeProfileInfo(id: Int!): ProfileInfo!
@@ -297,15 +337,18 @@ type Mutation {
   removeSeriesCast(id: Int!): SeriesCast!
   removeSeriesCrew(id: Int!): SeriesCrew!
   removeUserActivity(id: Int!): UserActivity!
+  updateAchievementInfo(updateAchievementInfoInput: UpdateAchievementInfoInput!): AchievementInfo!
   updateCast(updateCastInput: UpdateCastInput!): Cast!
   updateCineast(updateCineastInput: UpdateCineastInput!): Cineast!
   updateCrew(updateCrewInput: UpdateCrewInput!): Crew!
   updateEpisode(updateEpisodeInput: UpdateEpisodeInput!): Episode!
   updateExternalLink(updateExternalLinkInput: UpdateExternalLinkInput!): ExternalLink!
+  updateFinancialInfo(updateFinancialInfoInput: UpdateFinancialInfoInput!): FinancialInfo!
   updateManagerActivity(updateManagerActivityInput: UpdateManagerActivityInput!): ManagerActivity!
   updateMedia(updateMediaInput: UpdateMediaInput!): Media!
+  updateMediaAdditionalInfo(updateMediaAdditionalInfoInput: UpdateMediaAdditionalInfoInput!): MediaAdditionalInfo!
+  updateMediaBasicInfo(updateMediaBasicInfoInput: UpdateMediaBasicInfoInput!): MediaBasicInfo!
   updateMediaImage(updateMediaImageInput: UpdateMediaImageInput!): MediaImage!
-  updateMediaInfo(updateMediaInfoInput: UpdateMediaInfoInput!): MediaInfo!
   updateMovieCast(updateMovieCastInput: UpdateMovieCastInput!): MovieCast!
   updateMovieCrew(updateMovieCrewInput: UpdateMovieCrewInput!): MovieCrew!
   updateProfileInfo(updateProfileInfoInput: UpdateProfileInfoInput!): ProfileInfo!
@@ -332,15 +375,18 @@ type ProfileInfo {
 }
 
 type Query {
+  achievementInfo(id: Int!): AchievementInfo!
   cast(id: Int!): Cast!
   cineast(id: Int!): Cineast!
   crew(id: Int!): Crew!
   episode(id: Int!): Episode!
   externalLink(id: Int!): ExternalLink!
+  financialInfo(id: Int!): FinancialInfo!
   managerActivity(id: Int!): ManagerActivity!
   media(id: Int!): Media!
+  mediaAdditionalInfo(id: Int!): MediaAdditionalInfo!
+  mediaBasicInfo(id: Int!): MediaBasicInfo!
   mediaImage(id: Int!): MediaImage!
-  mediaInfo(id: Int!): MediaInfo!
   movieCast(id: Int!): MovieCast!
   movieCrew(id: Int!): MovieCrew!
   profileInfo(id: Int!): ProfileInfo!
@@ -364,26 +410,29 @@ type Review {
 type Season {
   episode: Episode!
   media: Media!
+  mediaBasicInfo: MediaBasicInfo!
   mediaImage: MediaImage!
-  plotSummary: String!
-  releaseDate: Float!
   seasonNo: Float!
   series: Series!
-  title: String!
+  video: Video!
 }
 
 type Series {
+  achievementInfo: AchievementInfo!
   externalLink: ExternalLink!
+  financialInfo: FinancialInfo!
   isFree: Float!
   manager: Manager!
   media: Media!
+  mediaAdditionalInfo: MediaAdditionalInfo!
+  mediaBasicInfo: MediaBasicInfo!
   mediaImage: MediaImage!
-  mediaInfo: MediaInfo!
   price: Float!
   review: Review!
   season: Season!
   seriesCast: SeriesCast!
   seriesCrew: SeriesCrew!
+  video: Video!
 }
 
 type SeriesCast {
@@ -394,6 +443,12 @@ type SeriesCast {
 type SeriesCrew {
   crew: Crew!
   series: Series!
+}
+
+input UpdateAchievementInfoInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }
 
 input UpdateCastInput {
@@ -426,19 +481,31 @@ input UpdateExternalLinkInput {
   id: Float!
 }
 
+input UpdateFinancialInfoInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
 input UpdateManagerActivityInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Float!
 }
 
-input UpdateMediaImageInput {
+input UpdateMediaAdditionalInfoInput {
   """Example field (placeholder)"""
   exampleField: Int
-  id: Float!
+  id: Int!
 }
 
-input UpdateMediaInfoInput {
+input UpdateMediaBasicInfoInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input UpdateMediaImageInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Float!
@@ -522,4 +589,18 @@ type UserActivity {
 input UserRegisterInput {
   email: String!
   password: String!
+}
+
+type Video {
+  episode: Episode!
+  height: Float!
+  managerId: String!
+  mime: String!
+  movie: Movie!
+  quality: String!
+  runTime: Float!
+  season: Season!
+  series: Series!
+  sizeInKb: Float!
+  width: Float!
 }

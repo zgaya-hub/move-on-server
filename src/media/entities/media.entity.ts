@@ -4,7 +4,7 @@ import { Movie } from '@/movie/entities/movie.entity';
 import { Series } from '@/series/entities/series.entity';
 import { EntityBase } from '@/base/entity.base';
 import { Episode } from '@/episode/entities/episode.entity';
-import { MediaTypesEnum } from '../enum/media.enum';
+import { MediaTypeEnum } from '../enum/media.enum';
 import { Season } from '@/season/entities/season.entity';
 import { EnumColumn, JoinColumn, VarcharColumn } from '@/decorator/entity/entity.decorator';
 
@@ -12,8 +12,8 @@ import { EnumColumn, JoinColumn, VarcharColumn } from '@/decorator/entity/entity
 @Entity({ name: 'media' })
 export class Media extends EntityBase {
   @Field()
-  @EnumColumn({ name: 'type', enum: MediaTypesEnum })
-  type: MediaTypesEnum;
+  @EnumColumn({ name: 'type', enum: MediaTypeEnum })
+  type: MediaTypeEnum;
 
   @Field()
   @VarcharColumn({ name: 'S3_object_key' })
