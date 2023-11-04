@@ -13,14 +13,8 @@ import { CurrentUser } from '../auth/guards/current-user.jwt.guard';
 export class MovieResolver {
   constructor(private readonly movieService: MovieService) {}
 
-  /*  @Mutation(() => CommonOutputDto.SuccessOutput)
-  async userRegister(@Args('UserRegisterInput') input: MovieInputDto.MovieBasicInfoCreateInput): Promise<CommonOutputDto.AuthTokenOutput> {
-    const user = await this.userService.userRegister(input);
-    const token = this.authService.signToken(user);
-    return { token };
-  } */
-
-  @Mutation(() => MovieOutputDto.GetS3UploadVdeoUrlOutput)
+  /* 
+  @Mutation(() => MovieOutputDto.CreateMovieOutput)
   async createMovie(
     @Args('CreateMovieInput')
     input: MovieInputDto.CreateMovieInput,
@@ -31,5 +25,5 @@ export class MovieResolver {
     } catch (error) {
       return error;
     }
-  }
+  } */
 }

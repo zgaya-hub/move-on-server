@@ -1,12 +1,15 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
-import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsNumber, IsObject, IsOptional, IsString } from 'class-validator';
 
 export namespace MovieInputDto {
   export class CreateMovieInput {
-    @IsNotEmpty()
     @IsString()
     videoInfoId: string;
+
+    @IsNotEmpty()
+    @IsString()
+    mediaImageId: string;
 
     @IsOptional()
     @IsNumber()
@@ -15,5 +18,9 @@ export namespace MovieInputDto {
     @IsOptional()
     @IsBoolean()
     isFree: boolean;
+
+    // @IsObject()
+    // @IsNotEmpty()
+    // // basicMediaInfo:
   }
 }

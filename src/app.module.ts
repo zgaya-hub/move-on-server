@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { CacheModule } from '@nestjs/cache-manager';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -39,10 +38,10 @@ import { AchievementInfoModule } from './achievement-info/achievement-info.modul
 import { MediaAdditionalInfoModule } from './media-additional-info/media-additional-info.module';
 import { MediaBasicInfoModule } from './media-basic-info/media-basic-info.module';
 import { RadisModule } from './radis/radis.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 @Module({
   imports: [
-    CacheModule.register({ isGlobal: true }),
     // PrometheusModule.register({
     //   path: 'http://localhost:8080/metrics',
     // }),
@@ -74,7 +73,7 @@ import { RadisModule } from './radis/radis.module';
       },
       async dataSourceFactory(options) {
         if (!options) {
-          throw new Error('Invalid options passed');
+          throw new Error('Invalid DB credentials specified');
         }
         return addTransactionalDataSource(new DataSource(options));
       },
@@ -112,6 +111,7 @@ import { RadisModule } from './radis/radis.module';
     MediaAdditionalInfoModule,
     MediaBasicInfoModule,
     RadisModule,
+    CloudinaryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
