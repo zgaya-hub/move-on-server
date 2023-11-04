@@ -39,12 +39,10 @@ import { MediaAdditionalInfoModule } from './media-additional-info/media-additio
 import { MediaBasicInfoModule } from './media-basic-info/media-basic-info.module';
 import { RadisModule } from './radis/radis.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { MonitorModule } from './monitor/monitor.module';
 
 @Module({
   imports: [
-    // PrometheusModule.register({
-    //   path: 'http://localhost:8080/metrics',
-    // }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
@@ -112,6 +110,7 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
     MediaBasicInfoModule,
     RadisModule,
     CloudinaryModule,
+    MonitorModule,
   ],
   controllers: [AppController],
   providers: [AppService],
