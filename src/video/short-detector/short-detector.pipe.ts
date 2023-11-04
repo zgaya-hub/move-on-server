@@ -3,7 +3,6 @@ import { VideoInputDto } from '../dto/video.input.dto';
 
 @Injectable()
 export class ShortDetectorPipe implements PipeTransform {
-  // Define constants for ratio threshold
   private readonly MIN_RATIO_THRESHOLD = 0.3;
   private readonly MAX_RATIO_THRESHOLD = 0.6;
 

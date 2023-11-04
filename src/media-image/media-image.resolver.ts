@@ -1,35 +1,22 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Mutation, Args } from '@nestjs/graphql';
 import { MediaImageService } from './media-image.service';
 import { MediaImage } from './entities/media-image.entity';
-import { CreateMediaImageInput } from './dto/create-media-image.input';
-import { UpdateMediaImageInput } from './dto/update-media-image.input';
+import { MediaImageInputDto } from './dto/media-image.input.dto';
+import { ImageValidatorPipe } from './image-validator/image-validator.pipe';
+import { MediaImageOutputDto } from './dto/media-image.output.dto';
 
 @Resolver(() => MediaImage)
 export class MediaImageResolver {
   constructor(private readonly mediaImageService: MediaImageService) {}
 
-  @Mutation(() => MediaImage)
-  createMediaImage(@Args('createMediaImageInput') createMediaImageInput: CreateMediaImageInput) {
-    return this.mediaImageService.create(createMediaImageInput);
-  }
-
-  @Query(() => [MediaImage], { name: 'mediaImage' })
-  findAll() {
-    return this.mediaImageService.findAll();
-  }
-
-  @Query(() => MediaImage, { name: 'mediaImage' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.mediaImageService.findOne(id);
-  }
-
-  @Mutation(() => MediaImage)
-  updateMediaImage(@Args('updateMediaImageInput') updateMediaImageInput: UpdateMediaImageInput) {
-    return this.mediaImageService.update(updateMediaImageInput.id, updateMediaImageInput);
-  }
-
-  @Mutation(() => MediaImage)
-  removeMediaImage(@Args('id', { type: () => Int }) id: number) {
-    return this.mediaImageService.remove(id);
+  @Mutation(() => MediaImageOutputDto.MediaImageIdOutput)
+  uploadMediaImage(
+    @Args('MediaImageUploadInput', ImageValidatorPipe) input: MediaImageInputDto.MediaImageUploadInput,
+  ): Promise<MediaImageOutputDto.MediaImageIdOutput> {
+    try {
+      return this.mediaImageService.uploadMediaImage(input);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }

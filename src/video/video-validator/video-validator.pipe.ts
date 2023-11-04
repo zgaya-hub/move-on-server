@@ -4,28 +4,24 @@ import { VideoInputDto } from '../dto/video.input.dto';
 
 @Injectable()
 export class VideoValidatorPipe implements PipeTransform {
-  private options: VideoValidatorOptionType = {
-    mime: ['video/avi', 'video/mp4', 'video/mpeg', 'video/webm'],
-    movieSizeThreshold: 6291456, // 6 GB in KB
-    shortSizeThreshold: 204800, // 200 MB in KB
-  };
+  private readonly MAX_SHORT_SIZE_IN_KB = 204800;
+  private readonly MAX_MOVIE_SIZE_IN_KB = 6291456;
+  private readonly VALID_IMAGE_MIME_TYPES: VideoMineType[] = ['video/mp4', 'video/webm', 'video/avi', 'video/mpeg'];
 
   transform(video: VideoInputDto.GetS3UploadVdeoUrlInput): VideoInputDto.GetS3UploadVdeoUrlInput {
-    const { mime, movieSizeThreshold, shortSizeThreshold } = this.options;
-
     const fileMimeType = video.mime as VideoMineType;
 
-    if (!mime.includes(fileMimeType)) {
+    if (!this.VALID_IMAGE_MIME_TYPES.includes(fileMimeType)) {
       throw new UnsupportedMediaTypeException('Invalid MIME specified');
     }
 
     if (video.isShort) {
-      if (shortSizeThreshold < video.sizeInKb) {
+      if (this.MAX_SHORT_SIZE_IN_KB < video.sizeInKb) {
         throw new PayloadTooLargeException('Short is too large');
       }
     }
 
-    if (movieSizeThreshold < video.sizeInKb) {
+    if (this.MAX_MOVIE_SIZE_IN_KB < video.sizeInKb) {
       throw new PayloadTooLargeException('Video is too large');
     }
 

@@ -5,41 +5,41 @@ import { Entity, ManyToOne } from 'typeorm';
 import { Series } from '@/series/entities/series.entity';
 import { Season } from '@/season/entities/season.entity';
 import { Episode } from '@/episode/entities/episode.entity';
-import { MediaImagesTypeEnum } from '../enum/media-image.enum';
+import { MediaImageTypeEnum } from '../enum/media-image.enum';
 import { EntityBase } from '@/base/entity.base';
 
 @ObjectType()
 @Entity({ name: 'media_image' })
 export class MediaImage extends EntityBase {
   @Field()
-  @EnumColumn({ name: 'type', enum: MediaImagesTypeEnum })
-  type: MediaImagesTypeEnum;
+  @EnumColumn({ name: 'type', enum: MediaImageTypeEnum })
+  mediaImageType: MediaImageTypeEnum;
 
   @Field()
   @VarcharColumn({ name: 'url' })
-  url: string;
+  mediaImageUrl: string;
 
   // is nullable possible
   @Field(() => Movie)
   @ManyToOne(() => Movie, (movie) => movie.media, { nullable: true })
   @JoinColumn({ name: 'movie_id' })
-  movie: Movie;
+  mediaImageMovie: Movie;
 
   // is nullable possible
   @Field(() => Series)
   @ManyToOne(() => Series, (series) => series.media, { nullable: true })
   @JoinColumn({ name: 'series_id' })
-  series: Series;
+  mediaImageSeries: Series;
 
   // is nullable possible
   @Field(() => Season)
   @ManyToOne(() => Season, (season) => season.media, { nullable: true })
   @JoinColumn({ name: 'season_id' })
-  season: Season;
+  mediaImageSeason: Season;
 
   // is nullable possible
   @Field(() => Episode)
   @ManyToOne(() => Episode, (episode) => episode.media, { nullable: true })
   @JoinColumn({ name: 'episode_id' })
-  episode: Episode;
+  mediaImageEpisode: Episode;
 }

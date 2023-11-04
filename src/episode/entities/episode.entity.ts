@@ -36,7 +36,7 @@ export class Episode extends EntityBase {
   media: Media[];
 
   @Field(() => [MediaImage])
-  @OneToMany(() => MediaImage, (mediaImage) => mediaImage.episode)
+  @OneToMany(() => MediaImage, (mediaImage) => mediaImage.mediaImageEpisode)
   mediaImage: MediaImage[];
 
   @Field(() => [ExternalLink])

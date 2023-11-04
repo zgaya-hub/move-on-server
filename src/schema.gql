@@ -90,11 +90,6 @@ input CreateMediaBasicInfoInput {
   exampleField: Int!
 }
 
-input CreateMediaImageInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
 input CreateMediaInput {
   """Example field (placeholder)"""
   exampleField: Int!
@@ -256,12 +251,22 @@ type MediaBasicInfo {
 }
 
 type MediaImage {
-  episode: Episode!
-  movie: Movie!
-  season: Season!
-  series: Series!
+  mediaImageEpisode: Episode!
+  mediaImageMovie: Movie!
+  mediaImageSeason: Season!
+  mediaImageSeries: Series!
+  mediaImageType: String!
+  mediaImageUrl: String!
+}
+
+type MediaImageIdOutput {
+  mediaImageId: String!
+}
+
+input MediaImageUploadInput {
+  base64: String!
+  mime: String!
   type: String!
-  url: String!
 }
 
 type Movie {
@@ -304,7 +309,6 @@ type Mutation {
   createMedia(createMediaInput: CreateMediaInput!): Media!
   createMediaAdditionalInfo(createMediaAdditionalInfoInput: CreateMediaAdditionalInfoInput!): MediaAdditionalInfo!
   createMediaBasicInfo(createMediaBasicInfoInput: CreateMediaBasicInfoInput!): MediaBasicInfo!
-  createMediaImage(createMediaImageInput: CreateMediaImageInput!): MediaImage!
   createMovieCast(createMovieCastInput: CreateMovieCastInput!): MovieCast!
   createMovieCrew(createMovieCrewInput: CreateMovieCrewInput!): MovieCrew!
   createProfileInfo(createProfileInfoInput: CreateProfileInfoInput!): ProfileInfo!
@@ -328,7 +332,6 @@ type Mutation {
   removeMedia(id: Int!): Media!
   removeMediaAdditionalInfo(id: Int!): MediaAdditionalInfo!
   removeMediaBasicInfo(id: Int!): MediaBasicInfo!
-  removeMediaImage(id: Int!): MediaImage!
   removeMovieCast(id: Int!): MovieCast!
   removeMovieCrew(id: Int!): MovieCrew!
   removeProfileInfo(id: Int!): ProfileInfo!
@@ -349,7 +352,6 @@ type Mutation {
   updateMedia(updateMediaInput: UpdateMediaInput!): Media!
   updateMediaAdditionalInfo(updateMediaAdditionalInfoInput: UpdateMediaAdditionalInfoInput!): MediaAdditionalInfo!
   updateMediaBasicInfo(updateMediaBasicInfoInput: UpdateMediaBasicInfoInput!): MediaBasicInfo!
-  updateMediaImage(updateMediaImageInput: UpdateMediaImageInput!): MediaImage!
   updateMovieCast(updateMovieCastInput: UpdateMovieCastInput!): MovieCast!
   updateMovieCrew(updateMovieCrewInput: UpdateMovieCrewInput!): MovieCrew!
   updateProfileInfo(updateProfileInfoInput: UpdateProfileInfoInput!): ProfileInfo!
@@ -359,6 +361,7 @@ type Mutation {
   updateSeriesCast(updateSeriesCastInput: UpdateSeriesCastInput!): SeriesCast!
   updateSeriesCrew(updateSeriesCrewInput: UpdateSeriesCrewInput!): SeriesCrew!
   updateUserActivity(updateUserActivityInput: UpdateUserActivityInput!): UserActivity!
+  uploadMediaImage(MediaImageUploadInput: MediaImageUploadInput!): MediaImageIdOutput!
   userLogin(UserLoginInput: UserLoginInput!): AuthTokenOutput!
   userRegister(UserRegisterInput: UserRegisterInput!): AuthTokenOutput!
 }
@@ -387,7 +390,6 @@ type Query {
   media(id: Int!): Media!
   mediaAdditionalInfo(id: Int!): MediaAdditionalInfo!
   mediaBasicInfo(id: Int!): MediaBasicInfo!
-  mediaImage(id: Int!): MediaImage!
   movieCast(id: Int!): MovieCast!
   movieCrew(id: Int!): MovieCrew!
   profileInfo(id: Int!): ProfileInfo!
@@ -504,12 +506,6 @@ input UpdateMediaBasicInfoInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!
-}
-
-input UpdateMediaImageInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Float!
 }
 
 input UpdateMediaInput {
