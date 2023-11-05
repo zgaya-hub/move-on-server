@@ -6,15 +6,14 @@ import { MovieInputDto } from './dto/movie.input.dto';
 import { MovieOutputDto } from './dto/movie.output.dto';
 import { JwtManagerAuthGuard } from '../auth/guards/current-manager.jwt.guard';
 import { UseGuards } from '@nestjs/common';
-import { CurrentUser } from '../auth/guards/current-user.jwt.guard';
+import { CurrentUser } from '../decorator/current-user/current-user.decorator';
 
 @Resolver(() => Movie)
 @UseGuards(JwtManagerAuthGuard)
 export class MovieResolver {
   constructor(private readonly movieService: MovieService) {}
 
-  /* 
-  @Mutation(() => MovieOutputDto.CreateMovieOutput)
+  /*   @Mutation(() => MovieOutputDto.CreateMovieOutput)
   async createMovie(
     @Args('CreateMovieInput')
     input: MovieInputDto.CreateMovieInput,

@@ -8,33 +8,33 @@ import { Series } from '@/series/entities/series.entity';
 import { Movie } from '@/movie/entities/movie.entity';
 
 @ObjectType()
-@Entity({ name: 'review' })
+@Entity()
 export class Review extends EntityBase {
   @Field()
-  @DecimalColumn({ name: 'rating' })
-  rating: number;
+  @DecimalColumn()
+  reviewRating: number;
 
   @Field()
-  @TextColumn({ name: 'comment' })
-  comment: string;
+  @TextColumn()
+  reviewComment: string;
 
   @Field(() => User)
   @ManyToOne(() => User, (user) => user.review)
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn()
   user: User;
 
   @Field(() => Episode)
   @ManyToOne(() => Episode, (episode) => episode.review, { nullable: true })
-  @JoinColumn({ name: 'episode_id' })
+  @JoinColumn()
   episode: Episode;
 
   @Field(() => Series)
   @ManyToOne(() => Series, (series) => series.review, { nullable: true })
-  @JoinColumn({ name: 'series_id' })
+  @JoinColumn()
   series: Series;
 
   @Field(() => Movie)
   @ManyToOne(() => Movie, (movie) => movie.review, { nullable: true })
-  @JoinColumn({ name: 'movie_id' })
+  @JoinColumn()
   movie: Movie;
 }

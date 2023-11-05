@@ -11,10 +11,10 @@ import { MediaBasicInfo } from '@/media-basic-info/entities/media-basic-info.ent
 import { Video } from '../../video/entities/video.entity';
 
 @ObjectType()
-@Entity({ name: 'episode' })
+@Entity()
 export class Episode extends EntityBase {
   @Field()
-  @IntColumn({ name: 'episode_no' })
+  @IntColumn()
   episodeNo: number;
 
   // JOIN COLUMNS //
@@ -24,7 +24,7 @@ export class Episode extends EntityBase {
 
   @Field(() => Season)
   @ManyToOne(() => Season, (season) => season.episode)
-  @JoinColumn({ name: 'season_id' })
+  @JoinColumn()
   season: Season;
 
   @Field(() => Video)
@@ -36,7 +36,7 @@ export class Episode extends EntityBase {
   media: Media[];
 
   @Field(() => [MediaImage])
-  @OneToMany(() => MediaImage, (mediaImage) => mediaImage.mediaImageEpisode)
+  @OneToMany(() => MediaImage, (mediaImage) => mediaImage.episode)
   mediaImage: MediaImage[];
 
   @Field(() => [ExternalLink])

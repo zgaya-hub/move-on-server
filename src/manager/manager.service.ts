@@ -2,7 +2,7 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { Manager } from './entities/manager.entity';
 import { ManagerInputDto } from './dto/manager.input.dto';
 import { ManagerRepository } from './manager.repository';
-import { AccountStatusEnum } from './enum/manager.enum';
+import { ManagerAccountStatusEnum } from './enum/manager.enum';
 import { Transactional } from 'typeorm-transactional';
 import { comparePassword } from '../utils/bcrypt';
 
@@ -24,7 +24,7 @@ export class ManagerService {
 
       manager.email = input.email;
       manager.password = input.password;
-      manager.accountStatus = AccountStatusEnum.ACTIVE;
+      manager.accountStatus = ManagerAccountStatusEnum.ACTIVE;
 
       await this.managerRepository.save(manager);
       return manager;

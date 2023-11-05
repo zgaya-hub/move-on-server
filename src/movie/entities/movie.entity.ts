@@ -16,17 +16,17 @@ import { MediaBasicInfo } from '@/media-basic-info/entities/media-basic-info.ent
 import { MediaAdditionalInfo } from '@/media-additional-info/entities/media-additional-info.entity';
 
 @ObjectType()
-@Entity({ name: 'movie' })
+@Entity()
 export class Movie extends EntityBase {
   // have default value
   @Field()
-  @DecimalColumn({ name: 'price_in_dollar' })
-  priceInDollar: number;
+  @DecimalColumn()
+  moviePriceInDollar: number;
 
   // have default value
   @Field()
-  @TinyintColumn({ name: 'is_free', default: true })
-  isFree: boolean;
+  @TinyintColumn({ default: true })
+  movieIsFree: boolean;
 
   // JOIN COLUMNS //
   @Field(() => AchievementInfo)
@@ -51,7 +51,7 @@ export class Movie extends EntityBase {
 
   @Field(() => Manager)
   @ManyToOne(() => Manager, (manager) => manager.movie)
-  @JoinColumn({ name: 'manager_id' })
+  @JoinColumn()
   manager: Manager;
 
   @Field(() => Media)
@@ -67,7 +67,7 @@ export class Movie extends EntityBase {
   movieCrew: MovieCrew[];
 
   @Field(() => MediaImage)
-  @OneToMany(() => MediaImage, (mediaImage) => mediaImage.mediaImageMovie)
+  @OneToMany(() => MediaImage, (mediaImage) => mediaImage.movie)
   mediaImage: MediaImage[];
 
   @Field(() => ExternalLink)

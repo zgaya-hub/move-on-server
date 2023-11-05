@@ -6,7 +6,7 @@ import { VideoValidatorPipe } from './video-validator/video-validator.pipe';
 import { VideoOutputDto } from './dto/video.output.dto';
 import { VideoService } from './video.service';
 import { JwtManagerAuthGuard } from '../auth/guards/current-manager.jwt.guard';
-import { CurrentUser } from '../auth/guards/current-user.jwt.guard';
+import { CurrentUser } from '../decorator/current-user/current-user.decorator';
 
 @Resolver()
 @UseGuards(JwtManagerAuthGuard)

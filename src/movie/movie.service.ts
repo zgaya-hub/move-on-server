@@ -21,8 +21,8 @@ export class MovieService {
       const manager = await this.managerService.findByEmail(currentManager.email);
       const video = await this.videoService.assignVideoToMedia(input.videoInfoId, movie);
 
-      if (input.isFree) movie.isFree = input.isFree;
-      if (input.priceInDollar) movie.priceInDollar = input.priceInDollar;
+      if (input.isFree) movie.movieIsFree = input.isFree;
+      if (input.priceInDollar) movie.moviePriceInDollar = input.priceInDollar;
       movie.video = video;
       movie.manager = manager;
 

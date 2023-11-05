@@ -8,11 +8,11 @@ import { EnumColumn } from '@/decorator/entity/entity.decorator';
 import { Cineast } from '@/cineast/entities/cineast.entity';
 
 @ObjectType()
-@Entity({ name: 'cast' })
+@Entity()
 export class Cast extends EntityBase {
   @Field()
-  @EnumColumn({ name: 'role', enum: CastRoleEnum })
-  role: CastRoleEnum;
+  @EnumColumn({ enum: CastRoleEnum })
+  castRole: CastRoleEnum;
 
   @Field(() => MovieCast)
   @OneToMany(() => MovieCast, (movieCast) => movieCast.cast)

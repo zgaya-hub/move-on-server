@@ -6,28 +6,28 @@ import { Series } from '@/series/entities/series.entity';
 import { EntityBase } from '@/base/entity.base';
 
 @ObjectType()
-@Entity({ name: 'achievement_info' })
+@Entity()
 @Index('unique_movie_series', ['movie', 'series'], { unique: true })
 export class AchievementInfo extends EntityBase {
   @Field()
-  @DecimalColumn({ name: 'IMDb_rating' })
-  IMDbRating: number;
+  @DecimalColumn()
+  mediaIMDbRating: number;
 
   @Field()
-  @DecimalColumn({ name: 'OMDb_rating' })
-  OMDbRating: number;
+  @DecimalColumn()
+  mediaOMDbRating: number;
 
   @Field(() => [String])
-  @ArrayColumn({ name: 'award' })
-  award: Array<string>;
+  @ArrayColumn()
+  mediaAward: Array<string>;
 
   @Field(() => Movie)
   @OneToOne(() => Movie, (movie) => movie.achievementInfo, { nullable: true })
-  @JoinColumn({ name: 'movie_id' })
+  @JoinColumn()
   movie: Movie;
 
   @Field(() => Series)
   @OneToOne(() => Series, (series) => series.achievementInfo, { nullable: true })
-  @JoinColumn({ name: 'series_id' })
+  @JoinColumn()
   series: Series;
 }

@@ -9,57 +9,57 @@ import { Episode } from '../../episode/entities/episode.entity';
 import { Season } from '../../season/entities/season.entity';
 
 @ObjectType()
-@Entity({ name: 'video' })
+@Entity()
 @Index('unique_movie_series', ['movie', 'series'], { unique: true })
 export class Video extends EntityBase {
   @Field()
-  @VarcharColumn({ name: 'managerId' })
+  @VarcharColumn()
   managerId: string;
 
   @Field()
-  @EnumColumn({ name: 'quality', enum: VideoQualityEnum })
-  quality: VideoQualityEnum;
+  @EnumColumn({ enum: VideoQualityEnum })
+  videoQuality: VideoQualityEnum;
 
   @Field()
-  @IntColumn({ name: 'width' })
-  width: number;
+  @IntColumn()
+  videoWidth: number;
 
   @Field()
-  @IntColumn({ name: 'height' })
-  height: number;
-
-  // in mbs
-  @Field()
-  @IntColumn({ name: 'size_in_kb' })
-  sizeInKb: number;
+  @IntColumn()
+  videoHeight: number;
 
   // in mbs
   @Field()
-  @VarcharColumn({ name: 'mime' })
-  mime: string;
+  @IntColumn()
+  videoSizeInKb: number;
+
+  // in mbs
+  @Field()
+  @VarcharColumn()
+  videoMime: string;
 
   // in milliseconds
   @Field()
-  @IntColumn({ name: 'run_time' })
-  runTime: number;
+  @IntColumn()
+  videoRunTime: number;
 
   @Field(() => Movie)
   @OneToOne(() => Movie, (movie) => movie.video, { nullable: true })
-  @JoinColumn({ name: 'movie_id' })
+  @JoinColumn()
   movie: Movie;
 
   @Field(() => Series)
   @OneToOne(() => Series, (series) => series.video, { nullable: true })
-  @JoinColumn({ name: 'series_id' })
+  @JoinColumn()
   series: Series;
 
   @Field(() => Season)
   @OneToOne(() => Season, (season) => season.video, { nullable: true })
-  @JoinColumn({ name: 'season_id' })
+  @JoinColumn()
   season: Season;
 
   @Field(() => Episode)
   @OneToOne(() => Episode, (episode) => episode.video, { nullable: true })
-  @JoinColumn({ name: 'episode_id' })
+  @JoinColumn()
   episode: Episode;
 }

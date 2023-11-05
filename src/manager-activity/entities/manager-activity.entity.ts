@@ -1,28 +1,28 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { EnumColumn, JoinColumn } from '@/decorator/entity/entity.decorator';
-import { ActionsEnum } from '../enum/manager-activity.enum';
-import { ActivityStatusesEnum } from '@/common/enum/common.enum';
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { ObjectType, Field } from '@nestjs/graphql';
+import { EnumColumn, JoinColumn, VarcharColumn } from '@/decorator/entity/entity.decorator';
+import { ManagerActivityActionEnum } from '../enum/manager-activity.enum';
+import { ActivityStatusEnum } from '@/common/enum/common.enum';
+import { Entity, ManyToOne } from 'typeorm';
 import { Manager } from '@/manager/entities/manager.entity';
 import { EntityBase } from '@/base/entity.base';
 
 @ObjectType()
-@Entity({ name: 'manager_activity' })
+@Entity()
 export class ManagerActivity extends EntityBase {
   @Field()
-  @EnumColumn({ name: 'action', enum: ActionsEnum })
-  action: ActionsEnum;
+  @EnumColumn({ enum: ManagerActivityActionEnum })
+  managerActivityAction: ManagerActivityActionEnum;
 
   @Field()
-  @EnumColumn({ name: 'status', enum: ActivityStatusesEnum })
-  status: ActivityStatusesEnum;
+  @EnumColumn({ enum: ActivityStatusEnum })
+  managerActivityStatus: ActivityStatusEnum;
 
   @Field()
-  @Column({ name: 'content_id', type: 'uuid' })
-  contentId: string;
+  @VarcharColumn()
+  managerActivitContentId: string;
 
   @Field(() => Manager)
   @ManyToOne(() => Manager, (manager) => manager.managerActivity)
-  @JoinColumn({ name: 'manager_id' })
+  @JoinColumn()
   manager: Manager;
 }

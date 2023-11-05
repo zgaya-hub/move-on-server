@@ -9,37 +9,37 @@ import { Season } from '@/season/entities/season.entity';
 import { EnumColumn, JoinColumn, VarcharColumn } from '@/decorator/entity/entity.decorator';
 
 @ObjectType()
-@Entity({ name: 'media' })
+@Entity()
 export class Media extends EntityBase {
   @Field()
-  @EnumColumn({ name: 'type', enum: MediaTypeEnum })
-  type: MediaTypeEnum;
+  @EnumColumn({ enum: MediaTypeEnum })
+  MediaType: MediaTypeEnum;
 
   @Field()
-  @VarcharColumn({ name: 'S3_object_key' })
-  S3ObjectKey: string;
+  @VarcharColumn()
+  MediaS3ObjectKey: string;
 
   // is nullable possible
   @Field(() => Movie)
   @ManyToOne(() => Movie, (movie) => movie.media, { nullable: true })
-  @JoinColumn({ name: 'movie_id' })
+  @JoinColumn()
   movie: Movie;
 
   // is nullable possible
   @Field(() => Series)
   @ManyToOne(() => Series, (series) => series.media, { nullable: true })
-  @JoinColumn({ name: 'series_id' })
+  @JoinColumn()
   series: Series;
 
   // is nullable possible
   @Field(() => Season)
   @ManyToOne(() => Season, (season) => season.media, { nullable: true })
-  @JoinColumn({ name: 'season_id' })
+  @JoinColumn()
   season: Season;
 
   // is nullable possible
   @Field(() => Episode)
   @ManyToOne(() => Episode, (episode) => episode.media, { nullable: true })
-  @JoinColumn({ name: 'episode_id' })
+  @JoinColumn()
   episode: Episode;
 }

@@ -8,38 +8,38 @@ import { Season } from '@/season/entities/season.entity';
 import { Episode } from '@/episode/entities/episode.entity';
 
 @ObjectType()
-@Entity({ name: 'media_basic_info' })
+@Entity()
 export class MediaBasicInfo extends EntityBase {
   @Field()
-  @VarcharColumn({ name: 'title' })
-  title: string;
+  @VarcharColumn()
+  mediaTitle: string;
 
   // have default value
   @Field()
-  @TextColumn({ name: 'plot_summary' })
-  plotSummary: string;
+  @TextColumn()
+  mediaPlotSummary: string;
 
   @Field()
-  @IntColumn({ name: 'release_date' })
-  releaseDate: number;
+  @IntColumn()
+  mediaReleaseDate: number;
 
   @Field(() => Movie)
   @OneToOne(() => Movie, (movie) => movie.mediaBasicInfo, { nullable: true })
-  @JoinColumn({ name: 'movie_id' })
+  @JoinColumn()
   movie: Movie;
 
   @Field(() => Series)
   @OneToOne(() => Series, (series) => series.mediaBasicInfo, { nullable: true })
-  @JoinColumn({ name: 'series_id' })
+  @JoinColumn()
   series: Series;
 
   @Field(() => Season)
   @OneToOne(() => Season, (season) => season.mediaBasicInfo, { nullable: true })
-  @JoinColumn({ name: 'season_id' })
+  @JoinColumn()
   season: Season;
 
   @Field(() => Episode)
   @OneToOne(() => Episode, (episode) => episode.mediaBasicInfo, { nullable: true })
-  @JoinColumn({ name: 'episode_id' })
+  @JoinColumn()
   episode: Episode;
 }

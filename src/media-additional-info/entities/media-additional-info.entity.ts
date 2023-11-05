@@ -8,32 +8,32 @@ import { EntityBase } from '@/base/entity.base';
 import { MediaGenriesEnum, MediaStatusEnum } from '../enum/media-additional-info.enum';
 
 @ObjectType()
-@Entity({ name: 'media_additional_info' })
+@Entity()
 @Index('unique_movie_series', ['movie', 'series'], { unique: true })
 export class MediaAdditionalInfo extends EntityBase {
   @Field()
-  @EnumColumn({ name: 'origin_country', enum: CountriesEnum })
-  originCountry: CountriesEnum;
+  @EnumColumn({ enum: CountriesEnum })
+  mediaOriginCountry: CountriesEnum;
 
   @Field()
-  @EnumColumn({ name: 'original_language', enum: LanguagiesEnum })
-  originalLanguage: LanguagiesEnum;
+  @EnumColumn({ enum: LanguagiesEnum })
+  emdiaOriginalLanguage: LanguagiesEnum;
 
   @Field()
-  @EnumColumn({ name: 'genre', enum: MediaGenriesEnum })
-  genre: MediaGenriesEnum;
+  @EnumColumn({ enum: MediaGenriesEnum })
+  mediaGenre: MediaGenriesEnum;
 
   @Field()
-  @EnumColumn({ name: 'status', enum: MediaStatusEnum })
-  status: MediaStatusEnum;
+  @EnumColumn({ enum: MediaStatusEnum })
+  mediaStatus: MediaStatusEnum;
 
   @Field(() => Movie)
   @OneToOne(() => Movie, (movie) => movie.mediaAdditionalInfo, { nullable: true })
-  @JoinColumn({ name: 'movie_id' })
+  @JoinColumn()
   movie: Movie;
 
   @Field(() => Series)
   @OneToOne(() => Series, (series) => series.media, { nullable: true })
-  @JoinColumn({ name: 'series_id' })
+  @JoinColumn()
   series: Series;
 }

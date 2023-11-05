@@ -5,7 +5,7 @@ export class Crew1698287706800 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `CREATE TABLE \`crew\` (\`ID\` varchar(36) NOT NULL, \`created_at\` bigint NOT NULL, \`updated_at\` bigint NULL, \`deleted_at\` bigint NULL, \`role\` enum ('Producer', 'Director', 'Writer') NOT NULL, PRIMARY KEY (\`ID\`)) ENGINE=InnoDB`,
+      `CREATE TABLE \`crew\` (\`ID\` varchar(36) NOT NULL, \`created_at\` bigint NOT NULL, \`updated_at\` bigint NULL, \`deleted_at\` bigint NULL, \`crew_role\` enum ('Producer', 'Director', 'Writer') NOT NULL, PRIMARY KEY (\`ID\`)) ENGINE=InnoDB`,
     );
   }
 

@@ -5,6 +5,6 @@ export namespace CloudinaryOutputDto {
   @ObjectType()
   export class CloudinaryUploadOutput {
     @Field(() => String)
-    mediaImageUrl: string;
+    imageUrl: string;
   }
 }

@@ -8,14 +8,14 @@ import { Review } from '@/review/entities/review.entity';
 import { passwordHash } from '@/utils/bcrypt';
 
 @ObjectType()
-@Entity({ name: 'user' })
+@Entity()
 export class User extends EntityBase {
   @Field()
-  @PrimaryColumn({ name: 'email', type: 'varchar' })
+  @VarcharColumn()
   email: string;
 
   @Field()
-  @VarcharColumn({ name: 'password' })
+  @VarcharColumn()
   password: string;
 
   @Field(() => ProfileInfo)

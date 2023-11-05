@@ -5,7 +5,7 @@ export class ExternalLink1698287774774 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `CREATE TABLE \`external_link\` (\`ID\` varchar(36) NOT NULL, \`created_at\` bigint NOT NULL, \`updated_at\` bigint NULL, \`deleted_at\` bigint NULL, \`resource_name\` varchar(255) NOT NULL, \`url\` varchar(255) NOT NULL, \`type\` varchar(255) NOT NULL, \`episode_id\` varchar(36) NULL, \`series_id\` varchar(36) NULL, \`movie_id\` varchar(36) NULL, PRIMARY KEY (\`ID\`)) ENGINE=InnoDB`,
+      `CREATE TABLE \`external_link\` (\`ID\` varchar(36) NOT NULL, \`created_at\` bigint NOT NULL, \`updated_at\` bigint NULL, \`deleted_at\` bigint NULL, \`el_resource_name\` varchar(255) NOT NULL, \`el_url\` varchar(255) NOT NULL, \`el_type\` varchar(255) NOT NULL, \`episode_id\` varchar(36) NULL, \`series_id\` varchar(36) NULL, \`movie_id\` varchar(36) NULL, PRIMARY KEY (\`ID\`)) ENGINE=InnoDB`,
     );
     await queryRunner.query(
       `ALTER TABLE \`external_link\` ADD CONSTRAINT \`FK_7c1457beaba3b923bce850c73f1\` FOREIGN KEY (\`episode_id\`) REFERENCES \`episode\`(\`ID\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,

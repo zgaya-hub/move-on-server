@@ -402,7 +402,7 @@ export enum LanguagiesEnum {
   ZULU = 'Zulu',
 }
 
-export enum ActivityStatusesEnum {
+export enum ActivityStatusEnum {
   PASS = 'Pass',
   FAIL = 'Fail',
 }
