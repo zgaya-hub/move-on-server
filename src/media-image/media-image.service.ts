@@ -14,8 +14,8 @@ export class MediaImageService {
     try {
       const mediaImage = new MediaImage();
 
-      mediaImage.mediaImageType = input.type;
-      mediaImage.mediaImageUrl = input.url;
+      mediaImage.mediaImageType = input.mediaImageType;
+      mediaImage.mediaImageUrl = input.mediaImageUrl;
 
       await mediaImage.save();
 
@@ -27,9 +27,8 @@ export class MediaImageService {
 
   async uploadMediaImage(input: MediaImageInputDto.MediaImageUploadInput): Promise<MediaImageOutputDto.MediaImageIdOutput> {
     try {
-      const url = await this.cloudinaryService.uploadImageOnCloudinary({ base64: input.base64 });
-      const mediaImageInput: MediaImageInputDto.MediaImageCreateInput = { type: input.type, url: '' };
-      const mediaImageId = await this.createMediaImage(mediaImageInput);
+      const a = await this.cloudinaryService.uploadImageOnCloudinary({ base64: input.mediaImageBase64 });
+      const mediaImageId = await this.createMediaImage({ mediaImageType: input.mediaImageType, mediaImageUrl: a.imageUrl });
 
       return mediaImageId;
     } catch (error) {

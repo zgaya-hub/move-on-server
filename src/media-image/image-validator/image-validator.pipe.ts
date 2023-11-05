@@ -16,24 +16,24 @@ export class ImageValidatorPipe implements PipeTransform {
   private readonly VALID_IMAGE_MIME_TYPES: ImageMimeType[] = ['image/gif', 'image/jpeg', 'image/png', 'image/webp'];
 
   transform(image: MediaImageInputDto.MediaImageUploadInput): MediaImageInputDto.MediaImageUploadInput {
-    const { base64, mime, type } = image;
+    const { mediaImageBase64, mediaImageMime, mediaImageType } = image;
 
-    if (!this.VALID_IMAGE_MIME_TYPES.includes(mime)) {
+    if (!this.VALID_IMAGE_MIME_TYPES.includes(mediaImageMime)) {
       throw new UnsupportedMediaTypeException('Invalid MIME specified');
     }
 
-    switch (type) {
+    switch (mediaImageType) {
       case MediaImageTypeEnum.THUMBNAIL:
-        this.validateAspectRatio(base64, this.THUMBNAIL_MIN_RATIO_THRESHOLD, this.THUMBNAIL_MAX_RATIO_THRESHOLD);
-        this.validateSize(base64);
+        this.validateAspectRatio(mediaImageBase64, this.THUMBNAIL_MIN_RATIO_THRESHOLD, this.THUMBNAIL_MAX_RATIO_THRESHOLD);
+        this.validateSize(mediaImageBase64);
         break;
       case MediaImageTypeEnum.POSTER:
-        this.validateAspectRatio(base64, this.POSTER_MIN_RATIO_THRESHOLD, this.POSTER_MAX_RATIO_THRESHOLD);
-        this.validateSize(base64);
+        this.validateAspectRatio(mediaImageBase64, this.POSTER_MIN_RATIO_THRESHOLD, this.POSTER_MAX_RATIO_THRESHOLD);
+        this.validateSize(mediaImageBase64);
         break;
       case MediaImageTypeEnum.BACKDROP:
-        this.validateAspectRatio(base64, this.BACKDROP_MIN_RATIO_THRESHOLD, this.BACKDROP_MAX_RATIO_THRESHOLD);
-        this.validateSize(base64);
+        this.validateAspectRatio(mediaImageBase64, this.BACKDROP_MIN_RATIO_THRESHOLD, this.BACKDROP_MAX_RATIO_THRESHOLD);
+        this.validateSize(mediaImageBase64);
         break;
     }
 

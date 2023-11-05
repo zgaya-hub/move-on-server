@@ -1,4 +1,4 @@
-export enum AccountStatusEnum {
+export enum ManagerAccountStatusEnum {
   ACTIVE = 'Active',
   INACTIVE = 'In Active',
   SUSPENDED = 'Suspended',

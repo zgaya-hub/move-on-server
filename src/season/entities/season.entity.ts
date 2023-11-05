@@ -34,7 +34,7 @@ export class Season extends EntityBase {
   media: Media[];
 
   @Field(() => MediaImage)
-  @OneToMany(() => MediaImage, (mediaImage) => mediaImage.mediaImageSeason)
+  @OneToMany(() => MediaImage, (mediaImage) => mediaImage.season)
   mediaImage: MediaImage[];
 
   @Field(() => Episode)

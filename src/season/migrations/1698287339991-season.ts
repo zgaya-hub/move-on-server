@@ -5,7 +5,7 @@ export class Season1698287339991 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `CREATE TABLE \`season\` (\`ID\` varchar(36) NOT NULL, \`created_at\` bigint NOT NULL, \`updated_at\` bigint NULL, \`deleted_at\` bigint NULL, \`title\` varchar(255) NOT NULL, \`season_no\` int NOT NULL, \`release_date\` int NOT NULL, \`plot_summary\` text NOT NULL, \`series_id\` varchar(36) NULL, PRIMARY KEY (\`ID\`)) ENGINE=InnoDB`,
+      `CREATE TABLE \`season\` (\`ID\` varchar(36) NOT NULL, \`created_at\` bigint NOT NULL, \`updated_at\` bigint NULL, \`deleted_at\` bigint NULL, \`season_no\` int NOT NULL, \`series_id\` varchar(36) NULL, PRIMARY KEY (\`ID\`)) ENGINE=InnoDB`,
     );
     await queryRunner.query(
       `ALTER TABLE \`season\` ADD CONSTRAINT \`FK_4efcc05beed4bfa3079a3a1a99a\` FOREIGN KEY (\`series_id\`) REFERENCES \`series\`(\`ID\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,

@@ -6,15 +6,15 @@ import { EntityBase } from '@/base/entity.base';
 import { Cast } from '@/cast/entities/cast.entity';
 
 @ObjectType()
-@Entity({ name: 'series_cast' })
+@Entity()
 export class SeriesCast extends EntityBase {
   @Field(() => Series)
   @ManyToOne(() => Series, (series) => series.seriesCast)
-  @JoinColumn({ name: 'series_id' })
+  @JoinColumn()
   series: Series;
 
   @Field(() => Cast)
   @ManyToOne(() => Cast, (cast) => cast.seriesCast)
-  @JoinColumn({ name: 'cast_id' })
+  @JoinColumn()
   cast: Cast;
 }

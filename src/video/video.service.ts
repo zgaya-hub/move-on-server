@@ -31,12 +31,12 @@ export class VideoService {
     try {
       const video = new Video();
 
-      video.height = input.height;
-      video.width = input.width;
-      video.mime = input.mime;
-      video.sizeInKb = input.sizeInKb;
-      video.quality = handleOnGetVideoQualityBySize(input.width, input.height);
-      video.runTime = input.runTime;
+      video.videoHeight = input.height;
+      video.videoWidth = input.width;
+      video.videoMime = input.mime;
+      video.videoSizeInKb = input.sizeInKb;
+      video.videoQuality = handleOnGetVideoQualityBySize(input.width, input.height);
+      video.videoRunTime = input.runTime;
       video.managerId = currentManager.ID;
 
       await video.save();

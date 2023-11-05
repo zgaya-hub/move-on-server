@@ -27,16 +27,20 @@ export class CloudinaryService {
       const uniqueImageId = uuid(); // Set a meaningful unique ID
       this.progressBar.start(100, 0);
 
-      const uploadStream = cloudinary.uploader.upload_stream(
-        {
-          public_id: uniqueImageId,
-          resource_type: 'image',
-        },
-        (err, res) => {
-          if (err) throw new Error(err.message);
+      const uploadStream = cloudinary.uploader
+        .upload_stream(
+          {
+            public_id: uniqueImageId,
+            resource_type: 'image',
+          },
+          (err, res) => {
+            if (err) throw new Error(err.message);
+            console.log(res, '');
+          },
+        )
+        .end((res) => {
           console.log(res);
-        },
-      );
+        });
 
       const imageBuffer = handleOnBase64ToBuffer(input.base64);
       const imageStream = this.createImageStream(imageBuffer);
@@ -52,8 +56,8 @@ export class CloudinaryService {
       return new Promise<CloudinaryOutputDto.CloudinaryUploadOutput>((resolve, reject) => {
         uploadStream.on('end', (e) => {
           this.progressBar.stop();
-          console.log('Upload stream ended');
-          resolve({ mediaImageUrl: e });
+          console.log('Upload stream ended', e);
+          resolve({ imageUrl: e });
         });
 
         uploadStream.on('error', (error) => {
@@ -70,7 +74,9 @@ export class CloudinaryService {
   }
 
   createImageStream(imageBuffer: Buffer) {
-    const imageStream = new Readable();
+    const imageStream = new Readable({
+      highWaterMark: 64,
+    });
     imageStream.push(imageBuffer);
     imageStream.push(null);
     return imageStream;

@@ -6,15 +6,15 @@ import { Crew } from '@/crew/entities/crew.entity';
 import { EntityBase } from '@/base/entity.base';
 
 @ObjectType()
-@Entity({ name: 'movie_crew' })
+@Entity()
 export class MovieCrew extends EntityBase {
   @Field(() => Movie)
   @ManyToOne(() => Movie, (movie) => movie.movieCrew)
-  @JoinColumn({ name: 'movie_id' })
+  @JoinColumn()
   movie: Movie;
 
   @Field(() => Crew)
   @ManyToOne(() => Crew, (crew) => crew.movieCrew)
-  @JoinColumn({ name: 'crew_id' })
+  @JoinColumn()
   crew: Crew;
 }

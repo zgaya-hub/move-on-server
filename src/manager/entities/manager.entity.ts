@@ -1,7 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { EntityBase } from '@/base/entity.base';
-import { BeforeInsert, Entity, OneToMany, OneToOne, PrimaryColumn } from 'typeorm';
-import { AccountStatusEnum } from '../enum/manager.enum';
+import { BeforeInsert, Entity, OneToMany, OneToOne } from 'typeorm';
+import { ManagerAccountStatusEnum } from '../enum/manager.enum';
 import { Movie } from '@/movie/entities/movie.entity';
 import { Series } from '@/series/entities/series.entity';
 import { EnumColumn, IntColumn, VarcharColumn } from '@/decorator/entity/entity.decorator';
@@ -10,23 +10,23 @@ import { ManagerActivity } from '@/manager-activity/entities/manager-activity.en
 import { passwordHash } from '@/utils/bcrypt';
 
 @ObjectType()
-@Entity({ name: 'manager' })
+@Entity()
 export class Manager extends EntityBase {
   @Field()
-  @PrimaryColumn({ name: 'email', type: 'varchar' })
+  @VarcharColumn({ unique: true })
   email: string;
 
   @Field()
-  @VarcharColumn({ name: 'password' })
+  @VarcharColumn()
   password: string;
 
   @Field()
-  @EnumColumn({ name: 'account_status', enum: AccountStatusEnum })
-  accountStatus: AccountStatusEnum;
+  @EnumColumn({ enum: ManagerAccountStatusEnum })
+  accountStatus: ManagerAccountStatusEnum;
 
   // nullable possible
   @Field()
-  @IntColumn({ name: 'last_login', nullable: true })
+  @IntColumn({ nullable: true })
   lastLogin: number;
 
   // JOINS COLUMNS //

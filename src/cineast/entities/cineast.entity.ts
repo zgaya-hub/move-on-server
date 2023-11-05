@@ -7,47 +7,47 @@ import { Crew } from '@/crew/entities/crew.entity';
 import { ArrayColumn, EnumColumn, IntColumn, JoinColumn, TextColumn, VarcharColumn } from '@/decorator/entity/entity.decorator';
 
 @ObjectType()
-@Entity({ name: 'cineast' })
+@Entity()
 export class Cineast extends EntityBase {
   @Field()
-  @VarcharColumn({ name: 'full_name' })
-  fullName: string;
+  @VarcharColumn()
+  cineastFullName: string;
 
   @Field()
-  @VarcharColumn({ name: 'email' })
-  email: string;
+  @VarcharColumn()
+  cineastEmail: string;
 
   @Field()
-  @VarcharColumn({ name: 'contact_no' })
-  contactNo: string;
+  @VarcharColumn()
+  cineastContactNo: string;
 
   @Field()
-  @IntColumn({ name: 'dob' })
-  DOB: number;
+  @IntColumn()
+  cineastDOB: number;
 
   @Field()
-  @TextColumn({ name: 'bio' })
-  bio: string;
+  @TextColumn()
+  cineastBio: string;
 
   @Field()
-  @EnumColumn({ name: 'gender', enum: GenderEnum })
-  gender: GenderEnum;
+  @EnumColumn({ enum: GenderEnum })
+  cineastGender: GenderEnum;
 
   @Field()
-  @EnumColumn({ name: 'country', enum: CountriesEnum })
-  country: CountriesEnum;
+  @EnumColumn({ enum: CountriesEnum })
+  cineastCountry: CountriesEnum;
 
   @Field(() => [String])
-  @ArrayColumn({ name: 'award' })
-  award: Array<string>;
+  @ArrayColumn()
+  cineastAward: Array<string>;
 
   @Field(() => Cast)
   @OneToOne(() => Cast, (cast) => cast.cineast, { nullable: true })
-  @JoinColumn({ name: 'cast_id' })
+  @JoinColumn()
   cast: Cast;
 
   @Field(() => Crew)
   @OneToOne(() => Crew, (crew) => crew.cineast, { nullable: true })
-  @JoinColumn({ name: 'crew_id' })
+  @JoinColumn()
   crew: Crew;
 }

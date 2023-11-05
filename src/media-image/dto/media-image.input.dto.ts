@@ -9,12 +9,12 @@ export namespace MediaImageInputDto {
     @Field(() => String)
     @IsNotEmpty()
     @IsString()
-    url: string;
+    mediaImageUrl: string;
 
     @Field(() => String)
     @IsNotEmpty()
     @IsEnum(MediaImageTypeEnum)
-    type: MediaImageTypeEnum;
+    mediaImageType: MediaImageTypeEnum;
   }
 
   @InputType()
@@ -22,16 +22,16 @@ export namespace MediaImageInputDto {
     @Field(() => String)
     @IsNotEmpty()
     @IsString()
-    base64: string;
+    mediaImageBase64: string;
 
     @Field(() => String)
     @IsNotEmpty()
     @IsMimeType()
-    mime: ImageMimeType;
+    mediaImageMime: ImageMimeType;
 
     @Field(() => String)
     @IsNotEmpty()
     @IsEnum(MediaImageTypeEnum)
-    type: MediaImageTypeEnum;
+    mediaImageType: MediaImageTypeEnum;
   }
 }

@@ -3,9 +3,9 @@
 # ------------------------------------------------------
 
 type AchievementInfo {
-  IMDbRating: Float!
-  OMDbRating: Float!
-  award: [String!]!
+  mediaAward: [String!]!
+  mediaIMDbRating: Float!
+  mediaOMDbRating: Float!
   movie: Movie!
   series: Series!
 }
@@ -15,23 +15,23 @@ type AuthTokenOutput {
 }
 
 type Cast {
+  castRole: String!
   cineast: Cineast!
   movieCast: MovieCast!
-  role: String!
   seriesCast: SeriesCast!
 }
 
 type Cineast {
-  DOB: Float!
-  award: [String!]!
-  bio: String!
   cast: Cast!
-  contactNo: String!
-  country: String!
+  cineastAward: [String!]!
+  cineastBio: String!
+  cineastContactNo: String!
+  cineastCountry: String!
+  cineastDOB: Float!
+  cineastEmail: String!
+  cineastFullName: String!
+  cineastGender: String!
   crew: Crew!
-  email: String!
-  fullName: String!
-  gender: String!
 }
 
 input CreateAchievementInfoInput {
@@ -142,8 +142,8 @@ input CreateUserActivityInput {
 
 type Crew {
   cineast: Cineast!
+  crewRole: String!
   movieCrew: MovieCrew!
-  role: String!
   seriesCrew: SeriesCrew!
 }
 
@@ -159,25 +159,25 @@ type Episode {
 }
 
 type ErrorLog {
-  message: String!
-  statusCode: Float!
-  type: String!
+  errorLogMessage: String!
+  errorLogStatusCode: Float!
+  errorLogType: String!
 }
 
 type ExternalLink {
+  elResourceName: String!
+  elType: String!
+  elUrl: String!
   episode: Episode!
   movie: Movie!
-  resourceName: String!
   series: Series!
-  type: String!
-  url: String!
 }
 
 type FinancialInfo {
-  budget: Float!
+  mediaBudget: Float!
+  mediaNetProfit: Float!
+  mediaRevenue: Float!
   movie: Movie!
-  netProfit: Float!
-  revenue: Float!
   series: Series!
 }
 
@@ -206,10 +206,10 @@ type Manager {
 }
 
 type ManagerActivity {
-  action: String!
-  contentId: String!
   manager: Manager!
-  status: String!
+  managerActivitContentId: String!
+  managerActivityAction: String!
+  managerActivityStatus: String!
 }
 
 input ManagerLoginInput {
@@ -223,40 +223,40 @@ input ManagerRegisterInput {
 }
 
 type Media {
-  S3ObjectKey: String!
+  MediaS3ObjectKey: String!
+  MediaType: String!
   episode: Episode!
   movie: Movie!
   season: Season!
   series: Series!
-  type: String!
 }
 
 type MediaAdditionalInfo {
-  genre: String!
+  emdiaOriginalLanguage: String!
+  mediaGenre: String!
+  mediaOriginCountry: String!
+  mediaStatus: String!
   movie: Movie!
-  originCountry: String!
-  originalLanguage: String!
   series: Series!
-  status: String!
 }
 
 type MediaBasicInfo {
   episode: Episode!
+  mediaPlotSummary: String!
+  mediaReleaseDate: Float!
+  mediaTitle: String!
   movie: Movie!
-  plotSummary: String!
-  releaseDate: Float!
   season: Season!
   series: Series!
-  title: String!
 }
 
 type MediaImage {
-  mediaImageEpisode: Episode!
-  mediaImageMovie: Movie!
-  mediaImageSeason: Season!
-  mediaImageSeries: Series!
+  episode: Episode!
   mediaImageType: String!
   mediaImageUrl: String!
+  movie: Movie!
+  season: Season!
+  series: Series!
 }
 
 type MediaImageIdOutput {
@@ -264,16 +264,15 @@ type MediaImageIdOutput {
 }
 
 input MediaImageUploadInput {
-  base64: String!
-  mime: String!
-  type: String!
+  mediaImageBase64: String!
+  mediaImageMime: String!
+  mediaImageType: String!
 }
 
 type Movie {
   achievementInfo: AchievementInfo!
   externalLink: ExternalLink!
   financialInfo: FinancialInfo!
-  isFree: Boolean!
   manager: Manager!
   media: Media!
   mediaAdditionalInfo: MediaAdditionalInfo!
@@ -281,7 +280,8 @@ type Movie {
   mediaImage: MediaImage!
   movieCast: MovieCast!
   movieCrew: MovieCrew!
-  priceInDollar: Float!
+  movieIsFree: Boolean!
+  moviePriceInDollar: Float!
   review: Review!
   video: Video!
 }
@@ -367,14 +367,13 @@ type Mutation {
 }
 
 type ProfileInfo {
-  DOB: Float!
-  address: String!
-  contactNumber: String!
-  firstName: String!
-  gender: String!
-  lastName: String!
   manager: Manager!
-  profilePic: String!
+  participantAddress: String!
+  participantContactNumber: String!
+  participantDOB: Float!
+  participantFirstName: String!
+  participantGender: String!
+  participantLastName: String!
   user: User!
 }
 
@@ -402,10 +401,10 @@ type Query {
 }
 
 type Review {
-  comment: String!
   episode: Episode!
   movie: Movie!
-  rating: Float!
+  reviewComment: String!
+  reviewRating: Float!
   series: Series!
   user: User!
 }
@@ -424,17 +423,17 @@ type Series {
   achievementInfo: AchievementInfo!
   externalLink: ExternalLink!
   financialInfo: FinancialInfo!
-  isFree: Float!
   manager: Manager!
   media: Media!
   mediaAdditionalInfo: MediaAdditionalInfo!
   mediaBasicInfo: MediaBasicInfo!
   mediaImage: MediaImage!
-  priceInDollar: Float!
   review: Review!
   season: Season!
   seriesCast: SeriesCast!
   seriesCrew: SeriesCrew!
+  seriesIsFree: Float!
+  seriesPriceInDollar: Float!
   video: Video!
 }
 
@@ -577,10 +576,10 @@ type User {
 }
 
 type UserActivity {
-  action: String!
-  contentId: String!
-  status: String!
   user: User!
+  userActivityAction: String!
+  userActivityContentId: String!
+  userActivityStatus: String!
 }
 
 input UserLoginInput {
@@ -595,14 +594,14 @@ input UserRegisterInput {
 
 type Video {
   episode: Episode!
-  height: Float!
   managerId: String!
-  mime: String!
   movie: Movie!
-  quality: String!
-  runTime: Float!
   season: Season!
   series: Series!
-  sizeInKb: Float!
-  width: Float!
+  videoHeight: Float!
+  videoMime: String!
+  videoQuality: String!
+  videoRunTime: Float!
+  videoSizeInKb: Float!
+  videoWidth: Float!
 }

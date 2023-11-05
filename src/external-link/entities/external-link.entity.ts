@@ -7,32 +7,32 @@ import { Series } from '@/series/entities/series.entity';
 import { Movie } from '@/movie/entities/movie.entity';
 
 @ObjectType()
-@Entity({ name: 'external_link' })
+@Entity()
 export class ExternalLink extends EntityBase {
   @Field()
-  @VarcharColumn({ name: 'resource_name' })
-  resourceName: string;
+  @VarcharColumn()
+  elResourceName: string;
 
   @Field()
-  @VarcharColumn({ name: 'url' })
-  url: string;
+  @VarcharColumn()
+  elUrl: string;
 
   @Field()
-  @VarcharColumn({ name: 'type' })
-  type: string; // TODO: should be change into ENUM in future
+  @VarcharColumn()
+  elType: string; // TODO: should be change into ENUM in future
 
   @Field(() => Episode)
   @ManyToOne(() => Episode, (episode) => episode.review, { nullable: true })
-  @JoinColumn({ name: 'episode_id' })
+  @JoinColumn()
   episode: Episode;
 
   @Field(() => Series)
   @ManyToOne(() => Series, (series) => series.review, { nullable: true })
-  @JoinColumn({ name: 'series_id' })
+  @JoinColumn()
   series: Series;
 
   @Field(() => Movie)
   @ManyToOne(() => Movie, (movie) => movie.review, { nullable: true })
-  @JoinColumn({ name: 'movie_id' })
+  @JoinColumn()
   movie: Movie;
 }

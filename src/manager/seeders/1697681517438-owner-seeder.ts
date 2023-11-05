@@ -1,7 +1,7 @@
 import { MigrationInterface } from 'typeorm';
 import { ManagerInputDto } from '../dto/manager.input.dto';
 import { Manager } from '../entities/manager.entity';
-import { AccountStatusEnum } from '../enum/manager.enum';
+import { ManagerAccountStatusEnum } from '../enum/manager.enum';
 
 export class OwnerSeeder1697681517438 implements MigrationInterface {
   public async up(): Promise<void> {
@@ -14,7 +14,7 @@ export class OwnerSeeder1697681517438 implements MigrationInterface {
 
     manager.email = input.email;
     manager.password = input.password;
-    manager.accountStatus = AccountStatusEnum.ACTIVE;
+    manager.accountStatus = ManagerAccountStatusEnum.ACTIVE;
 
     await manager.save();
   }

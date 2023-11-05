@@ -12,9 +12,9 @@ export class ErrorLogService {
     try {
       const errorLog = new ErrorLog();
 
-      errorLog.statusCode = input.statusCode;
-      errorLog.message = input.message;
-      errorLog.type = input.type;
+      errorLog.errorLogStatusCode = input.statusCode;
+      errorLog.errorLogMessage = input.message;
+      errorLog.errorLogType = input.type;
 
       return errorLog;
     } catch (error) {

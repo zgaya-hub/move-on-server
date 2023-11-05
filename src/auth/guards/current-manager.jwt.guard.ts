@@ -2,11 +2,10 @@ import { BadRequestException, ExecutionContext, Injectable, UnauthorizedExceptio
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from '../auth.service';
-import { ManagerService } from '../../manager/manager.service';
 
 @Injectable()
 export class JwtManagerAuthGuard extends AuthGuard('jwt') {
-  constructor(private readonly authService: AuthService, private readonly managerService: ManagerService) {
+  constructor(private readonly authService: AuthService) {
     super();
   }
 

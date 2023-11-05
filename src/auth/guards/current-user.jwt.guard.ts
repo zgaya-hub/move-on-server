@@ -1,24 +1,28 @@
-import { BadRequestException, ExecutionContext, createParamDecorator } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import { BadRequestException, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
+import { AuthGuard } from '@nestjs/passport';
+import { AuthService } from '../auth.service';
 
-export const CurrentUser = createParamDecorator(async (_data: unknown, context: ExecutionContext) => {
-  const jwtService = new JwtService();
+@Injectable()
+export class JwtUserAuthGuard extends AuthGuard('jwt') {
+  constructor(private readonly authService: AuthService) {
+    super();
+  }
 
-  const gqlContext = GqlExecutionContext.create(context);
-  const ctx = gqlContext.getContext();
+  async canActivate(context: ExecutionContext) {
+    const gqlContext = GqlExecutionContext.create(context);
+    const ctx = gqlContext.getContext();
 
-  const authHeader = ctx.req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith('Bearer ')) throw new BadRequestException('Unauthenticated');
+    const authHeader = ctx.req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) throw new BadRequestException('Invalid authorization specified');
 
-  const token = authHeader.split(' ')[1];
+    const token = authHeader.split(' ')[1];
 
-  const decodedData = jwtService.decode(token);
-  console.log(decodedData);
+    const tokenUser: TokenUserType = this.authService.decodeToken(token);
+    if (!tokenUser) throw new UnauthorizedException('Invalid authorization specified');
 
-  const user: CurrentUserType = {
-    ID: decodedData['ID'],
-    email: decodedData['email'],
-  };
-  return user;
-});
+    await this.authService.authenticateUser(tokenUser.email);
+
+    return true;
+  }
+}

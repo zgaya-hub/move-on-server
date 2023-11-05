@@ -17,17 +17,17 @@ import { MediaAdditionalInfo } from '@/media-additional-info/entities/media-addi
 import { MediaBasicInfo } from '@/media-basic-info/entities/media-basic-info.entity';
 
 @ObjectType()
-@Entity({ name: 'series' })
+@Entity()
 export class Series extends EntityBase {
   // have default value
   @Field()
-  @DecimalColumn({ name: 'price_in_dollar' })
-  priceInDollar: number;
+  @DecimalColumn()
+  seriesPriceInDollar: number;
 
   // have default value
   @Field()
-  @TinyintColumn({ name: 'is_free', default: true })
-  isFree: number;
+  @TinyintColumn({ default: true })
+  seriesIsFree: number;
 
   @Field(() => AchievementInfo)
   @OneToOne(() => AchievementInfo, (achievementInfo) => achievementInfo.series)
@@ -51,7 +51,7 @@ export class Series extends EntityBase {
 
   @Field(() => Manager)
   @ManyToOne(() => Manager, (manager) => manager.series)
-  @JoinColumn({ name: 'manager_id' })
+  @JoinColumn()
   manager: Manager;
 
   @Field(() => Media)
@@ -67,7 +67,7 @@ export class Series extends EntityBase {
   seriesCrew: SeriesCrew[];
 
   @Field(() => MediaImage)
-  @OneToMany(() => MediaImage, (mediaImage) => mediaImage.mediaImageSeries)
+  @OneToMany(() => MediaImage, (mediaImage) => mediaImage.series)
   mediaImage: MediaImage[];
 
   @Field(() => ExternalLink)

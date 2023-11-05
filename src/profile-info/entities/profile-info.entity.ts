@@ -7,48 +7,43 @@ import { EnumColumn, IntColumn, JoinColumn, TextColumn, VarcharColumn } from '@/
 import { GenderEnum } from '@/common/enum/common.enum';
 
 @ObjectType()
-@Entity({ name: 'profile_info' })
+@Entity()
 @Index('unique_user_manager', ['user', 'manager'], { unique: true })
 export class ProfileInfo extends EntityBase {
   @Field()
-  @VarcharColumn({ name: 'first_name' })
-  firstName: string;
+  @VarcharColumn()
+  participantFirstName: string;
 
   @Field()
-  @VarcharColumn({ name: 'last_name' })
-  lastName: string;
+  @VarcharColumn()
+  participantLastName: string;
 
   @Field()
-  @VarcharColumn({ name: 'contact_number' })
-  contactNumber: string;
+  @VarcharColumn()
+  participantContactNumber: string;
 
   @Field()
-  @IntColumn({ name: 'dob' })
-  DOB: number;
+  @IntColumn()
+  participantDOB: number;
 
   @Field()
-  @EnumColumn({ name: 'gender', enum: GenderEnum })
-  gender: GenderEnum;
+  @EnumColumn({ enum: GenderEnum })
+  participantGender: GenderEnum;
 
   // if user is not entered then we get it from (API by IP)
   @Field()
-  @TextColumn({ name: 'address' })
-  address: string;
-
-  // if user not send then should create by name
-  @Field()
-  @VarcharColumn({ name: 'profile_pic' })
-  profilePic: string;
+  @TextColumn()
+  participantAddress: string;
 
   // JOIN COLUMNS //
 
   @Field(() => Manager)
   @OneToOne(() => Manager, (manager) => manager.profileInfo, { nullable: true })
-  @JoinColumn({ name: 'manager_id' })
+  @JoinColumn()
   manager: Manager;
 
   @Field(() => User)
   @OneToOne(() => User, (user) => user.profileInfo, { nullable: true })
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn()
   user: User;
 }
