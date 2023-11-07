@@ -1,7 +1,7 @@
-import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { VideoInputDto } from './dto/video.input.dto';
 import { ShortDetectorPipe } from './short-detector/short-detector.pipe';
-import { UseGuards, UsePipes } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common';
 import { VideoValidatorPipe } from './video-validator/video-validator.pipe';
 import { VideoOutputDto } from './dto/video.output.dto';
 import { VideoService } from './video.service';
@@ -22,7 +22,7 @@ export class VideoResolver {
     try {
       return this.videoService.getS3UploadVideoUrl(input, manager);
     } catch (error) {
-      return error;
+      throw new Error(error);
     }
   }
 }

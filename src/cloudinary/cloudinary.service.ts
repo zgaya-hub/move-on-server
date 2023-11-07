@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CloudinaryOutputDto } from './dto/cloudinary.output.dto';
 import { UploadApiOptions, UploadApiResponse, v2 as cloudinary } from 'cloudinary';
 import { v4 as uuid } from 'uuid';
-import { Readable, Transform } from 'stream';
+import { Transform, PassThrough } from 'stream';
 import { CloudinaryInputDto } from './dto/cloudinary.input.dto';
 import { ConfigService } from '@nestjs/config';
 import { SingleBar } from 'cli-progress';
@@ -14,7 +14,6 @@ export class CloudinaryService {
 
   constructor(private configService: ConfigService) {
     this.progressBar = new SingleBar({});
-
     cloudinary.config({
       cloud_name: this.configService.get('CLOUDINARY_CLOUD_NAME'),
       api_key: this.configService.get('CLOUDINARY_API_KEY'),
@@ -25,15 +24,6 @@ export class CloudinaryService {
   private async uploadToCloudinary(options: UploadApiOptions, imageBuffer: Buffer): Promise<UploadApiResponse> {
     return new Promise<UploadApiResponse>((resolve, reject) => {
       this.progressBar.start(100, 0);
-
-      const uploadStream = cloudinary.uploader.upload_stream(options, (err, res) => {
-        if (err) {
-          reject(err);
-        } else {
-          this.progressBar.stop();
-          resolve(res);
-        }
-      });
 
       const progressTransform = new Transform({
         transform(chunk, _, callback) {
@@ -46,7 +36,18 @@ export class CloudinaryService {
         this.showProgress(imageBuffer.length, progress);
       });
 
-      const imageStream = this.createImageStream(imageBuffer);
+      const uploadStream = cloudinary.uploader.upload_stream(options, (err, res) => {
+        if (err) {
+          reject(err);
+        } else {
+          this.progressBar.stop();
+          resolve(res);
+        }
+      });
+
+      const imageStream = new PassThrough({ highWaterMark: 64 });
+      imageStream.end(imageBuffer);
+
       imageStream.pipe(progressTransform).pipe(uploadStream);
     });
   }
@@ -67,15 +68,6 @@ export class CloudinaryService {
     } catch (error) {
       throw new Error(error);
     }
-  }
-
-  createImageStream(imageBuffer: Buffer) {
-    const imageStream = new Readable({
-      highWaterMark: 64,
-    });
-    imageStream.push(imageBuffer);
-    imageStream.push(null);
-    return imageStream;
   }
 
   showProgress(totalBytes: number, bytesRead: number) {
