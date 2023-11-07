@@ -18,7 +18,7 @@ export class VideoService {
 
   async getS3UploadVideoUrl(
     input: VideoInputDto.GetS3UploadVdeoUrlInput,
-    currentManager?: CurrentManagerType,
+    currentManager: CurrentManagerType,
   ): Promise<VideoOutputDto.GetS3UploadVdeoUrlOutput> {
     const signedUrl = await this.awsS3Service.generateMovieUploadUrl(input.mime, input.mime, currentManager);
     const video = await this.createVideoInfo(input, currentManager);
