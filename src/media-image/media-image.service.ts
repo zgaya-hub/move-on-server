@@ -12,14 +12,14 @@ export class MediaImageService {
   @Transactional()
   async createMediaImage(input: MediaImageInputDto.MediaImageCreateInput): Promise<MediaImageOutputDto.MediaImageIdOutput> {
     try {
-      const mediaImage = new MediaImage();
+      const newMediaImage = new MediaImage();
 
-      mediaImage.mediaImageType = input.mediaImageType;
-      mediaImage.mediaImageUrl = input.mediaImageUrl;
+      newMediaImage.mediaImageType = input.mediaImageType;
+      newMediaImage.mediaImageUrl = input.mediaImageUrl;
 
-      await mediaImage.save();
+      await newMediaImage.save();
 
-      return { mediaImageId: mediaImage.ID };
+      return { mediaImageId: newMediaImage.ID };
     } catch (error) {
       throw new Error(error);
     }
@@ -27,10 +27,10 @@ export class MediaImageService {
 
   async uploadMediaImage(input: MediaImageInputDto.MediaImageUploadInput): Promise<MediaImageOutputDto.MediaImageIdOutput> {
     try {
-      const a = await this.cloudinaryService.uploadImageOnCloudinary({ base64: input.mediaImageBase64 });
-      const mediaImageId = await this.createMediaImage({ mediaImageType: input.mediaImageType, mediaImageUrl: a.imageUrl });
+      const uploadedImage = await this.cloudinaryService.uploadImageOnCloudinary({ base64: input.mediaImageBase64 });
+      const createdMediaImage = await this.createMediaImage({ mediaImageType: input.mediaImageType, mediaImageUrl: uploadedImage.imageUrl });
 
-      return mediaImageId;
+      return createdMediaImage;
     } catch (error) {
       throw new Error(error);
     }
