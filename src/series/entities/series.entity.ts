@@ -12,7 +12,6 @@ import { ExternalLink } from '@/external-link/entities/external-link.entity';
 import { Review } from '@/review/entities/review.entity';
 import { AchievementInfo } from '@/achievement-info/entities/achievement-info.entity';
 import { FinancialInfo } from '@/financial-info/entities/financial-info.entity';
-import { Video } from '@/video/entities/video.entity';
 import { MediaAdditionalInfo } from '@/media-additional-info/entities/media-additional-info.entity';
 import { MediaBasicInfo } from '@/media-basic-info/entities/media-basic-info.entity';
 
@@ -45,18 +44,10 @@ export class Series extends EntityBase {
   @OneToOne(() => MediaBasicInfo, (mediaBasicInfo) => mediaBasicInfo.series)
   mediaBasicInfo: MediaBasicInfo;
 
-  @Field(() => Video)
-  @OneToOne(() => Video, (video) => video.series)
-  video: Video;
-
   @Field(() => Manager)
   @ManyToOne(() => Manager, (manager) => manager.series)
   @JoinColumn()
   manager: Manager;
-
-  @Field(() => Media)
-  @OneToMany(() => Media, (media) => media.series)
-  media: Media[];
 
   @Field(() => SeriesCast)
   @OneToMany(() => SeriesCast, (seriesCast) => seriesCast.series)

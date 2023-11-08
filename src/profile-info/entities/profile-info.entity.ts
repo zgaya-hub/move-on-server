@@ -1,5 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { Entity, Index, OneToOne } from 'typeorm';
+import { Entity, OneToOne } from 'typeorm';
 import { Manager } from '@/manager/entities/manager.entity';
 import { EntityBase } from '@/base/entity.base';
 import { User } from '@/user/entities/user.entity';
@@ -8,7 +8,6 @@ import { GenderEnum } from '@/common/enum/common.enum';
 
 @ObjectType()
 @Entity()
-@Index('unique_user_manager', ['user', 'manager'], { unique: true })
 export class ProfileInfo extends EntityBase {
   @Field()
   @VarcharColumn()

@@ -39,6 +39,7 @@ import { MediaAdditionalInfoModule } from './media-additional-info/media-additio
 import { MediaBasicInfoModule } from './media-basic-info/media-basic-info.module';
 import { RadisModule } from './radis/radis.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { TrailerModule } from './trailer/trailer.module';
 
 @Module({
   imports: [
@@ -109,6 +110,7 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
     MediaBasicInfoModule,
     RadisModule,
     CloudinaryModule,
+    TrailerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
