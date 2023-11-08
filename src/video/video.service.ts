@@ -8,9 +8,8 @@ import { Transactional } from 'typeorm-transactional';
 import { MovierMediaType } from '../common/types/Common.type';
 import { VideoRepository } from './video.repository';
 import { Movie } from '../movie/entities/movie.entity';
-import { Series } from '../series/entities/series.entity';
-import { Season } from '../season/entities/season.entity';
 import { Episode } from '../episode/entities/episode.entity';
+import { Trailer } from '../trailer/entities/trailer.entity';
 
 @Injectable()
 export class VideoService {
@@ -54,9 +53,8 @@ export class VideoService {
       if (!video) throw new NotFoundException('Invalid Video specified');
 
       if (media instanceof Movie) video.movie = media;
-      if (media instanceof Series) video.series = media;
-      if (media instanceof Season) video.season = media;
       if (media instanceof Episode) video.episode = media;
+      if (media instanceof Trailer) video.trailer = media;
 
       await media.save();
 

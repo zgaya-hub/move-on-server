@@ -31,9 +31,9 @@ export class Episode extends EntityBase {
   @OneToOne(() => Video, (video) => video.episode)
   video: Video;
 
-  @Field(() => [Media])
-  @OneToMany(() => Media, (media) => media.episode)
-  media: Media[];
+  @Field(() => Media)
+  @OneToOne(() => Media, (media) => media.episode)
+  media: Media;
 
   @Field(() => [MediaImage])
   @OneToMany(() => MediaImage, (mediaImage) => mediaImage.episode)

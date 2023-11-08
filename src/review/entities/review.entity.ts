@@ -6,6 +6,7 @@ import { User } from '@/user/entities/user.entity';
 import { Episode } from '@/episode/entities/episode.entity';
 import { Series } from '@/series/entities/series.entity';
 import { Movie } from '@/movie/entities/movie.entity';
+import { Trailer } from '../../trailer/entities/trailer.entity';
 
 @ObjectType()
 @Entity()
@@ -37,4 +38,9 @@ export class Review extends EntityBase {
   @ManyToOne(() => Movie, (movie) => movie.review, { nullable: true })
   @JoinColumn()
   movie: Movie;
+
+  @Field(() => Trailer)
+  @ManyToOne(() => Trailer, (trailer) => trailer.review, { nullable: true })
+  @JoinColumn()
+  trailer: Trailer;
 }

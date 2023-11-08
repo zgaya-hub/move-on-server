@@ -6,6 +6,7 @@ import { Series } from '@/series/entities/series.entity';
 import { EntityBase } from '@/base/entity.base';
 import { Season } from '@/season/entities/season.entity';
 import { Episode } from '@/episode/entities/episode.entity';
+import { Trailer } from '../../trailer/entities/trailer.entity';
 
 @ObjectType()
 @Entity()
@@ -42,4 +43,9 @@ export class MediaBasicInfo extends EntityBase {
   @OneToOne(() => Episode, (episode) => episode.mediaBasicInfo, { nullable: true })
   @JoinColumn()
   episode: Episode;
+
+  @Field(() => Trailer)
+  @OneToOne(() => Trailer, (trailer) => trailer.mediaBasicInfo, { nullable: true })
+  @JoinColumn()
+  trailer: Trailer;
 }
