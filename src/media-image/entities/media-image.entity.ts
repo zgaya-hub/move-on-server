@@ -7,7 +7,7 @@ import { Season } from '@/season/entities/season.entity';
 import { Episode } from '@/episode/entities/episode.entity';
 import { MediaImageTypeEnum } from '../enum/media-image.enum';
 import { EntityBase } from '@/base/entity.base';
-import { Trailer } from '../../trailer/entities/trailer.entity';
+import { Trailer } from '@/trailer/entities/trailer.entity';
 
 @ObjectType()
 @Entity()

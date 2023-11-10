@@ -11,5 +11,6 @@ import { RedisModule } from '@liaoliaots/nestjs-redis';
       },
     }),
   ],
+  exports: [RadisService],
 })
 export class RadisModule {}

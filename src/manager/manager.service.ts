@@ -28,7 +28,9 @@ export class ManagerService {
 
       await this.managerRepository.save(manager);
       return manager;
-    } catch (error) {}
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async managerLogin(input: ManagerInputDto.ManagerLoginInput): Promise<Manager> {

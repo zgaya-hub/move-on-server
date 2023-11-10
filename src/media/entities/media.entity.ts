@@ -4,7 +4,7 @@ import { Movie } from '@/movie/entities/movie.entity';
 import { EntityBase } from '@/base/entity.base';
 import { Episode } from '@/episode/entities/episode.entity';
 import { JoinColumn, VarcharColumn } from '@/decorator/entity/entity.decorator';
-import { Trailer } from '../../trailer/entities/trailer.entity';
+import { Trailer } from '@/trailer/entities/trailer.entity';
 
 @ObjectType()
 @Entity()

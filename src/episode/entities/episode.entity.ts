@@ -8,7 +8,7 @@ import { ExternalLink } from '@/external-link/entities/external-link.entity';
 import { Review } from '@/review/entities/review.entity';
 import { IntColumn } from '@/decorator/entity/entity.decorator';
 import { MediaBasicInfo } from '@/media-basic-info/entities/media-basic-info.entity';
-import { Video } from '../../video/entities/video.entity';
+import { Video } from '@/video/entities/video.entity';
 
 @ObjectType()
 @Entity()

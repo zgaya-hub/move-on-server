@@ -1,11 +1,11 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { EnumColumn, IntColumn, JoinColumn, VarcharColumn } from '@/decorator/entity/entity.decorator';
+import { EnumColumn, IntColumn, JoinColumn, TinyintColumn, VarcharColumn } from '@/decorator/entity/entity.decorator';
 import { Entity, OneToOne } from 'typeorm';
 import { Movie } from '@/movie/entities/movie.entity';
 import { EntityBase } from '@/base/entity.base';
 import { VideoQualityEnum } from '../enum/video.enum';
-import { Episode } from '../../episode/entities/episode.entity';
-import { Trailer } from '../../trailer/entities/trailer.entity';
+import { Episode } from '@/episode/entities/episode.entity';
+import { Trailer } from '@/trailer/entities/trailer.entity';
 
 @ObjectType()
 @Entity()
@@ -40,6 +40,11 @@ export class Video extends EntityBase {
   @Field()
   @IntColumn()
   videoRunTime: number;
+
+  // in milliseconds
+  @Field()
+  @TinyintColumn({ default: false })
+  isUsed: boolean;
 
   @Field(() => Movie)
   @OneToOne(() => Movie, (movie) => movie.video, { nullable: true })
