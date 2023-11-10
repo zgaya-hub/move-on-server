@@ -8,7 +8,7 @@ import { EnumColumn, IntColumn, VarcharColumn } from '@/decorator/entity/entity.
 import { ProfileInfo } from '@/profile-info/entities/profile-info.entity';
 import { ManagerActivity } from '@/manager-activity/entities/manager-activity.entity';
 import { passwordHash } from '@/utils/bcrypt';
-import { Trailer } from '../../trailer/entities/trailer.entity';
+import { Trailer } from '@/trailer/entities/trailer.entity';
 
 @ObjectType()
 @Entity()

@@ -6,7 +6,7 @@ import { User } from '@/user/entities/user.entity';
 import { Episode } from '@/episode/entities/episode.entity';
 import { Series } from '@/series/entities/series.entity';
 import { Movie } from '@/movie/entities/movie.entity';
-import { Trailer } from '../../trailer/entities/trailer.entity';
+import { Trailer } from '@/trailer/entities/trailer.entity';
 
 @ObjectType()
 @Entity()

@@ -5,9 +5,12 @@ export namespace VideoOutputDto {
   @ObjectType()
   export class GetS3UploadVdeoUrlOutput {
     @Field(() => String)
-    url: string;
+    signedUrl: string;
 
     @Field(() => String)
-    videoInfoId: string;
+    videoId: string;
+
+    @Field(() => String)
+    signedUrlKeyId: string;
   }
 }

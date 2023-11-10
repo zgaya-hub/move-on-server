@@ -15,14 +15,11 @@ import { Trailer } from '../trailer/entities/trailer.entity';
 export class VideoService {
   constructor(private readonly awsS3Service: AwsS3Service, private readonly videoRepository: VideoRepository) {}
 
-  async getS3UploadVideoUrl(
-    input: VideoInputDto.GetS3UploadVdeoUrlInput,
-    currentManager: CurrentManagerType,
-  ): Promise<VideoOutputDto.GetS3UploadVdeoUrlOutput> {
-    const signedUrl = await this.awsS3Service.generateMovieUploadUrl(input.mime, input.mime, currentManager);
+  async getS3UploadVideoUrl(input: VideoInputDto.GetS3UploadVdeoUrlInput, currentManager: CurrentManagerType): Promise<VideoOutputDto.GetS3UploadVdeoUrlOutput> {
+    const signedUrl = await this.awsS3Service.generateMovieUploadUrl(input.mime, currentManager);
     const video = await this.createVideoInfo(input, currentManager);
 
-    return { url: signedUrl, videoInfoId: video.ID };
+    return { ...signedUrl, videoId: video.ID };
   }
 
   @Transactional()

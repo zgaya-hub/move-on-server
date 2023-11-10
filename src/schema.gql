@@ -19,6 +19,7 @@ type Cast {
   cineast: Cineast!
   movieCast: MovieCast!
   seriesCast: SeriesCast!
+  trailer: [Trailer!]!
 }
 
 type Cineast {
@@ -85,11 +86,6 @@ input CreateMediaAdditionalInfoInput {
   exampleField: Int!
 }
 
-input CreateMediaBasicInfoInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
 input CreateMediaInput {
   """Example field (placeholder)"""
   exampleField: Int!
@@ -135,6 +131,11 @@ input CreateSeriesInput {
   exampleField: Int!
 }
 
+input CreateTrailerInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 input CreateUserActivityInput {
   """Example field (placeholder)"""
   exampleField: Int!
@@ -145,12 +146,13 @@ type Crew {
   crewRole: String!
   movieCrew: MovieCrew!
   seriesCrew: SeriesCrew!
+  trailer: [Trailer!]!
 }
 
 type Episode {
   episodeNo: Float!
   externalLink: [ExternalLink!]!
-  media: [Media!]!
+  media: Media!
   mediaBasicInfo: MediaBasicInfo!
   mediaImage: [MediaImage!]!
   review: [Review!]!
@@ -171,6 +173,7 @@ type ExternalLink {
   episode: Episode!
   movie: Movie!
   series: Series!
+  trailer: Trailer!
 }
 
 type FinancialInfo {
@@ -190,8 +193,9 @@ input GetS3UploadVdeoUrlInput {
 }
 
 type GetS3UploadVdeoUrlOutput {
-  url: String!
-  videoInfoId: String!
+  signedUrl: String!
+  signedUrlKeyId: String!
+  videoId: String!
 }
 
 type Manager {
@@ -203,6 +207,7 @@ type Manager {
   password: String!
   profileInfo: ProfileInfo!
   series: Series!
+  trailer: [Trailer!]!
 }
 
 type ManagerActivity {
@@ -224,17 +229,15 @@ input ManagerRegisterInput {
 
 type Media {
   MediaS3ObjectKey: String!
-  MediaType: String!
   episode: Episode!
   movie: Movie!
-  season: Season!
-  series: Series!
+  trailer: Trailer!
 }
 
 type MediaAdditionalInfo {
-  emdiaOriginalLanguage: String!
   mediaGenre: String!
   mediaOriginCountry: String!
+  mediaOriginalLanguage: String!
   mediaStatus: String!
   movie: Movie!
   series: Series!
@@ -248,6 +251,7 @@ type MediaBasicInfo {
   movie: Movie!
   season: Season!
   series: Series!
+  trailer: Trailer!
 }
 
 type MediaImage {
@@ -257,6 +261,7 @@ type MediaImage {
   movie: Movie!
   season: Season!
   series: Series!
+  trailer: Trailer!
 }
 
 type MediaImageIdOutput {
@@ -308,7 +313,6 @@ type Mutation {
   createManagerActivity(createManagerActivityInput: CreateManagerActivityInput!): ManagerActivity!
   createMedia(createMediaInput: CreateMediaInput!): Media!
   createMediaAdditionalInfo(createMediaAdditionalInfoInput: CreateMediaAdditionalInfoInput!): MediaAdditionalInfo!
-  createMediaBasicInfo(createMediaBasicInfoInput: CreateMediaBasicInfoInput!): MediaBasicInfo!
   createMovieCast(createMovieCastInput: CreateMovieCastInput!): MovieCast!
   createMovieCrew(createMovieCrewInput: CreateMovieCrewInput!): MovieCrew!
   createProfileInfo(createProfileInfoInput: CreateProfileInfoInput!): ProfileInfo!
@@ -317,6 +321,7 @@ type Mutation {
   createSeries(createSeriesInput: CreateSeriesInput!): Series!
   createSeriesCast(createSeriesCastInput: CreateSeriesCastInput!): SeriesCast!
   createSeriesCrew(createSeriesCrewInput: CreateSeriesCrewInput!): SeriesCrew!
+  createTrailer(createTrailerInput: CreateTrailerInput!): Trailer!
   createUserActivity(createUserActivityInput: CreateUserActivityInput!): UserActivity!
   getS3UploadVideoUrl(GetS3UploadVdeoUrlInput: GetS3UploadVdeoUrlInput!): GetS3UploadVdeoUrlOutput!
   managerLogin(UserLoginInput: ManagerLoginInput!): AuthTokenOutput!
@@ -331,7 +336,6 @@ type Mutation {
   removeManagerActivity(id: Int!): ManagerActivity!
   removeMedia(id: Int!): Media!
   removeMediaAdditionalInfo(id: Int!): MediaAdditionalInfo!
-  removeMediaBasicInfo(id: Int!): MediaBasicInfo!
   removeMovieCast(id: Int!): MovieCast!
   removeMovieCrew(id: Int!): MovieCrew!
   removeProfileInfo(id: Int!): ProfileInfo!
@@ -351,7 +355,6 @@ type Mutation {
   updateManagerActivity(updateManagerActivityInput: UpdateManagerActivityInput!): ManagerActivity!
   updateMedia(updateMediaInput: UpdateMediaInput!): Media!
   updateMediaAdditionalInfo(updateMediaAdditionalInfoInput: UpdateMediaAdditionalInfoInput!): MediaAdditionalInfo!
-  updateMediaBasicInfo(updateMediaBasicInfoInput: UpdateMediaBasicInfoInput!): MediaBasicInfo!
   updateMovieCast(updateMovieCastInput: UpdateMovieCastInput!): MovieCast!
   updateMovieCrew(updateMovieCrewInput: UpdateMovieCrewInput!): MovieCrew!
   updateProfileInfo(updateProfileInfoInput: UpdateProfileInfoInput!): ProfileInfo!
@@ -388,7 +391,6 @@ type Query {
   managerActivity(id: Int!): ManagerActivity!
   media(id: Int!): Media!
   mediaAdditionalInfo(id: Int!): MediaAdditionalInfo!
-  mediaBasicInfo(id: Int!): MediaBasicInfo!
   movieCast(id: Int!): MovieCast!
   movieCrew(id: Int!): MovieCrew!
   profileInfo(id: Int!): ProfileInfo!
@@ -406,17 +408,16 @@ type Review {
   reviewComment: String!
   reviewRating: Float!
   series: Series!
+  trailer: Trailer!
   user: User!
 }
 
 type Season {
   episode: Episode!
-  media: Media!
   mediaBasicInfo: MediaBasicInfo!
   mediaImage: MediaImage!
   seasonNo: Float!
   series: Series!
-  video: Video!
 }
 
 type Series {
@@ -424,7 +425,6 @@ type Series {
   externalLink: ExternalLink!
   financialInfo: FinancialInfo!
   manager: Manager!
-  media: Media!
   mediaAdditionalInfo: MediaAdditionalInfo!
   mediaBasicInfo: MediaBasicInfo!
   mediaImage: MediaImage!
@@ -434,7 +434,6 @@ type Series {
   seriesCrew: SeriesCrew!
   seriesIsFree: Float!
   seriesPriceInDollar: Float!
-  video: Video!
 }
 
 type SeriesCast {
@@ -445,6 +444,18 @@ type SeriesCast {
 type SeriesCrew {
   crew: Crew!
   series: Series!
+}
+
+type Trailer {
+  cast: [Cast!]!
+  crew: Crew!
+  externalLink: [ExternalLink!]!
+  manager: Manager!
+  media: Media!
+  mediaBasicInfo: MediaBasicInfo!
+  mediaImage: [MediaImage!]!
+  review: [Review!]!
+  video: Video!
 }
 
 input UpdateAchievementInfoInput {
@@ -496,12 +507,6 @@ input UpdateManagerActivityInput {
 }
 
 input UpdateMediaAdditionalInfoInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
-}
-
-input UpdateMediaBasicInfoInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!
@@ -594,10 +599,10 @@ input UserRegisterInput {
 
 type Video {
   episode: Episode!
+  isUsed: Boolean!
   managerId: String!
   movie: Movie!
-  season: Season!
-  series: Series!
+  trailer: Trailer!
   videoHeight: Float!
   videoMime: String!
   videoQuality: String!

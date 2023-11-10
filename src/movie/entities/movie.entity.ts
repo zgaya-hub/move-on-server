@@ -20,7 +20,7 @@ import { MediaAdditionalInfo } from '@/media-additional-info/entities/media-addi
 export class Movie extends EntityBase {
   // have default value
   @Field()
-  @DecimalColumn()
+  @DecimalColumn({ default: 0 })
   moviePriceInDollar: number;
 
   // have default value

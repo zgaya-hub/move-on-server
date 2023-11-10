@@ -4,9 +4,9 @@ import { CastRoleEnum } from '../enum/cast.enum';
 import { MovieCast } from '@/movie-cast/entities/movie-cast.entity';
 import { SeriesCast } from '@/series-cast/entities/series-cast.entity';
 import { EntityBase } from '@/base/entity.base';
-import { EnumColumn } from '@/decorator/entity/entity.decorator';
+import { EnumColumn, JoinColumn } from '@/decorator/entity/entity.decorator';
 import { Cineast } from '@/cineast/entities/cineast.entity';
-import { Trailer } from '../../trailer/entities/trailer.entity';
+import { Trailer } from '@/trailer/entities/trailer.entity';
 
 @ObjectType()
 @Entity()
@@ -25,6 +25,7 @@ export class Cast extends EntityBase {
 
   @Field(() => [Trailer])
   @ManyToMany(() => Trailer, (trailer) => trailer.cast)
+  @JoinColumn()
   trailer: Trailer[];
 
   @Field(() => Cineast)
