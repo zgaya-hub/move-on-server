@@ -1,26 +1,30 @@
 import { Injectable } from '@nestjs/common';
-import { CreateAchievementInfoInput } from './dto/create-achievement-info.input';
-import { UpdateAchievementInfoInput } from './dto/update-achievement-info.input';
+import { AchievementInfoInputDto } from './dto/achievement-info.input.dto';
+import { AchievementInfo } from './entities/achievement-info.entity';
+import { MovierMediaType } from '../common/types/Common.type';
+import { Movie } from '../movie/entities/movie.entity';
+import { Series } from '../series/entities/series.entity';
+import { Transactional } from 'typeorm-transactional';
 
 @Injectable()
 export class AchievementInfoService {
-  create(createAchievementInfoInput: CreateAchievementInfoInput) {
-    return 'This action adds a new achievementInfo';
-  }
+  @Transactional()
+  async createAchievementInfo(input: AchievementInfoInputDto.CreateAchievementInfoInput, media: MovierMediaType): Promise<AchievementInfo> {
+    try {
+      const achievementInfo = new AchievementInfo();
 
-  findAll() {
-    return `This action returns all achievementInfo`;
-  }
+      achievementInfo.mediaIMDbRating = input.IMDbRating;
+      achievementInfo.mediaOMDbRating = input.OMDbRating;
+      achievementInfo.mediaAward = input.Award;
 
-  findOne(id: number) {
-    return `This action returns a #${id} achievementInfo`;
-  }
+      if (media instanceof Movie) achievementInfo.movie = media;
+      if (media instanceof Series) achievementInfo.series = media;
 
-  update(id: number, updateAchievementInfoInput: UpdateAchievementInfoInput) {
-    return `This action updates a #${id} achievementInfo`;
-  }
+      achievementInfo.save();
 
-  remove(id: number) {
-    return `This action removes a #${id} achievementInfo`;
+      return achievementInfo;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }

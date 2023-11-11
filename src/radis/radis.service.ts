@@ -9,13 +9,21 @@ import { RadisOutputDto } from './dto/radis.output.dto';
 export class RadisService {
   constructor(@InjectRedis() private readonly redisClient: Redis) {}
 
-  async storeDataInTempStorage<T>(input: RadisInputDto.StoreDataInStorageInput<T>): Promise<RadisOutputDto.IdOutput> {
+  async storeStringValueInTempStorage(input: RadisInputDto.StoreStringValueInTempStorageInput): Promise<RadisOutputDto.IdOutput> {
     try {
       const ID = uuid();
-      const serializedData = JSON.stringify(input.data);
 
-      await this.redisClient.setex(`${input.service}:${ID}`, input.ttl, serializedData);
+      await this.redisClient.setex(`${input.service}:${ID}`, input.ttl, input.value);
       return { ID };
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async retrieveStringValueFromTempStorage(input: RadisInputDto.RetrieveStringValueFromTempStorageInput): Promise<RadisOutputDto.ValueOutput<string>> {
+    try {
+      const eee = await this.redisClient.getex(`${input.service}:${input.key}`);
+      return { value: JSON.stringify(eee) };
     } catch (error) {
       throw new Error(error);
     }

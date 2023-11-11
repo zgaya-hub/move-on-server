@@ -406,3 +406,12 @@ export enum ActivityStatusEnum {
   PASS = 'Pass',
   FAIL = 'Fail',
 }
+
+export enum MediaTypeEnum {
+  SERIES = 'series',
+  SEASON = 'season',
+  EPISODE = 'episode',
+  TRAILER = 'trailer',
+  SHORT = 'short',
+  MOVIE = 'movie',
+}

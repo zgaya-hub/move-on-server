@@ -2,7 +2,6 @@ import { Entity, OneToOne, ManyToOne, OneToMany } from 'typeorm';
 import { ObjectType, Field } from '@nestjs/graphql';
 import { EntityBase } from '@/base/entity.base';
 import { Manager } from '@/manager/entities/manager.entity';
-import { Media } from '@/media/entities/media.entity';
 import { DecimalColumn, JoinColumn, TinyintColumn } from '@/decorator/entity/entity.decorator';
 import { MovieCast } from '@/movie-cast/entities/movie-cast.entity';
 import { MovieCrew } from '@/movie-crew/entities/movie-crew.entity';
@@ -14,6 +13,7 @@ import { FinancialInfo } from '@/financial-info/entities/financial-info.entity';
 import { Video } from '@/video/entities/video.entity';
 import { MediaBasicInfo } from '@/media-basic-info/entities/media-basic-info.entity';
 import { MediaAdditionalInfo } from '@/media-additional-info/entities/media-additional-info.entity';
+import { MediaResource } from '../../media-resource/entities/media-resource.entity';
 
 @ObjectType()
 @Entity()
@@ -54,9 +54,9 @@ export class Movie extends EntityBase {
   @JoinColumn()
   manager: Manager;
 
-  @Field(() => Media)
-  @OneToMany(() => Media, (media) => media.movie)
-  media: Media[];
+  @Field(() => MediaResource)
+  @OneToOne(() => MediaResource, (mediaResource) => mediaResource.movie)
+  mediaResource: MediaResource;
 
   @Field(() => MovieCast)
   @OneToMany(() => MovieCast, (movieCast) => movieCast.movie)

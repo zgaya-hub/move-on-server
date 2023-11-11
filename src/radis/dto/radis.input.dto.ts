@@ -4,15 +4,29 @@ import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export namespace RadisInputDto {
   @InputType()
-  export class StoreDataInStorageInput<T> {
-    @Field(() => JSON)
+  export class StoreStringValueInTempStorageInput {
+    @Field(() => String)
     @IsNotEmpty()
-    data: T;
+    @IsString()
+    value: string;
 
     @Field(() => Number)
     @IsNotEmpty()
     @IsNumber()
     ttl: number;
+
+    @Field(() => String)
+    @IsNotEmpty()
+    @IsString()
+    service: string;
+  }
+
+  @InputType()
+  export class RetrieveStringValueFromTempStorageInput {
+    @Field(() => String)
+    @IsNotEmpty()
+    @IsString()
+    key: string;
 
     @Field(() => String)
     @IsNotEmpty()

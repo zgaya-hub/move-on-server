@@ -5,12 +5,12 @@ import { Entity, ManyToMany, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { MediaBasicInfo } from '@/media-basic-info/entities/media-basic-info.entity';
 import { Video } from '@/video/entities/video.entity';
 import { Manager } from '@/manager/entities/manager.entity';
-import { Media } from '@/media/entities/media.entity';
 import { Cast } from '@/cast/entities/cast.entity';
 import { Crew } from '@/crew/entities/crew.entity';
 import { MediaImage } from '@/media-image/entities/media-image.entity';
 import { ExternalLink } from '@/external-link/entities/external-link.entity';
 import { Review } from '@/review/entities/review.entity';
+import { MediaResource } from '../../media-resource/entities/media-resource.entity';
 
 @ObjectType()
 @Entity()
@@ -29,9 +29,9 @@ export class Trailer extends EntityBase {
   @JoinColumn()
   manager: Manager;
 
-  @Field(() => Media)
-  @OneToOne(() => Media, (media) => media.trailer)
-  media: Media;
+  @Field(() => MediaResource)
+  @OneToOne(() => MediaResource, (mediaResource) => mediaResource.trailer)
+  mediaResource: MediaResource;
 
   @Field(() => [Cast])
   @ManyToMany(() => Cast, (cast) => cast.trailer)

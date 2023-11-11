@@ -24,7 +24,7 @@
     "migration:run": "yarn typeorm:cli -- migration:run",
     "migration:revert": "yarn typeorm:cli -- migration:revert",
     "migration:show": "yarn typeorm:cli -- migration:show",
-    "seeder:run": "yarn typeorm:cli -- migration:run"
+    "seeder:run": "cross-env MR=seeder yarn typeorm:cli -- migration:run"
   },
   "dependencies": {
     "@apollo/server": "^4.9.4",

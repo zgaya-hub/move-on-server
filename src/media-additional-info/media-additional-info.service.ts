@@ -1,26 +1,31 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMediaAdditionalInfoInput } from './dto/create-media-additional-info.input';
-import { UpdateMediaAdditionalInfoInput } from './dto/update-media-additional-info.input';
+import { Movie } from '../movie/entities/movie.entity';
+import { Series } from '../series/entities/series.entity';
+import { MediaAdditionalInfoInputDto } from './dto/media-additional-info.input.dto';
+import { MediaAdditionalInfo } from './entities/media-additional-info.entity';
+import { MovierMediaType } from '../common/types/Common.type';
+import { Transactional } from 'typeorm-transactional';
 
 @Injectable()
 export class MediaAdditionalInfoService {
-  create(createMediaAdditionalInfoInput: CreateMediaAdditionalInfoInput) {
-    return 'This action adds a new mediaAdditionalInfo';
-  }
+  @Transactional()
+  async createMediaAdditionalInfo(input: MediaAdditionalInfoInputDto.CreateMediaAdditionalInfoInput, media: MovierMediaType): Promise<MediaAdditionalInfo> {
+    try {
+      const mediaAdditionalInfo = new MediaAdditionalInfo();
 
-  findAll() {
-    return `This action returns all mediaAdditionalInfo`;
-  }
+      mediaAdditionalInfo.mediaGenre = input.Genre;
+      mediaAdditionalInfo.mediaOriginCountry = input.OriginCountry;
+      mediaAdditionalInfo.mediaOriginalLanguage = input.OriginalLanguage;
+      mediaAdditionalInfo.mediaStatus = input.Status;
 
-  findOne(id: number) {
-    return `This action returns a #${id} mediaAdditionalInfo`;
-  }
+      if (media instanceof Movie) mediaAdditionalInfo.movie = media;
+      if (media instanceof Series) mediaAdditionalInfo.series = media;
 
-  update(id: number, updateMediaAdditionalInfoInput: UpdateMediaAdditionalInfoInput) {
-    return `This action updates a #${id} mediaAdditionalInfo`;
-  }
+      mediaAdditionalInfo.save();
 
-  remove(id: number) {
-    return `This action removes a #${id} mediaAdditionalInfo`;
+      return mediaAdditionalInfo;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }

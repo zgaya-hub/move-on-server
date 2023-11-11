@@ -10,4 +10,10 @@ export namespace AwsS3OutputDto {
     @Field(() => String)
     signedUrlKeyId: string;
   }
+
+  @InputType()
+  export class IdOutput {
+    @Field(() => String)
+    ID: string;
+  }
 }
