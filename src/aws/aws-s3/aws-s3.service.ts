@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { getSignedUrl as awsGetSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { ConfigService } from '@nestjs/config';
 import { RadisService } from '@/radis/radis.service';
 import { RadisInputDto } from '@/radis/dto/radis.input.dto';
 import { AwsS3OutputDto } from './dto/aws-s3.output.dto';
+import { MediaTypeEnum } from '../../common/enum/common.enum';
 
 @Injectable()
 export class AwsS3Service {
@@ -23,18 +24,13 @@ export class AwsS3Service {
     });
   }
 
-  async generateMovieUploadUrl(mine: VideoMineType, currentManager: CurrentManagerType): Promise<AwsS3OutputDto.GetS3SignedUrlOutput> {
+  async generateVideoUploadUrl(mine: VideoMineType, currentManager: CurrentManagerType, type: MediaTypeEnum): Promise<AwsS3OutputDto.GetS3SignedUrlOutput> {
     try {
-      const key = `${currentManager.ID}/movie/${Date.now()}`;
-
-      const command = new PutObjectCommand({
-        Bucket: this.configService.get<string>('S3_VIDEO_BACKET'),
-        Key: key,
-        ContentType: mine,
-      });
+      const key = this.generateKey(currentManager, type);
+      const command = this.createPutObjectCommand(key, this.configService.get<string>('S3_VIDEO_BUCKET'), mine);
 
       const signedUrl = await this.getSignedUrl(command);
-      const signedUrlKeyId = await this.storeKeyInTempStorage(key);
+      const signedUrlKeyId = await this.storeS3KeyInTempStorage(key);
 
       return { signedUrl, signedUrlKeyId };
     } catch (error) {
@@ -43,31 +39,57 @@ export class AwsS3Service {
   }
 
   async generateShortUploadUrl(mine: VideoMineType, currentManager: CurrentManagerType) {
-    const key = `${currentManager.ID}/short/${Date.now()}`;
-
-    const command = new PutObjectCommand({
-      Bucket: this.configService.get<string>('S3_SHORT_BACKET'),
-      Key: key,
-      ContentType: mine,
-    });
+    const key = this.generateKey(currentManager, MediaTypeEnum.SHORT);
+    const command = this.createPutObjectCommand(key, this.configService.get<string>('S3_SHORT_BUCKET'), mine);
 
     return this.getSignedUrl(command);
   }
 
-  async getSignedUrl(command: PutObjectCommand): Promise<string> {
-    return awsGetSignedUrl(this.s3Client, command, { expiresIn: this.linkTtl });
+  async getMediaObjectKey(key: string) {
+    const command = this.createGetObjectCommand(key, this.configService.get<string>('S3_VIDEO_BUCKET'));
+
+    return this.getSignedUrl(command);
   }
 
-  async storeKeyInTempStorage(key: string): Promise<string> {
+  private generateKey(currentManager: CurrentManagerType, type: MediaTypeEnum): string {
+    return `${currentManager.ID}/${type}/${Date.now()}`;
+  }
+
+  private createPutObjectCommand(key: string, bucket: string, contentType: VideoMineType): PutObjectCommand {
+    return new PutObjectCommand({
+      Bucket: bucket,
+      Key: key,
+      ContentType: contentType,
+    });
+  }
+
+  private createGetObjectCommand(key: string, bucket: string): GetObjectCommand {
+    return new GetObjectCommand({
+      Bucket: bucket,
+      Key: key,
+    });
+  }
+
+  private async getSignedUrl(command: PutObjectCommand | GetObjectCommand): Promise<string> {
     try {
-      const input: RadisInputDto.StoreDataInStorageInput<string> = {
-        data: key,
+      return awsGetSignedUrl(this.s3Client, command, { expiresIn: this.linkTtl });
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  private async storeS3KeyInTempStorage(key: string): Promise<string> {
+    try {
+      const input: RadisInputDto.StoreStringValueInTempStorageInput = {
+        value: key,
         service: 'awsS3',
         ttl: this.linkTtl,
       };
 
-      const storedKey = await this.radisService.storeDataInTempStorage<string>(input);
+      const storedKey = await this.radisService.storeStringValueInTempStorage(input);
       return storedKey.ID;
-    } catch (error) {}
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }

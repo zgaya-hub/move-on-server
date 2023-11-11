@@ -4,5 +4,6 @@ import { MediaAdditionalInfoResolver } from './media-additional-info.resolver';
 
 @Module({
   providers: [MediaAdditionalInfoResolver, MediaAdditionalInfoService],
+  exports: [MediaAdditionalInfoService],
 })
 export class MediaAdditionalInfoModule {}

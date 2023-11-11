@@ -3,7 +3,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
 
 export namespace VideoOutputDto {
   @ObjectType()
-  export class GetS3UploadVdeoUrlOutput {
+  export class UploadVideoSignedUrlOutput {
     @Field(() => String)
     signedUrl: string;
 

@@ -3,7 +3,6 @@ import { Entity, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { EntityBase } from '@/base/entity.base';
 import { Season } from '@/season/entities/season.entity';
 import { Manager } from '@/manager/entities/manager.entity';
-import { Media } from '@/media/entities/media.entity';
 import { DecimalColumn, JoinColumn, TinyintColumn } from '@/decorator/entity/entity.decorator';
 import { SeriesCast } from '@/series-cast/entities/series-cast.entity';
 import { SeriesCrew } from '@/series-crew/entities/series-crew.entity';

@@ -13,14 +13,14 @@ import { CurrentUser } from '../decorator/current-user/current-user.decorator';
 export class VideoResolver {
   constructor(private readonly videoService: VideoService) {}
 
-  @Mutation(() => VideoOutputDto.GetS3UploadVdeoUrlOutput)
-  async getS3UploadVideoUrl(
-    @Args('GetS3UploadVdeoUrlInput', ShortDetectorPipe, VideoValidatorPipe)
-    input: VideoInputDto.GetS3UploadVdeoUrlInput,
+  @Mutation(() => VideoOutputDto.UploadVideoSignedUrlOutput)
+  async getUploadVideoSignedUrl(
+    @Args('GetUploadVideoSignedUrlInput', ShortDetectorPipe, VideoValidatorPipe)
+    input: VideoInputDto.GetUploadVideoSignedUrlInput,
     @CurrentUser() manager: CurrentManagerType,
-  ): Promise<VideoOutputDto.GetS3UploadVdeoUrlOutput> {
+  ): Promise<VideoOutputDto.UploadVideoSignedUrlOutput> {
     try {
-      return this.videoService.getS3UploadVideoUrl(input, manager);
+      return this.videoService.getUploadVideoSignedUrl(input, manager);
     } catch (error) {
       throw new Error(error);
     }

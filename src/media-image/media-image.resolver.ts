@@ -10,9 +10,7 @@ export class MediaImageResolver {
   constructor(private readonly mediaImageService: MediaImageService) {}
 
   @Mutation(() => MediaImageOutputDto.MediaImageIdOutput)
-  async uploadMediaImage(
-    @Args('MediaImageUploadInput', ImageValidatorPipe) input: MediaImageInputDto.MediaImageUploadInput,
-  ): Promise<MediaImageOutputDto.MediaImageIdOutput> {
+  async uploadMediaImage(@Args('MediaImageUploadInput', ImageValidatorPipe) input: MediaImageInputDto.MediaImageUploadInput): Promise<MediaImageOutputDto.MediaImageIdOutput> {
     try {
       return this.mediaImageService.uploadMediaImage(input);
     } catch (error) {

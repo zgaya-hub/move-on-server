@@ -12,7 +12,6 @@ import { AuthModule } from './auth/auth.module';
 import { SeriesModule } from './series/series.module';
 import { SeasonModule } from './season/season.module';
 import { EpisodeModule } from './episode/episode.module';
-import { MediaModule } from './media/media.module';
 import { ManagerModule } from './manager/manager.module';
 import { ProfileInfoModule } from './profile-info/profile-info.module';
 import { UserActivityModule } from './user-activity/user-activity.module';
@@ -40,6 +39,7 @@ import { MediaBasicInfoModule } from './media-basic-info/media-basic-info.module
 import { RadisModule } from './radis/radis.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { TrailerModule } from './trailer/trailer.module';
+import { MediaResourceModule } from './media-resource/media-resource.module';
 
 @Module({
   imports: [
@@ -47,7 +47,7 @@ import { TrailerModule } from './trailer/trailer.module';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
-      // playground: false,
+      playground: true,
       // plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
     TypeOrmModule.forRootAsync({
@@ -85,7 +85,6 @@ import { TrailerModule } from './trailer/trailer.module';
     SeriesModule,
     SeasonModule,
     EpisodeModule,
-    MediaModule,
     ManagerModule,
     ProfileInfoModule,
     UserActivityModule,
@@ -111,6 +110,7 @@ import { TrailerModule } from './trailer/trailer.module';
     RadisModule,
     CloudinaryModule,
     TrailerModule,
+    MediaResourceModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -6,10 +6,11 @@ export class ShortDetectorPipe implements PipeTransform {
   private readonly MIN_RATIO_THRESHOLD = 0.3;
   private readonly MAX_RATIO_THRESHOLD = 0.6;
 
-  transform(value: VideoInputDto.GetS3UploadVdeoUrlInput) {
-    const isShort = this.isWithinShortThreshold(value.width, value.height);
+  transform(value: VideoInputDto.GetUploadVideoSignedUrlInput) {
+    const isShort = this.isWithinShortThreshold(value.Width, value.Height);
+
     if (isShort) {
-      value.isShort = true;
+      value.IsShort = true;
     }
 
     return value;
