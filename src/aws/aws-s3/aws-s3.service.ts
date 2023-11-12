@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import { RadisService } from '@/radis/radis.service';
 import { RadisInputDto } from '@/radis/dto/radis.input.dto';
 import { AwsS3OutputDto } from './dto/aws-s3.output.dto';
-import { MediaTypeEnum } from '../../common/enum/common.enum';
+import { MediaTypeEnum } from '@/common/enum/common.enum';
 
 @Injectable()
 export class AwsS3Service {

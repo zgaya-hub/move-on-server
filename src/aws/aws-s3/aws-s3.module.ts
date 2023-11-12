@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AwsS3Service } from './aws-s3.service';
-import { RadisModule } from '../../radis/radis.module';
+import { RadisModule } from '@/radis/radis.module';
 
 @Module({
   imports: [RadisModule],

@@ -10,7 +10,7 @@ import { Crew } from '@/crew/entities/crew.entity';
 import { MediaImage } from '@/media-image/entities/media-image.entity';
 import { ExternalLink } from '@/external-link/entities/external-link.entity';
 import { Review } from '@/review/entities/review.entity';
-import { MediaResource } from '../../media-resource/entities/media-resource.entity';
+import { MediaResource } from '@/media-resource/entities/media-resource.entity';
 
 @ObjectType()
 @Entity()

@@ -20,7 +20,7 @@ export class AchievementInfoService {
       if (media instanceof Movie) achievementInfo.movie = media;
       if (media instanceof Series) achievementInfo.series = media;
 
-      achievementInfo.save();
+      await achievementInfo.save();
 
       return achievementInfo;
     } catch (error) {
