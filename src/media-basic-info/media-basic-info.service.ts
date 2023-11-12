@@ -26,7 +26,7 @@ export class MediaBasicInfoService {
       if (media instanceof Season) mediaBasicInfo.season = media;
       if (media instanceof Series) mediaBasicInfo.series = media;
 
-      mediaBasicInfo.save();
+      await mediaBasicInfo.save();
 
       return mediaBasicInfo;
     } catch (error) {

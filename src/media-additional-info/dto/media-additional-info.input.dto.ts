@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { IsEnum, IsNotEmpty } from 'class-validator';
-import { CountriesEnum, LanguagiesEnum } from '../../common/enum/common.enum';
+import { CountriesEnum, LanguagiesEnum } from '@/common/enum/common.enum';
 import { MediaGenriesEnum, MediaStatusEnum } from '../enum/media-additional-info.enum';
 import { Field, InputType } from '@nestjs/graphql';
 

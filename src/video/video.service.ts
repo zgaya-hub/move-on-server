@@ -60,8 +60,7 @@ export class VideoService {
       if (media instanceof Episode) video.episode = media;
       if (media instanceof Trailer) video.trailer = media;
 
-      await media.save();
-      await this.videoRepository.update(1, video);
+      await this.videoRepository.update(video.ID, video);
 
       return video;
     } catch (error) {

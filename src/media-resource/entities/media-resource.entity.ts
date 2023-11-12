@@ -1,16 +1,16 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { JoinColumn, VarcharColumn } from '../../decorator/entity/entity.decorator';
-import { Movie } from '../../movie/entities/movie.entity';
+import { ObjectType, Field } from '@nestjs/graphql';
+import { JoinColumn, TextColumn } from '@/decorator/entity/entity.decorator';
+import { Movie } from '@/movie/entities/movie.entity';
 import { Entity, OneToOne } from 'typeorm';
-import { Episode } from '../../episode/entities/episode.entity';
-import { Trailer } from '../../trailer/entities/trailer.entity';
-import { EntityBase } from '../../base/entity.base';
+import { Episode } from '@/episode/entities/episode.entity';
+import { Trailer } from '@/trailer/entities/trailer.entity';
+import { EntityBase } from '@/base/entity.base';
 
 @ObjectType()
 @Entity()
 export class MediaResource extends EntityBase {
   @Field()
-  @VarcharColumn()
+  @TextColumn()
   mediaS3ObjectKey: string;
 
   // is nullable possible

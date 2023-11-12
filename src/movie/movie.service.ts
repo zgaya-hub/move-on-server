@@ -33,6 +33,11 @@ export class MovieService {
       const manager = await this.managerService.findByEmail(currentManager.email);
 
       const video = await this.videoService.assignVideoToMedia(input.VideoId, movie);
+      movie.video = video;
+      movie.manager = manager;
+      // movie.mediaBasicInfo = mediaBasicInfo;
+      // movie.mediaResource = mediaResource;
+      await movie.save();
       const mediaBasicInfo = await this.mediaBasicInfoService.createMediaBasicInfo(input.MediaBasicInfo, movie);
       const mediaResource = await this.mediaResourceService.createMediaResource({ SignedUrlKeyId: input.SignedUrlKeyId }, movie);
 
@@ -44,14 +49,8 @@ export class MovieService {
         achievementInfo = await this.achievementInfoService.createAchievementInfo(input.AchievementInfo, movie);
       }
 
-      movie.video = video;
-      movie.manager = manager;
-      movie.mediaBasicInfo = mediaBasicInfo;
-      movie.mediaResource = mediaResource;
       if (input.MediaAdditionalInfo) movie.mediaAdditionalInfo = mediaAdditionalInfo;
       if (input.AchievementInfo) movie.achievementInfo = achievementInfo;
-
-      await movie.save();
 
       return { isSuccess: true };
     } catch (error) {

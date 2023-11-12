@@ -21,7 +21,7 @@ export class MediaAdditionalInfoService {
       if (media instanceof Movie) mediaAdditionalInfo.movie = media;
       if (media instanceof Series) mediaAdditionalInfo.series = media;
 
-      mediaAdditionalInfo.save();
+      await mediaAdditionalInfo.save();
 
       return mediaAdditionalInfo;
     } catch (error) {

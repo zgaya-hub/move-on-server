@@ -106,8 +106,8 @@ input CreateMovieCrewInput {
 }
 
 input CreateMovieInput {
-  AchievementInfo: CreateAchievementInfoInput!
-  MediaAdditionalInfo: CreateMediaAdditionalInfoInput!
+  AchievementInfo: CreateAchievementInfoInput
+  MediaAdditionalInfo: CreateMediaAdditionalInfoInput
   MediaBasicInfo: CreateMediaBasicInfoInput!
   MediaImageId: String!
   SignedUrlKeyId: String!

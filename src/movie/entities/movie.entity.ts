@@ -13,14 +13,14 @@ import { FinancialInfo } from '@/financial-info/entities/financial-info.entity';
 import { Video } from '@/video/entities/video.entity';
 import { MediaBasicInfo } from '@/media-basic-info/entities/media-basic-info.entity';
 import { MediaAdditionalInfo } from '@/media-additional-info/entities/media-additional-info.entity';
-import { MediaResource } from '../../media-resource/entities/media-resource.entity';
+import { MediaResource } from '@/media-resource/entities/media-resource.entity';
 
 @ObjectType()
 @Entity()
 export class Movie extends EntityBase {
   // have default value
   @Field()
-  @DecimalColumn({ default: 0 })
+  @DecimalColumn()
   moviePriceInDollar: number;
 
   // have default value

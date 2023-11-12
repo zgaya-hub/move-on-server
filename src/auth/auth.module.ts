@@ -6,6 +6,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { ManagerModule } from '../manager/manager.module';
 import { JwtManagerAuthGuard } from './guards/current-manager.jwt.guard';
 
+@Global()
 @Module({
   imports: [
     JwtModule.register({
