@@ -1,13 +1,12 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { DecimalColumn, JoinColumn } from '@/decorator/entity/entity.decorator';
 import { Movie } from '@/movie/entities/movie.entity';
-import { Entity, Index, OneToOne } from 'typeorm';
+import { Entity, OneToOne } from 'typeorm';
 import { Series } from '@/series/entities/series.entity';
 import { EntityBase } from '@/base/entity.base';
 
 @ObjectType()
 @Entity()
-@Index('unique_movie_series', ['movie', 'series'], { unique: true })
 export class FinancialInfo extends EntityBase {
   // this should be in dollar in DB
   @Field()

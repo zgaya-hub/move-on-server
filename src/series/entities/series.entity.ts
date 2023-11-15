@@ -3,7 +3,6 @@ import { Entity, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { EntityBase } from '@/base/entity.base';
 import { Season } from '@/season/entities/season.entity';
 import { Manager } from '@/manager/entities/manager.entity';
-import { Media } from '@/media/entities/media.entity';
 import { DecimalColumn, JoinColumn, TinyintColumn } from '@/decorator/entity/entity.decorator';
 import { SeriesCast } from '@/series-cast/entities/series-cast.entity';
 import { SeriesCrew } from '@/series-crew/entities/series-crew.entity';
@@ -12,7 +11,6 @@ import { ExternalLink } from '@/external-link/entities/external-link.entity';
 import { Review } from '@/review/entities/review.entity';
 import { AchievementInfo } from '@/achievement-info/entities/achievement-info.entity';
 import { FinancialInfo } from '@/financial-info/entities/financial-info.entity';
-import { Video } from '@/video/entities/video.entity';
 import { MediaAdditionalInfo } from '@/media-additional-info/entities/media-additional-info.entity';
 import { MediaBasicInfo } from '@/media-basic-info/entities/media-basic-info.entity';
 
@@ -45,18 +43,10 @@ export class Series extends EntityBase {
   @OneToOne(() => MediaBasicInfo, (mediaBasicInfo) => mediaBasicInfo.series)
   mediaBasicInfo: MediaBasicInfo;
 
-  @Field(() => Video)
-  @OneToOne(() => Video, (video) => video.series)
-  video: Video;
-
   @Field(() => Manager)
   @ManyToOne(() => Manager, (manager) => manager.series)
   @JoinColumn()
   manager: Manager;
-
-  @Field(() => Media)
-  @OneToMany(() => Media, (media) => media.series)
-  media: Media[];
 
   @Field(() => SeriesCast)
   @OneToMany(() => SeriesCast, (seriesCast) => seriesCast.series)

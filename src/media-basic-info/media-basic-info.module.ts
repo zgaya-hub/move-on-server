@@ -4,5 +4,6 @@ import { MediaBasicInfoResolver } from './media-basic-info.resolver';
 
 @Module({
   providers: [MediaBasicInfoResolver, MediaBasicInfoService],
+  exports: [MediaBasicInfoService],
 })
 export class MediaBasicInfoModule {}

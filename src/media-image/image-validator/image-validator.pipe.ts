@@ -2,7 +2,7 @@ import { Injectable, NotAcceptableException, PayloadTooLargeException, PipeTrans
 import { MediaImageInputDto } from '../dto/media-image.input.dto';
 import { MediaImageTypeEnum } from '../enum/media-image.enum';
 import { imageSize } from 'image-size';
-import { handleOnBase64ToBuffer } from '../../utils/base64ToBuffer';
+import { handleOnBase64ToBuffer } from '@/utils/base64ToBuffer';
 
 @Injectable()
 export class ImageValidatorPipe implements PipeTransform {

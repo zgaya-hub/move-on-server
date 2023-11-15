@@ -8,6 +8,7 @@ import { EnumColumn, IntColumn, VarcharColumn } from '@/decorator/entity/entity.
 import { ProfileInfo } from '@/profile-info/entities/profile-info.entity';
 import { ManagerActivity } from '@/manager-activity/entities/manager-activity.entity';
 import { passwordHash } from '@/utils/bcrypt';
+import { Trailer } from '@/trailer/entities/trailer.entity';
 
 @ObjectType()
 @Entity()
@@ -30,7 +31,6 @@ export class Manager extends EntityBase {
   lastLogin: number;
 
   // JOINS COLUMNS //
-
   @Field(() => ProfileInfo)
   @OneToOne(() => ProfileInfo, (profileInfo) => profileInfo.manager)
   profileInfo: ProfileInfo;
@@ -46,6 +46,10 @@ export class Manager extends EntityBase {
   @Field(() => Series)
   @OneToMany(() => Series, (series) => series.manager)
   series: Series[];
+
+  @Field(() => [Trailer])
+  @OneToMany(() => Trailer, (trailer) => trailer.manager)
+  trailer: Trailer[];
 
   @BeforeInsert()
   beforeInsert() {

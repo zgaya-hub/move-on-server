@@ -1,7 +1,7 @@
 import { Column, ColumnOptions, JoinColumn as TJoinColumn, JoinColumnOptions } from 'typeorm';
 import { snakeCase } from 'lodash';
 
-export const DecimalColumn = (options?: ColumnOptions): PropertyDecorator => {
+export const DecimalColumn = (options?: Omit<ColumnOptions, 'type' | 'name' | 'precision' | 'scale' | 'default'>): PropertyDecorator => {
   return function (target: Object, propertyName: string | symbol) {
     const defaultOptions: ColumnOptions = {
       type: 'decimal',
@@ -16,7 +16,7 @@ export const DecimalColumn = (options?: ColumnOptions): PropertyDecorator => {
   };
 };
 
-export const IntColumn = (options?: ColumnOptions): PropertyDecorator => {
+export const IntColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): PropertyDecorator => {
   return function (target: Object, propertyName: string | symbol) {
     const defaultOptions: ColumnOptions = {
       type: 'int',
@@ -28,7 +28,19 @@ export const IntColumn = (options?: ColumnOptions): PropertyDecorator => {
   };
 };
 
-export const BigIntColumn = (options?: ColumnOptions): PropertyDecorator => {
+export const TimestampColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): PropertyDecorator => {
+  return function (target: Object, propertyName: string | symbol) {
+    const defaultOptions: ColumnOptions = {
+      type: 'timestamp',
+      name: snakeCase(propertyName.toString()),
+      ...options,
+    };
+
+    Column(defaultOptions)(target, propertyName);
+  };
+};
+
+export const BigIntColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): PropertyDecorator => {
   return function (target: Object, propertyName: string | symbol) {
     const defaultOptions: ColumnOptions = {
       type: 'bigint',
@@ -40,7 +52,7 @@ export const BigIntColumn = (options?: ColumnOptions): PropertyDecorator => {
   };
 };
 
-export const VarcharColumn = (options?: ColumnOptions): PropertyDecorator => {
+export const VarcharColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): PropertyDecorator => {
   return function (target: Object, propertyName: string | symbol) {
     const defaultOptions: ColumnOptions = {
       type: 'varchar',
@@ -52,7 +64,7 @@ export const VarcharColumn = (options?: ColumnOptions): PropertyDecorator => {
   };
 };
 
-export const UuidColumn = (options?: ColumnOptions): PropertyDecorator => {
+export const UuidColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): PropertyDecorator => {
   return function (target: Object, propertyName: string | symbol) {
     const defaultOptions: ColumnOptions = {
       type: 'uuid',
@@ -64,7 +76,7 @@ export const UuidColumn = (options?: ColumnOptions): PropertyDecorator => {
   };
 };
 
-export const TinyintColumn = (options?: ColumnOptions): PropertyDecorator => {
+export const TinyintColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): PropertyDecorator => {
   return function (target: Object, propertyName: string | symbol) {
     const defaultOptions: ColumnOptions = {
       type: 'tinyint',
@@ -76,7 +88,7 @@ export const TinyintColumn = (options?: ColumnOptions): PropertyDecorator => {
   };
 };
 
-export const TextColumn = (options?: ColumnOptions): PropertyDecorator => {
+export const TextColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): PropertyDecorator => {
   return function (target: Object, propertyName: string | symbol) {
     const defaultOptions: ColumnOptions = {
       type: 'text',
@@ -88,7 +100,7 @@ export const TextColumn = (options?: ColumnOptions): PropertyDecorator => {
   };
 };
 
-export const EnumColumn = (options?: ColumnOptions): PropertyDecorator => {
+export const EnumColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): PropertyDecorator => {
   return function (target: Object, propertyName: string | symbol) {
     const defaultOptions: ColumnOptions = {
       type: 'enum',
@@ -100,7 +112,7 @@ export const EnumColumn = (options?: ColumnOptions): PropertyDecorator => {
   };
 };
 
-export const ArrayColumn = (options?: ColumnOptions): PropertyDecorator => {
+export const ArrayColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): PropertyDecorator => {
   return function (target: Object, propertyName: string | symbol) {
     const defaultOptions: ColumnOptions = {
       type: 'text',
