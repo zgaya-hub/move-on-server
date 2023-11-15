@@ -1,6 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Movie } from '@/movie/entities/movie.entity';
-import { Entity, Index, OneToOne } from 'typeorm';
+import { Entity, OneToOne } from 'typeorm';
 import { EnumColumn, JoinColumn } from '@/decorator/entity/entity.decorator';
 import { Series } from '@/series/entities/series.entity';
 import { CountriesEnum, LanguagiesEnum } from '@/common/enum/common.enum';
@@ -9,7 +9,6 @@ import { MediaGenriesEnum, MediaStatusEnum } from '../enum/media-additional-info
 
 @ObjectType()
 @Entity()
-@Index('unique_movie_series', ['movie', 'series'], { unique: true })
 export class MediaAdditionalInfo extends EntityBase {
   @Field()
   @EnumColumn({ enum: CountriesEnum })
@@ -17,7 +16,7 @@ export class MediaAdditionalInfo extends EntityBase {
 
   @Field()
   @EnumColumn({ enum: LanguagiesEnum })
-  emdiaOriginalLanguage: LanguagiesEnum;
+  mediaOriginalLanguage: LanguagiesEnum;
 
   @Field()
   @EnumColumn({ enum: MediaGenriesEnum })
@@ -33,7 +32,7 @@ export class MediaAdditionalInfo extends EntityBase {
   movie: Movie;
 
   @Field(() => Series)
-  @OneToOne(() => Series, (series) => series.media, { nullable: true })
+  @OneToOne(() => Series, (series) => series.mediaAdditionalInfo, { nullable: true })
   @JoinColumn()
   series: Series;
 }

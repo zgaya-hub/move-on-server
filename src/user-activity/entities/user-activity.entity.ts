@@ -7,7 +7,7 @@ import { ActivityStatusEnum } from '@/common/enum/common.enum';
 import { EntityBase } from '@/base/entity.base';
 
 @ObjectType()
-@Entity({ name: 'user_activity' })
+@Entity()
 export class UserActivity extends EntityBase {
   @Field()
   @EnumColumn({ enum: ActionsEnum })

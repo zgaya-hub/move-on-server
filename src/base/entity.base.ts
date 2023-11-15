@@ -11,15 +11,15 @@ export class EntityBase extends BaseEntity {
   ID: string;
 
   @Field(() => Number)
-  @BigIntColumn({ name: 'created_at' })
+  @BigIntColumn()
   createdAt: number;
 
   @Field(() => Number)
-  @BigIntColumn({ name: 'updated_at', nullable: true })
+  @BigIntColumn({ nullable: true })
   updatedAt: number;
 
   @Field(() => Number)
-  @BigIntColumn({ name: 'deleted_at', nullable: true })
+  @BigIntColumn({ nullable: true })
   deletedAt: number;
 
   loadSnapshotForPartialUpdate() {

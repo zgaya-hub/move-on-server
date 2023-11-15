@@ -7,6 +7,7 @@ import { Season } from '@/season/entities/season.entity';
 import { Episode } from '@/episode/entities/episode.entity';
 import { MediaImageTypeEnum } from '../enum/media-image.enum';
 import { EntityBase } from '@/base/entity.base';
+import { Trailer } from '@/trailer/entities/trailer.entity';
 
 @ObjectType()
 @Entity()
@@ -21,25 +22,31 @@ export class MediaImage extends EntityBase {
 
   // is nullable possible
   @Field(() => Movie)
-  @ManyToOne(() => Movie, (movie) => movie.media, { nullable: true })
+  @ManyToOne(() => Movie, (movie) => movie.mediaImage, { nullable: true })
   @JoinColumn()
   movie: Movie;
 
   // is nullable possible
   @Field(() => Series)
-  @ManyToOne(() => Series, (series) => series.media, { nullable: true })
+  @ManyToOne(() => Series, (series) => series.mediaImage, { nullable: true })
   @JoinColumn()
   series: Series;
 
   // is nullable possible
   @Field(() => Season)
-  @ManyToOne(() => Season, (season) => season.media, { nullable: true })
+  @ManyToOne(() => Season, (season) => season.mediaImage, { nullable: true })
   @JoinColumn()
   season: Season;
 
   // is nullable possible
   @Field(() => Episode)
-  @ManyToOne(() => Episode, (episode) => episode.media, { nullable: true })
+  @ManyToOne(() => Episode, (episode) => episode.mediaImage, { nullable: true })
   @JoinColumn()
   episode: Episode;
+
+  // is nullable possible
+  @Field(() => Trailer)
+  @ManyToOne(() => Trailer, (trailer) => trailer.mediaImage, { nullable: true })
+  @JoinColumn()
+  trailer: Trailer;
 }
