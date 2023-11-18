@@ -9,9 +9,10 @@ import { AchievementInfoModule } from '../achievement-info/achievement-info.modu
 import { RadisModule } from '../radis/radis.module';
 import { AwsModule } from '../aws/aws.module';
 import { MediaResourceModule } from '../media-resource/media-resource.module';
+import { MovieRepository } from './movie.repository';
 
 @Module({
   imports: [VideoModule, ManagerModule, MediaBasicInfoModule, MediaAdditionalInfoModule, AchievementInfoModule, RadisModule, AwsModule, MediaResourceModule],
-  providers: [MovieResolver, MovieService],
+  providers: [MovieResolver, MovieService, MovieRepository],
 })
 export class MovieModule {}

@@ -8,11 +8,12 @@ import { Episode } from '../episode/entities/episode.entity';
 import { Trailer } from '../trailer/entities/trailer.entity';
 import { Season } from '../season/entities/season.entity';
 import { Series } from '../series/entities/series.entity';
+import { EntitySaveService } from '../adapter/save.service';
 
 @Injectable()
 export class MediaBasicInfoService {
   @Transactional()
-  async createMediaBasicInfo(input: MediaBasicInfoInputDto.CreateMediaBasicInfoInput, media: MovierMediaType): Promise<MediaBasicInfo> {
+  async createMediaBasicInfo(input: MediaBasicInfoInputDto.CreateMediaBasicInfoInput, media: MovierMediaType, entitySaveService?: EntitySaveService): Promise<MediaBasicInfo> {
     try {
       const mediaBasicInfo = new MediaBasicInfo();
 
@@ -26,7 +27,11 @@ export class MediaBasicInfoService {
       if (media instanceof Season) mediaBasicInfo.season = media;
       if (media instanceof Series) mediaBasicInfo.series = media;
 
-      await mediaBasicInfo.save();
+      if (entitySaveService) {
+        entitySaveService.push(mediaBasicInfo);
+      } else {
+        await mediaBasicInfo.save();
+      }
 
       return mediaBasicInfo;
     } catch (error) {

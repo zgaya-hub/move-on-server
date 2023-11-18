@@ -7,7 +7,7 @@ import { Series } from '@/series/entities/series.entity';
 import { EnumColumn, IntColumn, VarcharColumn } from '@/decorator/entity/entity.decorator';
 import { ProfileInfo } from '@/profile-info/entities/profile-info.entity';
 import { ManagerActivity } from '@/manager-activity/entities/manager-activity.entity';
-import { passwordHash } from '@/utils/bcrypt';
+import { passwordHash } from '@/utilities/function/bcrypt';
 import { Trailer } from '@/trailer/entities/trailer.entity';
 
 @ObjectType()

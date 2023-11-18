@@ -10,6 +10,7 @@ import { VideoRepository } from './video.repository';
 import { Movie } from '../movie/entities/movie.entity';
 import { Episode } from '../episode/entities/episode.entity';
 import { Trailer } from '../trailer/entities/trailer.entity';
+import { EntitySaveService } from '../adapter/save.service';
 
 @Injectable()
 export class VideoService {
@@ -48,7 +49,7 @@ export class VideoService {
   }
 
   @Transactional()
-  async assignVideoToMedia(videoId: string, media: MovierMediaType): Promise<Video> {
+  async assignVideoToMedia(videoId: string, media: MovierMediaType, entitySaveService?: EntitySaveService): Promise<Video> {
     try {
       const video = await this.findVideoById(videoId);
 
@@ -56,11 +57,16 @@ export class VideoService {
         throw new NotFoundException('Invalid Video specified');
       }
 
+      video.isUsed = true;
       if (media instanceof Movie) video.movie = media;
       if (media instanceof Episode) video.episode = media;
       if (media instanceof Trailer) video.trailer = media;
 
-      await this.videoRepository.update(video.ID, video);
+      if (entitySaveService) {
+        entitySaveService.push(video);
+      } else {
+        await this.videoRepository.update(video.ID, video);
+      }
 
       return video;
     } catch (error) {

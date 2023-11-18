@@ -3,6 +3,6 @@ import { FinancialInfoService } from './financial-info.service';
 import { FinancialInfoResolver } from './financial-info.resolver';
 
 @Module({
-  providers: [FinancialInfoResolver, FinancialInfoService]
+  providers: [FinancialInfoResolver, FinancialInfoService],
 })
 export class FinancialInfoModule {}

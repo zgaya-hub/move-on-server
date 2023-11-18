@@ -4,7 +4,7 @@ import { ManagerInputDto } from './dto/manager.input.dto';
 import { ManagerRepository } from './manager.repository';
 import { ManagerAccountStatusEnum } from './enum/manager.enum';
 import { Transactional } from 'typeorm-transactional';
-import { comparePassword } from '../utils/bcrypt';
+import { comparePassword } from '../utilities/function/bcrypt';
 
 @Injectable()
 export class ManagerService {
@@ -12,6 +12,10 @@ export class ManagerService {
 
   async findByEmail(email: string): Promise<Manager> {
     return this.managerRepository.findByEmail(email);
+  }
+
+  async isManagerExist(email: string): Promise<boolean> {
+    return this.managerRepository.isManagerExist(email);
   }
 
   @Transactional()

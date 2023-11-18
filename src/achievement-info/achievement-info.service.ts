@@ -5,11 +5,12 @@ import { MovierMediaType } from '../common/types/Common.type';
 import { Movie } from '../movie/entities/movie.entity';
 import { Series } from '../series/entities/series.entity';
 import { Transactional } from 'typeorm-transactional';
+import { EntitySaveService } from '../adapter/save.service';
 
 @Injectable()
 export class AchievementInfoService {
   @Transactional()
-  async createAchievementInfo(input: AchievementInfoInputDto.CreateAchievementInfoInput, media: MovierMediaType): Promise<AchievementInfo> {
+  async createAchievementInfo(input: AchievementInfoInputDto.CreateAchievementInfoInput, media: MovierMediaType, entitySaveService?: EntitySaveService): Promise<AchievementInfo> {
     try {
       const achievementInfo = new AchievementInfo();
 
@@ -20,7 +21,11 @@ export class AchievementInfoService {
       if (media instanceof Movie) achievementInfo.movie = media;
       if (media instanceof Series) achievementInfo.series = media;
 
-      await achievementInfo.save();
+      if (entitySaveService) {
+        entitySaveService.push(achievementInfo);
+      } else {
+        await achievementInfo.save();
+      }
 
       return achievementInfo;
     } catch (error) {

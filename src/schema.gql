@@ -145,8 +145,12 @@ input CreateSeriesInput {
 }
 
 input CreateTrailerInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  AchievementInfo: CreateAchievementInfoInput
+  MediaAdditionalInfo: CreateMediaAdditionalInfoInput
+  MediaBasicInfo: CreateMediaBasicInfoInput!
+  MediaImageId: String!
+  SignedUrlKeyId: String!
+  VideoId: String!
 }
 
 input CreateUserActivityInput {
@@ -327,7 +331,7 @@ type Mutation {
   createSeries(createSeriesInput: CreateSeriesInput!): Series!
   createSeriesCast(createSeriesCastInput: CreateSeriesCastInput!): SeriesCast!
   createSeriesCrew(createSeriesCrewInput: CreateSeriesCrewInput!): SeriesCrew!
-  createTrailer(createTrailerInput: CreateTrailerInput!): Trailer!
+  createTrailer(CreateTrailerInput: CreateTrailerInput!): SuccessOutput!
   createUserActivity(createUserActivityInput: CreateUserActivityInput!): UserActivity!
   getUploadVideoSignedUrl(GetUploadVideoSignedUrlInput: GetUploadVideoSignedUrlInput!): UploadVideoSignedUrlOutput!
   managerLogin(UserLoginInput: ManagerLoginInput!): AuthTokenOutput!

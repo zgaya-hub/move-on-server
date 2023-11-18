@@ -1,1 +1,1 @@
-type ImageMimeType = 'image/jpeg' | 'image/png' | 'image/gif' | 'image/webp';
+type ImageMimeType = 'image/jpeg' | 'image/jpg' | 'image/png' | 'image/gif' | 'image/webp';

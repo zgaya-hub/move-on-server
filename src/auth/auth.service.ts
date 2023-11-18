@@ -9,23 +9,19 @@ import { ManagerService } from '../manager/manager.service';
 export class AuthService {
   constructor(private readonly jwtService: JwtService, private readonly userService: UserService, private readonly managerService: ManagerService) {}
 
-  async authenticateUser(email: string): Promise<User> {
+  async authenticateUser(email: string): Promise<void> {
     try {
-      const user = await this.userService.findByEmail(email);
-      if (!user) throw new NotFoundException(`User authentication falied`);
-
-      return user;
+      const userExist = await this.userService.isUserExist(email);
+      if (!userExist) throw new NotFoundException(`User authentication falied`);
     } catch (error) {
       throw new Error(error);
     }
   }
 
-  async authenticateManager(email: string): Promise<Manager> {
+  async authenticateManager(email: string): Promise<void> {
     try {
-      const manager = await this.managerService.findByEmail(email);
+      const manager = await this.managerService.isManagerExist(email);
       if (!manager) throw new NotFoundException(`Manager authentication failed`);
-
-      return manager;
     } catch (error) {
       throw new Error(error);
     }
