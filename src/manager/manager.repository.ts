@@ -13,4 +13,8 @@ export class ManagerRepository extends Repository<Manager> {
   public async findByEmail(email: string): Promise<Manager> {
     return await this.findOne({ where: { email } });
   }
+
+  public async isManagerExist(email: string): Promise<boolean> {
+    return await this.exist({ where: { email } });
+  }
 }

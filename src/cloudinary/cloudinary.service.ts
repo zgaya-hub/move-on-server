@@ -6,7 +6,7 @@ import { Transform, PassThrough } from 'stream';
 import { CloudinaryInputDto } from './dto/cloudinary.input.dto';
 import { ConfigService } from '@nestjs/config';
 import { SingleBar } from 'cli-progress';
-import { handleOnBase64ToBuffer } from '../utils/base64ToBuffer';
+import { handleOnBase64ToBuffer } from '../utilities/function/base64ToBuffer';
 
 @Injectable()
 export class CloudinaryService {

@@ -4,7 +4,7 @@ import { BigIntColumn } from '../decorator/entity/entity.decorator';
 import { cloneDeep } from 'lodash';
 
 export class EntityBase extends BaseEntity {
-  public entitySnapshot: this;
+  public snapshot: this;
 
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid', { name: 'ID' })
@@ -23,7 +23,7 @@ export class EntityBase extends BaseEntity {
   deletedAt: number;
 
   loadSnapshotForPartialUpdate() {
-    this.entitySnapshot = cloneDeep(this);
+    this.snapshot = cloneDeep(this);
   }
 
   @BeforeInsert()

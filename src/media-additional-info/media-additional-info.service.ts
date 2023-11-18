@@ -5,11 +5,16 @@ import { MediaAdditionalInfoInputDto } from './dto/media-additional-info.input.d
 import { MediaAdditionalInfo } from './entities/media-additional-info.entity';
 import { MovierMediaType } from '../common/types/Common.type';
 import { Transactional } from 'typeorm-transactional';
+import { EntitySaveService } from '../adapter/save.service';
 
 @Injectable()
 export class MediaAdditionalInfoService {
   @Transactional()
-  async createMediaAdditionalInfo(input: MediaAdditionalInfoInputDto.CreateMediaAdditionalInfoInput, media: MovierMediaType): Promise<MediaAdditionalInfo> {
+  async createMediaAdditionalInfo(
+    input: MediaAdditionalInfoInputDto.CreateMediaAdditionalInfoInput,
+    media: MovierMediaType,
+    entitySaveService?: EntitySaveService,
+  ): Promise<MediaAdditionalInfo> {
     try {
       const mediaAdditionalInfo = new MediaAdditionalInfo();
 
@@ -21,7 +26,11 @@ export class MediaAdditionalInfoService {
       if (media instanceof Movie) mediaAdditionalInfo.movie = media;
       if (media instanceof Series) mediaAdditionalInfo.series = media;
 
-      await mediaAdditionalInfo.save();
+      if (entitySaveService) {
+        entitySaveService.push(mediaAdditionalInfo);
+      } else {
+        await mediaAdditionalInfo.save();
+      }
 
       return mediaAdditionalInfo;
     } catch (error) {

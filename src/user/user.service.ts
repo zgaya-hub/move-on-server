@@ -2,7 +2,7 @@ import { ConflictException, Injectable, NotFoundException } from '@nestjs/common
 import { UserRepository } from './user.repository';
 import { User } from './entities/user.entity';
 import { UserInputDto } from './dto/user.input.dto';
-import { comparePassword } from '../utils/bcrypt';
+import { comparePassword } from '../utilities/function/bcrypt';
 import { Transactional } from 'typeorm-transactional';
 
 @Injectable()
@@ -11,6 +11,10 @@ export class UserService {
 
   async findByEmail(email: string): Promise<User> {
     return this.userRepository.findByEmail(email);
+  }
+
+  async isUserExist(email: string): Promise<boolean> {
+    return this.userRepository.isUserExist(email);
   }
 
   @Transactional()

@@ -1,11 +1,11 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { BeforeInsert, Entity, OneToMany, OneToOne, PrimaryColumn } from 'typeorm';
+import { BeforeInsert, Entity, OneToMany, OneToOne } from 'typeorm';
 import { EntityBase } from '@/base/entity.base';
 import { UserActivity } from '@/user-activity/entities/user-activity.entity';
 import { VarcharColumn } from '@/decorator/entity/entity.decorator';
 import { ProfileInfo } from '@/profile-info/entities/profile-info.entity';
 import { Review } from '@/review/entities/review.entity';
-import { passwordHash } from '@/utils/bcrypt';
+import { passwordHash } from '@/utilities/function/bcrypt';
 
 @ObjectType()
 @Entity()

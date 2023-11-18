@@ -13,4 +13,8 @@ export class UserRepository extends Repository<User> {
   public async findByEmail(email: string): Promise<User> {
     return await this.findOne({ where: { email } });
   }
+
+  public async isUserExist(email: string): Promise<boolean> {
+    return await this.exist({ where: { email } });
+  }
 }

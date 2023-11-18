@@ -11,6 +11,7 @@ import { MediaBasicInfoService } from '../media-basic-info/media-basic-info.serv
 import { AchievementInfoService } from '../achievement-info/achievement-info.service';
 import { AchievementInfo } from '../achievement-info/entities/achievement-info.entity';
 import { MediaResourceService } from '../media-resource/media-resource.service';
+import { EntitySaveService } from '../adapter/save.service';
 
 @Injectable()
 export class MovieService {
@@ -21,36 +22,39 @@ export class MovieService {
     private readonly achievementInfoService: AchievementInfoService,
     private readonly managerService: ManagerService,
     private readonly mediaResourceService: MediaResourceService,
+    private readonly entitySaveService: EntitySaveService,
   ) {}
 
   @Transactional()
   async createMovie(input: MovieInputDto.CreateMovieInput, currentManager: CurrentManagerType): Promise<CommonOutputDto.SuccessOutput> {
     try {
       const movie = new Movie();
+
       let mediaAdditionalInfo: MediaAdditionalInfo;
       let achievementInfo: AchievementInfo;
 
       const manager = await this.managerService.findByEmail(currentManager.email);
-
-      const video = await this.videoService.assignVideoToMedia(input.VideoId, movie);
-      movie.video = video;
-      movie.manager = manager;
-      // movie.mediaBasicInfo = mediaBasicInfo;
-      // movie.mediaResource = mediaResource;
-      await movie.save();
-      const mediaBasicInfo = await this.mediaBasicInfoService.createMediaBasicInfo(input.MediaBasicInfo, movie);
-      const mediaResource = await this.mediaResourceService.createMediaResource({ SignedUrlKeyId: input.SignedUrlKeyId }, movie);
+      const video = await this.videoService.assignVideoToMedia(input.VideoId, movie, this.entitySaveService);
+      const mediaBasicInfo = await this.mediaBasicInfoService.createMediaBasicInfo(input.MediaBasicInfo, movie, this.entitySaveService);
+      const mediaResource = await this.mediaResourceService.createMediaResource({ SignedUrlKeyId: input.SignedUrlKeyId }, movie, this.entitySaveService);
 
       if (input.MediaAdditionalInfo) {
-        mediaAdditionalInfo = await this.mediaAdditionalInfoService.createMediaAdditionalInfo(input.MediaAdditionalInfo, movie);
+        mediaAdditionalInfo = await this.mediaAdditionalInfoService.createMediaAdditionalInfo(input.MediaAdditionalInfo, movie, this.entitySaveService);
       }
 
       if (input.AchievementInfo) {
-        achievementInfo = await this.achievementInfoService.createAchievementInfo(input.AchievementInfo, movie);
+        achievementInfo = await this.achievementInfoService.createAchievementInfo(input.AchievementInfo, movie, this.entitySaveService);
       }
 
+      movie.video = video;
+      movie.mediaResource = mediaResource;
+      movie.mediaBasicInfo = mediaBasicInfo;
       if (input.MediaAdditionalInfo) movie.mediaAdditionalInfo = mediaAdditionalInfo;
       if (input.AchievementInfo) movie.achievementInfo = achievementInfo;
+      movie.manager = manager;
+
+      this.entitySaveService.push(movie);
+      await this.entitySaveService.save();
 
       return { isSuccess: true };
     } catch (error) {

@@ -1,60 +1,9 @@
-version: '3.8'
+version: '3'
 
 services:
-  mysql:
-    image: mysql # Use the MySQL image
-    restart: always
-    environment:
-      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD} # MySQL root password
-      - MYSQL_DATABASE=${DB_DATABASE} # Specify your MySQL database name
-      - MYSQL_USER=${DB_USERNAME} # Specify your MySQL username
-      - MYSQL_PASSWORD=${DB_PASSWORD} # Specify your MySQL password
-    container_name: mysql-on # Change container name if needed
-    volumes:
-      - ./mysqldata:/var/lib/mysql # Change the volume path if needed
-    ports:
-      - '3306:3306' # MySQL default port
-
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: move-on
-    environment:
-      - NODE_ENV=${NODE_ENV}
-      - MR=${MR}
-      - PORT=${PORT}
-      - DB_TYPE=${DB_TYPE}
-      - DB_HOST=${DB_HOST}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_USERNAME=${DB_USERNAME}
-      - DB_DATABASE=${DB_DATABASE}
-      - TEST_DATABASE=${TEST_DATABASE}
-      - DB_PORT=${DB_PORT}
-      - DB_CHARSET=${DB_CHARSET}
-      - SALT_ROUND=${SALT_ROUND}
-      - OWNER_EMAIL=${OWNER_EMAIL}
-      - OWNER_PASSWORD=${OWNER_PASSWORD}
-      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
-      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
-      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
-      - S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
-      - S3_ACCESS_KEY=${S3_ACCESS_KEY}
-      - S3_VIDEO_BUCKET=${S3_VIDEO_BUCKET}
-      - S3_SHORT_BUCKET=${S3_SHORT_BUCKET}
-      - S3_SERIES_BUCKET=${S3_SERIES_BUCKET}
-      - REDIS_HOST=${REDIS_HOST}
-      - REDIS_PORT=${REDIS_PORT}
-      - AWS_REGION=${AWS_REGION}
-      - SERVER_HOST=${SERVER_HOST}
-    ports:
-      - '8080:8080'
-    depends_on:
-      - mysql
-
   prom-server:
     image: prom/prometheus
     ports:
       - 9090:9090
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus-config.yml:/etc/prometheus/prometheus.yml

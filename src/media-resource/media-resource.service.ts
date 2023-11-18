@@ -8,13 +8,15 @@ import { Episode } from '../episode/entities/episode.entity';
 import { Trailer } from '../trailer/entities/trailer.entity';
 import { AwsS3Service } from '../aws/aws-s3/aws-s3.service';
 import { Transactional } from 'typeorm-transactional';
+import { EntitySaveService } from '../adapter/save.service';
+// import { EntitySaveService } from '../utilities/class/EntitySaveService.util';
 
 @Injectable()
 export class MediaResourceService {
   constructor(private readonly radisService: RadisService, private readonly awsS3Service: AwsS3Service) {}
 
   @Transactional()
-  async createMediaResource(input: MediaResourceInputDto.CreateMediaInput, media: MovierMediaType): Promise<MediaResource> {
+  async createMediaResource(input: MediaResourceInputDto.CreateMediaInput, media: MovierMediaType, entitySaveService?: EntitySaveService): Promise<MediaResource> {
     try {
       const mediaResource = new MediaResource();
 
@@ -25,7 +27,11 @@ export class MediaResourceService {
       if (media instanceof Episode) mediaResource.episode = media;
       if (media instanceof Trailer) mediaResource.trailer = media;
 
-      await mediaResource.save();
+      if (entitySaveService) {
+        entitySaveService.push(mediaResource);
+      } else {
+        await mediaResource.save();
+      }
 
       return mediaResource;
     } catch (error) {

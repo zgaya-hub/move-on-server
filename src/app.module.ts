@@ -40,6 +40,8 @@ import { RadisModule } from './radis/radis.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { TrailerModule } from './trailer/trailer.module';
 import { MediaResourceModule } from './media-resource/media-resource.module';
+import { AdapterModule } from './adapter/adapter.module';
+import { MonitoringModule } from './monitoring/monitoring.module';
 
 @Module({
   imports: [
@@ -111,6 +113,8 @@ import { MediaResourceModule } from './media-resource/media-resource.module';
     CloudinaryModule,
     TrailerModule,
     MediaResourceModule,
+    AdapterModule,
+    MonitoringModule,
   ],
   controllers: [AppController],
   providers: [AppService],

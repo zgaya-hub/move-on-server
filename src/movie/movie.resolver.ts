@@ -5,8 +5,9 @@ import { CurrentUser } from '../decorator/current-user/current-user.decorator';
 import { CommonOutputDto } from '../common/dto/common.dto';
 import { MovieInputDto } from './dto/movie.input.dto';
 import { MovieService } from './movie.service';
+import { Movie } from './entities/movie.entity';
 
-@Resolver()
+@Resolver(() => Movie)
 @UseGuards(JwtManagerAuthGuard)
 export class MovieResolver {
   constructor(private readonly movieService: MovieService) {}

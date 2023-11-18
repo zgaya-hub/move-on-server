@@ -2,7 +2,7 @@ import { Injectable, NotAcceptableException, PayloadTooLargeException, PipeTrans
 import { MediaImageInputDto } from '../dto/media-image.input.dto';
 import { MediaImageTypeEnum } from '../enum/media-image.enum';
 import { imageSize } from 'image-size';
-import { handleOnBase64ToBuffer } from '@/utils/base64ToBuffer';
+import { handleOnBase64ToBuffer } from '@/utilities/function/base64ToBuffer';
 
 @Injectable()
 export class ImageValidatorPipe implements PipeTransform {
@@ -13,7 +13,7 @@ export class ImageValidatorPipe implements PipeTransform {
   private readonly BACKDROP_MAX_RATIO_THRESHOLD = 2.5;
   private readonly BACKDROP_MIN_RATIO_THRESHOLD = 2.0;
   private readonly MAX_SIZE_IN_KB = 4096;
-  private readonly VALID_IMAGE_MIME_TYPES: ImageMimeType[] = ['image/gif', 'image/jpeg', 'image/png', 'image/webp'];
+  private readonly VALID_IMAGE_MIME_TYPES: ImageMimeType[] = ['image/gif', 'image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
 
   transform(image: MediaImageInputDto.MediaImageUploadInput): MediaImageInputDto.MediaImageUploadInput {
     const { mediaImageBase64, mediaImageMime, mediaImageType } = image;
@@ -68,7 +68,7 @@ export class ImageValidatorPipe implements PipeTransform {
 
   private async getDimensionByBase64(base64: string): Promise<DimentionType | null> {
     try {
-      const buffer = Buffer.from(base64, 'base64');
+      const buffer = handleOnBase64ToBuffer(base64);
       const dimension = imageSize(buffer);
       return { width: dimension.width, height: dimension.height };
     } catch (error) {
