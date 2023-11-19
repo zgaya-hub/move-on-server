@@ -1,35 +1,27 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { SeriesService } from './series.service';
 import { Series } from './entities/series.entity';
-import { CreateSeriesInput } from './dto/create-series.input';
-import { UpdateSeriesInput } from './dto/update-series.input';
+import { CommonOutputDto } from '../common/dto/common.dto';
+import { CurrentUser } from '../decorator/current-user/current-user.decorator';
+import { SeriesInputDto } from './dto/series.input.dto';
+import { JwtManagerAuthGuard } from '../auth/guards/current-manager.jwt.guard';
+import { UseGuards } from '@nestjs/common';
 
 @Resolver(() => Series)
+@UseGuards(JwtManagerAuthGuard)
 export class SeriesResolver {
   constructor(private readonly seriesService: SeriesService) {}
 
-  @Mutation(() => Series)
-  createSeries(@Args('createSeriesInput') createSeriesInput: CreateSeriesInput) {
-    return this.seriesService.create(createSeriesInput);
-  }
-
-  @Query(() => [Series], { name: 'series' })
-  findAll() {
-    return this.seriesService.findAll();
-  }
-
-  @Query(() => Series, { name: 'series' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.seriesService.findOne(id);
-  }
-
-  @Mutation(() => Series)
-  updateSeries(@Args('updateSeriesInput') updateSeriesInput: UpdateSeriesInput) {
-    return this.seriesService.update(updateSeriesInput.id, updateSeriesInput);
-  }
-
-  @Mutation(() => Series)
-  removeSeries(@Args('id', { type: () => Int }) id: number) {
-    return this.seriesService.remove(id);
+  @Mutation(() => CommonOutputDto.SuccessOutput)
+  async createSeries(
+    @Args('CreateSeriesInput')
+    input: SeriesInputDto.CreateSeriesInput,
+    @CurrentUser() manager: CurrentManagerType,
+  ): Promise<CommonOutputDto.SuccessOutput> {
+    try {
+      return this.seriesService.createSeries(input, manager);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }

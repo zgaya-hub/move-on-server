@@ -1,35 +1,25 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { SeasonService } from './season.service';
 import { Season } from './entities/season.entity';
-import { CreateSeasonInput } from './dto/create-season.input';
-import { UpdateSeasonInput } from './dto/update-season.input';
+import { CommonOutputDto } from '../common/dto/common.dto';
+import { SeasonInputDto } from './dto/season.input.dto';
+import { UseGuards } from '@nestjs/common';
+import { JwtManagerAuthGuard } from '../auth/guards/current-manager.jwt.guard';
 
 @Resolver(() => Season)
+@UseGuards(JwtManagerAuthGuard)
 export class SeasonResolver {
   constructor(private readonly seasonService: SeasonService) {}
 
-  @Mutation(() => Season)
-  createSeason(@Args('createSeasonInput') createSeasonInput: CreateSeasonInput) {
-    return this.seasonService.create(createSeasonInput);
-  }
-
-  @Query(() => [Season], { name: 'season' })
-  findAll() {
-    return this.seasonService.findAll();
-  }
-
-  @Query(() => Season, { name: 'season' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.seasonService.findOne(id);
-  }
-
-  @Mutation(() => Season)
-  updateSeason(@Args('updateSeasonInput') updateSeasonInput: UpdateSeasonInput) {
-    return this.seasonService.update(updateSeasonInput.id, updateSeasonInput);
-  }
-
-  @Mutation(() => Season)
-  removeSeason(@Args('id', { type: () => Int }) id: number) {
-    return this.seasonService.remove(id);
+  @Mutation(() => CommonOutputDto.SuccessOutput)
+  async createSeason(
+    @Args('CreateSeasonInput')
+    input: SeasonInputDto.CreateSeasonInput,
+  ): Promise<CommonOutputDto.SuccessOutput> {
+    try {
+      return this.seasonService.createSeason(input);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }

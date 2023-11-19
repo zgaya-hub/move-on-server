@@ -10,9 +10,22 @@ import { RadisModule } from '../radis/radis.module';
 import { AwsModule } from '../aws/aws.module';
 import { MediaResourceModule } from '../media-resource/media-resource.module';
 import { MovieRepository } from './movie.repository';
+import { MediaImageModule } from '../media-image/media-image.module';
+import { FinancialInfoModule } from '../financial-info/financial-info.module';
 
 @Module({
-  imports: [VideoModule, ManagerModule, MediaBasicInfoModule, MediaAdditionalInfoModule, AchievementInfoModule, RadisModule, AwsModule, MediaResourceModule],
+  imports: [
+    VideoModule,
+    ManagerModule,
+    MediaBasicInfoModule,
+    MediaAdditionalInfoModule,
+    AchievementInfoModule,
+    RadisModule,
+    AwsModule,
+    MediaResourceModule,
+    MediaImageModule,
+    FinancialInfoModule,
+  ],
   providers: [MovieResolver, MovieService, MovieRepository],
 })
 export class MovieModule {}
