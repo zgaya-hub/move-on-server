@@ -1,4 +1,4 @@
-import { CreateSeriesInput } from './create-series.input';
+import { CreateSeriesInput } from './series.input.dto';
 import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 
 @InputType()

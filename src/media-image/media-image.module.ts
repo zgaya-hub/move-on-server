@@ -7,5 +7,6 @@ import { MediaImageRepository } from './media-image.repository';
 @Module({
   imports: [CloudinaryModule],
   providers: [MediaImageResolver, MediaImageService, MediaImageRepository],
+  exports: [MediaImageService],
 })
 export class MediaImageModule {}

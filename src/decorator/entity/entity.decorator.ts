@@ -2,7 +2,7 @@ import { Column, ColumnOptions, JoinColumn as TJoinColumn, JoinColumnOptions } f
 import { snakeCase } from 'lodash';
 
 export const DecimalColumn = (options?: Omit<ColumnOptions, 'type' | 'name' | 'precision' | 'scale' | 'default'>): PropertyDecorator => {
-  return function (target: Object, propertyName: string | symbol) {
+  return function (target: NonNullable<unknown>, propertyName: string | symbol) {
     const defaultOptions: ColumnOptions = {
       type: 'decimal',
       name: snakeCase(propertyName.toString()),
@@ -17,7 +17,7 @@ export const DecimalColumn = (options?: Omit<ColumnOptions, 'type' | 'name' | 'p
 };
 
 export const IntColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): PropertyDecorator => {
-  return function (target: Object, propertyName: string | symbol) {
+  return function (target: NonNullable<unknown>, propertyName: string | symbol) {
     const defaultOptions: ColumnOptions = {
       type: 'int',
       name: snakeCase(propertyName.toString()),
@@ -29,7 +29,7 @@ export const IntColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): Prope
 };
 
 export const TimestampColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): PropertyDecorator => {
-  return function (target: Object, propertyName: string | symbol) {
+  return function (target: NonNullable<unknown>, propertyName: string | symbol) {
     const defaultOptions: ColumnOptions = {
       type: 'timestamp',
       name: snakeCase(propertyName.toString()),
@@ -41,7 +41,7 @@ export const TimestampColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>):
 };
 
 export const BigIntColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): PropertyDecorator => {
-  return function (target: Object, propertyName: string | symbol) {
+  return function (target: NonNullable<unknown>, propertyName: string | symbol) {
     const defaultOptions: ColumnOptions = {
       type: 'bigint',
       name: snakeCase(propertyName.toString()),
@@ -53,7 +53,7 @@ export const BigIntColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): Pr
 };
 
 export const VarcharColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): PropertyDecorator => {
-  return function (target: Object, propertyName: string | symbol) {
+  return function (target: NonNullable<unknown>, propertyName: string | symbol) {
     const defaultOptions: ColumnOptions = {
       type: 'varchar',
       name: snakeCase(propertyName.toString()),
@@ -65,7 +65,7 @@ export const VarcharColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): P
 };
 
 export const UuidColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): PropertyDecorator => {
-  return function (target: Object, propertyName: string | symbol) {
+  return function (target: NonNullable<unknown>, propertyName: string | symbol) {
     const defaultOptions: ColumnOptions = {
       type: 'uuid',
       name: snakeCase(propertyName.toString()),
@@ -77,7 +77,7 @@ export const UuidColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): Prop
 };
 
 export const TinyintColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): PropertyDecorator => {
-  return function (target: Object, propertyName: string | symbol) {
+  return function (target: NonNullable<unknown>, propertyName: string | symbol) {
     const defaultOptions: ColumnOptions = {
       type: 'tinyint',
       name: snakeCase(propertyName.toString()),
@@ -89,7 +89,7 @@ export const TinyintColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): P
 };
 
 export const TextColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): PropertyDecorator => {
-  return function (target: Object, propertyName: string | symbol) {
+  return function (target: NonNullable<unknown>, propertyName: string | symbol) {
     const defaultOptions: ColumnOptions = {
       type: 'text',
       name: snakeCase(propertyName.toString()),
@@ -101,7 +101,7 @@ export const TextColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): Prop
 };
 
 export const EnumColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): PropertyDecorator => {
-  return function (target: Object, propertyName: string | symbol) {
+  return function (target: NonNullable<unknown>, propertyName: string | symbol) {
     const defaultOptions: ColumnOptions = {
       type: 'enum',
       name: snakeCase(propertyName.toString()),
@@ -113,7 +113,7 @@ export const EnumColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): Prop
 };
 
 export const ArrayColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): PropertyDecorator => {
-  return function (target: Object, propertyName: string | symbol) {
+  return function (target: NonNullable<unknown>, propertyName: string | symbol) {
     const defaultOptions: ColumnOptions = {
       type: 'text',
       name: snakeCase(propertyName.toString()),
@@ -125,7 +125,7 @@ export const ArrayColumn = (options?: Omit<ColumnOptions, 'type' | 'name'>): Pro
 };
 
 export const JoinColumn = (options?: JoinColumnOptions): PropertyDecorator => {
-  return function (target: Object, propertyName: string | symbol) {
+  return function (target: NonNullable<unknown>, propertyName: string | symbol) {
     const defaultOptions: JoinColumnOptions = {
       referencedColumnName: 'ID',
       name: snakeCase(propertyName.toString() + '_id'),

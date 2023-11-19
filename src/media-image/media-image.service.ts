@@ -11,6 +11,7 @@ import { Episode } from '../episode/entities/episode.entity';
 import { Trailer } from '../trailer/entities/trailer.entity';
 import { Series } from '../series/entities/series.entity';
 import { Season } from '../season/entities/season.entity';
+import { EntitySaveService } from '../adapter/save.service';
 
 @Injectable()
 export class MediaImageService {
@@ -19,14 +20,14 @@ export class MediaImageService {
   @Transactional()
   async createMediaImage(input: MediaImageInputDto.MediaImageCreateInput): Promise<MediaImageOutputDto.MediaImageIdOutput> {
     try {
-      const newMediaImage = new MediaImage();
+      const mediaImage = new MediaImage();
 
-      newMediaImage.mediaImageType = input.mediaImageType;
-      newMediaImage.mediaImageUrl = input.mediaImageUrl;
+      mediaImage.mediaImageType = input.mediaImageType;
+      mediaImage.mediaImageUrl = input.mediaImageUrl;
 
-      await newMediaImage.save();
+      await mediaImage.save();
 
-      return { mediaImageId: newMediaImage.ID };
+      return { mediaImageId: mediaImage.ID };
     } catch (error) {
       throw new Error(error);
     }
@@ -43,7 +44,7 @@ export class MediaImageService {
     }
   }
 
-  async assignMediaImageToMedia(mediaImageId: string, media: MovierMediaType): Promise<MediaImage> {
+  async assignMediaImageToMedia(mediaImageId: string, media: MovierMediaType, entitySaveService?: EntitySaveService): Promise<MediaImage> {
     try {
       const mediaImage = await this.findMediaImageById(mediaImageId);
       if (!mediaImage) throw new NotFoundException('Invalid MediaImage specified');
@@ -54,9 +55,11 @@ export class MediaImageService {
       if (media instanceof Series) mediaImage.series = media;
       if (media instanceof Season) mediaImage.season = media;
 
-      await media.save();
-
-      this.mediaImageRepository.update(1, mediaImage);
+      if (entitySaveService) {
+        entitySaveService.push(media);
+      } else {
+        await media.save();
+      }
 
       return mediaImage;
     } catch (error) {
@@ -66,7 +69,9 @@ export class MediaImageService {
 
   async findMediaImageById(ID: string): Promise<MediaImage> {
     try {
-      return this.mediaImageRepository.findMediaImageById(ID);
+      const mediaImage = await this.mediaImageRepository.findMediaImageById(ID);
+      if (!mediaImage) throw new NotFoundException('Invalid Media Image specified');
+      return mediaImage;
     } catch (error) {
       throw new Error(error);
     }

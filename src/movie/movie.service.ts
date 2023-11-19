@@ -12,6 +12,9 @@ import { AchievementInfoService } from '../achievement-info/achievement-info.ser
 import { AchievementInfo } from '../achievement-info/entities/achievement-info.entity';
 import { MediaResourceService } from '../media-resource/media-resource.service';
 import { EntitySaveService } from '../adapter/save.service';
+import { MediaImageService } from '../media-image/media-image.service';
+import { FinancialInfoService } from '../financial-info/financial-info.service';
+import { FinancialInfo } from '../financial-info/entities/financial-info.entity';
 
 @Injectable()
 export class MovieService {
@@ -19,10 +22,11 @@ export class MovieService {
     private readonly videoService: VideoService,
     private readonly mediaAdditionalInfoService: MediaAdditionalInfoService,
     private readonly mediaBasicInfoService: MediaBasicInfoService,
-    private readonly achievementInfoService: AchievementInfoService,
     private readonly managerService: ManagerService,
     private readonly mediaResourceService: MediaResourceService,
     private readonly entitySaveService: EntitySaveService,
+    private readonly mediaImageService: MediaImageService,
+    private readonly financialInfoService: FinancialInfoService,
   ) {}
 
   @Transactional()
@@ -31,27 +35,30 @@ export class MovieService {
       const movie = new Movie();
 
       let mediaAdditionalInfo: MediaAdditionalInfo;
-      let achievementInfo: AchievementInfo;
+      let financialInfo: FinancialInfo;
 
       const manager = await this.managerService.findByEmail(currentManager.email);
       const video = await this.videoService.assignVideoToMedia(input.VideoId, movie, this.entitySaveService);
-      const mediaBasicInfo = await this.mediaBasicInfoService.createMediaBasicInfo(input.MediaBasicInfo, movie, this.entitySaveService);
+      const mediaImage = await this.mediaImageService.assignMediaImageToMedia(input.MediaImageId, movie, this.entitySaveService);
+
       const mediaResource = await this.mediaResourceService.createMediaResource({ SignedUrlKeyId: input.SignedUrlKeyId }, movie, this.entitySaveService);
+      const mediaBasicInfo = await this.mediaBasicInfoService.createMediaBasicInfo(input.MediaBasicInfo, movie, this.entitySaveService);
 
       if (input.MediaAdditionalInfo) {
         mediaAdditionalInfo = await this.mediaAdditionalInfoService.createMediaAdditionalInfo(input.MediaAdditionalInfo, movie, this.entitySaveService);
       }
 
-      if (input.AchievementInfo) {
-        achievementInfo = await this.achievementInfoService.createAchievementInfo(input.AchievementInfo, movie, this.entitySaveService);
+      if (input.MediaFinanacialInfo) {
+        financialInfo = await this.financialInfoService.createFinancialInfo(input.MediaFinanacialInfo, movie, this.entitySaveService);
       }
 
       movie.video = video;
+      movie.manager = manager;
       movie.mediaResource = mediaResource;
       movie.mediaBasicInfo = mediaBasicInfo;
-      if (input.MediaAdditionalInfo) movie.mediaAdditionalInfo = mediaAdditionalInfo;
-      if (input.AchievementInfo) movie.achievementInfo = achievementInfo;
-      movie.manager = manager;
+      movie.mediaImage = [mediaImage];
+      if (mediaAdditionalInfo) movie.mediaAdditionalInfo = mediaAdditionalInfo;
+      if (financialInfo) movie.financialInfo = financialInfo;
 
       this.entitySaveService.push(movie);
       await this.entitySaveService.save();

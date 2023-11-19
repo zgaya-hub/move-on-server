@@ -35,12 +35,6 @@ type Cineast {
   crew: Crew!
 }
 
-input CreateAchievementInfoInput {
-  Award: [String!]!
-  IMDbRating: Float!
-  OMDbRating: Float!
-}
-
 input CreateCastInput {
   """Example field (placeholder)"""
   exampleField: Int!
@@ -56,11 +50,6 @@ input CreateCrewInput {
   exampleField: Int!
 }
 
-input CreateEpisodeInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
 input CreateErrorLogInput {
   message: String!
   statusCode: Float!
@@ -68,11 +57,6 @@ input CreateErrorLogInput {
 }
 
 input CreateExternalLinkInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input CreateFinancialInfoInput {
   """Example field (placeholder)"""
   exampleField: Int!
 }
@@ -95,6 +79,12 @@ input CreateMediaBasicInfoInput {
   Title: String!
 }
 
+input CreateMediaFinancialInfoInput {
+  MediaBudget: Float!
+  MediaNetProfit: Float!
+  MediaRevenue: Float!
+}
+
 input CreateMovieCastInput {
   """Example field (placeholder)"""
   exampleField: Int!
@@ -106,9 +96,9 @@ input CreateMovieCrewInput {
 }
 
 input CreateMovieInput {
-  AchievementInfo: CreateAchievementInfoInput
-  MediaAdditionalInfo: CreateMediaAdditionalInfoInput
+  MediaAdditionalInfo: CreateMediaAdditionalInfoInput!
   MediaBasicInfo: CreateMediaBasicInfoInput!
+  MediaFinanacialInfo: CreateMediaFinancialInfoInput!
   MediaImageId: String!
   SignedUrlKeyId: String!
   VideoId: String!
@@ -125,8 +115,10 @@ input CreateReviewInput {
 }
 
 input CreateSeasonInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  MediaBasicInfo: CreateMediaBasicInfoInput!
+  MediaImageId: String!
+  SeasonNo: Float!
+  SeriesId: String!
 }
 
 input CreateSeriesCastInput {
@@ -140,13 +132,13 @@ input CreateSeriesCrewInput {
 }
 
 input CreateSeriesInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  MediaAdditionalInfo: CreateMediaAdditionalInfoInput!
+  MediaBasicInfo: CreateMediaBasicInfoInput!
+  MediaImageId: String!
+  SeriesId: String!
 }
 
 input CreateTrailerInput {
-  AchievementInfo: CreateAchievementInfoInput
-  MediaAdditionalInfo: CreateMediaAdditionalInfoInput
   MediaBasicInfo: CreateMediaBasicInfoInput!
   MediaImageId: String!
   SignedUrlKeyId: String!
@@ -317,18 +309,16 @@ type Mutation {
   createCast(createCastInput: CreateCastInput!): Cast!
   createCineast(createCineastInput: CreateCineastInput!): Cineast!
   createCrew(createCrewInput: CreateCrewInput!): Crew!
-  createEpisode(createEpisodeInput: CreateEpisodeInput!): Episode!
   createErrorLog(CreateErrorLogInput: CreateErrorLogInput!): ErrorLog!
   createExternalLink(createExternalLinkInput: CreateExternalLinkInput!): ExternalLink!
-  createFinancialInfo(createFinancialInfoInput: CreateFinancialInfoInput!): FinancialInfo!
   createManagerActivity(createManagerActivityInput: CreateManagerActivityInput!): ManagerActivity!
   createMovie(CreateMovieInput: CreateMovieInput!): SuccessOutput!
   createMovieCast(createMovieCastInput: CreateMovieCastInput!): MovieCast!
   createMovieCrew(createMovieCrewInput: CreateMovieCrewInput!): MovieCrew!
   createProfileInfo(createProfileInfoInput: CreateProfileInfoInput!): ProfileInfo!
   createReview(createReviewInput: CreateReviewInput!): Review!
-  createSeason(createSeasonInput: CreateSeasonInput!): Season!
-  createSeries(createSeriesInput: CreateSeriesInput!): Series!
+  createSeason(CreateSeasonInput: CreateSeasonInput!): SuccessOutput!
+  createSeries(CreateSeriesInput: CreateSeriesInput!): SuccessOutput!
   createSeriesCast(createSeriesCastInput: CreateSeriesCastInput!): SeriesCast!
   createSeriesCrew(createSeriesCrewInput: CreateSeriesCrewInput!): SeriesCrew!
   createTrailer(CreateTrailerInput: CreateTrailerInput!): SuccessOutput!
@@ -339,32 +329,24 @@ type Mutation {
   removeCast(id: Int!): Cast!
   removeCineast(id: Int!): Cineast!
   removeCrew(id: Int!): Crew!
-  removeEpisode(id: Int!): Episode!
   removeExternalLink(id: Int!): ExternalLink!
-  removeFinancialInfo(id: Int!): FinancialInfo!
   removeManagerActivity(id: Int!): ManagerActivity!
   removeMovieCast(id: Int!): MovieCast!
   removeMovieCrew(id: Int!): MovieCrew!
   removeProfileInfo(id: Int!): ProfileInfo!
   removeReview(id: Int!): Review!
-  removeSeason(id: Int!): Season!
-  removeSeries(id: Int!): Series!
   removeSeriesCast(id: Int!): SeriesCast!
   removeSeriesCrew(id: Int!): SeriesCrew!
   removeUserActivity(id: Int!): UserActivity!
   updateCast(updateCastInput: UpdateCastInput!): Cast!
   updateCineast(updateCineastInput: UpdateCineastInput!): Cineast!
   updateCrew(updateCrewInput: UpdateCrewInput!): Crew!
-  updateEpisode(updateEpisodeInput: UpdateEpisodeInput!): Episode!
   updateExternalLink(updateExternalLinkInput: UpdateExternalLinkInput!): ExternalLink!
-  updateFinancialInfo(updateFinancialInfoInput: UpdateFinancialInfoInput!): FinancialInfo!
   updateManagerActivity(updateManagerActivityInput: UpdateManagerActivityInput!): ManagerActivity!
   updateMovieCast(updateMovieCastInput: UpdateMovieCastInput!): MovieCast!
   updateMovieCrew(updateMovieCrewInput: UpdateMovieCrewInput!): MovieCrew!
   updateProfileInfo(updateProfileInfoInput: UpdateProfileInfoInput!): ProfileInfo!
   updateReview(updateReviewInput: UpdateReviewInput!): Review!
-  updateSeason(updateSeasonInput: UpdateSeasonInput!): Season!
-  updateSeries(updateSeriesInput: UpdateSeriesInput!): Series!
   updateSeriesCast(updateSeriesCastInput: UpdateSeriesCastInput!): SeriesCast!
   updateSeriesCrew(updateSeriesCrewInput: UpdateSeriesCrewInput!): SeriesCrew!
   updateUserActivity(updateUserActivityInput: UpdateUserActivityInput!): UserActivity!
@@ -388,16 +370,12 @@ type Query {
   cast(id: Int!): Cast!
   cineast(id: Int!): Cineast!
   crew(id: Int!): Crew!
-  episode(id: Int!): Episode!
   externalLink(id: Int!): ExternalLink!
-  financialInfo(id: Int!): FinancialInfo!
   managerActivity(id: Int!): ManagerActivity!
   movieCast(id: Int!): MovieCast!
   movieCrew(id: Int!): MovieCrew!
   profileInfo(id: Int!): ProfileInfo!
   review(id: Int!): Review!
-  season(id: Int!): Season!
-  series(id: Int!): Series!
   seriesCast(id: Int!): SeriesCast!
   seriesCrew(id: Int!): SeriesCrew!
   userActivity(id: Int!): UserActivity!
@@ -481,22 +459,10 @@ input UpdateCrewInput {
   id: Float!
 }
 
-input UpdateEpisodeInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Float!
-}
-
 input UpdateExternalLinkInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Float!
-}
-
-input UpdateFinancialInfoInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
 }
 
 input UpdateManagerActivityInput {
@@ -529,12 +495,6 @@ input UpdateReviewInput {
   id: Float!
 }
 
-input UpdateSeasonInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Float!
-}
-
 input UpdateSeriesCastInput {
   """Example field (placeholder)"""
   exampleField: Int
@@ -542,12 +502,6 @@ input UpdateSeriesCastInput {
 }
 
 input UpdateSeriesCrewInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Float!
-}
-
-input UpdateSeriesInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Float!

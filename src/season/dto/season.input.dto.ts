@@ -1,20 +1,20 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { Field, InputType } from '@nestjs/graphql';
-import { IsNotEmpty, IsObject, IsUUID } from 'class-validator';
-import { MediaBasicInfoInputDto } from '@/media-basic-info/dto/media-basic-info.input.dto';
+import { IsNotEmpty, IsNumber, IsObject, IsUUID } from 'class-validator';
+import { MediaBasicInfoInputDto } from '../../media-basic-info/dto/media-basic-info.input.dto';
 
-export namespace TrailerInputDto {
+export namespace SeasonInputDto {
   @InputType()
-  export class CreateTrailerInput {
-    @Field(() => String)
+  export class CreateSeasonInput {
+    @Field(() => Number)
     @IsNotEmpty()
-    @IsUUID()
-    VideoId: string;
+    @IsNumber()
+    SeasonNo: number;
 
     @Field(() => String)
     @IsNotEmpty()
     @IsUUID()
-    SignedUrlKeyId: string;
+    SeriesId: string;
 
     @Field(() => String)
     @IsNotEmpty()

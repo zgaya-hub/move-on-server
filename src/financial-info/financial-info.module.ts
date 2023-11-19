@@ -4,5 +4,6 @@ import { FinancialInfoResolver } from './financial-info.resolver';
 
 @Module({
   providers: [FinancialInfoResolver, FinancialInfoService],
+  exports: [FinancialInfoService],
 })
 export class FinancialInfoModule {}

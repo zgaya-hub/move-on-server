@@ -9,7 +9,6 @@ import { Trailer } from '../trailer/entities/trailer.entity';
 import { AwsS3Service } from '../aws/aws-s3/aws-s3.service';
 import { Transactional } from 'typeorm-transactional';
 import { EntitySaveService } from '../adapter/save.service';
-// import { EntitySaveService } from '../utilities/class/EntitySaveService.util';
 
 @Injectable()
 export class MediaResourceService {

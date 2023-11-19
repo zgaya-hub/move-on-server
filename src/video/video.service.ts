@@ -32,11 +32,11 @@ export class VideoService {
     try {
       const video = new Video();
 
-      video.videoHeight = input.Height;
-      video.videoWidth = input.Width;
       video.videoMime = input.Mime;
-      video.videoSizeInKb = input.SizeInKb;
+      video.videoWidth = input.Width;
+      video.videoHeight = input.Height;
       video.videoRunTime = input.RunTime;
+      video.videoSizeInKb = input.SizeInKb;
       video.managerId = currentManager.ID;
       video.videoQuality = handleOnGetVideoQualityBySize(input.Width, input.Height);
 
