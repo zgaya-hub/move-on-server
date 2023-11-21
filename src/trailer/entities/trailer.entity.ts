@@ -11,6 +11,9 @@ import { MediaImage } from '@/media-image/entities/media-image.entity';
 import { ExternalLink } from '@/external-link/entities/external-link.entity';
 import { Review } from '@/review/entities/review.entity';
 import { MediaResource } from '@/media-resource/entities/media-resource.entity';
+import { Movie } from '@/movie/entities/movie.entity';
+import { Series } from '@/series/entities/series.entity';
+import { Season } from '@/season/entities/season.entity';
 
 @ObjectType()
 @Entity()
@@ -52,4 +55,19 @@ export class Trailer extends EntityBase {
   @Field(() => [Review])
   @OneToMany(() => Review, (review) => review.trailer)
   review: Review[];
+
+  @Field(() => Movie)
+  @OneToOne(() => Movie, (movie) => movie.trailer, { nullable: true })
+  @JoinColumn()
+  movie: Movie;
+
+  @Field(() => Series)
+  @OneToOne(() => Series, (series) => series.trailer, { nullable: true })
+  @JoinColumn()
+  series: Series;
+
+  @Field(() => Season)
+  @OneToOne(() => Season, (series) => series.trailer, { nullable: true })
+  @JoinColumn()
+  season: Season;
 }

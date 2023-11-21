@@ -9,9 +9,9 @@ export class VideoValidatorPipe implements PipeTransform {
   private readonly VALID_IMAGE_MIME_TYPES: VideoMineType[] = ['video/mp4', 'video/webm', 'video/avi', 'video/mpeg'];
 
   transform(video: VideoInputDto.GetUploadVideoSignedUrlInput): VideoInputDto.GetUploadVideoSignedUrlInput {
-    const fileMimeType = video.Mime as VideoMineType;
+    const videoMime = video.Mime as VideoMineType;
 
-    if (!this.VALID_IMAGE_MIME_TYPES.includes(fileMimeType)) {
+    if (!this.VALID_IMAGE_MIME_TYPES.includes(videoMime)) {
       throw new UnsupportedMediaTypeException('Invalid MIME specified');
     }
 

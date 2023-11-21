@@ -6,9 +6,10 @@ import { MediaBasicInfoModule } from '../media-basic-info/media-basic-info.modul
 import { ManagerModule } from '../manager/manager.module';
 import { MediaResourceModule } from '../media-resource/media-resource.module';
 import { MediaImageModule } from '../media-image/media-image.module';
+import { TrailerRepository } from './trailer.repository';
 
 @Module({
   imports: [VideoModule, MediaBasicInfoModule, ManagerModule, MediaResourceModule, MediaImageModule],
-  providers: [TrailerResolver, TrailerService],
+  providers: [TrailerResolver, TrailerService, TrailerRepository],
 })
 export class TrailerModule {}

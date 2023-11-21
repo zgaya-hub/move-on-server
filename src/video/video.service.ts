@@ -21,7 +21,7 @@ export class VideoService {
       throw new MethodNotAllowedException('Shorts feature is currently unavailable');
     }
 
-    const signedUrl = await this.awsS3Service.generateVideoUploadUrl(input.Mime, currentManager, input.Type);
+    const signedUrl = await this.awsS3Service.generateVideoUploadUrl(input.Mime, currentManager, input.MediaType);
     const video = await this.createVideoInfo(input, currentManager);
 
     return { ...signedUrl, videoId: video.ID };

@@ -13,6 +13,7 @@ import { AchievementInfo } from '@/achievement-info/entities/achievement-info.en
 import { FinancialInfo } from '@/financial-info/entities/financial-info.entity';
 import { MediaAdditionalInfo } from '@/media-additional-info/entities/media-additional-info.entity';
 import { MediaBasicInfo } from '@/media-basic-info/entities/media-basic-info.entity';
+import { Trailer } from '@/trailer/entities/trailer.entity';
 
 @ObjectType()
 @Entity()
@@ -42,6 +43,10 @@ export class Series extends EntityBase {
   @Field(() => MediaBasicInfo)
   @OneToOne(() => MediaBasicInfo, (mediaBasicInfo) => mediaBasicInfo.series)
   mediaBasicInfo: MediaBasicInfo;
+
+  @Field(() => Trailer)
+  @OneToOne(() => Trailer, (trailer) => trailer.series)
+  trailer: Trailer;
 
   @Field(() => Manager)
   @ManyToOne(() => Manager, (manager) => manager.series)
