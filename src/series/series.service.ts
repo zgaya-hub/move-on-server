@@ -73,7 +73,12 @@ export class SeriesService {
 
   async findSeriesById(ID: string): Promise<Series> {
     try {
-      return this.seriesRepository.findSeriesById(ID);
+      const series = await this.seriesRepository.findSeriesById(ID);
+      if (!series){
+        throw new NotFoundException("Invalid Series specified")
+      }
+
+      return series;
     } catch (error) {
       throw new Error(error);
     }

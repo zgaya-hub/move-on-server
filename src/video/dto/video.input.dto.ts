@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { InputType, Field } from '@nestjs/graphql';
 import { IsEnum, IsMimeType, IsNotEmpty, IsNumber, IsOptional, Max, Min } from 'class-validator';
-import { MediaTypeEnum } from '@/common/enum/common.enum';
+import { MediaEnum } from '@/common/enum/common.enum';
 
 export namespace VideoInputDto {
   @InputType()
   export class GetUploadVideoSignedUrlInput {
     @Field(() => String)
     @IsNotEmpty()
-    @IsEnum(MediaTypeEnum)
-    Type: MediaTypeEnum;
+    @IsEnum(MediaEnum)
+    MediaType: MediaEnum;
 
     // for Detect Video or a short
     @Field(() => Number)

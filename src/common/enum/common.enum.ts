@@ -407,7 +407,7 @@ export enum ActivityStatusEnum {
   FAIL = 'Fail',
 }
 
-export enum MediaTypeEnum {
+export enum MediaEnum {
   SERIES = 'Series',
   SEASON = 'Season',
   EPISODE = 'Episode',

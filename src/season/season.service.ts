@@ -64,7 +64,12 @@ export class SeasonService {
 
   async findSeasonById(ID: string): Promise<Season> {
     try {
-      return this.seasonRepository.findSeasonById(ID);
+      const season = await this.seasonRepository.findSeasonById(ID);
+      if (!season){
+        throw new NotFoundException("Invalid Season specified")
+      }
+
+      return season;
     } catch (error) {
       throw new Error(error);
     }

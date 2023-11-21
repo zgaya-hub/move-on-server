@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import { RadisService } from '@/radis/radis.service';
 import { RadisInputDto } from '@/radis/dto/radis.input.dto';
 import { AwsS3OutputDto } from './dto/aws-s3.output.dto';
-import { MediaTypeEnum } from '@/common/enum/common.enum';
+import { MediaEnum } from '@/common/enum/common.enum';
 
 @Injectable()
 export class AwsS3Service {
@@ -24,7 +24,7 @@ export class AwsS3Service {
     });
   }
 
-  async generateVideoUploadUrl(mine: VideoMineType, currentManager: CurrentManagerType, type: MediaTypeEnum): Promise<AwsS3OutputDto.GetS3SignedUrlOutput> {
+  async generateVideoUploadUrl(mine: VideoMineType, currentManager: CurrentManagerType, type: MediaEnum): Promise<AwsS3OutputDto.GetS3SignedUrlOutput> {
     try {
       const key = this.generateKey(currentManager, type);
       const command = this.createPutObjectCommand(key, this.configService.get<string>('S3_VIDEO_BUCKET'), mine);
@@ -39,7 +39,7 @@ export class AwsS3Service {
   }
 
   async generateShortUploadUrl(mine: VideoMineType, currentManager: CurrentManagerType) {
-    const key = this.generateKey(currentManager, MediaTypeEnum.SHORT);
+    const key = this.generateKey(currentManager, MediaEnum.SHORT);
     const command = this.createPutObjectCommand(key, this.configService.get<string>('S3_SHORT_BUCKET'), mine);
 
     return this.getSignedUrl(command);
@@ -51,7 +51,7 @@ export class AwsS3Service {
     return this.getSignedUrl(command);
   }
 
-  private generateKey(currentManager: CurrentManagerType, type: MediaTypeEnum): string {
+  private generateKey(currentManager: CurrentManagerType, type: MediaEnum): string {
     return `${currentManager.ID}/${type}/${Date.now()}`;
   }
 

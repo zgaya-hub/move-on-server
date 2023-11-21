@@ -14,6 +14,7 @@ import { Video } from '@/video/entities/video.entity';
 import { MediaBasicInfo } from '@/media-basic-info/entities/media-basic-info.entity';
 import { MediaAdditionalInfo } from '@/media-additional-info/entities/media-additional-info.entity';
 import { MediaResource } from '@/media-resource/entities/media-resource.entity';
+import { Trailer } from '@/trailer/entities/trailer.entity';
 
 @ObjectType()
 @Entity()
@@ -57,6 +58,10 @@ export class Movie extends EntityBase {
   @Field(() => MediaResource)
   @OneToOne(() => MediaResource, (mediaResource) => mediaResource.movie)
   mediaResource: MediaResource;
+
+  @Field(() => Trailer)
+  @OneToOne(() => Trailer, (trailer) => trailer.movie)
+  trailer: Trailer;
 
   @Field(() => MovieCast)
   @OneToMany(() => MovieCast, (movieCast) => movieCast.movie)
