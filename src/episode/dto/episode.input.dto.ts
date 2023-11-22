@@ -36,4 +36,16 @@ export namespace EpisodeInputDto {
     @IsNotEmpty()
     MediaBasicInfo: MediaBasicInfoInputDto.CreateMediaBasicInfoInput;
   }
+  @InputType()
+  export class ChangeEpisodeSeasonInput {
+    @Field(() => String)
+    @IsNotEmpty()
+    @IsUUID()
+    SeasonId: string;
+
+    @Field(() => String)
+    @IsNotEmpty()
+    @IsUUID()
+    EpisodeId: string;
+  }
 }

@@ -14,7 +14,6 @@ import { EntitySaveService } from '../adapter/save.service';
 export class MediaResourceService {
   constructor(private readonly radisService: RadisService, private readonly awsS3Service: AwsS3Service) {}
 
-  @Transactional()
   async createMediaResource(input: MediaResourceInputDto.CreateMediaInput, media: MovierMediaType, entitySaveService?: EntitySaveService): Promise<MediaResource> {
     try {
       const mediaResource = new MediaResource();

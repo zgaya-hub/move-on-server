@@ -9,7 +9,6 @@ import { EntitySaveService } from '../adapter/save.service';
 
 @Injectable()
 export class MediaAdditionalInfoService {
-  @Transactional()
   async createMediaAdditionalInfo(
     input: MediaAdditionalInfoInputDto.CreateMediaAdditionalInfoInput,
     media: MovierMediaType,

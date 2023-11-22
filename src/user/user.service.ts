@@ -17,7 +17,6 @@ export class UserService {
     return this.userRepository.isUserExist(email);
   }
 
-  @Transactional()
   async userRegister(input: UserInputDto.UserRegisterInput): Promise<User> {
     try {
       const user = new User();

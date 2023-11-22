@@ -15,25 +15,25 @@ export class ImageValidatorPipe implements PipeTransform {
   private readonly MAX_SIZE_IN_KB = 4096;
   private readonly VALID_IMAGE_MIME_TYPES: ImageMimeType[] = ['image/gif', 'image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
 
-  transform(image: MediaImageInputDto.MediaImageUploadInput): MediaImageInputDto.MediaImageUploadInput {
-    const { mediaImageBase64, mediaImageMime, mediaImageType } = image;
+  transform(image: MediaImageInputDto.CreateMediaImageInput): MediaImageInputDto.CreateMediaImageInput {
+    const { MediaImageBase64, MediaImageMime, MediaImageType } = image;
 
-    if (!this.VALID_IMAGE_MIME_TYPES.includes(mediaImageMime)) {
+    if (!this.VALID_IMAGE_MIME_TYPES.includes(MediaImageMime)) {
       throw new UnsupportedMediaTypeException('Invalid MIME specified');
     }
 
-    switch (mediaImageType) {
+    switch (MediaImageType) {
       case MediaImageTypeEnum.THUMBNAIL:
-        this.validateAspectRatio(mediaImageBase64, this.THUMBNAIL_MIN_RATIO_THRESHOLD, this.THUMBNAIL_MAX_RATIO_THRESHOLD);
-        this.validateSize(mediaImageBase64);
+        this.validateAspectRatio(MediaImageBase64, this.THUMBNAIL_MIN_RATIO_THRESHOLD, this.THUMBNAIL_MAX_RATIO_THRESHOLD);
+        this.validateSize(MediaImageBase64);
         break;
       case MediaImageTypeEnum.POSTER:
-        this.validateAspectRatio(mediaImageBase64, this.POSTER_MIN_RATIO_THRESHOLD, this.POSTER_MAX_RATIO_THRESHOLD);
-        this.validateSize(mediaImageBase64);
+        this.validateAspectRatio(MediaImageBase64, this.POSTER_MIN_RATIO_THRESHOLD, this.POSTER_MAX_RATIO_THRESHOLD);
+        this.validateSize(MediaImageBase64);
         break;
       case MediaImageTypeEnum.BACKDROP:
-        this.validateAspectRatio(mediaImageBase64, this.BACKDROP_MIN_RATIO_THRESHOLD, this.BACKDROP_MAX_RATIO_THRESHOLD);
-        this.validateSize(mediaImageBase64);
+        this.validateAspectRatio(MediaImageBase64, this.BACKDROP_MIN_RATIO_THRESHOLD, this.BACKDROP_MAX_RATIO_THRESHOLD);
+        this.validateSize(MediaImageBase64);
         break;
     }
 

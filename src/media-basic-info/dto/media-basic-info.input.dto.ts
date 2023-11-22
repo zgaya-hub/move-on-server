@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
-import { Field, InputType } from '@nestjs/graphql';
+import { Field, InputType, PartialType } from '@nestjs/graphql';
 import { IsNotEmpty, IsNumber, IsString, MinLength } from 'class-validator';
 
 export namespace MediaBasicInfoInputDto {
@@ -14,7 +14,7 @@ export namespace MediaBasicInfoInputDto {
     @Field(() => String)
     @IsNotEmpty()
     @IsString()
-    @MinLength(40)
+    @MinLength(15)
     PlotSummary: string;
 
     @Field(() => Number)
@@ -22,4 +22,7 @@ export namespace MediaBasicInfoInputDto {
     @IsNumber()
     ReleaseDate: number;
   }
+
+  @InputType()
+  export class UpdateMediaBasicInfoInput extends PartialType(CreateMediaBasicInfoInput) {}
 }

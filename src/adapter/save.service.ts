@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { EntityBase } from '../base/entity.base';
 import { EntityManager } from 'typeorm';
-import * as _ from 'lodash';
+import { sortBy } from 'lodash';
+import { Transactional } from 'typeorm-transactional';
 
 @Injectable()
 export class EntitySaveService {
@@ -13,13 +14,14 @@ export class EntitySaveService {
 
   push(entity: EntityBase): void {
     this.entities.push(entity);
-    // this.entities = _.sortBy(this.entities, 'creationTimestamp');
+    this.entities = sortBy(this.entities, 'creationTimestamp');
   }
 
   getArray(): EntityBase[] {
     return this.entities;
   }
 
+  @Transactional()
   async save(options?: SaveOptions): Promise<EntityBase[]> {
     try {
       const savedEntities = await this.entityManager.save(this.entities);

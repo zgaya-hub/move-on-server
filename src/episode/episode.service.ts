@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { VideoService } from '../video/video.service';
 import { Episode } from './entities/episode.entity';
 import { EpisodeInputDto } from './dto/episode.input.dto';
@@ -9,6 +9,7 @@ import { MediaResourceService } from '../media-resource/media-resource.service';
 import { EntitySaveService } from '../adapter/save.service';
 import { MediaImageService } from '../media-image/media-image.service';
 import { SeasonService } from '../season/season.service';
+import { EpisodeRepository } from './episode.repository';
 
 @Injectable()
 export class EpisodeService {
@@ -18,10 +19,10 @@ export class EpisodeService {
     private readonly seasonService: SeasonService,
     private readonly mediaResourceService: MediaResourceService,
     private readonly entitySaveService: EntitySaveService,
+    private readonly episodeRepository: EpisodeRepository,
     private readonly mediaImageService: MediaImageService,
   ) {}
 
-  @Transactional()
   async createEpisode(input: EpisodeInputDto.CreateEpisodeInput): Promise<CommonOutputDto.SuccessOutput> {
     try {
       const episode = new Episode();
@@ -44,6 +45,36 @@ export class EpisodeService {
       await this.entitySaveService.save();
 
       return { isSuccess: true };
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async changeEpisodeSeason(input: EpisodeInputDto.ChangeEpisodeSeasonInput): Promise<CommonOutputDto.SuccessOutput> {
+    try {
+      const episode = await this.findEpisodeById(input.EpisodeId);
+
+      const season = await this.seasonService.assignEpisodeToSeason(input.SeasonId, episode, this.entitySaveService);
+
+      episode.season = season;
+
+      this.entitySaveService.push(episode);
+      await this.entitySaveService.save();
+
+      return { isSuccess: true };
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async findEpisodeById(id: string): Promise<Episode> {
+    try {
+      const episode = await this.episodeRepository.findEpisodeById(id);
+      if (!episode) {
+        throw new NotFoundException('Invalid Episode specified');
+      }
+
+      return episode;
     } catch (error) {
       throw new Error(error);
     }

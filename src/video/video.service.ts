@@ -27,7 +27,6 @@ export class VideoService {
     return { ...signedUrl, videoId: video.ID };
   }
 
-  @Transactional()
   async createVideoInfo(input: VideoInputDto.GetUploadVideoSignedUrlInput, currentManager: CurrentManagerType): Promise<Video> {
     try {
       const video = new Video();
@@ -48,7 +47,6 @@ export class VideoService {
     }
   }
 
-  @Transactional()
   async assignVideoToMedia(videoId: string, media: MovierMediaType, entitySaveService?: EntitySaveService): Promise<Video> {
     try {
       const video = await this.findVideoById(videoId);

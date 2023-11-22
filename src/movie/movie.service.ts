@@ -27,9 +27,8 @@ export class MovieService {
     private readonly mediaImageService: MediaImageService,
     private readonly financialInfoService: FinancialInfoService,
     private readonly movieRepository: MovieRepository,
-  ) { }
+  ) {}
 
-  @Transactional()
   async createMovie(input: MovieInputDto.CreateMovieInput, currentManager: CurrentManagerType): Promise<CommonOutputDto.SuccessOutput> {
     try {
       const movie = new Movie();
@@ -69,15 +68,14 @@ export class MovieService {
     }
   }
 
-
   async findMovieById(id: string): Promise<Movie> {
     try {
       const movie = await this.movieRepository.findMovieById(id);
       if (!movie) {
-        throw new NotFoundException('Invalid Movie specified')
+        throw new NotFoundException('Invalid Movie specified');
       }
 
-      return movie
+      return movie;
     } catch (error) {
       throw new Error(error);
     }
