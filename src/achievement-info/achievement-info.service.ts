@@ -9,7 +9,6 @@ import { EntitySaveService } from '../adapter/save.service';
 
 @Injectable()
 export class AchievementInfoService {
-  @Transactional()
   async createAchievementInfo(input: AchievementInfoInputDto.CreateAchievementInfoInput, media: MovierMediaType, entitySaveService?: EntitySaveService): Promise<AchievementInfo> {
     try {
       const achievementInfo = new AchievementInfo();

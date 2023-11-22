@@ -1,5 +1,5 @@
 export enum TrailerMediaEnum {
-    MOVIE = 'Movie',
-    SERIES = 'Series',
-    SEASON = 'Season',
+  MOVIE = 'Movie',
+  SERIES = 'Series',
+  SEASON = 'Season',
 }

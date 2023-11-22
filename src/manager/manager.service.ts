@@ -18,7 +18,6 @@ export class ManagerService {
     return this.managerRepository.isManagerExist(email);
   }
 
-  @Transactional()
   async managerRegister(input: ManagerInputDto.ManagerRegisterInput): Promise<Manager> {
     try {
       const manager = new Manager();

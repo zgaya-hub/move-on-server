@@ -22,6 +22,17 @@ type Cast {
   trailer: [Trailer!]!
 }
 
+input ChangeEpisodeSeasonInput {
+  EpisodeId: String!
+  SeasonId: String!
+}
+
+input ChangeThumbnailImageInput {
+  MediaImageBase64: String!
+  MediaImageId: String!
+  MediaImageMime: String!
+}
+
 type Cineast {
   cast: Cast!
   cineastAward: [String!]!
@@ -48,6 +59,15 @@ input CreateCineastInput {
 input CreateCrewInput {
   """Example field (placeholder)"""
   exampleField: Int!
+}
+
+input CreateEpisodeInput {
+  EpisodeNo: Float!
+  MediaBasicInfo: CreateMediaBasicInfoInput!
+  MediaImageId: String!
+  SeasonId: String!
+  SignedUrlKeyId: String!
+  VideoId: String!
 }
 
 input CreateErrorLogInput {
@@ -83,6 +103,12 @@ input CreateMediaFinancialInfoInput {
   MediaBudget: Float!
   MediaNetProfit: Float!
   MediaRevenue: Float!
+}
+
+input CreateMediaImageInput {
+  MediaImageBase64: String!
+  MediaImageMime: String!
+  MediaImageType: String!
 }
 
 input CreateMovieCastInput {
@@ -140,7 +166,9 @@ input CreateSeriesInput {
 
 input CreateTrailerInput {
   MediaBasicInfo: CreateMediaBasicInfoInput!
+  MediaId: String!
   MediaImageId: String!
+  MediaType: String!
   SignedUrlKeyId: String!
   VideoId: String!
 }
@@ -195,10 +223,10 @@ type FinancialInfo {
 
 input GetUploadVideoSignedUrlInput {
   Height: Float!
+  MediaType: String!
   Mime: String!
   RunTime: Float!
   SizeInKb: Float!
-  Type: String!
   Width: Float!
 }
 
@@ -265,12 +293,6 @@ type MediaImageIdOutput {
   mediaImageId: String!
 }
 
-input MediaImageUploadInput {
-  mediaImageBase64: String!
-  mediaImageMime: String!
-  mediaImageType: String!
-}
-
 type MediaResource {
   episode: Episode!
   mediaS3ObjectKey: String!
@@ -292,6 +314,7 @@ type Movie {
   movieIsFree: Boolean!
   moviePriceInDollar: Float!
   review: Review!
+  trailer: Trailer!
   video: Video!
 }
 
@@ -306,12 +329,16 @@ type MovieCrew {
 }
 
 type Mutation {
+  changeEpisodeSeason(CreateMovieInput: ChangeEpisodeSeasonInput!): SuccessOutput!
+  changeThumbnailImage(ChangeThumbnailImageInput: ChangeThumbnailImageInput!): SuccessOutput!
   createCast(createCastInput: CreateCastInput!): Cast!
   createCineast(createCineastInput: CreateCineastInput!): Cineast!
   createCrew(createCrewInput: CreateCrewInput!): Crew!
+  createEpisode(CreateMovieInput: CreateEpisodeInput!): SuccessOutput!
   createErrorLog(CreateErrorLogInput: CreateErrorLogInput!): ErrorLog!
   createExternalLink(createExternalLinkInput: CreateExternalLinkInput!): ExternalLink!
   createManagerActivity(createManagerActivityInput: CreateManagerActivityInput!): ManagerActivity!
+  createMediaImage(CreateMediaImageInput: CreateMediaImageInput!): MediaImageIdOutput!
   createMovie(CreateMovieInput: CreateMovieInput!): SuccessOutput!
   createMovieCast(createMovieCastInput: CreateMovieCastInput!): MovieCast!
   createMovieCrew(createMovieCrewInput: CreateMovieCrewInput!): MovieCrew!
@@ -350,7 +377,6 @@ type Mutation {
   updateSeriesCast(updateSeriesCastInput: UpdateSeriesCastInput!): SeriesCast!
   updateSeriesCrew(updateSeriesCrewInput: UpdateSeriesCrewInput!): SeriesCrew!
   updateUserActivity(updateUserActivityInput: UpdateUserActivityInput!): UserActivity!
-  uploadMediaImage(MediaImageUploadInput: MediaImageUploadInput!): MediaImageIdOutput!
   userLogin(UserLoginInput: UserLoginInput!): AuthTokenOutput!
   userRegister(UserRegisterInput: UserRegisterInput!): AuthTokenOutput!
 }
@@ -397,6 +423,7 @@ type Season {
   mediaImage: MediaImage!
   seasonNo: Float!
   series: Series!
+  trailer: Trailer!
 }
 
 type Series {
@@ -413,6 +440,7 @@ type Series {
   seriesCrew: SeriesCrew!
   seriesIsFree: Float!
   seriesPriceInDollar: Float!
+  trailer: Trailer!
 }
 
 type SeriesCast {
@@ -437,7 +465,10 @@ type Trailer {
   mediaBasicInfo: MediaBasicInfo!
   mediaImage: [MediaImage!]!
   mediaResource: MediaResource!
+  movie: Movie!
   review: [Review!]!
+  season: Season!
+  series: Series!
   video: Video!
 }
 

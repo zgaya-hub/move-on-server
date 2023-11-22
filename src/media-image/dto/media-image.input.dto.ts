@@ -1,37 +1,32 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import { Field, InputType } from '@nestjs/graphql';
-import { IsEnum, IsMimeType, IsNotEmpty, IsString } from 'class-validator';
+import { Field, InputType, OmitType } from '@nestjs/graphql';
+import { IsEnum, IsMimeType, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 import { MediaImageTypeEnum } from '../enum/media-image.enum';
 
 export namespace MediaImageInputDto {
   @InputType()
-  export class MediaImageCreateInput {
+  export class CreateMediaImageInput {
     @Field(() => String)
     @IsNotEmpty()
     @IsString()
-    mediaImageUrl: string;
-
-    @Field(() => String)
-    @IsNotEmpty()
-    @IsEnum(MediaImageTypeEnum)
-    mediaImageType: MediaImageTypeEnum;
-  }
-
-  @InputType()
-  export class MediaImageUploadInput {
-    @Field(() => String)
-    @IsNotEmpty()
-    @IsString()
-    mediaImageBase64: string;
+    MediaImageBase64: string;
 
     @Field(() => String)
     @IsNotEmpty()
     @IsMimeType()
-    mediaImageMime: ImageMimeType;
+    MediaImageMime: ImageMimeType;
 
     @Field(() => String)
     @IsNotEmpty()
     @IsEnum(MediaImageTypeEnum)
-    mediaImageType: MediaImageTypeEnum;
+    MediaImageType: MediaImageTypeEnum;
+  }
+
+  @InputType()
+  export class ChangeThumbnailImageInput extends OmitType(CreateMediaImageInput, ['MediaImageType']) {
+    @Field(() => String)
+    @IsNotEmpty()
+    @IsUUID()
+    MediaImageId: string;
   }
 }

@@ -12,7 +12,6 @@ import { EntitySaveService } from '../adapter/save.service';
 
 @Injectable()
 export class MediaBasicInfoService {
-  @Transactional()
   async createMediaBasicInfo(input: MediaBasicInfoInputDto.CreateMediaBasicInfoInput, media: MovierMediaType, entitySaveService?: EntitySaveService): Promise<MediaBasicInfo> {
     try {
       const mediaBasicInfo = new MediaBasicInfo();
@@ -26,6 +25,26 @@ export class MediaBasicInfoService {
       if (media instanceof Trailer) mediaBasicInfo.trailer = media;
       if (media instanceof Season) mediaBasicInfo.season = media;
       if (media instanceof Series) mediaBasicInfo.series = media;
+
+      if (entitySaveService) {
+        entitySaveService.push(mediaBasicInfo);
+      } else {
+        await mediaBasicInfo.save();
+      }
+
+      return mediaBasicInfo;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async updateMediaBasicInfo(input: MediaBasicInfoInputDto.UpdateMediaBasicInfoInput, entitySaveService?: EntitySaveService): Promise<MediaBasicInfo> {
+    try {
+      const mediaBasicInfo = new MediaBasicInfo();
+
+      if (input.Title) mediaBasicInfo.mediaTitle = input.Title;
+      if (input.PlotSummary) mediaBasicInfo.mediaPlotSummary = input.PlotSummary;
+      if (input.ReleaseDate) mediaBasicInfo.mediaReleaseDate = input.ReleaseDate;
 
       if (entitySaveService) {
         entitySaveService.push(mediaBasicInfo);

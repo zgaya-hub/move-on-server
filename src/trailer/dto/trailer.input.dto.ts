@@ -11,21 +11,44 @@ export namespace TrailerInputDto {
     @IsNotEmpty()
     @IsUUID()
     VideoId: string;
-    
+
     @Field(() => String)
     @IsNotEmpty()
     @IsUUID()
     SignedUrlKeyId: string;
-    
+
     @Field(() => String)
     @IsNotEmpty()
     @IsUUID()
     MediaImageId: string;
-    
+
     @Field(() => MediaBasicInfoInputDto.CreateMediaBasicInfoInput)
     @IsObject()
     @IsNotEmpty()
     MediaBasicInfo: MediaBasicInfoInputDto.CreateMediaBasicInfoInput;
+
+    @Field(() => String)
+    @IsOptional()
+    @IsEnum(TrailerMediaEnum)
+    MediaType: TrailerMediaEnum;
+
+    @Field(() => String)
+    @IsOptional()
+    @IsUUID()
+    MediaId: string;
+  }
+
+  @InputType()
+  export class UpdateTrailerInput {
+    @Field(() => String)
+    @IsNotEmpty()
+    @IsUUID()
+    TrailerId: string;
+
+    @Field(() => MediaBasicInfoInputDto.UpdateMediaBasicInfoInput)
+    @IsOptional()
+    @IsObject()
+    MediaBasicInfo: MediaBasicInfoInputDto.UpdateMediaBasicInfoInput;
 
     @Field(() => String)
     @IsOptional()

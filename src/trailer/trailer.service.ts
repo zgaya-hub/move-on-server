@@ -32,13 +32,12 @@ export class TrailerService {
     private readonly seriesService: SeriesService,
     private readonly seasonService: SeasonService,
     private readonly trailerRepository: TrailerRepository,
-  ) { }
+  ) {}
 
-  @Transactional()
   async createTrailer(input: TrailerInputDto.CreateTrailerInput, currentManager: CurrentManagerType): Promise<CommonOutputDto.SuccessOutput> {
     try {
       const trailer = new Trailer();
-      let media: MovierMediaType
+      let media: MovierMediaType;
 
       const manager = await this.managerService.findByEmail(currentManager.email);
       const video = await this.videoService.assignVideoToMedia(input.VideoId, trailer, this.entitySaveService);
@@ -48,7 +47,7 @@ export class TrailerService {
       const mediaBasicInfo = await this.mediaBasicInfoService.createMediaBasicInfo(input.MediaBasicInfo, trailer, this.entitySaveService);
 
       if (input.MediaId) {
-        media = await this.findMediaByIdAndType(input.MediaId, input.MediaType)
+        media = await this.findMediaByIdAndType(input.MediaId, input.MediaType);
       }
 
       trailer.video = video;
@@ -57,9 +56,9 @@ export class TrailerService {
       trailer.mediaBasicInfo = mediaBasicInfo;
       trailer.mediaImage = [mediaImage];
 
-      if (media instanceof Movie) trailer.movie = media
-      if (media instanceof Series) trailer.series = media
-      if (media instanceof Season) trailer.season = media
+      if (media instanceof Movie) trailer.movie = media;
+      if (media instanceof Series) trailer.series = media;
+      if (media instanceof Season) trailer.season = media;
 
       this.entitySaveService.push(trailer);
       await this.entitySaveService.save();
@@ -70,24 +69,51 @@ export class TrailerService {
     }
   }
 
+  async updateTrailer(input: TrailerInputDto.UpdateTrailerInput): Promise<CommonOutputDto.SuccessOutput> {
+    try {
+      let media: MovierMediaType;
+
+      const trailer = await this.findTrailerById(input.TrailerId);
+
+      await this.mediaBasicInfoService.updateMediaBasicInfo(input.MediaBasicInfo, this.entitySaveService);
+
+      if (input.MediaId) {
+        media = await this.findMediaByIdAndType(input.MediaId, input.MediaType);
+      }
+
+      trailer.movie = null;
+      trailer.series = null;
+      trailer.season = null;
+      if (media instanceof Movie) trailer.movie = media;
+      if (media instanceof Series) trailer.series = media;
+      if (media instanceof Season) trailer.season = media;
+
+      this.entitySaveService.push(trailer);
+      await this.entitySaveService.save();
+
+      return { isSuccess: true };
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 
   private async findMediaByIdAndType(mediaId: string, type: TrailerMediaEnum) {
     try {
       let media: MovierMediaType;
 
       if (type === TrailerMediaEnum.MOVIE) {
-        media = await this.movieService.findMovieById(mediaId)
+        media = await this.movieService.findMovieById(mediaId);
       }
 
       if (type === TrailerMediaEnum.SEASON) {
-        media = await this.seasonService.findSeasonById(mediaId)
+        media = await this.seasonService.findSeasonById(mediaId);
       }
 
       if (type === TrailerMediaEnum.SERIES) {
-        media = await this.seriesService.findSeriesById(mediaId)
+        media = await this.seriesService.findSeriesById(mediaId);
       }
 
-      return media
+      return media;
     } catch (error) {
       throw new Error(error);
     }
@@ -95,12 +121,12 @@ export class TrailerService {
 
   async findTrailerById(id: string): Promise<Trailer> {
     try {
-      const trailer = await this.trailerRepository.findTrailerById(id)
+      const trailer = await this.trailerRepository.findTrailerById(id);
       if (!trailer) {
-        throw new NotFoundException('Invalid Trailer specified')
+        throw new NotFoundException('Invalid Trailer specified');
       }
 
-      return trailer
+      return trailer;
     } catch (error) {
       throw new Error(error);
     }

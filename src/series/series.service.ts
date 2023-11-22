@@ -23,7 +23,6 @@ export class SeriesService {
     private readonly entitySaveService: EntitySaveService,
   ) {}
 
-  @Transactional()
   async createSeries(input: SeriesInputDto.CreateSeriesInput, currentManage: CurrentManagerType): Promise<CommonOutputDto.SuccessOutput> {
     try {
       const season = new Series();
@@ -74,8 +73,8 @@ export class SeriesService {
   async findSeriesById(ID: string): Promise<Series> {
     try {
       const series = await this.seriesRepository.findSeriesById(ID);
-      if (!series){
-        throw new NotFoundException("Invalid Series specified")
+      if (!series) {
+        throw new NotFoundException('Invalid Series specified');
       }
 
       return series;

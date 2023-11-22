@@ -20,7 +20,6 @@ export class SeasonService {
     private readonly mediaImageService: MediaImageService,
   ) {}
 
-  @Transactional()
   async createSeason(input: SeasonInputDto.CreateSeasonInput): Promise<CommonOutputDto.SuccessOutput> {
     try {
       const season = new Season();
@@ -65,8 +64,8 @@ export class SeasonService {
   async findSeasonById(ID: string): Promise<Season> {
     try {
       const season = await this.seasonRepository.findSeasonById(ID);
-      if (!season){
-        throw new NotFoundException("Invalid Season specified")
+      if (!season) {
+        throw new NotFoundException('Invalid Season specified');
       }
 
       return season;

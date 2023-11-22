@@ -7,7 +7,7 @@ import { Transactional } from 'typeorm-transactional';
 export class ErrorLogService {
   private readonly logger = new Logger(ErrorLogService.name);
 
-  @Transactional() // Will open a transaction if one doesn't already exist
+  // Will open a transaction if one doesn't already exist
   async create(input: ErrorLogInputDto.CreateErrorLogInput): Promise<ErrorLog> {
     try {
       const errorLog = new ErrorLog();

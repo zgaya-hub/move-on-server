@@ -12,18 +12,20 @@ import { Trailer } from '../trailer/entities/trailer.entity';
 import { Series } from '../series/entities/series.entity';
 import { Season } from '../season/entities/season.entity';
 import { EntitySaveService } from '../adapter/save.service';
+import { CommonOutputDto } from '../common/dto/common.dto';
 
 @Injectable()
 export class MediaImageService {
   constructor(private readonly cloudinaryService: CloudinaryService, private readonly mediaImageRepository: MediaImageRepository) {}
 
-  @Transactional()
-  async createMediaImage(input: MediaImageInputDto.MediaImageCreateInput): Promise<MediaImageOutputDto.MediaImageIdOutput> {
+  async createMediaImage(input: MediaImageInputDto.CreateMediaImageInput): Promise<MediaImageOutputDto.MediaImageIdOutput> {
     try {
       const mediaImage = new MediaImage();
 
-      mediaImage.mediaImageType = input.mediaImageType;
-      mediaImage.mediaImageUrl = input.mediaImageUrl;
+      const uploadedImage = await this.cloudinaryService.uploadImageOnCloudinary({ base64: input.MediaImageBase64 });
+
+      mediaImage.mediaImageType = input.MediaImageType;
+      mediaImage.mediaImageUrl = uploadedImage.imageUrl;
 
       await mediaImage.save();
 
@@ -33,12 +35,16 @@ export class MediaImageService {
     }
   }
 
-  async uploadMediaImage(input: MediaImageInputDto.MediaImageUploadInput): Promise<MediaImageOutputDto.MediaImageIdOutput> {
+  async changeThumbnailImage(input: MediaImageInputDto.ChangeThumbnailImageInput): Promise<CommonOutputDto.SuccessOutput> {
     try {
-      const uploadedImage = await this.cloudinaryService.uploadImageOnCloudinary({ base64: input.mediaImageBase64 });
-      const createdMediaImage = await this.createMediaImage({ mediaImageType: input.mediaImageType, mediaImageUrl: uploadedImage.imageUrl });
+      const mediaImage = await this.findMediaImageById(input.MediaImageId);
 
-      return createdMediaImage;
+      const uploadedImage = await this.cloudinaryService.uploadImageOnCloudinary({ base64: input.MediaImageBase64 });
+      mediaImage.mediaImageUrl = uploadedImage.imageUrl;
+
+      await mediaImage.save();
+
+      return { isSuccess: true };
     } catch (error) {
       throw new Error(error);
     }
@@ -47,7 +53,6 @@ export class MediaImageService {
   async assignMediaImageToMedia(mediaImageId: string, media: MovierMediaType, entitySaveService?: EntitySaveService): Promise<MediaImage> {
     try {
       const mediaImage = await this.findMediaImageById(mediaImageId);
-      if (!mediaImage) throw new NotFoundException('Invalid MediaImage specified');
 
       if (media instanceof Movie) mediaImage.movie = media;
       if (media instanceof Episode) mediaImage.episode = media;
@@ -67,10 +72,13 @@ export class MediaImageService {
     }
   }
 
-  async findMediaImageById(ID: string): Promise<MediaImage> {
+  async findMediaImageById(mediaImageId: string): Promise<MediaImage> {
     try {
-      const mediaImage = await this.mediaImageRepository.findMediaImageById(ID);
-      if (!mediaImage) throw new NotFoundException('Invalid Media Image specified');
+      const mediaImage = await this.mediaImageRepository.findMediaImageById(mediaImageId);
+      if (!mediaImage) {
+        throw new NotFoundException('Invalid Media Image specified');
+      }
+
       return mediaImage;
     } catch (error) {
       throw new Error(error);

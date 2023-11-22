@@ -27,5 +27,6 @@ import { FinancialInfoModule } from '../financial-info/financial-info.module';
     FinancialInfoModule,
   ],
   providers: [MovieResolver, MovieService, MovieRepository],
+  exports: [MovieService],
 })
 export class MovieModule {}
