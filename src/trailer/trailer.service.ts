@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { VideoService } from '../video/video.service';
 import { Trailer } from './entities/trailer.entity';
 import { TrailerInputDto } from './dto/trailer.input.dto';
-import { Transactional } from 'typeorm-transactional';
 import { ManagerService } from '../manager/manager.service';
 import { CommonOutputDto } from '../common/dto/common.dto';
 import { MediaBasicInfoService } from '../media-basic-info/media-basic-info.service';
@@ -69,13 +68,25 @@ export class TrailerService {
     }
   }
 
-  async updateTrailer(input: TrailerInputDto.UpdateTrailerInput): Promise<CommonOutputDto.SuccessOutput> {
+  async updateTrailerBasicInfo(input: TrailerInputDto.UpdateTrailerBasicInfoInput): Promise<CommonOutputDto.SuccessOutput> {
     try {
-      let media: MovierMediaType;
-
       const trailer = await this.findTrailerById(input.TrailerId);
 
       await this.mediaBasicInfoService.updateMediaBasicInfo(input.MediaBasicInfo, this.entitySaveService);
+
+      this.entitySaveService.push(trailer);
+      await this.entitySaveService.save();
+
+      return { isSuccess: true };
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async changeTrailerMedia(input: TrailerInputDto.ChangeTrailerMediaInput): Promise<CommonOutputDto.SuccessOutput> {
+    try {
+      let media: MovierMediaType;
+      const trailer = await this.findTrailerById(input.TrailerId);
 
       if (input.MediaId) {
         media = await this.findMediaByIdAndType(input.MediaId, input.MediaType);
@@ -97,7 +108,7 @@ export class TrailerService {
     }
   }
 
-  private async findMediaByIdAndType(mediaId: string, type: TrailerMediaEnum) {
+  private async findMediaByIdAndType(mediaId: string, type: TrailerMediaEnum): Promise<MovierMediaType> {
     try {
       let media: MovierMediaType;
 

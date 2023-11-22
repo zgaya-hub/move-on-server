@@ -25,7 +25,7 @@ export class EpisodeResolver {
 
   @Mutation(() => CommonOutputDto.SuccessOutput)
   async changeEpisodeSeason(
-    @Args('CreateMovieInput')
+    @Args('ChangeEpisodeSeasonInput')
     input: EpisodeInputDto.ChangeEpisodeSeasonInput,
   ): Promise<CommonOutputDto.SuccessOutput> {
     try {
