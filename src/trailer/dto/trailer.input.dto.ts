@@ -39,24 +39,32 @@ export namespace TrailerInputDto {
   }
 
   @InputType()
-  export class UpdateTrailerInput {
+  export class UpdateTrailerBasicInfoInput {
     @Field(() => String)
     @IsNotEmpty()
     @IsUUID()
     TrailerId: string;
 
     @Field(() => MediaBasicInfoInputDto.UpdateMediaBasicInfoInput)
-    @IsOptional()
+    @IsNotEmpty()
     @IsObject()
     MediaBasicInfo: MediaBasicInfoInputDto.UpdateMediaBasicInfoInput;
+  }
+
+  @InputType()
+  export class ChangeTrailerMediaInput {
+    @Field(() => String)
+    @IsNotEmpty()
+    @IsUUID()
+    TrailerId: string;
 
     @Field(() => String)
-    @IsOptional()
+    @IsNotEmpty()
     @IsEnum(TrailerMediaEnum)
     MediaType: TrailerMediaEnum;
 
     @Field(() => String)
-    @IsOptional()
+    @IsNotEmpty()
     @IsUUID()
     MediaId: string;
   }
