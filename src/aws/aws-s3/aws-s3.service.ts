@@ -32,7 +32,7 @@ export class AwsS3Service {
       const signedUrl = await this.getSignedUrl(command);
       const signedUrlKeyId = await this.storeS3KeyInTempStorage(key);
 
-      return { signedUrl, signedUrlKeyId };
+      return { SignedUrl: signedUrl, SignedUrlKeyId: signedUrlKeyId };
     } catch (error) {
       throw new Error(error);
     }

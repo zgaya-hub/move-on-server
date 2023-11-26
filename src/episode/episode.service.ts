@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { VideoService } from '../video/video.service';
 import { Episode } from './entities/episode.entity';
 import { EpisodeInputDto } from './dto/episode.input.dto';
-import { Transactional } from 'typeorm-transactional';
 import { CommonOutputDto } from '../common/dto/common.dto';
 import { MediaBasicInfoService } from '../media-basic-info/media-basic-info.service';
 import { MediaResourceService } from '../media-resource/media-resource.service';
@@ -27,19 +26,15 @@ export class EpisodeService {
     try {
       const episode = new Episode();
 
-      const video = await this.videoService.assignVideoToMedia(input.VideoId, episode, this.entitySaveService);
-      const mediaImage = await this.mediaImageService.assignMediaImageToMedia(input.MediaImageId, episode, this.entitySaveService);
-      const season = await this.seasonService.assignEpisodeToSeason(input.SeasonId, episode, this.entitySaveService);
+      const season = await this.seasonService.findSeasonById(input.SeasonId);
 
-      const mediaResource = await this.mediaResourceService.createMediaResource({ SignedUrlKeyId: input.SignedUrlKeyId }, episode, this.entitySaveService);
-      const mediaBasicInfo = await this.mediaBasicInfoService.createMediaBasicInfo(input.MediaBasicInfo, episode, this.entitySaveService);
+      await this.videoService.assignVideoToMedia(input.VideoId, episode, this.entitySaveService);
+      await this.mediaImageService.assignMediaImageToMedia(input.MediaImageId, episode, this.entitySaveService);
+      await this.mediaBasicInfoService.createMediaBasicInfo(input.MediaBasicInfo, episode, this.entitySaveService);
+      await this.mediaResourceService.createMediaResource({ SignedUrlKeyId: input.SignedUrlKeyId }, episode, this.entitySaveService);
 
-      episode.video = video;
       episode.season = season;
-      episode.mediaImage = [mediaImage];
       episode.episodeNo = input.EpisodeNo;
-      episode.mediaResource = mediaResource;
-      episode.mediaBasicInfo = mediaBasicInfo;
 
       this.entitySaveService.push(episode);
       await this.entitySaveService.save();
@@ -53,13 +48,11 @@ export class EpisodeService {
   async changeEpisodeSeason(input: EpisodeInputDto.ChangeEpisodeSeasonInput): Promise<CommonOutputDto.SuccessOutput> {
     try {
       const episode = await this.findEpisodeById(input.EpisodeId);
-
-      const season = await this.seasonService.assignEpisodeToSeason(input.SeasonId, episode, this.entitySaveService);
+      const season = await this.seasonService.findSeasonById(input.SeasonId);
 
       episode.season = season;
 
-      this.entitySaveService.push(episode);
-      await this.entitySaveService.save();
+      await episode.save();
 
       return { isSuccess: true };
     } catch (error) {

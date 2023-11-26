@@ -76,11 +76,6 @@ input CreateErrorLogInput {
   type: String!
 }
 
-input CreateExternalLinkInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
 input CreateManagerActivityInput {
   """Example field (placeholder)"""
   exampleField: Int!
@@ -296,6 +291,7 @@ type MediaImageIdOutput {
 type MediaResource {
   episode: Episode!
   mediaS3ObjectKey: String!
+  mediaS3ObjectUrl: String!
   movie: Movie!
   trailer: Trailer!
 }
@@ -329,14 +325,13 @@ type MovieCrew {
 }
 
 type Mutation {
-  changeEpisodeSeason(CreateMovieInput: ChangeEpisodeSeasonInput!): SuccessOutput!
+  changeEpisodeSeason(ChangeEpisodeSeasonInput: ChangeEpisodeSeasonInput!): SuccessOutput!
   changeThumbnailImage(ChangeThumbnailImageInput: ChangeThumbnailImageInput!): SuccessOutput!
   createCast(createCastInput: CreateCastInput!): Cast!
   createCineast(createCineastInput: CreateCineastInput!): Cineast!
   createCrew(createCrewInput: CreateCrewInput!): Crew!
   createEpisode(CreateMovieInput: CreateEpisodeInput!): SuccessOutput!
   createErrorLog(CreateErrorLogInput: CreateErrorLogInput!): ErrorLog!
-  createExternalLink(createExternalLinkInput: CreateExternalLinkInput!): ExternalLink!
   createManagerActivity(createManagerActivityInput: CreateManagerActivityInput!): ManagerActivity!
   createMediaImage(CreateMediaImageInput: CreateMediaImageInput!): MediaImageIdOutput!
   createMovie(CreateMovieInput: CreateMovieInput!): SuccessOutput!
@@ -356,7 +351,6 @@ type Mutation {
   removeCast(id: Int!): Cast!
   removeCineast(id: Int!): Cineast!
   removeCrew(id: Int!): Crew!
-  removeExternalLink(id: Int!): ExternalLink!
   removeManagerActivity(id: Int!): ManagerActivity!
   removeMovieCast(id: Int!): MovieCast!
   removeMovieCrew(id: Int!): MovieCrew!
@@ -368,7 +362,6 @@ type Mutation {
   updateCast(updateCastInput: UpdateCastInput!): Cast!
   updateCineast(updateCineastInput: UpdateCineastInput!): Cineast!
   updateCrew(updateCrewInput: UpdateCrewInput!): Crew!
-  updateExternalLink(updateExternalLinkInput: UpdateExternalLinkInput!): ExternalLink!
   updateManagerActivity(updateManagerActivityInput: UpdateManagerActivityInput!): ManagerActivity!
   updateMovieCast(updateMovieCastInput: UpdateMovieCastInput!): MovieCast!
   updateMovieCrew(updateMovieCrewInput: UpdateMovieCrewInput!): MovieCrew!
@@ -376,6 +369,7 @@ type Mutation {
   updateReview(updateReviewInput: UpdateReviewInput!): Review!
   updateSeriesCast(updateSeriesCastInput: UpdateSeriesCastInput!): SeriesCast!
   updateSeriesCrew(updateSeriesCrewInput: UpdateSeriesCrewInput!): SeriesCrew!
+  updateTrailerBasicInfo(UpdateTrailerBasicInfoInput: UpdateTrailerBasicInfoInput!): SuccessOutput!
   updateUserActivity(updateUserActivityInput: UpdateUserActivityInput!): UserActivity!
   userLogin(UserLoginInput: UserLoginInput!): AuthTokenOutput!
   userRegister(UserRegisterInput: UserRegisterInput!): AuthTokenOutput!
@@ -396,7 +390,6 @@ type Query {
   cast(id: Int!): Cast!
   cineast(id: Int!): Cineast!
   crew(id: Int!): Crew!
-  externalLink(id: Int!): ExternalLink!
   managerActivity(id: Int!): ManagerActivity!
   movieCast(id: Int!): MovieCast!
   movieCrew(id: Int!): MovieCrew!
@@ -490,16 +483,16 @@ input UpdateCrewInput {
   id: Float!
 }
 
-input UpdateExternalLinkInput {
+input UpdateManagerActivityInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Float!
 }
 
-input UpdateManagerActivityInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Float!
+input UpdateMediaBasicInfoInput {
+  PlotSummary: String
+  ReleaseDate: Float
+  Title: String
 }
 
 input UpdateMovieCastInput {
@@ -538,6 +531,11 @@ input UpdateSeriesCrewInput {
   id: Float!
 }
 
+input UpdateTrailerBasicInfoInput {
+  MediaBasicInfo: UpdateMediaBasicInfoInput!
+  TrailerId: String!
+}
+
 input UpdateUserActivityInput {
   """Example field (placeholder)"""
   exampleField: Int
@@ -545,9 +543,9 @@ input UpdateUserActivityInput {
 }
 
 type UploadVideoSignedUrlOutput {
-  signedUrl: String!
-  signedUrlKeyId: String!
-  videoId: String!
+  SignedUrl: String!
+  SignedUrlKeyId: String!
+  VideoId: String!
 }
 
 type User {

@@ -1,9 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Season } from './entities/season.entity';
-import { Episode } from '../episode/entities/episode.entity';
 import { EntitySaveService } from '../adapter/save.service';
 import { SeasonRepository } from './season.repository';
-import { Transactional } from 'typeorm-transactional';
 import { SeasonInputDto } from './dto/season.input.dto';
 import { CommonOutputDto } from '../common/dto/common.dto';
 import { SeriesService } from '../series/series.service';
@@ -25,14 +23,12 @@ export class SeasonService {
       const season = new Season();
 
       const series = await this.seriesService.assignSeasonToSeries(input.SeriesId, season, this.entitySaveService);
-      const mediaImage = await this.mediaImageService.assignMediaImageToMedia(input.MediaImageId, season, this.entitySaveService);
 
-      const mediaBasicInfo = await this.mediaBasicInfoService.createMediaBasicInfo(input.MediaBasicInfo, season, this.entitySaveService);
+      await this.mediaImageService.assignMediaImageToMedia(input.MediaImageId, season, this.entitySaveService);
+      await this.mediaBasicInfoService.createMediaBasicInfo(input.MediaBasicInfo, season, this.entitySaveService);
 
       season.seasonNo = input.SeasonNo;
       season.series = series;
-      season.mediaBasicInfo = mediaBasicInfo;
-      season.mediaImage = [mediaImage];
 
       await season.save();
 
@@ -42,20 +38,16 @@ export class SeasonService {
     }
   }
 
-  async assignEpisodeToSeason(seasonId: string, episode: Episode, entitySaveService?: EntitySaveService): Promise<Season> {
+  async changeSeasonSeries(input: SeasonInputDto.ChangeSeasonSeriesInput): Promise<CommonOutputDto.SuccessOutput> {
     try {
-      const season = await this.findSeasonById(seasonId);
-      if (!season) throw new NotFoundException('Invalid Season specified');
+      const season = await this.findSeasonById(input.SeasonId);
+      const series = await this.seriesService.findSeriesById(input.SeriesId);
 
-      season.episode = [episode];
+      season.series = series;
 
-      if (entitySaveService) {
-        entitySaveService.push(season);
-      } else {
-        await entitySaveService.save();
-      }
+      await season.save();
 
-      return season;
+      return { isSuccess: true };
     } catch (error) {
       throw new Error(error);
     }

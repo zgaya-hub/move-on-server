@@ -1,16 +1,13 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { Field, ObjectType } from '@nestjs/graphql';
 
-export namespace VideoOutputDto {
+export namespace MediaResourceOutputDto {
   @ObjectType()
-  export class UploadVideoSignedUrlOutput {
+  export class RetrieveS3ObjectKeyAndUrlOutput {
     @Field(() => String)
-    SignedUrl: string;
+    ObjectUrl: string;
 
     @Field(() => String)
-    VideoId: string;
-
-    @Field(() => String)
-    SignedUrlKeyId: string;
+    ObjectKey: string;
   }
 }
