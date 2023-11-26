@@ -1,5 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { TimestampColumn, JoinColumn, TextColumn, VarcharColumn } from '@/decorator/entity/entity.decorator';
+import { TimestampColumn, JoinColumn, TextColumn, VarcharColumn, BigIntColumn } from '@/decorator/entity/entity.decorator';
 import { Entity, OneToOne } from 'typeorm';
 import { Movie } from '@/movie/entities/movie.entity';
 import { Series } from '@/series/entities/series.entity';
@@ -21,7 +21,7 @@ export class MediaBasicInfo extends EntityBase {
   mediaPlotSummary: string;
 
   @Field()
-  @TimestampColumn()
+  @BigIntColumn()
   mediaReleaseDate: number;
 
   @Field(() => Movie)

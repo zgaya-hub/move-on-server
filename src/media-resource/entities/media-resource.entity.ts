@@ -13,6 +13,10 @@ export class MediaResource extends EntityBase {
   @TextColumn()
   mediaS3ObjectKey: string;
 
+  @Field()
+  @TextColumn()
+  mediaS3ObjectUrl: string;
+
   // is nullable possible
   @Field(() => Movie)
   @OneToOne(() => Movie, (movie) => movie.mediaResource, { nullable: true })

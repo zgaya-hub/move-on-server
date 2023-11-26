@@ -10,6 +10,6 @@ export namespace RadisOutputDto {
 
   @ObjectType()
   export class ValueOutput<T> {
-    value: T;
+    Value: T;
   }
 }

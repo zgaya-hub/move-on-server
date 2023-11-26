@@ -39,22 +39,17 @@ export class TrailerService {
       let media: MovierMediaType;
 
       const manager = await this.managerService.findByEmail(currentManager.email);
-      const video = await this.videoService.assignVideoToMedia(input.VideoId, trailer, this.entitySaveService);
-      const mediaImage = await this.mediaImageService.assignMediaImageToMedia(input.MediaImageId, trailer, this.entitySaveService);
+      await this.videoService.assignVideoToMedia(input.VideoId, trailer, this.entitySaveService);
+      await this.mediaImageService.assignMediaImageToMedia(input.MediaImageId, trailer, this.entitySaveService);
 
-      const mediaResource = await this.mediaResourceService.createMediaResource({ SignedUrlKeyId: input.SignedUrlKeyId }, trailer, this.entitySaveService);
-      const mediaBasicInfo = await this.mediaBasicInfoService.createMediaBasicInfo(input.MediaBasicInfo, trailer, this.entitySaveService);
+      await this.mediaResourceService.createMediaResource({ SignedUrlKeyId: input.SignedUrlKeyId }, trailer, this.entitySaveService);
+      await this.mediaBasicInfoService.createMediaBasicInfo(input.MediaBasicInfo, trailer, this.entitySaveService);
 
       if (input.MediaId) {
         media = await this.findMediaByIdAndType(input.MediaId, input.MediaType);
       }
 
-      trailer.video = video;
       trailer.manager = manager;
-      trailer.mediaResource = mediaResource;
-      trailer.mediaBasicInfo = mediaBasicInfo;
-      trailer.mediaImage = [mediaImage];
-
       if (media instanceof Movie) trailer.movie = media;
       if (media instanceof Series) trailer.series = media;
       if (media instanceof Season) trailer.season = media;
@@ -85,12 +80,9 @@ export class TrailerService {
 
   async changeTrailerMedia(input: TrailerInputDto.ChangeTrailerMediaInput): Promise<CommonOutputDto.SuccessOutput> {
     try {
-      let media: MovierMediaType;
       const trailer = await this.findTrailerById(input.TrailerId);
 
-      if (input.MediaId) {
-        media = await this.findMediaByIdAndType(input.MediaId, input.MediaType);
-      }
+      const media = await this.findMediaByIdAndType(input.MediaId, input.MediaType);
 
       trailer.movie = null;
       trailer.series = null;

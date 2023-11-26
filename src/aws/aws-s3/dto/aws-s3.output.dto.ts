@@ -5,10 +5,10 @@ export namespace AwsS3OutputDto {
   @InputType()
   export class GetS3SignedUrlOutput {
     @Field(() => String)
-    signedUrl: string;
+    SignedUrl: string;
 
     @Field(() => String)
-    signedUrlKeyId: string;
+    SignedUrlKeyId: string;
   }
 
   @InputType()

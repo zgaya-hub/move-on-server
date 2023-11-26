@@ -4,7 +4,6 @@ import { VideoInputDto } from './dto/video.input.dto';
 import { VideoOutputDto } from './dto/video.output.dto';
 import { Video } from './entities/video.entity';
 import { handleOnGetVideoQualityBySize } from './utils/getVideoQualityBySize';
-import { Transactional } from 'typeorm-transactional';
 import { MovierMediaType } from '../common/types/Common.type';
 import { VideoRepository } from './video.repository';
 import { Movie } from '../movie/entities/movie.entity';
@@ -18,13 +17,13 @@ export class VideoService {
 
   async getUploadVideoSignedUrl(input: VideoInputDto.GetUploadVideoSignedUrlInput, currentManager: CurrentManagerType): Promise<VideoOutputDto.UploadVideoSignedUrlOutput> {
     if (input.IsShort) {
-      throw new MethodNotAllowedException('Shorts feature is currently unavailable');
+      throw new MethodNotAllowedException('Shorts feature is currently not supporting');
     }
 
     const signedUrl = await this.awsS3Service.generateVideoUploadUrl(input.Mime, currentManager, input.MediaType);
     const video = await this.createVideoInfo(input, currentManager);
 
-    return { ...signedUrl, videoId: video.ID };
+    return { ...signedUrl, VideoId: video.ID };
   }
 
   async createVideoInfo(input: VideoInputDto.GetUploadVideoSignedUrlInput, currentManager: CurrentManagerType): Promise<Video> {

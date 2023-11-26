@@ -22,8 +22,8 @@ export class RadisService {
 
   async retrieveStringValueFromTempStorage(input: RadisInputDto.RetrieveStringValueFromTempStorageInput): Promise<RadisOutputDto.ValueOutput<string>> {
     try {
-      const eee = await this.redisClient.getex(`${input.service}:${input.key}`);
-      return { value: JSON.stringify(eee) };
+      const storedValue = await this.redisClient.getex(`${input.service}:${input.key}`);
+      return { Value: JSON.stringify(storedValue) };
     } catch (error) {
       throw new Error(error);
     }
