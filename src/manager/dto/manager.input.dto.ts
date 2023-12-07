@@ -12,12 +12,12 @@ export namespace ManagerInputDto {
 
     @Field(() => String)
     @IsNotEmpty()
-    @IsStrongPassword()
+    @IsString()
     password: string;
   }
 
   @InputType()
-  export class ManagerLoginInput {
+  export class ManagerSignInInput {
     @Field(() => String)
     @IsNotEmpty()
     @IsString()

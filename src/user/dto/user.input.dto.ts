@@ -17,7 +17,7 @@ export namespace UserInputDto {
   }
 
   @InputType()
-  export class UserLoginInput {
+  export class UserSignInInput {
     @Field(() => String)
     @IsNotEmpty()
     @IsEmail()

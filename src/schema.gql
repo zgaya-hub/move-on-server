@@ -228,7 +228,7 @@ input GetUploadVideoSignedUrlInput {
 type Manager {
   accountStatus: String!
   email: String!
-  lastLogin: Float!
+  lastSignIn: Float!
   managerActivity: ManagerActivity!
   movie: Movie!
   password: String!
@@ -244,12 +244,12 @@ type ManagerActivity {
   managerActivityStatus: String!
 }
 
-input ManagerLoginInput {
+input ManagerRegisterInput {
   email: String!
   password: String!
 }
 
-input ManagerRegisterInput {
+input ManagerSignInInput {
   email: String!
   password: String!
 }
@@ -346,8 +346,8 @@ type Mutation {
   createTrailer(CreateTrailerInput: CreateTrailerInput!): SuccessOutput!
   createUserActivity(createUserActivityInput: CreateUserActivityInput!): UserActivity!
   getUploadVideoSignedUrl(GetUploadVideoSignedUrlInput: GetUploadVideoSignedUrlInput!): UploadVideoSignedUrlOutput!
-  managerLogin(UserLoginInput: ManagerLoginInput!): AuthTokenOutput!
   managerRegister(ManagerRegisterInput: ManagerRegisterInput!): AuthTokenOutput!
+  managerSignIn(ManagerSignInInput: ManagerSignInInput!): AuthTokenOutput!
   removeCast(id: Int!): Cast!
   removeCineast(id: Int!): Cineast!
   removeCrew(id: Int!): Crew!
@@ -371,8 +371,8 @@ type Mutation {
   updateSeriesCrew(updateSeriesCrewInput: UpdateSeriesCrewInput!): SeriesCrew!
   updateTrailerBasicInfo(UpdateTrailerBasicInfoInput: UpdateTrailerBasicInfoInput!): SuccessOutput!
   updateUserActivity(updateUserActivityInput: UpdateUserActivityInput!): UserActivity!
-  userLogin(UserLoginInput: UserLoginInput!): AuthTokenOutput!
   userRegister(UserRegisterInput: UserRegisterInput!): AuthTokenOutput!
+  userSignIn(UserSignInInput: UserSignInInput!): AuthTokenOutput!
 }
 
 type ProfileInfo {
@@ -563,12 +563,12 @@ type UserActivity {
   userActivityStatus: String!
 }
 
-input UserLoginInput {
+input UserRegisterInput {
   email: String!
   password: String!
 }
 
-input UserRegisterInput {
+input UserSignInInput {
   email: String!
   password: String!
 }
