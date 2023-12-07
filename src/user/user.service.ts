@@ -35,7 +35,7 @@ export class UserService {
     }
   }
 
-  async userLogin(input: UserInputDto.UserLoginInput): Promise<User> {
+  async userSignIn(input: UserInputDto.UserSignInInput): Promise<User> {
     try {
       const user = await this.findByEmail(input.email);
       if (!user) throw new NotFoundException('Invalid credentials specified');

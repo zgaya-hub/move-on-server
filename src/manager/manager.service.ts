@@ -36,7 +36,7 @@ export class ManagerService {
     }
   }
 
-  async managerLogin(input: ManagerInputDto.ManagerLoginInput): Promise<Manager> {
+  async managerSignIn(input: ManagerInputDto.ManagerSignInInput): Promise<Manager> {
     try {
       const user = await this.findByEmail(input.email);
       if (!user) throw new NotFoundException('Invalid credentials specified');

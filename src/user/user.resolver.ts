@@ -14,8 +14,8 @@ export class UserResolver {
   constructor(private readonly userService: UserService, private readonly authService: AuthService) {}
 
   @Mutation(() => CommonOutputDto.AuthTokenOutput)
-  async userLogin(@Args('UserLoginInput') input: UserInputDto.UserLoginInput): Promise<CommonOutputDto.AuthTokenOutput> {
-    const user = await this.userService.userLogin(input);
+  async userSignIn(@Args('UserSignInInput') input: UserInputDto.UserSignInInput): Promise<CommonOutputDto.AuthTokenOutput> {
+    const user = await this.userService.userSignIn(input);
     const token = this.authService.signToken(user);
     return { token };
   }

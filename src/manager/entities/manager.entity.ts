@@ -28,7 +28,7 @@ export class Manager extends EntityBase {
   // nullable possible
   @Field()
   @IntColumn({ nullable: true })
-  lastLogin: number;
+  lastSignIn: number;
 
   // JOINS COLUMNS //
   @Field(() => ProfileInfo)
