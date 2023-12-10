@@ -4,11 +4,11 @@ dotenv.config();
 
 const ormConfig: DataSourceOptions = {
   type: 'mysql',
-  host: '127.0.0.1',
-  port: 3306,
-  username: 'root',
-  password: '',
-  database: 'wordpress',
+  host: 'mysql-21d83b93-mr-6197.a.aivencloud.com',
+  port: 10953,
+  username: 'avnadmin',
+  password: 'AVNS_DLKPJaXiAzDKdvV7Pen',
+  database: 'defaultdb',
   entities: ['dist/**/entities/*.entity.js'],
   migrations: [`dist/**/${process.env.MR}/*.js`],
 };
