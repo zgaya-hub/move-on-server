@@ -42,6 +42,7 @@ import { TrailerModule } from './trailer/trailer.module';
 import { MediaResourceModule } from './media-resource/media-resource.module';
 import { AdapterModule } from './adapter/adapter.module';
 import { MonitoringModule } from './monitoring/monitoring.module';
+import { MockModule } from './mock/mock.module';
 
 @Module({
   imports: [
@@ -50,7 +51,14 @@ import { MonitoringModule } from './monitoring/monitoring.module';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
       playground: true,
-      // plugins: [ApolloServerPluginLandingPageLocalDefault()],
+      context: ({ req, res }) => ({ req, res }),
+      formatError: (err) => {
+        if (err.extensions.originalError) {
+          return { ...err.extensions.originalError };
+        } else {
+          return { message: err.message };
+        }
+      },
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -115,6 +123,7 @@ import { MonitoringModule } from './monitoring/monitoring.module';
     MediaResourceModule,
     AdapterModule,
     MonitoringModule,
+    MockModule,
   ],
   controllers: [AppController],
   providers: [AppService],

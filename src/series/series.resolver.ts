@@ -1,4 +1,4 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { SeriesService } from './series.service';
 import { Series } from './entities/series.entity';
 import { CommonOutputDto } from '../common/dto/common.dto';
@@ -20,6 +20,15 @@ export class SeriesResolver {
   ): Promise<CommonOutputDto.SuccessOutput> {
     try {
       return this.seriesService.createSeries(input, manager);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  @Query(() => Series)
+  async getManagerSeries(@CurrentUser() manager: CurrentManagerType): Promise<Series[]> {
+    try {
+      return this.seriesService.getManagerSeries(manager);
     } catch (error) {
       throw new Error(error);
     }

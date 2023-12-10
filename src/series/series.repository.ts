@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
-import { EntityManager } from 'typeorm';
+import { EntityManager, SelectQueryBuilder } from 'typeorm';
 import { Series } from './entities/series.entity';
 import { Repository } from '../base/repository.base';
 
@@ -10,7 +10,14 @@ export class SeriesRepository extends Repository<Series> {
     super(Series, entityManager);
   }
 
-  public async findSeriesById(ID: string): Promise<Series> {
-    return await this.findOneBy({ ID });
+  findSeriesById(ID: string): Promise<Series> {
+    return this.findOneBy({ ID });
+  }
+
+  findSeriesByManagerId(managerId: string): SelectQueryBuilder<Series> {
+    return this.createQueryBuilder('series')
+      .leftJoinAndSelect('series.mediaBasicInfo', 'mediaBasicInfo')
+      .leftJoinAndSelect('series.mediaImage', 'mediaImage')
+      .where('series.manager = :managerId', { managerId });
   }
 }
