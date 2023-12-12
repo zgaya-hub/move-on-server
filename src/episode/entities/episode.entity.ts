@@ -1,5 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { EntityBase } from '@/base/entity.base';
+import { EntityBase } from '@/base/EntityBase';
 import { Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { Season } from '@/season/entities/season.entity';
 import { MediaImage } from '@/media-image/entities/media-image.entity';

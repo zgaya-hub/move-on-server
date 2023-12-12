@@ -1,7 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Entity, ManyToOne } from 'typeorm';
 import { DecimalColumn, JoinColumn, TextColumn } from '@/decorator/entity/entity.decorator';
-import { EntityBase } from '@/base/entity.base';
+import { EntityBase } from '@/base/EntityBase';
 import { User } from '@/user/entities/user.entity';
 import { Episode } from '@/episode/entities/episode.entity';
 import { Series } from '@/series/entities/series.entity';

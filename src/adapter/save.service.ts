@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { EntityBase } from '../base/entity.base';
+import { EntityBase } from '../base/EntityBase';
 import { EntityManager } from 'typeorm';
 import { sortBy } from 'lodash';
 import { Transactional } from 'typeorm-transactional';

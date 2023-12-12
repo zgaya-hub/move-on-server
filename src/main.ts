@@ -17,7 +17,7 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule, adapter);
 
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({ forbidUnknownValues: true }));
   // app.useGlobalFilters(new ExceptionFilter());
 
   app.enableCors();

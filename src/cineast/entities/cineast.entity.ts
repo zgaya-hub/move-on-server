@@ -1,5 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { EntityBase } from '@/base/entity.base';
+import { EntityBase } from '@/base/EntityBase';
 import { Entity, OneToOne } from 'typeorm';
 import { CountriesEnum, GenderEnum } from '@/common/enum/common.enum';
 import { Cast } from '@/cast/entities/cast.entity';

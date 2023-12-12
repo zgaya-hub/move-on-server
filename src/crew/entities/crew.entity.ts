@@ -1,7 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Entity, ManyToMany, OneToMany, OneToOne } from 'typeorm';
 import { Cineast } from '@/cineast/entities/cineast.entity';
-import { EntityBase } from '@/base/entity.base';
+import { EntityBase } from '@/base/EntityBase';
 import { CrewRoleEnum } from '../enum/crew.enum';
 import { MovieCrew } from '@/movie-crew/entities/movie-crew.entity';
 import { SeriesCrew } from '@/series-crew/entities/series-crew.entity';

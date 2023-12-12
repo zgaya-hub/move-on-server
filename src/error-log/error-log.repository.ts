@@ -1,4 +1,4 @@
-import { Repository } from '../base/repository.base';
+import { Repository } from '../base/RepositoryBase';
 import { ErrorLog } from './entities/error-log.entity';
 import { Injectable } from '@nestjs/common';
 

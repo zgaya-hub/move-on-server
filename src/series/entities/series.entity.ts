@@ -1,6 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Entity, ManyToOne, OneToMany, OneToOne } from 'typeorm';
-import { EntityBase } from '@/base/entity.base';
+import { EntityBase } from '@/base/EntityBase';
 import { Season } from '@/season/entities/season.entity';
 import { Manager } from '@/manager/entities/manager.entity';
 import { DecimalColumn, JoinColumn, TinyintColumn } from '@/decorator/entity/entity.decorator';
@@ -61,7 +61,7 @@ export class Series extends EntityBase {
   @OneToMany(() => SeriesCrew, (seriesCrew) => seriesCrew.series)
   seriesCrew: SeriesCrew[];
 
-  @Field(() => MediaImage)
+  @Field(() => [MediaImage])
   @OneToMany(() => MediaImage, (mediaImage) => mediaImage.series)
   mediaImage: MediaImage[];
 

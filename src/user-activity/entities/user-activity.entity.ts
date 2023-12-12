@@ -4,7 +4,7 @@ import { EnumColumn, JoinColumn, UuidColumn } from '@/decorator/entity/entity.de
 import { Entity, ManyToOne } from 'typeorm';
 import { User } from '@/user/entities/user.entity';
 import { ActivityStatusEnum } from '@/common/enum/common.enum';
-import { EntityBase } from '@/base/entity.base';
+import { EntityBase } from '@/base/EntityBase';
 
 @ObjectType()
 @Entity()

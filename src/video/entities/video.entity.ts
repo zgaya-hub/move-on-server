@@ -2,7 +2,7 @@ import { ObjectType, Field } from '@nestjs/graphql';
 import { EnumColumn, IntColumn, JoinColumn, TinyintColumn, VarcharColumn } from '@/decorator/entity/entity.decorator';
 import { Entity, OneToOne } from 'typeorm';
 import { Movie } from '@/movie/entities/movie.entity';
-import { EntityBase } from '@/base/entity.base';
+import { EntityBase } from '@/base/EntityBase';
 import { VideoQualityEnum } from '../enum/video.enum';
 import { Episode } from '@/episode/entities/episode.entity';
 import { Trailer } from '@/trailer/entities/trailer.entity';

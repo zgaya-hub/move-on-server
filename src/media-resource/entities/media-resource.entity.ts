@@ -4,7 +4,7 @@ import { Movie } from '@/movie/entities/movie.entity';
 import { Entity, OneToOne } from 'typeorm';
 import { Episode } from '@/episode/entities/episode.entity';
 import { Trailer } from '@/trailer/entities/trailer.entity';
-import { EntityBase } from '@/base/entity.base';
+import { EntityBase } from '@/base/EntityBase';
 
 @ObjectType()
 @Entity()

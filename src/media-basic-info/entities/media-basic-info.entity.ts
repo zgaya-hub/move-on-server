@@ -3,7 +3,7 @@ import { TimestampColumn, JoinColumn, TextColumn, VarcharColumn, BigIntColumn } 
 import { Entity, OneToOne } from 'typeorm';
 import { Movie } from '@/movie/entities/movie.entity';
 import { Series } from '@/series/entities/series.entity';
-import { EntityBase } from '@/base/entity.base';
+import { EntityBase } from '@/base/EntityBase';
 import { Season } from '@/season/entities/season.entity';
 import { Episode } from '@/episode/entities/episode.entity';
 import { Trailer } from '@/trailer/entities/trailer.entity';

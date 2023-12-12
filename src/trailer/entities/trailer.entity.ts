@@ -1,5 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { EntityBase } from '@/base/entity.base';
+import { EntityBase } from '@/base/EntityBase';
 import { JoinColumn } from '@/decorator/entity/entity.decorator';
 import { Entity, ManyToMany, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { MediaBasicInfo } from '@/media-basic-info/entities/media-basic-info.entity';

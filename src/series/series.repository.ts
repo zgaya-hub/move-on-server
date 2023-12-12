@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { EntityManager, SelectQueryBuilder } from 'typeorm';
 import { Series } from './entities/series.entity';
-import { Repository } from '../base/repository.base';
+import { Repository } from '../base/RepositoryBase';
 
 @Injectable()
 export class SeriesRepository extends Repository<Series> {

@@ -1,5 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { EntityBase } from '@/base/entity.base';
+import { EntityBase } from '@/base/EntityBase';
 import { BeforeInsert, Entity, OneToMany, OneToOne } from 'typeorm';
 import { ManagerAccountStatusEnum } from '../enum/manager.enum';
 import { Movie } from '@/movie/entities/movie.entity';

@@ -1,6 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Entity, ManyToOne } from 'typeorm';
-import { EntityBase } from '@/base/entity.base';
+import { EntityBase } from '@/base/EntityBase';
 import { Cast } from '@/cast/entities/cast.entity';
 import { Movie } from '@/movie/entities/movie.entity';
 import { JoinColumn } from '@/decorator/entity/entity.decorator';

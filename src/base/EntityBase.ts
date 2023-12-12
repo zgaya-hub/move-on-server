@@ -1,12 +1,13 @@
-import { Field, ID } from '@nestjs/graphql';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { BaseEntity, BeforeInsert, BeforeSoftRemove, BeforeUpdate, PrimaryGeneratedColumn } from 'typeorm';
 import { BigIntColumn } from '../decorator/entity/entity.decorator';
 import { cloneDeep } from 'lodash';
 
+@ObjectType()
 export class EntityBase extends BaseEntity {
   public snapshot: this;
 
-  @Field(() => ID)
+  @Field(() => String)
   @PrimaryGeneratedColumn('uuid', { name: 'ID' })
   ID: string;
 
