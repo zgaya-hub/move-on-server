@@ -4,7 +4,7 @@ import { ManagerActivityActionEnum } from '../enum/manager-activity.enum';
 import { ActivityStatusEnum } from '@/common/enum/common.enum';
 import { Entity, ManyToOne } from 'typeorm';
 import { Manager } from '@/manager/entities/manager.entity';
-import { EntityBase } from '@/base/entity.base';
+import { EntityBase } from '@/base/EntityBase';
 
 @ObjectType()
 @Entity()

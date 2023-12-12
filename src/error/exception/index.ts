@@ -1,1 +1,1 @@
-export { ProcessingException } from './processing.exception';
+export { ProcessingException } from './ProcessingExceptions';

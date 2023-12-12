@@ -4,7 +4,7 @@ import { Entity, OneToOne } from 'typeorm';
 import { EnumColumn, JoinColumn } from '@/decorator/entity/entity.decorator';
 import { Series } from '@/series/entities/series.entity';
 import { CountriesEnum, LanguagiesEnum } from '@/common/enum/common.enum';
-import { EntityBase } from '@/base/entity.base';
+import { EntityBase } from '@/base/EntityBase';
 import { MediaGenriesEnum, MediaStatusEnum } from '../enum/media-additional-info.enum';
 
 @ObjectType()

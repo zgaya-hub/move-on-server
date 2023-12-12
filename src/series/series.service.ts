@@ -89,9 +89,7 @@ export class SeriesService {
   async getManagerSeries(currentManager: CurrentManagerType): Promise<Series[]> {
     try {
       // const series = this.seriesRepository.findSeriesByManagerId(currentManager.ID);
-      const series = this.mockService.generateMockData<Series>(getManagerSeriesMock, 2);
-      console.log(JSON.stringify(series, null, 4));
-
+      const series = this.mockService.generateMockData<Series>(getManagerSeriesMock, 10);
       return series;
     } catch (error) {
       throw new Error(error);

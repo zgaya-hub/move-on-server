@@ -25,7 +25,7 @@ export class SeriesResolver {
     }
   }
 
-  @Query(() => Series)
+  @Query(() => [Series])
   async getManagerSeries(@CurrentUser() manager: CurrentManagerType): Promise<Series[]> {
     try {
       return this.seriesService.getManagerSeries(manager);

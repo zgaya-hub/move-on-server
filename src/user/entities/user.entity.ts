@@ -1,6 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { BeforeInsert, Entity, OneToMany, OneToOne } from 'typeorm';
-import { EntityBase } from '@/base/entity.base';
+import { EntityBase } from '@/base/EntityBase';
 import { UserActivity } from '@/user-activity/entities/user-activity.entity';
 import { VarcharColumn } from '@/decorator/entity/entity.decorator';
 import { ProfileInfo } from '@/profile-info/entities/profile-info.entity';

@@ -3,7 +3,7 @@ import { Entity, ManyToOne } from 'typeorm';
 import { JoinColumn } from '@/decorator/entity/entity.decorator';
 import { Movie } from '@/movie/entities/movie.entity';
 import { Crew } from '@/crew/entities/crew.entity';
-import { EntityBase } from '@/base/entity.base';
+import { EntityBase } from '@/base/EntityBase';
 
 @ObjectType()
 @Entity()

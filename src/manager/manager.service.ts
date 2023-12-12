@@ -5,6 +5,7 @@ import { ManagerRepository } from './manager.repository';
 import { ManagerAccountStatusEnum } from './enum/manager.enum';
 import { Transactional } from 'typeorm-transactional';
 import { comparePassword } from '../utilities/function/bcrypt';
+import { EmailAlreadyExistsException, InvalidCredentialsException } from './manager.exceptions';
 
 @Injectable()
 export class ManagerService {
@@ -23,7 +24,7 @@ export class ManagerService {
       const manager = new Manager();
 
       const managerExist = await this.findByEmail(input.email);
-      if (managerExist) throw new BadRequestException('Email already registered');
+      if (managerExist) throw new EmailAlreadyExistsException();
 
       manager.email = input.email;
       manager.password = input.password;
@@ -39,10 +40,10 @@ export class ManagerService {
   async managerSignIn(input: ManagerInputDto.ManagerSignInInput): Promise<Manager> {
     try {
       const user = await this.findByEmail(input.email);
-      if (!user) throw new NotFoundException('Invalid credentials specified');
+      if (!user) throw new InvalidCredentialsException();
 
       const isMatched = comparePassword(user.password, input.password);
-      if (!isMatched) throw new NotFoundException('Invalid credentials specified');
+      if (!isMatched) throw new InvalidCredentialsException();
 
       return user;
     } catch (error) {

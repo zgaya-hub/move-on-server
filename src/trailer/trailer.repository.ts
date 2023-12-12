@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { EntityManager } from 'typeorm';
 import { Trailer } from './entities/trailer.entity';
-import { Repository } from '../base/repository.base';
+import { Repository } from '../base/RepositoryBase';
 
 @Injectable()
 export class TrailerRepository extends Repository<Trailer> {

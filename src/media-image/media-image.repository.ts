@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { EntityManager } from 'typeorm';
 import { MediaImage } from './entities/media-image.entity';
-import { Repository } from '../base/repository.base';
+import { Repository } from '../base/RepositoryBase';
 
 @Injectable()
 export class MediaImageRepository extends Repository<MediaImage> {

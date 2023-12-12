@@ -1,7 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Entity, OneToOne } from 'typeorm';
 import { Manager } from '@/manager/entities/manager.entity';
-import { EntityBase } from '@/base/entity.base';
+import { EntityBase } from '@/base/EntityBase';
 import { User } from '@/user/entities/user.entity';
 import { EnumColumn, IntColumn, JoinColumn, TextColumn, VarcharColumn } from '@/decorator/entity/entity.decorator';
 import { GenderEnum } from '@/common/enum/common.enum';
