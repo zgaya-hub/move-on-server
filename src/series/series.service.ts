@@ -3,8 +3,7 @@ import { Season } from '../season/entities/season.entity';
 import { EntitySaveService } from '../adapter/save.service';
 import { Series } from './entities/series.entity';
 import { SeriesRepository } from './series.repository';
-import { Transactional } from 'typeorm-transactional';
-import { SeriesInputDto } from './dto/series.input.dto';
+import { SeriesInputDto } from './dto/SeriesInput.dto';
 import { CommonOutputDto } from '../common/dto/common.dto';
 import { ManagerService } from '../manager/manager.service';
 import { MediaImageService } from '../media-image/media-image.service';
@@ -86,7 +85,7 @@ export class SeriesService {
     }
   }
 
-  async getManagerSeries(currentManager: CurrentManagerType): Promise<Series[]> {
+  async getManagerSeriesWithImageAndBasicInfo(_currentManager: CurrentManagerType): Promise<Series[]> {
     try {
       // const series = this.seriesRepository.findSeriesByManagerId(currentManager.ID);
       const series = this.mockService.generateMockData<Series>(getManagerSeriesMock, 10);

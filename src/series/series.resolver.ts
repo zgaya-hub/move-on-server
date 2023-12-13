@@ -3,7 +3,7 @@ import { SeriesService } from './series.service';
 import { Series } from './entities/series.entity';
 import { CommonOutputDto } from '../common/dto/common.dto';
 import { CurrentUser } from '../decorator/current-user/current-user.decorator';
-import { SeriesInputDto } from './dto/series.input.dto';
+import { SeriesInputDto } from './dto/SeriesInput.dto';
 import { JwtManagerAuthGuard } from '../auth/guards/current-manager.jwt.guard';
 import { UseGuards } from '@nestjs/common';
 
@@ -26,9 +26,9 @@ export class SeriesResolver {
   }
 
   @Query(() => [Series])
-  async getManagerSeries(@CurrentUser() manager: CurrentManagerType): Promise<Series[]> {
+  async getManagerSeriesWithImageAndBasicInfo(@CurrentUser() manager: CurrentManagerType): Promise<Series[]> {
     try {
-      return this.seriesService.getManagerSeries(manager);
+      return this.seriesService.getManagerSeriesWithImageAndBasicInfo(manager);
     } catch (error) {
       throw new Error(error);
     }
