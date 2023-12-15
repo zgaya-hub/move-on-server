@@ -13,7 +13,7 @@ export class EpisodeResolver {
 
   @Mutation(() => CommonOutputDto.SuccessOutput)
   async createEpisode(
-    @Args('CreateMovieInput')
+    @Args('CreateEpisodeInput')
     input: EpisodeInputDto.CreateEpisodeInput,
   ): Promise<CommonOutputDto.SuccessOutput> {
     try {

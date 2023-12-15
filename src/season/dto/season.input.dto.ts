@@ -39,4 +39,12 @@ export namespace SeasonInputDto {
     @IsUUID()
     SeriesId: string;
   }
+
+  @InputType()
+  export class GetSeasonBySeriesIdParams {
+    @Field(() => String)
+    @IsNotEmpty()
+    @IsUUID()
+    SeriesId: string;
+  }
 }

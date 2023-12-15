@@ -1,10 +1,12 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { SeasonService } from './season.service';
 import { Season } from './entities/season.entity';
 import { CommonOutputDto } from '../common/dto/common.dto';
 import { SeasonInputDto } from './dto/season.input.dto';
 import { UseGuards } from '@nestjs/common';
 import { JwtManagerAuthGuard } from '../auth/guards/current-manager.jwt.guard';
+import { CurrentUser } from '@/decorator/current-user/current-user.decorator';
+import { Series } from '@/series/entities/series.entity';
 
 @Resolver(() => Season)
 @UseGuards(JwtManagerAuthGuard)
@@ -18,6 +20,15 @@ export class SeasonResolver {
   ): Promise<CommonOutputDto.SuccessOutput> {
     try {
       return this.seasonService.createSeason(input);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  @Query(() => [Season])
+  async getSeasonBySeriesId(@Args('GetSeasonBySeriesIdParams') param: SeasonInputDto.GetSeasonBySeriesIdParams): Promise<Season[]> {
+    try {
+      return this.seasonService.getSeasonBySeriesId(param);
     } catch (error) {
       throw new Error(error);
     }

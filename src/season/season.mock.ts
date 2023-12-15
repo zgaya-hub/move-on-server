@@ -1,9 +1,9 @@
 import { MediaImageTypeEnum } from '@/media-image/enum/media-image.enum';
+import { Season } from './entities/season.entity';
 
-export const MANAGER_SERIES_MOCK = {
+export const SERIES_MOCK: Partial<Season> = {
   ID: '0d1b1c48-d535-49f2-971a-44e446c23d08',
-  seriesPriceInDollar: 11100,
-  seriesIsFree: true,
+  seasonNo: 2,
   mediaImage: [
     {
       ID: 'e780d09e-32a7-4a4e-9f88-ca97d7b2b975',

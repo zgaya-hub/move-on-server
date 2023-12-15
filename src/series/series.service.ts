@@ -11,7 +11,8 @@ import { MediaBasicInfoService } from '../media-basic-info/media-basic-info.serv
 import { MediaAdditionalInfoService } from '../media-additional-info/media-additional-info.service';
 import { MediaAdditionalInfo } from '../media-additional-info/entities/media-additional-info.entity';
 import { MockService } from '@/mock/mock.service';
-import { getManagerSeriesMock } from './series.mock';
+import { MANAGER_SERIES_MOCK } from './series.mock';
+import { log } from 'console';
 
 @Injectable()
 export class SeriesService {
@@ -88,7 +89,7 @@ export class SeriesService {
   async getManagerSeriesWithImageAndBasicInfo(_currentManager: CurrentManagerType): Promise<Series[]> {
     try {
       // const series = this.seriesRepository.findSeriesByManagerId(currentManager.ID);
-      const series = this.mockService.generateMockData<Series>(getManagerSeriesMock, 10);
+      const series = this.mockService.generateMockData<Series>(MANAGER_SERIES_MOCK, 5);
       return series;
     } catch (error) {
       throw new Error(error);
