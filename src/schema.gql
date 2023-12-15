@@ -248,6 +248,10 @@ type FinancialInfo {
   updatedAt: Float!
 }
 
+input GetSeasonBySeriesIdParams {
+  SeriesId: String!
+}
+
 input GetUploadVideoSignedUrlInput {
   Height: Float!
   MediaType: String!
@@ -398,7 +402,7 @@ type Mutation {
   createCast(createCastInput: CreateCastInput!): Cast!
   createCineast(createCineastInput: CreateCineastInput!): Cineast!
   createCrew(createCrewInput: CreateCrewInput!): Crew!
-  createEpisode(CreateMovieInput: CreateEpisodeInput!): SuccessOutput!
+  createEpisode(CreateEpisodeInput: CreateEpisodeInput!): SuccessOutput!
   createErrorLog(CreateErrorLogInput: CreateErrorLogInput!): ErrorLog!
   createManagerActivity(createManagerActivityInput: CreateManagerActivityInput!): ManagerActivity!
   createMediaImage(CreateMediaImageInput: CreateMediaImageInput!): MediaImageIdOutput!
@@ -463,6 +467,7 @@ type Query {
   cineast(id: Int!): Cineast!
   crew(id: Int!): Crew!
   getManagerSeriesWithImageAndBasicInfo: [Series!]!
+  getSeasonBySeriesId(GetSeasonBySeriesIdParams: GetSeasonBySeriesIdParams!): [Season!]!
   managerActivity(id: Int!): ManagerActivity!
   movieCast(id: Int!): MovieCast!
   movieCrew(id: Int!): MovieCrew!
@@ -491,9 +496,9 @@ type Season {
   ID: String!
   createdAt: Float!
   deletedAt: Float!
-  episode: Episode!
+  episode: [Episode!]!
   mediaBasicInfo: MediaBasicInfo!
-  mediaImage: MediaImage!
+  mediaImage: [MediaImage!]!
   seasonNo: Float!
   series: Series!
   trailer: Trailer!

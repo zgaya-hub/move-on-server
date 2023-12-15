@@ -28,11 +28,11 @@ export class Season extends EntityBase {
   @OneToOne(() => Trailer, (trailer) => trailer.season)
   trailer: Trailer;
 
-  @Field(() => MediaImage)
+  @Field(() => [MediaImage])
   @OneToMany(() => MediaImage, (mediaImage) => mediaImage.season)
   mediaImage: MediaImage[];
 
-  @Field(() => Episode)
+  @Field(() => [Episode])
   @OneToMany(() => Episode, (episode) => episode.season)
   episode: Episode[];
 }

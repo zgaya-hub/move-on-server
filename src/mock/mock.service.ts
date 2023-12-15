@@ -1,88 +1,95 @@
 import { Injectable } from '@nestjs/common';
+import * as uuid from 'uuid';
 
 @Injectable()
 export class MockService {
-  // Generates mock data based on the provided entity structure and count
-  generateMockData<T>(entity: Record<string, any>, count: number): T[] {
+  private imageUrls: string[] = [
+    'https://e0.pxfuel.com/wallpapers/804/678/desktop-wallpaper-el-professor-money-heist.jpg',
+    'https://wallpapercave.com/wp/wp5854947.jpg',
+    'https://cached.imagescaler.hbpl.co.uk/resize/scaleWidth/815/cached.offlinehbpl.hbpl.co.uk/news/OMC/MONEYHEIST.jpg',
+    'https://c4.wallpaperflare.com/wallpaper/117/646/399/wolf-game-background-weapon-wallpaper-thumb.jpg',
+    'https://wallpaperbuzz.net/wp-content/uploads/2023/04/7806444.jpg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7P3LUmmjieVyhxHCf3bZE5SAJ5hy20qlBZw&usqp=CAU',
+    'https://i0.wp.com/glassesradar.com/wp-content/uploads/2018/02/MV5BNTRkZDRhZWQtMzViYS00MWRiLTliNTYtMTFkMjEwOTczMTlhXkEyXkFqcGdeQXVyNDg4MjkzNDk@._V1_.jpg',
+
+    // Add more image URLs as needed
+  ];
+
+  generateMockData<T>(entity: T, count: number): T[] {
     const mockData: T[] = [];
 
-    // Generate 'count' number of records
     for (let i = 0; i < count; i++) {
-      const mockRecord: T = {} as T;
-
-      // Generate random values for each property in the entity
-      for (const [key, value] of Object.entries(entity)) {
-        mockRecord[key] = this.generateRandomValue(value);
-      }
-
+      const mockRecord: T = this.generateMockRecord(entity);
       mockData.push(mockRecord);
     }
 
     return mockData;
   }
 
-  // Recursively generates random values based on the type of the property
-  private generateRandomValue(value: any): any {
-    if (typeof value === 'string') {
-      return this.generateRandomString(value);
-    } else if (typeof value === 'number') {
-      return this.generateRandomNumber(value);
-    } else if (typeof value === 'boolean') {
-      return this.generateRandomBoolean(value);
-    } else if (Array.isArray(value)) {
-      return this.createArray(Math.floor(Math.random() * 3)).map(() => this.generateRandomValue(value[0]));
-    } else if (typeof value === 'object') {
-      const newObj: Record<string, any> = {};
+  private generateMockRecord<T>(entity: T): T {
+    const mockRecord: T = {} as T;
 
-      // Recursively generate random values for each property in the object
-      for (const [key, innerValue] of Object.entries(value)) {
-        newObj[key] = this.generateRandomValue(innerValue);
-      }
+    Object.keys(entity).forEach((key) => {
+      mockRecord[key] = this.generateMockValue(key, entity[key]);
+    });
 
-      return newObj;
+    return mockRecord;
+  }
+
+  private generateMockValue(key: string, value: any): any {
+    if (Array.isArray(value)) {
+      // If it's an array, generate mock data for each element
+      return value.map((element) => this.generateMockValue(key, element));
+    } else if (typeof value === 'object' && value !== null) {
+      // If it's an object, generate mock data for each property
+      return this.generateMockRecord(value);
+    } else if (key === 'ID') {
+      return uuid.v4();
+    } else if (key === 'mediaImageUrl') {
+      return this.getRandomImageUrl();
+    } else {
+      // For other data types, generate random values
+      return this.getRandomValue(value);
     }
-
-    // If the type is not recognized, return the original value
-    return value;
   }
 
-  // Generates a random string with shuffled characters for a more natural look
-  private generateRandomString(originalString: string): string {
-    const words = originalString.split(' ');
-    const randomizedWords = words.map((word) => this.shuffleString(word));
-
-    return randomizedWords.join(' ');
-  }
-
-  // Shuffles the characters in a string
-  private shuffleString(str: string): string {
-    const array = str.split('');
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
+  private getRandomValue(type: string): any {
+    // Add more cases as needed for different data types
+    switch (typeof type) {
+      case 'string':
+        return this.getRandomName();
+      case 'number':
+        return this.getRandomNumber();
+      case 'boolean':
+        return this.getRandomBoolean();
+      // Add more cases for other data types
+      default:
+        return null;
     }
-    return array.join('');
   }
 
-  // Generates a random number based on the double of the original number
-  private generateRandomNumber(originalNumber: number): number {
-    return Math.floor(Math.random() * originalNumber * 2);
+  private getRandomName(): string {
+    const firstNames = ['John', 'Alice', 'Bob', 'Emma', 'Michael'];
+    const lastNames = ['Doe', 'Smith', 'Johnson', 'Brown', 'Taylor'];
+    const firstName = this.getRandomElement(firstNames);
+    const lastName = this.getRandomElement(lastNames);
+    return `${firstName} ${lastName}`;
   }
 
-  // Negates the original boolean value
-  private generateRandomBoolean(originalBoolean: boolean): boolean {
-    return !originalBoolean;
+  private getRandomNumber(): number {
+    return Math.floor(Math.random() * 1000);
   }
 
-  createArray(length: number): any[] {
-    const newArray: any[] = [];
+  private getRandomBoolean(): boolean {
+    return Math.random() < 0.5; // Adjust as needed
+  }
 
-    // You can fill the array with default values here
-    // For demonstration purposes, I'm filling it with placeholder strings
-    for (let i = 0; i < length; i++) {
-      newArray.push(`Item ${i + 1}`);
-    }
+  private getRandomElement<T>(array: T[]): T {
+    const index = Math.floor(Math.random() * array.length);
+    return array[index];
+  }
 
-    return newArray;
+  private getRandomImageUrl(): string {
+    return this.imageUrls[Math.floor(Math.random() * this.imageUrls.length)];
   }
 }
