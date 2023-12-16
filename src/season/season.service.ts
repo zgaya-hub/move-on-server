@@ -25,7 +25,7 @@ export class SeasonService {
     try {
       const season = new Season();
 
-      const series = await this.seriesService.assignSeasonToSeries(input.SeriesId, season, this.entitySaveService);
+      const series = await this.seriesService.findSeriesById(input.SeriesId);
 
       await this.mediaImageService.assignMediaImageToMedia(input.MediaImageId, season, this.entitySaveService);
       await this.mediaBasicInfoService.createMediaBasicInfo(input.MediaBasicInfo, season, this.entitySaveService);

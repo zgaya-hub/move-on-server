@@ -435,13 +435,13 @@ type Mutation {
   updateCineast(updateCineastInput: UpdateCineastInput!): Cineast!
   updateCrew(updateCrewInput: UpdateCrewInput!): Crew!
   updateManagerActivity(updateManagerActivityInput: UpdateManagerActivityInput!): ManagerActivity!
+  updateMediaBasicInfo(UpdateMediaBasicInfoInput: UpdateMediaBasicInfoInput!): SuccessOutput!
   updateMovieCast(updateMovieCastInput: UpdateMovieCastInput!): MovieCast!
   updateMovieCrew(updateMovieCrewInput: UpdateMovieCrewInput!): MovieCrew!
   updateProfileInfo(updateProfileInfoInput: UpdateProfileInfoInput!): ProfileInfo!
   updateReview(updateReviewInput: UpdateReviewInput!): Review!
   updateSeriesCast(updateSeriesCastInput: UpdateSeriesCastInput!): SeriesCast!
   updateSeriesCrew(updateSeriesCrewInput: UpdateSeriesCrewInput!): SeriesCrew!
-  updateTrailerBasicInfo(UpdateTrailerBasicInfoInput: UpdateTrailerBasicInfoInput!): SuccessOutput!
   updateUserActivity(updateUserActivityInput: UpdateUserActivityInput!): UserActivity!
   userRegister(UserRegisterInput: UserRegisterInput!): AuthTokenOutput!
   userSignIn(UserSignInInput: UserSignInInput!): AuthTokenOutput!
@@ -592,6 +592,7 @@ input UpdateManagerActivityInput {
 }
 
 input UpdateMediaBasicInfoInput {
+  MediaBasicInfoId: String!
   PlotSummary: String
   ReleaseDate: Float
   Title: String
@@ -631,11 +632,6 @@ input UpdateSeriesCrewInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Float!
-}
-
-input UpdateTrailerBasicInfoInput {
-  MediaBasicInfo: UpdateMediaBasicInfoInput!
-  TrailerId: String!
 }
 
 input UpdateUserActivityInput {

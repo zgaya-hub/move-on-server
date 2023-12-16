@@ -4,11 +4,12 @@ import { Series } from '../series/entities/series.entity';
 import { MediaAdditionalInfoInputDto } from './dto/media-additional-info.input.dto';
 import { MediaAdditionalInfo } from './entities/media-additional-info.entity';
 import { MovierMediaType } from '../common/types/Common.type';
-import { Transactional } from 'typeorm-transactional';
 import { EntitySaveService } from '../adapter/save.service';
 
 @Injectable()
 export class MediaAdditionalInfoService {
+  constructor(private readonly entitySaveService: EntitySaveService) {}
+
   async createMediaAdditionalInfo(
     input: MediaAdditionalInfoInputDto.CreateMediaAdditionalInfoInput,
     media: MovierMediaType,
@@ -28,7 +29,7 @@ export class MediaAdditionalInfoService {
       if (entitySaveService) {
         entitySaveService.push(mediaAdditionalInfo);
       } else {
-        await mediaAdditionalInfo.save();
+        await this.entitySaveService.save<MediaAdditionalInfo>(mediaAdditionalInfo);
       }
 
       return mediaAdditionalInfo;
