@@ -46,7 +46,7 @@ export class MovieService {
       movie.manager = manager;
 
       this.entitySaveService.push(movie);
-      await this.entitySaveService.save();
+      await this.entitySaveService.saveMultiple();
 
       return { isSuccess: true };
     } catch (error) {

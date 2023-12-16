@@ -24,7 +24,7 @@ export class FinancialInfoService {
       if (entitySaveService) {
         entitySaveService.push(financialInfo);
       } else {
-        await financialInfo.save();
+        await this.entitySaveService.save<FinancialInfo>(financialInfo);
       }
 
       return financialInfo;

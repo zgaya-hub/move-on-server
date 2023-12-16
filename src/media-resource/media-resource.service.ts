@@ -7,13 +7,12 @@ import { Movie } from '../movie/entities/movie.entity';
 import { Episode } from '../episode/entities/episode.entity';
 import { Trailer } from '../trailer/entities/trailer.entity';
 import { AwsS3Service } from '../aws/aws-s3/aws-s3.service';
-import { Transactional } from 'typeorm-transactional';
 import { EntitySaveService } from '../adapter/save.service';
 import { MediaResourceOutputDto } from './dto/media-resource.output.dto';
 
 @Injectable()
 export class MediaResourceService {
-  constructor(private readonly radisService: RadisService, private readonly awsS3Service: AwsS3Service) {}
+  constructor(private readonly radisService: RadisService, private readonly awsS3Service: AwsS3Service, private readonly entitySaveService: EntitySaveService) {}
 
   async createMediaResource(input: MediaResourceInputDto.CreateMediaInput, media: MovierMediaType, entitySaveService?: EntitySaveService): Promise<MediaResource> {
     try {
@@ -30,7 +29,7 @@ export class MediaResourceService {
       if (entitySaveService) {
         entitySaveService.push(mediaResource);
       } else {
-        await mediaResource.save();
+        await this.entitySaveService.save<MediaResource>(mediaResource);
       }
 
       return mediaResource;

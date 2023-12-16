@@ -55,22 +55,7 @@ export class TrailerService {
       if (media instanceof Season) trailer.season = media;
 
       this.entitySaveService.push(trailer);
-      await this.entitySaveService.save();
-
-      return { isSuccess: true };
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
-
-  async updateTrailerBasicInfo(input: TrailerInputDto.UpdateTrailerBasicInfoInput): Promise<CommonOutputDto.SuccessOutput> {
-    try {
-      const trailer = await this.findTrailerById(input.TrailerId);
-
-      await this.mediaBasicInfoService.updateMediaBasicInfo(input.MediaBasicInfo, this.entitySaveService);
-
-      this.entitySaveService.push(trailer);
-      await this.entitySaveService.save();
+      await this.entitySaveService.saveMultiple();
 
       return { isSuccess: true };
     } catch (error) {
@@ -81,7 +66,6 @@ export class TrailerService {
   async changeTrailerMedia(input: TrailerInputDto.ChangeTrailerMediaInput): Promise<CommonOutputDto.SuccessOutput> {
     try {
       const trailer = await this.findTrailerById(input.TrailerId);
-
       const media = await this.findMediaByIdAndType(input.MediaId, input.MediaType);
 
       trailer.movie = null;
@@ -91,8 +75,7 @@ export class TrailerService {
       if (media instanceof Series) trailer.series = media;
       if (media instanceof Season) trailer.season = media;
 
-      this.entitySaveService.push(trailer);
-      await this.entitySaveService.save();
+      await this.entitySaveService.save<Trailer>(trailer);
 
       return { isSuccess: true };
     } catch (error) {

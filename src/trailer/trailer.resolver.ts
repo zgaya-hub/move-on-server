@@ -24,16 +24,4 @@ export class TrailerResolver {
       throw new Error(error);
     }
   }
-
-  @Mutation(() => CommonOutputDto.SuccessOutput)
-  async updateTrailerBasicInfo(
-    @Args('UpdateTrailerBasicInfoInput')
-    input: TrailerInputDto.UpdateTrailerBasicInfoInput,
-  ): Promise<CommonOutputDto.SuccessOutput> {
-    try {
-      return this.trailerService.updateTrailerBasicInfo(input);
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
 }

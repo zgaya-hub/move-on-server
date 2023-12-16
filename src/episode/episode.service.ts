@@ -37,7 +37,7 @@ export class EpisodeService {
       episode.episodeNo = input.EpisodeNo;
 
       this.entitySaveService.push(episode);
-      await this.entitySaveService.save();
+      await this.entitySaveService.saveMultiple();
 
       return { isSuccess: true };
     } catch (error) {

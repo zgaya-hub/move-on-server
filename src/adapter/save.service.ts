@@ -22,12 +22,22 @@ export class EntitySaveService {
   }
 
   @Transactional()
-  async save(options?: SaveOptions): Promise<EntityBase[]> {
+  async saveMultiple(options?: SaveOptions): Promise<EntityBase[]> {
     try {
       const savedEntities = await this.entityManager.save(this.entities);
       if (options?.clear) this.clear();
 
       return savedEntities;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  @Transactional()
+  async save<T extends EntityBase>(entity: T): Promise<T> {
+    try {
+      const savedEntity = await this.entityManager.save(entity);
+      return savedEntity;
     } catch (error) {
       throw new Error(error);
     }

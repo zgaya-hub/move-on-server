@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { MediaImageInputDto } from './dto/media-image.input.dto';
 import { MediaImage } from './entities/media-image.entity';
-import { Transactional } from 'typeorm-transactional';
 import { MediaImageOutputDto } from './dto/media-image.output.dto';
 import { CloudinaryService } from '../cloudinary/cloudinary.service';
 import { MovierMediaType } from '../common/types/Common.type';
@@ -16,7 +15,11 @@ import { CommonOutputDto } from '../common/dto/common.dto';
 
 @Injectable()
 export class MediaImageService {
-  constructor(private readonly cloudinaryService: CloudinaryService, private readonly mediaImageRepository: MediaImageRepository) {}
+  constructor(
+    private readonly cloudinaryService: CloudinaryService,
+    private readonly mediaImageRepository: MediaImageRepository,
+    private readonly entitySaveService: EntitySaveService,
+  ) {}
 
   async createMediaImage(input: MediaImageInputDto.CreateMediaImageInput): Promise<MediaImageOutputDto.MediaImageIdOutput> {
     try {
@@ -27,7 +30,7 @@ export class MediaImageService {
       mediaImage.mediaImageType = input.MediaImageType;
       mediaImage.mediaImageUrl = uploadedImage.imageUrl;
 
-      await mediaImage.save();
+      await this.entitySaveService.save<MediaImage>(mediaImage);
 
       return { mediaImageId: mediaImage.ID };
     } catch (error) {
@@ -63,7 +66,7 @@ export class MediaImageService {
       if (entitySaveService) {
         entitySaveService.push(media);
       } else {
-        await media.save();
+        await this.entitySaveService.save<MediaImage>(mediaImage);
       }
 
       return mediaImage;
