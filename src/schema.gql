@@ -165,7 +165,7 @@ input CreateSeriesCrewInput {
 }
 
 input CreateSeriesInput {
-  MediaAdditionalInfo: CreateMediaAdditionalInfoInput!
+  MediaAdditionalInfo: CreateMediaAdditionalInfoInput
   MediaBasicInfo: CreateMediaBasicInfoInput!
   MediaImageId: String!
   SeriesId: String!
@@ -246,6 +246,14 @@ type FinancialInfo {
   movie: Movie!
   series: Series!
   updatedAt: Float!
+}
+
+type GetLastEpisodeNumberBySeasonIdOutput {
+  EpisodeNo: Float!
+}
+
+input GetNextEpisodeNumberParams {
+  SeasonId: String!
 }
 
 input GetSeasonBySeriesIdParams {
@@ -466,6 +474,7 @@ type Query {
   cast(id: Int!): Cast!
   cineast(id: Int!): Cineast!
   crew(id: Int!): Crew!
+  getLastEpisodeNumberBySeasonId(GetSeasonBySeriesIdParams: GetNextEpisodeNumberParams!): GetLastEpisodeNumberBySeasonIdOutput!
   getManagerSeriesWithImageAndBasicInfo: [Series!]!
   getSeasonBySeriesId(GetSeasonBySeriesIdParams: GetSeasonBySeriesIdParams!): [Season!]!
   managerActivity(id: Int!): ManagerActivity!

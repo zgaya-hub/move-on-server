@@ -9,6 +9,7 @@ import { EntitySaveService } from '../adapter/save.service';
 import { MediaImageService } from '../media-image/media-image.service';
 import { SeasonService } from '../season/season.service';
 import { EpisodeRepository } from './episode.repository';
+import { EpisodeOutputDto } from './dto/episode.output.dto';
 
 @Injectable()
 export class EpisodeService {
@@ -55,6 +56,16 @@ export class EpisodeService {
       await episode.save();
 
       return { isSuccess: true };
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async getLastEpisodeNumberBySeasonId(input: EpisodeInputDto.GetNextEpisodeNumberParams): Promise<EpisodeOutputDto.GetLastEpisodeNumberBySeasonIdOutput> {
+    try {
+      const episode = await this.episodeRepository.getLastEpisodeNumberBySeasonId(input.SeasonId).getOne();
+
+      return { EpisodeNo: episode.episodeNo };
     } catch (error) {
       throw new Error(error);
     }

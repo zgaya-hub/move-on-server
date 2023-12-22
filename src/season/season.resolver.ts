@@ -5,8 +5,6 @@ import { CommonOutputDto } from '../common/dto/common.dto';
 import { SeasonInputDto } from './dto/season.input.dto';
 import { UseGuards } from '@nestjs/common';
 import { JwtManagerAuthGuard } from '../auth/guards/current-manager.jwt.guard';
-import { CurrentUser } from '@/decorator/current-user/current-user.decorator';
-import { Series } from '@/series/entities/series.entity';
 
 @Resolver(() => Season)
 @UseGuards(JwtManagerAuthGuard)
