@@ -4,22 +4,6 @@ import * as uuid from 'uuid';
 @Injectable()
 export class MockService {
   private imageUrls: string[] = [
-    // 'https://scontent.flhe2-3.fna.fbcdn.net/v/t39.30808-6/409192120_344675708193407_7918802026556175711_n.jpg?_nc_cat=1&ccb=1-7&_nc_sid=3635dc&_nc_ohc=y8mTiFGI8BAAX-RM-uB&_nc_ht=scontent.flhe2-3.fna&oh=00_AfBElYX7ZdO7OqoVcRewpX9hjXgAP5J2JyclsfaaopAldg&oe=65816B13',
-    // 'https://scontent.flhe2-3.fna.fbcdn.net/v/t39.30808-6/409761966_344675718193406_5249928365280385797_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=3635dc&_nc_ohc=nXNKU_HQb9kAX-H2V_T&_nc_ht=scontent.flhe2-3.fna&oh=00_AfB4_fnckHO3fmSwqcTAKajEZoQVoc-HEbB4kFzpcH9P7A&oe=6580E344',
-    // 'https://scontent.flhe2-4.fna.fbcdn.net/v/t39.30808-6/409804011_344246724902972_8974120864056291729_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=3635dc&_nc_ohc=sWRYkZm9j_wAX88Ntkx&_nc_ht=scontent.flhe2-4.fna&oh=00_AfB-zDzkI2RP0ASlqZFvS2SnmaCxKqkB5r0GhXG6iB-g8w&oe=658167E1',
-    // 'https://scontent.flhe2-4.fna.fbcdn.net/v/t39.30808-6/409699352_343915388269439_7707197602057188679_n.jpg?stp=dst-jpg_s1080x2048&_nc_cat=102&ccb=1-7&_nc_sid=3635dc&_nc_ohc=wpG1rGmSICkAX-b8OQm&_nc_ht=scontent.flhe2-4.fna&oh=00_AfBWz5ZNz7Nh5pAXhBwWSN1Zc9JISBxbWUkdguk3v79whg&oe=6580BA67',
-    // 'https://scontent.flhe2-4.fna.fbcdn.net/v/t39.30808-6/410732708_343523071642004_8180856693833358132_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=dd5e9f&_nc_ohc=zVXnbL8ob7wAX8pQUZ4&_nc_ht=scontent.flhe2-4.fna&oh=00_AfCFoTUBxbhv8eBO7N-yKekr_WJFANojzOAcWfU5DvYLVw&oe=65825D9E',
-    // 'https://scontent.flhe2-2.fna.fbcdn.net/v/t39.30808-6/409780695_344806821513629_6627447652822859983_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=3635dc&_nc_ohc=vyJpJl9uk_cAX_sK0-y&_nc_ht=scontent.flhe2-2.fna&oh=00_AfDevoepoED-auM6iqtjJRve0ZzLyr_Esgpdr6DD8YVb0w&oe=65823ACC',
-    // 'https://i.ytimg.com/vi/Odec9j4UktE/maxresdefault.jpg',
-    // 'https://i.ytimg.com/vi/W-iUfadyIKQ/maxresdefault.jpg',
-    // 'https://i.ytimg.com/vi/d0xikQRCIro/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBJX4OwESw-VD5Ru8VLZWzaLcEreA',
-    // 'https://i.ytimg.com/vi/5aSSNuyYunw/sddefault.jpg',
-    // 'https://i.ytimg.com/vi/Fv5F22YW1iU/maxresdefault.jpg',
-    // 'https://i.ytimg.com/vi/kIZzD9QKtsw/hqdefault.jpg',
-    // 'https://i.ytimg.com/vi/LkYcOiSeYKg/maxresdefault.jpg',
-    // 'https://i.ytimg.com/vi/gxSLUMby7EI/maxresdefault.jpg',
-    // 'https://i.ytimg.com/vi/Hdb2lBxVgQs/maxresdefault.jpg',
-    // 'https://i.ytimg.com/vi/H-yDGzRXM0s/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGFUgXihlMA8=&rs=AOn4CLBLy4q63D37NoOQG_TcvfZroY6E_w',
     'https://e0.pxfuel.com/wallpapers/804/678/desktop-wallpaper-el-professor-money-heist.jpg',
     'https://wallpapercave.com/wp/wp5854947.jpg',
     'https://cached.imagescaler.hbpl.co.uk/resize/scaleWidth/815/cached.offlinehbpl.hbpl.co.uk/news/OMC/MONEYHEIST.jpg',
