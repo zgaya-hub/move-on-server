@@ -22,7 +22,7 @@ export namespace SeriesInputDto {
     @IsNotEmpty()
     MediaBasicInfo: MediaBasicInfoInputDto.CreateMediaBasicInfoInput;
 
-    @Field(() => MediaAdditionalInfoInputDto.CreateMediaAdditionalInfoInput)
+    @Field(() => MediaAdditionalInfoInputDto.CreateMediaAdditionalInfoInput, { nullable: true })
     @IsObject()
     @IsOptional()
     MediaAdditionalInfo: MediaAdditionalInfoInputDto.CreateMediaAdditionalInfoInput;

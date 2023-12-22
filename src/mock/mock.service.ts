@@ -11,8 +11,6 @@ export class MockService {
     'https://wallpaperbuzz.net/wp-content/uploads/2023/04/7806444.jpg',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7P3LUmmjieVyhxHCf3bZE5SAJ5hy20qlBZw&usqp=CAU',
     'https://i0.wp.com/glassesradar.com/wp-content/uploads/2018/02/MV5BNTRkZDRhZWQtMzViYS00MWRiLTliNTYtMTFkMjEwOTczMTlhXkEyXkFqcGdeQXVyNDg4MjkzNDk@._V1_.jpg',
-
-    // Add more image URLs as needed
   ];
 
   generateMockData<T>(entity: T, count: number): T[] {

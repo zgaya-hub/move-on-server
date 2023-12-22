@@ -48,4 +48,12 @@ export namespace EpisodeInputDto {
     @IsUUID()
     EpisodeId: string;
   }
+
+  @InputType()
+  export class GetNextEpisodeNumberParams {
+    @Field(() => String)
+    @IsNotEmpty()
+    @IsUUID()
+    SeasonId: string;
+  }
 }
