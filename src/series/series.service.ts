@@ -10,7 +10,7 @@ import { MediaBasicInfoService } from '../media-basic-info/media-basic-info.serv
 import { MediaAdditionalInfoService } from '../media-additional-info/media-additional-info.service';
 import { MediaAdditionalInfo } from '../media-additional-info/entities/media-additional-info.entity';
 import { MockService } from '@/mock/mock.service';
-import { MANAGER_SERIES_MOCK } from './series.mock';
+import { MediaImageAlreadyAssignedException } from './series.exceptions';
 
 @Injectable()
 export class SeriesService {
@@ -26,25 +26,28 @@ export class SeriesService {
 
   async createSeries(input: SeriesInputDto.CreateSeriesInput, currentManage: CurrentManagerType): Promise<CommonOutputDto.SuccessOutput> {
     try {
-      const season = new Series();
+      const series = new Series();
 
       let mediaAdditionalInfo: MediaAdditionalInfo;
-
       const manager = await this.managerService.findByEmail(currentManage.email);
-      const mediaImage = await this.mediaImageService.findMediaImageById(input.MediaImageId);
-
-      const mediaBasicInfo = await this.mediaBasicInfoService.createMediaBasicInfo(input.MediaBasicInfo, season, this.entitySaveService);
-
-      if (input.MediaAdditionalInfo) {
-        mediaAdditionalInfo = await this.mediaAdditionalInfoService.createMediaAdditionalInfo(input.MediaAdditionalInfo, season, this.entitySaveService);
+      const mediaImage = await this.mediaImageService.findMediaImageByIdWithMedia(input.MediaImageId);
+      if (mediaImage.series || mediaImage.movie || mediaImage.season || mediaImage.trailer || mediaImage.episode) {
+        throw new MediaImageAlreadyAssignedException();
       }
 
-      season.manager = manager;
-      season.mediaImage = [mediaImage];
-      if (input.MediaAdditionalInfo) season.mediaAdditionalInfo = mediaAdditionalInfo;
-      season.mediaBasicInfo = mediaBasicInfo;
+      const mediaBasicInfo = await this.mediaBasicInfoService.createMediaBasicInfo(input.MediaBasicInfo, series, this.entitySaveService);
 
-      await season.save();
+      if (input.MediaAdditionalInfo) {
+        mediaAdditionalInfo = await this.mediaAdditionalInfoService.createMediaAdditionalInfo(input.MediaAdditionalInfo, series, this.entitySaveService);
+      }
+
+      series.manager = manager;
+      series.mediaImage = [mediaImage];
+      if (input.MediaAdditionalInfo) series.mediaAdditionalInfo = mediaAdditionalInfo;
+      series.mediaBasicInfo = mediaBasicInfo;
+
+      this.entitySaveService.push(series);
+      await this.entitySaveService.saveMultiple();
 
       return { isSuccess: true };
     } catch (error) {
@@ -65,10 +68,9 @@ export class SeriesService {
     }
   }
 
-  async getManagerSeriesWithImageAndBasicInfo(_currentManager: CurrentManagerType): Promise<Series[]> {
+  async getManagerSeriesWithImageAndBasicInfo(input: SeriesInputDto.GetManagerSeriesWithImageAndBasicInfoInput, currentManager: CurrentManagerType): Promise<Series[]> {
     try {
-      // const series = this.seriesRepository.findSeriesByManagerId(currentManager.ID);
-      const series = this.mockService.generateMockData<Series>(MANAGER_SERIES_MOCK, 5);
+      const series = this.seriesRepository.findSeriesByManagerId(input.MediaImageType, currentManager.ID).getMany();
       return series;
     } catch (error) {
       throw new Error(error);

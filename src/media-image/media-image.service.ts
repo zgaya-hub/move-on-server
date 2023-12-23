@@ -87,4 +87,17 @@ export class MediaImageService {
       throw new Error(error);
     }
   }
+
+  async findMediaImageByIdWithMedia(mediaImageId: string): Promise<MediaImage> {
+    try {
+      const mediaImage = await this.mediaImageRepository.findMediaImageByIdWithMedia(mediaImageId).getOne();
+      if (!mediaImage) {
+        throw new NotFoundException('Invalid Media Image specified');
+      }
+
+      return mediaImage;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }

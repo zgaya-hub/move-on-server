@@ -8,7 +8,7 @@ const ormConfig: DataSourceOptions = {
   port: 10953,
   username: 'avnadmin',
   password: 'AVNS_DLKPJaXiAzDKdvV7Pen',
-  database: 'defaultdb',
+  database: 'move-on',
   entities: ['dist/**/entities/*.entity.js'],
   migrations: [`dist/**/${process.env.MR}/*.js`],
 };

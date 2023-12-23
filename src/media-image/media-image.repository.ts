@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
-import { EntityManager } from 'typeorm';
+import { EntityManager, SelectQueryBuilder } from 'typeorm';
 import { MediaImage } from './entities/media-image.entity';
 import { Repository } from '../base/RepositoryBase';
 
@@ -12,5 +12,15 @@ export class MediaImageRepository extends Repository<MediaImage> {
 
   public async findMediaImageById(ID: string): Promise<MediaImage> {
     return await this.findOneBy({ ID });
+  }
+
+  public findMediaImageByIdWithMedia(ID: string): SelectQueryBuilder<MediaImage> {
+    return this.createQueryBuilder('mediaImage')
+      .leftJoinAndSelect('mediaImage.series', 'series')
+      .leftJoinAndSelect('mediaImage.movie', 'movie')
+      .leftJoinAndSelect('mediaImage.season', 'season')
+      .leftJoinAndSelect('mediaImage.episode', 'episode')
+      .leftJoinAndSelect('mediaImage.trailer', 'trailer')
+      .where('mediaImage.ID = :ID', { ID });
   }
 }

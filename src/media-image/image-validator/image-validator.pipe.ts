@@ -1,8 +1,8 @@
 import { Injectable, NotAcceptableException, PayloadTooLargeException, PipeTransform, UnsupportedMediaTypeException } from '@nestjs/common';
 import { MediaImageInputDto } from '../dto/media-image.input.dto';
-import { MediaImageTypeEnum } from '../enum/media-image.enum';
 import { imageSize } from 'image-size';
 import { handleOnBase64ToBuffer } from '@/utilities/function/base64ToBuffer';
+import { MediaImageTypeEnum } from '@/common/enum/common.enum';
 
 @Injectable()
 export class ImageValidatorPipe implements PipeTransform {
