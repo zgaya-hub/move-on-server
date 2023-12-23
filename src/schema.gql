@@ -168,7 +168,6 @@ input CreateSeriesInput {
   MediaAdditionalInfo: CreateMediaAdditionalInfoInput
   MediaBasicInfo: CreateMediaBasicInfoInput!
   MediaImageId: String!
-  SeriesId: String!
 }
 
 input CreateTrailerInput {
@@ -250,6 +249,10 @@ type FinancialInfo {
 
 type GetLastEpisodeNumberBySeasonIdOutput {
   EpisodeNo: Float!
+}
+
+input GetManagerSeriesWithImageAndBasicInfoInput {
+  MediaImageType: String!
 }
 
 input GetNextEpisodeNumberParams {
@@ -475,7 +478,7 @@ type Query {
   cineast(id: Int!): Cineast!
   crew(id: Int!): Crew!
   getLastEpisodeNumberBySeasonId(GetSeasonBySeriesIdParams: GetNextEpisodeNumberParams!): GetLastEpisodeNumberBySeasonIdOutput!
-  getManagerSeriesWithImageAndBasicInfo: [Series!]!
+  getManagerSeriesWithImageAndBasicInfo(GetManagerSeriesWithImageAndBasicInfoInput: GetManagerSeriesWithImageAndBasicInfoInput!): [Series!]!
   getSeasonBySeriesId(GetSeasonBySeriesIdParams: GetSeasonBySeriesIdParams!): [Season!]!
   managerActivity(id: Int!): ManagerActivity!
   movieCast(id: Int!): MovieCast!

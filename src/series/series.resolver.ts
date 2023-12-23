@@ -26,9 +26,12 @@ export class SeriesResolver {
   }
 
   @Query(() => [Series])
-  async getManagerSeriesWithImageAndBasicInfo(@CurrentUser() manager: CurrentManagerType): Promise<Series[]> {
+  async getManagerSeriesWithImageAndBasicInfo(
+    @Args('GetManagerSeriesWithImageAndBasicInfoInput') input: SeriesInputDto.GetManagerSeriesWithImageAndBasicInfoInput,
+    @CurrentUser() manager: CurrentManagerType,
+  ): Promise<Series[]> {
     try {
-      return this.seriesService.getManagerSeriesWithImageAndBasicInfo(manager);
+      return this.seriesService.getManagerSeriesWithImageAndBasicInfo(input, manager);
     } catch (error) {
       throw new Error(error);
     }

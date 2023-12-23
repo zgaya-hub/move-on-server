@@ -1,4 +1,4 @@
-import { MediaImageTypeEnum } from '@/media-image/enum/media-image.enum';
+import { MediaImageTypeEnum } from '@/common/enum/common.enum';
 import { Season } from './entities/season.entity';
 
 export const SERIES_MOCK: Partial<Season> = {

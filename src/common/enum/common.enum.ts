@@ -415,3 +415,9 @@ export enum MediaEnum {
   SHORT = 'Short',
   MOVIE = 'Movie',
 }
+
+export enum MediaImageTypeEnum {
+  POSTER = 'Poster',
+  BACKDROP = 'Backdrop',
+  THUMBNAIL = 'Thumbnail',
+}

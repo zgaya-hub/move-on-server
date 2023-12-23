@@ -12,7 +12,7 @@ services:
     volumes:
       - ./mysqldata:/var/lib/mysql
     ports:
-      - '3306:3306'
+      - ${DB_PORT}:${DB_PORT}
 
   app:
     build:
