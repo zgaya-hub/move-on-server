@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import { MediaImageTypeEnum } from '@/common/enum/common.enum';
+import { MediaImageTypeEnum } from 'src/common/enum/common.enum';
 import { Field, InputType, OmitType } from '@nestjs/graphql';
 import { IsEnum, IsMimeType, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 

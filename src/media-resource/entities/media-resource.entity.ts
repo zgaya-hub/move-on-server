@@ -1,10 +1,10 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { JoinColumn, TextColumn } from '@/decorator/entity/entity.decorator';
-import { Movie } from '@/movie/entities/movie.entity';
+import { JoinColumn, TextColumn } from 'src/decorator/entity/entity.decorator';
+import { Movie } from 'src/movie/entities/movie.entity';
 import { Entity, OneToOne } from 'typeorm';
-import { Episode } from '@/episode/entities/episode.entity';
-import { Trailer } from '@/trailer/entities/trailer.entity';
-import { EntityBase } from '@/base/EntityBase';
+import { Episode } from 'src/episode/entities/episode.entity';
+import { Trailer } from 'src/trailer/entities/trailer.entity';
+import { EntityBase } from 'src/base/EntityBase';
 
 @ObjectType()
 @Entity()

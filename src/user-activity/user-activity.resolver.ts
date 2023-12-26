@@ -3,7 +3,7 @@ import { UserActivityService } from './user-activity.service';
 import { UserActivity } from './entities/user-activity.entity';
 import { CreateUserActivityInput } from './dto/create-user-activity.input';
 import { UpdateUserActivityInput } from './dto/update-user-activity.input';
-import { User } from '@/user/entities/user.entity';
+import { User } from 'src/user/entities/user.entity';
 
 @Resolver(() => UserActivity)
 export class UserActivityResolver {

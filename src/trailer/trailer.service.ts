@@ -9,13 +9,13 @@ import { MediaResourceService } from '../media-resource/media-resource.service';
 import { EntitySaveService } from '../adapter/save.service';
 import { MediaImageService } from '../media-image/media-image.service';
 import { TrailerMediaEnum } from './enum/trailer.enum';
-import { MovieService } from '@/movie/movie.service';
-import { SeriesService } from '@/series/series.service';
-import { SeasonService } from '@/season/season.service';
-import { MovierMediaType } from '@/common/types/Common.type';
-import { Movie } from '@/movie/entities/movie.entity';
-import { Series } from '@/series/entities/series.entity';
-import { Season } from '@/season/entities/season.entity';
+import { MovieService } from 'src/movie/movie.service';
+import { SeriesService } from 'src/series/series.service';
+import { SeasonService } from 'src/season/season.service';
+import { MovierMediaType } from 'src/common/types/Common.type';
+import { Movie } from 'src/movie/entities/movie.entity';
+import { Series } from 'src/series/entities/series.entity';
+import { Season } from 'src/season/entities/season.entity';
 import { TrailerRepository } from './trailer.repository';
 
 @Injectable()

@@ -1,7 +1,7 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { MediaBasicInfoService } from './media-basic-info.service';
 import { MediaBasicInfo } from './entities/media-basic-info.entity';
-import { CommonOutputDto } from '@/common/dto/common.dto';
+import { CommonOutputDto } from 'src/common/dto/common.dto';
 import { MediaBasicInfoInputDto } from './dto/media-basic-info.input.dto';
 
 @Resolver(() => MediaBasicInfo)

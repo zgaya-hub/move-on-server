@@ -1,9 +1,9 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Entity, ManyToOne } from 'typeorm';
-import { JoinColumn } from '@/decorator/entity/entity.decorator';
-import { Movie } from '@/movie/entities/movie.entity';
-import { Crew } from '@/crew/entities/crew.entity';
-import { EntityBase } from '@/base/EntityBase';
+import { JoinColumn } from 'src/decorator/entity/entity.decorator';
+import { Movie } from 'src/movie/entities/movie.entity';
+import { Crew } from 'src/crew/entities/crew.entity';
+import { EntityBase } from 'src/base/EntityBase';
 
 @ObjectType()
 @Entity()

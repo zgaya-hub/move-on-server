@@ -1,19 +1,19 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { EntityBase } from '@/base/EntityBase';
-import { JoinColumn } from '@/decorator/entity/entity.decorator';
+import { EntityBase } from 'src/base/EntityBase';
+import { JoinColumn } from 'src/decorator/entity/entity.decorator';
 import { Entity, ManyToMany, ManyToOne, OneToMany, OneToOne } from 'typeorm';
-import { MediaBasicInfo } from '@/media-basic-info/entities/media-basic-info.entity';
-import { Video } from '@/video/entities/video.entity';
-import { Manager } from '@/manager/entities/manager.entity';
-import { Cast } from '@/cast/entities/cast.entity';
-import { Crew } from '@/crew/entities/crew.entity';
-import { MediaImage } from '@/media-image/entities/media-image.entity';
-import { ExternalLink } from '@/external-link/entities/external-link.entity';
-import { Review } from '@/review/entities/review.entity';
-import { MediaResource } from '@/media-resource/entities/media-resource.entity';
-import { Movie } from '@/movie/entities/movie.entity';
-import { Series } from '@/series/entities/series.entity';
-import { Season } from '@/season/entities/season.entity';
+import { MediaBasicInfo } from 'src/media-basic-info/entities/media-basic-info.entity';
+import { Video } from 'src/video/entities/video.entity';
+import { Manager } from 'src/manager/entities/manager.entity';
+import { Cast } from 'src/cast/entities/cast.entity';
+import { Crew } from 'src/crew/entities/crew.entity';
+import { MediaImage } from 'src/media-image/entities/media-image.entity';
+import { ExternalLink } from 'src/external-link/entities/external-link.entity';
+import { Review } from 'src/review/entities/review.entity';
+import { MediaResource } from 'src/media-resource/entities/media-resource.entity';
+import { Movie } from 'src/movie/entities/movie.entity';
+import { Series } from 'src/series/entities/series.entity';
+import { Season } from 'src/season/entities/season.entity';
 
 @ObjectType()
 @Entity()

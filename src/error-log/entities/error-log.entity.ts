@@ -1,6 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { EntityBase } from '@/base/EntityBase';
-import { EnumColumn, IntColumn, VarcharColumn } from '@/decorator/entity/entity.decorator';
+import { EntityBase } from 'src/base/EntityBase';
+import { EnumColumn, IntColumn, VarcharColumn } from 'src/decorator/entity/entity.decorator';
 import { ErrorLogTypeEnum } from '../enum/error-log.enum';
 import { Entity } from 'typeorm';
 

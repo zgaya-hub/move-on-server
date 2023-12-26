@@ -1,14 +1,14 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { EntityBase } from '@/base/EntityBase';
+import { EntityBase } from 'src/base/EntityBase';
 import { Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm';
-import { Season } from '@/season/entities/season.entity';
-import { MediaImage } from '@/media-image/entities/media-image.entity';
-import { ExternalLink } from '@/external-link/entities/external-link.entity';
-import { Review } from '@/review/entities/review.entity';
-import { IntColumn } from '@/decorator/entity/entity.decorator';
-import { MediaBasicInfo } from '@/media-basic-info/entities/media-basic-info.entity';
-import { Video } from '@/video/entities/video.entity';
-import { MediaResource } from '@/media-resource/entities/media-resource.entity';
+import { Season } from 'src/season/entities/season.entity';
+import { MediaImage } from 'src/media-image/entities/media-image.entity';
+import { ExternalLink } from 'src/external-link/entities/external-link.entity';
+import { Review } from 'src/review/entities/review.entity';
+import { IntColumn } from 'src/decorator/entity/entity.decorator';
+import { MediaBasicInfo } from 'src/media-basic-info/entities/media-basic-info.entity';
+import { Video } from 'src/video/entities/video.entity';
+import { MediaResource } from 'src/media-resource/entities/media-resource.entity';
 
 @ObjectType()
 @Entity()
