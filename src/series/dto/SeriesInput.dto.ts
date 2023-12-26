@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import { Field, InputType } from '@nestjs/graphql';
+import { Field, InputType, PartialType } from '@nestjs/graphql';
 import { IsEnum, IsNotEmpty, IsObject, IsOptional, IsUUID } from 'class-validator';
-import { MediaBasicInfoInputDto } from '@/media-basic-info/dto/media-basic-info.input.dto';
-import { MediaAdditionalInfoInputDto } from '@/media-additional-info/dto/media-additional-info.input.dto';
-import { MediaImageTypeEnum } from '@/common/enum/common.enum';
+import { MediaBasicInfoInputDto } from 'src/media-basic-info/dto/media-basic-info.input.dto';
+import { MediaAdditionalInfoInputDto } from 'src/media-additional-info/dto/media-additional-info.input.dto';
+import { MediaImageTypeEnum } from 'src/common/enum/common.enum';
 
 export namespace SeriesInputDto {
   @InputType()
@@ -22,6 +22,24 @@ export namespace SeriesInputDto {
     @IsObject()
     @IsOptional()
     MediaAdditionalInfo: MediaAdditionalInfoInputDto.CreateMediaAdditionalInfoInput;
+  }
+
+  @InputType()
+  export class UpdateSeriesInput {
+    @Field(() => String)
+    @IsNotEmpty()
+    @IsUUID()
+    MediaImageId: string;
+
+    @Field(() => PartialType<MediaBasicInfoInputDto.CreateMediaBasicInfoInput>)
+    @IsObject()
+    @IsOptional()
+    MediaBasicInfo: Partial<MediaBasicInfoInputDto.CreateMediaBasicInfoInput>;
+
+    @Field(() => PartialType<MediaAdditionalInfoInputDto.CreateMediaAdditionalInfoInput>)
+    @IsObject()
+    @IsOptional()
+    MediaAdditionalInfo: Partial<MediaAdditionalInfoInputDto.CreateMediaAdditionalInfoInput>;
   }
 
   @InputType()

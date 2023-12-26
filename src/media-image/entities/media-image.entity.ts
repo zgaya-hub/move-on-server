@@ -1,13 +1,13 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { EnumColumn, JoinColumn, VarcharColumn } from '@/decorator/entity/entity.decorator';
-import { Movie } from '@/movie/entities/movie.entity';
+import { EnumColumn, JoinColumn, VarcharColumn } from 'src/decorator/entity/entity.decorator';
+import { Movie } from 'src/movie/entities/movie.entity';
 import { Entity, ManyToOne } from 'typeorm';
-import { Series } from '@/series/entities/series.entity';
-import { Season } from '@/season/entities/season.entity';
-import { Episode } from '@/episode/entities/episode.entity';
-import { EntityBase } from '@/base/EntityBase';
-import { Trailer } from '@/trailer/entities/trailer.entity';
-import { MediaImageTypeEnum } from '@/common/enum/common.enum';
+import { Series } from 'src/series/entities/series.entity';
+import { Season } from 'src/season/entities/season.entity';
+import { Episode } from 'src/episode/entities/episode.entity';
+import { EntityBase } from 'src/base/EntityBase';
+import { Trailer } from 'src/trailer/entities/trailer.entity';
+import { MediaImageTypeEnum } from 'src/common/enum/common.enum';
 
 @ObjectType()
 @Entity()

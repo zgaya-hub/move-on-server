@@ -1,7 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Entity } from 'typeorm';
-import { VarcharColumn } from '@/decorator/entity/entity.decorator';
-import { EntityBase } from '@/base/EntityBase';
+import { VarcharColumn } from 'src/decorator/entity/entity.decorator';
+import { EntityBase } from 'src/base/EntityBase';
 
 @Entity()
 @ObjectType()

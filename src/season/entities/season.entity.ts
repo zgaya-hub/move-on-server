@@ -1,12 +1,12 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { EntityBase } from '@/base/EntityBase';
+import { EntityBase } from 'src/base/EntityBase';
 import { Entity, ManyToOne, OneToMany, OneToOne } from 'typeorm';
-import { Episode } from '@/episode/entities/episode.entity';
-import { Series } from '@/series/entities/series.entity';
-import { IntColumn, JoinColumn } from '@/decorator/entity/entity.decorator';
-import { MediaImage } from '@/media-image/entities/media-image.entity';
-import { MediaBasicInfo } from '@/media-basic-info/entities/media-basic-info.entity';
-import { Trailer } from '@/trailer/entities/trailer.entity';
+import { Episode } from 'src/episode/entities/episode.entity';
+import { Series } from 'src/series/entities/series.entity';
+import { IntColumn, JoinColumn } from 'src/decorator/entity/entity.decorator';
+import { MediaImage } from 'src/media-image/entities/media-image.entity';
+import { MediaBasicInfo } from 'src/media-basic-info/entities/media-basic-info.entity';
+import { Trailer } from 'src/trailer/entities/trailer.entity';
 
 @ObjectType()
 @Entity()

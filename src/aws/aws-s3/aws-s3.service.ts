@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { getSignedUrl as awsGetSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { ConfigService } from '@nestjs/config';
-import { RadisService } from '@/radis/radis.service';
-import { RadisInputDto } from '@/radis/dto/radis.input.dto';
+import { RadisService } from 'src/radis/radis.service';
+import { RadisInputDto } from 'src/radis/dto/radis.input.dto';
 import { AwsS3OutputDto } from './dto/aws-s3.output.dto';
-import { MediaEnum } from '@/common/enum/common.enum';
+import { MovierMediaEnum } from 'src/common/enum/common.enum';
 
 @Injectable()
 export class AwsS3Service {
@@ -24,7 +24,7 @@ export class AwsS3Service {
     });
   }
 
-  async generateVideoUploadUrl(mine: VideoMineType, currentManager: CurrentManagerType, type: MediaEnum): Promise<AwsS3OutputDto.GetS3SignedUrlOutput> {
+  async generateVideoUploadUrl(mine: VideoMineType, currentManager: CurrentManagerType, type: MovierMediaEnum): Promise<AwsS3OutputDto.GetS3SignedUrlOutput> {
     try {
       const key = this.generateKey(currentManager, type);
       const command = this.createPutObjectCommand(key, this.configService.get<string>('S3_VIDEO_BUCKET'), mine);
@@ -39,7 +39,7 @@ export class AwsS3Service {
   }
 
   async generateShortUploadUrl(mine: VideoMineType, currentManager: CurrentManagerType) {
-    const key = this.generateKey(currentManager, MediaEnum.SHORT);
+    const key = this.generateKey(currentManager, MovierMediaEnum.SHORT);
     const command = this.createPutObjectCommand(key, this.configService.get<string>('S3_SHORT_BUCKET'), mine);
 
     return this.getSignedUrl(command);
@@ -51,7 +51,7 @@ export class AwsS3Service {
     return this.getSignedUrl(command);
   }
 
-  private generateKey(currentManager: CurrentManagerType, type: MediaEnum): string {
+  private generateKey(currentManager: CurrentManagerType, type: MovierMediaEnum): string {
     return `${currentManager.ID}/${type}/${Date.now()}`;
   }
 

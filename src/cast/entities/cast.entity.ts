@@ -1,12 +1,12 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Entity, ManyToMany, OneToMany, OneToOne } from 'typeorm';
 import { CastRoleEnum } from '../enum/cast.enum';
-import { MovieCast } from '@/movie-cast/entities/movie-cast.entity';
-import { SeriesCast } from '@/series-cast/entities/series-cast.entity';
-import { EntityBase } from '@/base/EntityBase';
-import { EnumColumn, JoinColumn } from '@/decorator/entity/entity.decorator';
-import { Cineast } from '@/cineast/entities/cineast.entity';
-import { Trailer } from '@/trailer/entities/trailer.entity';
+import { MovieCast } from 'src/movie-cast/entities/movie-cast.entity';
+import { SeriesCast } from 'src/series-cast/entities/series-cast.entity';
+import { EntityBase } from 'src/base/EntityBase';
+import { EnumColumn, JoinColumn } from 'src/decorator/entity/entity.decorator';
+import { Cineast } from 'src/cineast/entities/cineast.entity';
+import { Trailer } from 'src/trailer/entities/trailer.entity';
 
 @ObjectType()
 @Entity()

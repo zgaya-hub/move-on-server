@@ -1,6 +1,6 @@
 import { Resolver } from '@nestjs/graphql';
 import { FinancialInfoService } from './financial-info.service';
-import { FinancialInfo } from '@/financial-info/entities/financial-info.entity';
+import { FinancialInfo } from 'src/financial-info/entities/financial-info.entity';
 
 @Resolver(() => FinancialInfo)
 export class FinancialInfoResolver {

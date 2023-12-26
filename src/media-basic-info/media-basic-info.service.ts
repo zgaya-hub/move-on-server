@@ -8,7 +8,7 @@ import { Trailer } from '../trailer/entities/trailer.entity';
 import { Season } from '../season/entities/season.entity';
 import { Series } from '../series/entities/series.entity';
 import { EntitySaveService } from '../adapter/save.service';
-import { CommonOutputDto } from '@/common/dto/common.dto';
+import { CommonOutputDto } from 'src/common/dto/common.dto';
 import { MediaBasicInfoRepository } from './media-basic-info.repository';
 import { MediaBasicInfoNotFoundException } from './media-basic-info.exceptions';
 

@@ -1,10 +1,10 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { EnumColumn, JoinColumn, VarcharColumn } from '@/decorator/entity/entity.decorator';
+import { EnumColumn, JoinColumn, VarcharColumn } from 'src/decorator/entity/entity.decorator';
 import { ManagerActivityActionEnum } from '../enum/manager-activity.enum';
-import { ActivityStatusEnum } from '@/common/enum/common.enum';
+import { ActivityStatusEnum } from 'src/common/enum/common.enum';
 import { Entity, ManyToOne } from 'typeorm';
-import { Manager } from '@/manager/entities/manager.entity';
-import { EntityBase } from '@/base/EntityBase';
+import { Manager } from 'src/manager/entities/manager.entity';
+import { EntityBase } from 'src/base/EntityBase';
 
 @ObjectType()
 @Entity()

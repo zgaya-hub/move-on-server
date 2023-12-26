@@ -3,7 +3,7 @@ import { InjectEntityManager } from '@nestjs/typeorm';
 import { EntityManager, SelectQueryBuilder } from 'typeorm';
 import { Series } from './entities/series.entity';
 import { Repository } from '../base/RepositoryBase';
-import { MediaImageTypeEnum } from '@/common/enum/common.enum';
+import { MediaImageTypeEnum } from 'src/common/enum/common.enum';
 
 @Injectable()
 export class SeriesRepository extends Repository<Series> {

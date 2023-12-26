@@ -1,11 +1,11 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { EnumColumn, IntColumn, JoinColumn, TinyintColumn, VarcharColumn } from '@/decorator/entity/entity.decorator';
+import { EnumColumn, IntColumn, JoinColumn, TinyintColumn, VarcharColumn } from 'src/decorator/entity/entity.decorator';
 import { Entity, OneToOne } from 'typeorm';
-import { Movie } from '@/movie/entities/movie.entity';
-import { EntityBase } from '@/base/EntityBase';
+import { EntityBase } from 'src/base/EntityBase';
 import { VideoQualityEnum } from '../enum/video.enum';
-import { Episode } from '@/episode/entities/episode.entity';
-import { Trailer } from '@/trailer/entities/trailer.entity';
+import { Episode } from 'src/episode/entities/episode.entity';
+import { Trailer } from 'src/trailer/entities/trailer.entity';
+import { Movie } from 'src/movie/entities/movie.entity';
 
 @ObjectType()
 @Entity()

@@ -9,7 +9,7 @@ import { MediaImageService } from '../media-image/media-image.service';
 import { MediaBasicInfoService } from '../media-basic-info/media-basic-info.service';
 import { MediaAdditionalInfoService } from '../media-additional-info/media-additional-info.service';
 import { MediaAdditionalInfo } from '../media-additional-info/entities/media-additional-info.entity';
-import { MockService } from '@/mock/mock.service';
+import { MockService } from 'src/mock/mock.service';
 import { MediaImageAlreadyAssignedException } from './series.exceptions';
 
 @Injectable()

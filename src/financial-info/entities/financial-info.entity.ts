@@ -1,9 +1,9 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { DecimalColumn, JoinColumn } from '@/decorator/entity/entity.decorator';
-import { Movie } from '@/movie/entities/movie.entity';
+import { DecimalColumn, JoinColumn } from 'src/decorator/entity/entity.decorator';
+import { Movie } from 'src/movie/entities/movie.entity';
 import { Entity, OneToOne } from 'typeorm';
-import { Series } from '@/series/entities/series.entity';
-import { EntityBase } from '@/base/EntityBase';
+import { Series } from 'src/series/entities/series.entity';
+import { EntityBase } from 'src/base/EntityBase';
 
 @ObjectType()
 @Entity()

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { Field, InputType } from '@nestjs/graphql';
 import { IsNotEmpty, IsObject, IsUUID, IsOptional, IsEnum } from 'class-validator';
-import { MediaBasicInfoInputDto } from '@/media-basic-info/dto/media-basic-info.input.dto';
+import { MediaBasicInfoInputDto } from 'src/media-basic-info/dto/media-basic-info.input.dto';
 import { TrailerMediaEnum } from '../enum/trailer.enum';
 
 export namespace TrailerInputDto {

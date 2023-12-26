@@ -7,8 +7,7 @@ import { CommonOutputDto } from '../common/dto/common.dto';
 import { SeriesService } from '../series/series.service';
 import { MediaBasicInfoService } from '../media-basic-info/media-basic-info.service';
 import { MediaImageService } from '../media-image/media-image.service';
-import { MockService } from '@/mock/mock.service';
-import { SERIES_MOCK } from './season.mock';
+import { MockService } from 'src/mock/mock.service';
 
 @Injectable()
 export class SeasonService {
@@ -41,10 +40,9 @@ export class SeasonService {
     }
   }
 
-  async getSeasonBySeriesId(_params: SeasonInputDto.GetSeasonBySeriesIdParams): Promise<Season[]> {
+  async getSeasonBySeriesId(params: SeasonInputDto.GetSeasonBySeriesIdParams): Promise<Season[]> {
     try {
-      // const season = await this.seasonRepository.getSeasonBySeriesId(params.SeriesId).getMany();
-      const season = this.mockService.generateMockData<Season>(SERIES_MOCK, 5);
+      const season = await this.seasonRepository.getSeasonBySeriesId(params.SeriesId).getMany();
       return season;
     } catch (error) {
       throw new Error(error);
