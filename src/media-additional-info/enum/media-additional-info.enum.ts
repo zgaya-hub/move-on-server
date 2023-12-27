@@ -6,15 +6,17 @@ export enum MediaStatusEnum {
   CANCELED = 'Canceled',
 }
 
+//
+// TODO: changed here but not in DB i will do change in DB once i free from (FE)
 export enum MediaGenriesEnum {
-  ACTION = 'action',
-  DRAMA = 'drama',
-  COMEDY = 'comedy',
-  FASTASY = 'fantasy',
-  HORROR = 'horror',
-  ROMANCE = 'romance',
-  ADVANTURE = 'dventure',
-  WAR = 'war',
-  BIO_GRAPHY = 'biography',
-  SUPER_HERO = 'superhero',
+  ACTION = 'Action',
+  DRAMA = 'Drama',
+  COMEDY = 'Comedy',
+  FASTASY = 'Fantasy',
+  HORROR = 'Horror',
+  ROMANCE = 'Romance',
+  ADVANTURE = 'Aventure',
+  WAR = 'War',
+  BIO_GRAPHY = 'Biography',
+  SUPER_HERO = 'Super Hero',
 }
