@@ -37,7 +37,9 @@ export class EpisodeResolver {
   }
 
   @Query(() => EpisodeOutputDto.GetLastEpisodeNumberBySeasonIdOutput)
-  async getLastEpisodeNumberBySeasonId(@Args('GetSeasonBySeriesIdParams') param: EpisodeInputDto.GetNextEpisodeNumberParams): Promise<EpisodeOutputDto.GetLastEpisodeNumberBySeasonIdOutput> {
+  async getLastEpisodeNumberBySeasonId(
+    @Args('GetSeasonBySeriesIdParams') param: EpisodeInputDto.GetNextEpisodeNumberParams,
+  ): Promise<EpisodeOutputDto.GetLastEpisodeNumberBySeasonIdOutput> {
     try {
       return this.episodeService.getLastEpisodeNumberBySeasonId(param);
     } catch (error) {

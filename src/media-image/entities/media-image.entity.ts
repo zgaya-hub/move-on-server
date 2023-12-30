@@ -1,7 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { EnumColumn, JoinColumn, VarcharColumn } from 'src/decorator/entity/entity.decorator';
 import { Movie } from 'src/movie/entities/movie.entity';
-import { Entity, ManyToOne } from 'typeorm';
+import { Entity, OneToOne } from 'typeorm';
 import { Series } from 'src/series/entities/series.entity';
 import { Season } from 'src/season/entities/season.entity';
 import { Episode } from 'src/episode/entities/episode.entity';
@@ -13,7 +13,7 @@ import { MediaImageTypeEnum } from 'src/common/enum/common.enum';
 @Entity()
 export class MediaImage extends EntityBase {
   @Field()
-  @EnumColumn({ enum: MediaImageTypeEnum })
+  @EnumColumn({ enum: MediaImageTypeEnum, default: MediaImageTypeEnum.THUMBNAIL })
   mediaImageType: MediaImageTypeEnum;
 
   @Field()
@@ -21,32 +21,37 @@ export class MediaImage extends EntityBase {
   mediaImageUrl: string;
 
   // is nullable possible
+  // TODO: changed relationship but not in DB will change in the future
   @Field(() => Movie)
-  @ManyToOne(() => Movie, (movie) => movie.mediaImage, { nullable: true })
+  @OneToOne(() => Movie, (movie) => movie.mediaImage, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   movie: Movie;
 
   // is nullable possible
+  // TODO: changed relationship but not in DB will change in the future
   @Field(() => Series)
-  @ManyToOne(() => Series, (series) => series.mediaImage, { nullable: true })
+  @OneToOne(() => Series, (series) => series.mediaImage, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   series: Series;
 
   // is nullable possible
+  // TODO: changed relationship but not in DB will change in the future
   @Field(() => Season)
-  @ManyToOne(() => Season, (season) => season.mediaImage, { nullable: true })
+  @OneToOne(() => Season, (season) => season.mediaImage, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   season: Season;
 
   // is nullable possible
+  // TODO: changed relationship but not in DB will change in the future
   @Field(() => Episode)
-  @ManyToOne(() => Episode, (episode) => episode.mediaImage, { nullable: true })
+  @OneToOne(() => Episode, (episode) => episode.mediaImage, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   episode: Episode;
 
   // is nullable possible
+  // TODO: changed relationship but not in DB will change in the future
   @Field(() => Trailer)
-  @ManyToOne(() => Trailer, (trailer) => trailer.mediaImage, { nullable: true })
+  @OneToOne(() => Trailer, (trailer) => trailer.mediaImage, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   trailer: Trailer;
 }

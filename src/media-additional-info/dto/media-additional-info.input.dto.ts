@@ -1,30 +1,30 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import { IsEnum, IsNotEmpty } from 'class-validator';
-import { CountriesEnum, LanguagiesEnum } from 'src/common/enum/common.enum';
+import { IsEnum, IsOptional } from 'class-validator';
+import { MediaCountriesEnum, MediaLanguagiesEnum } from 'src/common/enum/common.enum';
 import { MediaGenriesEnum, MediaStatusEnum } from '../enum/media-additional-info.enum';
 import { Field, InputType } from '@nestjs/graphql';
 
 export namespace MediaAdditionalInfoInputDto {
   @InputType()
   export class CreateMediaAdditionalInfoInput {
-    @Field(() => String)
-    @IsNotEmpty()
-    @IsEnum(CountriesEnum)
-    OriginCountry: CountriesEnum;
+    @Field(() => String, { nullable: true })
+    @IsOptional()
+    @IsEnum(MediaCountriesEnum)
+    MediaOriginCountry: MediaCountriesEnum;
 
-    @Field(() => String)
-    @IsNotEmpty()
-    @IsEnum(LanguagiesEnum)
-    OriginalLanguage: LanguagiesEnum;
+    @Field(() => String, { nullable: true })
+    @IsOptional()
+    @IsEnum(MediaLanguagiesEnum)
+    MediaOriginalLanguage: MediaLanguagiesEnum;
 
-    @Field(() => String)
-    @IsNotEmpty()
+    @Field(() => String, { nullable: true })
+    @IsOptional()
     @IsEnum(MediaGenriesEnum)
-    Genre: MediaGenriesEnum;
+    MediaGenre: MediaGenriesEnum;
 
-    @Field(() => String)
-    @IsNotEmpty()
+    @Field(() => String, { nullable: true })
+    @IsOptional()
     @IsEnum(MediaStatusEnum)
-    Status: MediaStatusEnum;
+    MediaStatus: MediaStatusEnum;
   }
 }

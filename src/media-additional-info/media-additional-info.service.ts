@@ -18,10 +18,10 @@ export class MediaAdditionalInfoService {
     try {
       const mediaAdditionalInfo = new MediaAdditionalInfo();
 
-      mediaAdditionalInfo.mediaGenre = input.Genre;
-      mediaAdditionalInfo.mediaOriginCountry = input.OriginCountry;
-      mediaAdditionalInfo.mediaOriginalLanguage = input.OriginalLanguage;
-      mediaAdditionalInfo.mediaStatus = input.Status;
+      mediaAdditionalInfo.mediaGenre = input.MediaGenre;
+      mediaAdditionalInfo.mediaOriginCountry = input.MediaOriginCountry;
+      mediaAdditionalInfo.mediaOriginalLanguage = input.MediaOriginalLanguage;
+      mediaAdditionalInfo.mediaStatus = input.MediaStatus;
 
       if (media instanceof Movie) mediaAdditionalInfo.movie = media;
       if (media instanceof Series) mediaAdditionalInfo.series = media;

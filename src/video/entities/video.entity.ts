@@ -47,17 +47,17 @@ export class Video extends EntityBase {
   isUsed: boolean;
 
   @Field(() => Movie)
-  @OneToOne(() => Movie, (movie) => movie.video, { nullable: true })
+  @OneToOne(() => Movie, (movie) => movie.video, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   movie: Movie;
 
   @Field(() => Episode)
-  @OneToOne(() => Episode, (episode) => episode.video, { nullable: true })
+  @OneToOne(() => Episode, (episode) => episode.video, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   episode: Episode;
 
   @Field(() => Trailer)
-  @OneToOne(() => Trailer, (trailer) => trailer.video, { nullable: true })
+  @OneToOne(() => Trailer, (trailer) => trailer.video, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   trailer: Trailer;
 }

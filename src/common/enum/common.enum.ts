@@ -4,7 +4,7 @@ export enum GenderEnum {
 }
 
 // TODO: changed here but not in DB i will do change in DB once i free from (FE)
-export enum CountriesEnum {
+export enum MediaCountriesEnum {
   USA = 'United States of America',
   AUSTRALIA = 'Australia',
   AUSTRIA = 'Austria',
@@ -38,7 +38,7 @@ export enum CountriesEnum {
 }
 
 // TODO: changed here but not in DB i will do change in DB once i free from (FE)
-export enum LanguagiesEnum {
+export enum MediaLanguagiesEnum {
   ENGLISH = 'English',
   GERMAN = 'German',
   PERSIAN = 'Persian',

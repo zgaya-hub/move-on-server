@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { Field, InputType, PartialType } from '@nestjs/graphql';
-import { IsEnum, IsNotEmpty, IsObject, IsOptional, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsObject, IsOptional, IsUUID } from 'class-validator';
 import { MediaBasicInfoInputDto } from 'src/media-basic-info/dto/media-basic-info.input.dto';
 import { MediaAdditionalInfoInputDto } from 'src/media-additional-info/dto/media-additional-info.input.dto';
-import { MediaImageTypeEnum } from 'src/common/enum/common.enum';
 
 export namespace SeriesInputDto {
   @InputType()
@@ -18,9 +17,9 @@ export namespace SeriesInputDto {
     @IsNotEmpty()
     MediaBasicInfo: MediaBasicInfoInputDto.CreateMediaBasicInfoInput;
 
-    @Field(() => MediaAdditionalInfoInputDto.CreateMediaAdditionalInfoInput, { nullable: true })
+    @Field(() => MediaAdditionalInfoInputDto.CreateMediaAdditionalInfoInput)
     @IsObject()
-    @IsOptional()
+    @IsNotEmpty()
     MediaAdditionalInfo: MediaAdditionalInfoInputDto.CreateMediaAdditionalInfoInput;
   }
 
@@ -43,10 +42,23 @@ export namespace SeriesInputDto {
   }
 
   @InputType()
-  export class GetManagerSeriesWithImageAndBasicInfoInput {
+  export class GetManagerSeriesForTableInput {
+    @Field(() => Number)
+    @IsNotEmpty()
+    @IsNumber()
+    Page: number;
+
+    @Field(() => Number)
+    @IsNotEmpty()
+    @IsNumber()
+    PageSize: number;
+  }
+
+  @InputType()
+  export class DeleteSeriesByIdParams {
     @Field(() => String)
     @IsNotEmpty()
-    @IsEnum(MediaImageTypeEnum)
-    MediaImageType: MediaImageTypeEnum;
+    @IsUUID()
+    SeriesId: string;
   }
 }

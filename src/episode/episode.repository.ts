@@ -15,6 +15,6 @@ export class EpisodeRepository extends Repository<Episode> {
   }
 
   public getLastEpisodeNumberBySeasonId(seasonId: string): SelectQueryBuilder<Episode> {
-    return this.createQueryBuilder('episode').where('episode.season = :seasonId', { seasonId }).select(['episodeNo']);
+    return this.createQueryBuilder('episode').where('episode.season = :seasonId', { seasonId }).select(['episodeNumber']);
   }
 }

@@ -74,7 +74,7 @@ input CreateCrewInput {
 }
 
 input CreateEpisodeInput {
-  EpisodeNo: Float!
+  EpisodeNumber: Float!
   MediaBasicInfo: CreateMediaBasicInfoInput!
   MediaImageId: String!
   SeasonId: String!
@@ -94,16 +94,16 @@ input CreateManagerActivityInput {
 }
 
 input CreateMediaAdditionalInfoInput {
-  Genre: String!
-  OriginCountry: String!
-  OriginalLanguage: String!
-  Status: String!
+  MediaGenre: String
+  MediaOriginCountry: String
+  MediaOriginalLanguage: String
+  MediaStatus: String
 }
 
 input CreateMediaBasicInfoInput {
-  PlotSummary: String!
-  ReleaseDate: Float!
-  Title: String!
+  MediaPlotSummary: String!
+  MediaReleaseDate: Float!
+  MediaTitle: String!
 }
 
 input CreateMediaFinancialInfoInput {
@@ -150,7 +150,7 @@ input CreateReviewInput {
 input CreateSeasonInput {
   MediaBasicInfo: CreateMediaBasicInfoInput!
   MediaImageId: String!
-  SeasonNo: Float!
+  SeasonNumber: Float!
   SeriesId: String!
 }
 
@@ -165,7 +165,7 @@ input CreateSeriesCrewInput {
 }
 
 input CreateSeriesInput {
-  MediaAdditionalInfo: CreateMediaAdditionalInfoInput
+  MediaAdditionalInfo: CreateMediaAdditionalInfoInput!
   MediaBasicInfo: CreateMediaBasicInfoInput!
   MediaImageId: String!
 }
@@ -196,14 +196,18 @@ type Crew {
   updatedAt: Float!
 }
 
+input DeleteSeriesByIdParams {
+  SeriesId: String!
+}
+
 type Episode {
   ID: String!
   createdAt: Float!
   deletedAt: Float!
-  episodeNo: Float!
+  episodeNumber: Float!
   externalLink: [ExternalLink!]!
   mediaBasicInfo: MediaBasicInfo!
-  mediaImage: [MediaImage!]!
+  mediaImage: MediaImage!
   mediaResource: MediaResource!
   review: [Review!]!
   season: Season!
@@ -248,11 +252,31 @@ type FinancialInfo {
 }
 
 type GetLastEpisodeNumberBySeasonIdOutput {
-  EpisodeNo: Float!
+  EpisodeNumber: Float!
 }
 
-input GetManagerSeriesWithImageAndBasicInfoInput {
-  MediaImageType: String!
+input GetManagerSeriesForTableInput {
+  Page: Float!
+  PageSize: Float!
+}
+
+type GetManagerSeriesForTableOutput {
+  seriesList: [GetManagerTableOutputSeriesList!]!
+  totalRecords: Float!
+}
+
+type GetManagerTableOutputSeriesList {
+  ID: String!
+  createdAt: Float!
+  mediaGenre: String!
+  mediaImageUrl: String!
+  mediaOriginCountry: String!
+  mediaOriginalLanguage: String!
+  mediaPlotSummary: String!
+  mediaReleaseDate: Float!
+  mediaStatus: String!
+  mediaTitle: String!
+  updatedAt: Float
 }
 
 input GetNextEpisodeNumberParams {
@@ -428,6 +452,7 @@ type Mutation {
   createSeriesCrew(createSeriesCrewInput: CreateSeriesCrewInput!): SeriesCrew!
   createTrailer(CreateTrailerInput: CreateTrailerInput!): SuccessOutput!
   createUserActivity(createUserActivityInput: CreateUserActivityInput!): UserActivity!
+  getManagerSeriesForTable(GetManagerSeriesForTableInput: GetManagerSeriesForTableInput!): GetManagerSeriesForTableOutput!
   getUploadVideoSignedUrl(GetUploadVideoSignedUrlInput: GetUploadVideoSignedUrlInput!): UploadVideoSignedUrlOutput!
   managerRegister(ManagerRegisterInput: ManagerRegisterInput!): AuthTokenOutput!
   managerSignIn(ManagerSignInInput: ManagerSignInInput!): AuthTokenOutput!
@@ -477,8 +502,9 @@ type Query {
   cast(id: Int!): Cast!
   cineast(id: Int!): Cineast!
   crew(id: Int!): Crew!
+  deleteSeriesById(DeleteSeriesByIdParams: DeleteSeriesByIdParams!): SuccessOutput!
   getLastEpisodeNumberBySeasonId(GetSeasonBySeriesIdParams: GetNextEpisodeNumberParams!): GetLastEpisodeNumberBySeasonIdOutput!
-  getManagerSeriesWithImageAndBasicInfo(GetManagerSeriesWithImageAndBasicInfoInput: GetManagerSeriesWithImageAndBasicInfoInput!): [Series!]!
+  getManagerSeriesWithImageAndBasicInfo: [Series!]!
   getSeasonBySeriesId(GetSeasonBySeriesIdParams: GetSeasonBySeriesIdParams!): [Season!]!
   managerActivity(id: Int!): ManagerActivity!
   movieCast(id: Int!): MovieCast!
@@ -510,8 +536,8 @@ type Season {
   deletedAt: Float!
   episode: [Episode!]!
   mediaBasicInfo: MediaBasicInfo!
-  mediaImage: [MediaImage!]!
-  seasonNo: Float!
+  mediaImage: MediaImage!
+  seasonNumber: Float!
   series: Series!
   trailer: Trailer!
   updatedAt: Float!
@@ -527,7 +553,7 @@ type Series {
   manager: Manager!
   mediaAdditionalInfo: MediaAdditionalInfo!
   mediaBasicInfo: MediaBasicInfo!
-  mediaImage: [MediaImage!]!
+  mediaImage: MediaImage!
   review: Review!
   season: Season!
   seriesCast: SeriesCast!
@@ -569,7 +595,7 @@ type Trailer {
   externalLink: [ExternalLink!]!
   manager: Manager!
   mediaBasicInfo: MediaBasicInfo!
-  mediaImage: [MediaImage!]!
+  mediaImage: MediaImage!
   mediaResource: MediaResource!
   movie: Movie!
   review: [Review!]!
@@ -605,9 +631,9 @@ input UpdateManagerActivityInput {
 
 input UpdateMediaBasicInfoInput {
   MediaBasicInfoId: String!
-  PlotSummary: String
-  ReleaseDate: Float
-  Title: String
+  MediaPlotSummary: String
+  MediaReleaseDate: Float
+  MediaTitle: String
 }
 
 input UpdateMovieCastInput {

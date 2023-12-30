@@ -3,7 +3,6 @@ import { InjectEntityManager } from '@nestjs/typeorm';
 import { EntityManager, SelectQueryBuilder } from 'typeorm';
 import { Series } from './entities/series.entity';
 import { Repository } from '../base/RepositoryBase';
-import { MediaImageTypeEnum } from 'src/common/enum/common.enum';
 
 @Injectable()
 export class SeriesRepository extends Repository<Series> {
@@ -15,11 +14,37 @@ export class SeriesRepository extends Repository<Series> {
     return this.findOneBy({ ID });
   }
 
-  findSeriesByManagerId(imageType: MediaImageTypeEnum, managerId: string): SelectQueryBuilder<Series> {
+  findSeriesByManagerId(managerId: string): SelectQueryBuilder<Series> {
     return this.createQueryBuilder('series')
       .leftJoinAndSelect('series.mediaBasicInfo', 'mediaBasicInfo')
       .leftJoinAndSelect('series.mediaImage', 'mediaImage')
+      .where('series.manager = :managerId', { managerId });
+  }
+
+  getManagerSeriesForTable(pageSize: number, page: number, managerId: string): SelectQueryBuilder<Series> {
+    return this.createQueryBuilder('series')
+      .leftJoinAndSelect('series.mediaBasicInfo', 'mediaBasicInfo')
+      .leftJoinAndSelect('series.mediaAdditionalInfo', 'mediaAdditionalInfo')
+      .leftJoinAndSelect('series.mediaImage', 'mediaImage')
       .where('series.manager = :managerId', { managerId })
-      .andWhere('mediaImage.mediaImageType = :imageType', { imageType });
+      .take(pageSize)
+      .skip(page * pageSize)
+      .select([
+        'series.ID',
+        'mediaAdditionalInfo.mediaOriginCountry',
+        'mediaAdditionalInfo.mediaOriginalLanguage',
+        'mediaAdditionalInfo.mediaGenre',
+        'mediaAdditionalInfo.mediaStatus',
+        'mediaBasicInfo.mediaTitle',
+        'mediaBasicInfo.mediaPlotSummary',
+        'mediaBasicInfo.mediaReleaseDate',
+        'mediaImage.mediaImageUrl',
+        'series.createdAt',
+        'series.updatedAt',
+      ]);
+  }
+
+  public async deleteSeriesById(ID: string): Promise<void> {
+    await this.delete({ ID });
   }
 }

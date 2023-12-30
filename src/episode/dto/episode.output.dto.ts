@@ -5,6 +5,6 @@ export namespace EpisodeOutputDto {
   @ObjectType()
   export class GetLastEpisodeNumberBySeasonIdOutput {
     @Field(() => Number)
-    EpisodeNo: number;
+    EpisodeNumber: number;
   }
 }

@@ -61,9 +61,9 @@ export class Series extends EntityBase {
   @OneToMany(() => SeriesCrew, (seriesCrew) => seriesCrew.series)
   seriesCrew: SeriesCrew[];
 
-  @Field(() => [MediaImage])
-  @OneToMany(() => MediaImage, (mediaImage) => mediaImage.series)
-  mediaImage: MediaImage[];
+  @Field(() => MediaImage)
+  @OneToOne(() => MediaImage, (mediaImage) => mediaImage.series)
+  mediaImage: MediaImage;
 
   @Field(() => ExternalLink)
   @OneToMany(() => ExternalLink, (externalLink) => externalLink.series)
