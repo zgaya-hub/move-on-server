@@ -65,7 +65,7 @@ export class EpisodeService {
     try {
       const episode = await this.episodeRepository.findLastEpisodeBySeasonId(seasonId).select(['number']).getOne();
 
-      return { number: episode.number };
+      return { number: episode?.number ?? 0 + 1 };
     } catch (error) {
       throw new Error(error);
     }
