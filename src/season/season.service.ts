@@ -68,7 +68,7 @@ export class SeasonService {
     try {
       const season = await this.seasonRepository.findLastSeasonBySeriesId(seriesId).select(['number']).getOne();
 
-      return { number: season.number + 1 };
+      return { number: season?.number ?? 0 + 1 };
     } catch (error) {
       throw new Error(error);
     }

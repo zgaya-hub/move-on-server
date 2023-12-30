@@ -22,6 +22,6 @@ export class SeasonRepository extends Repository<Season> {
   }
 
   findLastSeasonBySeriesId(seriesId: string): SelectQueryBuilder<Season> {
-    return this.createQueryBuilder('season').where('season.series = :seriesId', { seriesId }).orderBy('season.seasonNumber', 'DESC').take(1);
+    return this.createQueryBuilder('season').where('season.series = :seriesId', { seriesId }).orderBy('season.number', 'DESC').take(1);
   }
 }

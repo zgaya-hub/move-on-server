@@ -35,17 +35,6 @@ export class EpisodeResolver {
       throw new Error(error);
     }
   }
-  /* 
-  @Query(() => EpisodeOutputDto.GetLastEpisodeNumberBySeasonIdOutput)
-  async getLastEpisodeNumberBySeasonId(
-    @Args('GetSeasonBySeriesIdParams') param: EpisodeInputDto.GetNextEpisodeNumberParams,
-  ): Promise<EpisodeOutputDto.GetLastEpisodeNumberBySeasonIdOutput> {
-    try {
-      return this.episodeService.getLastEpisodeNumberBySeasonId(param);
-    } catch (error) {
-      throw new Error(error);
-    }
-  } */
 
   @Query(() => EpisodeOutputDto.GetNextEpisodeNumberOutput)
   async getNextEpisodeNumber(@Args('GetNextEpisodeNumberParams') param: EpisodeInputDto.GetNextEpisodeNumberParams): Promise<EpisodeOutputDto.GetNextEpisodeNumberOutput> {
