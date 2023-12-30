@@ -46,15 +46,23 @@ export class MediaBasicInfoService {
     }
   }
 
-  async updateMediaBasicInfo(input: MediaBasicInfoInputDto.UpdateMediaBasicInfoInput): Promise<CommonOutputDto.SuccessOutput> {
+  async updateMediaBasicInfo(
+    mediaBasicInfoId: string,
+    input: MediaBasicInfoInputDto.UpdateMediaBasicInfoInput,
+    entitySaveService?: EntitySaveService,
+  ): Promise<CommonOutputDto.SuccessOutput> {
     try {
-      const mediaBasicInfo = new MediaBasicInfo();
+      const mediaBasicInfo = await this.findMediaBasicInfoById(mediaBasicInfoId);
 
       if (input.MediaTitle) mediaBasicInfo.mediaTitle = input.MediaTitle;
       if (input.MediaPlotSummary) mediaBasicInfo.mediaPlotSummary = input.MediaPlotSummary;
       if (input.MediaReleaseDate) mediaBasicInfo.mediaReleaseDate = input.MediaReleaseDate;
 
-      await this.entitySaveService.save<MediaBasicInfo>(mediaBasicInfo);
+      if (entitySaveService) {
+        entitySaveService.push(mediaBasicInfo);
+      } else {
+        await this.entitySaveService.save<MediaBasicInfo>(mediaBasicInfo);
+      }
 
       return { isSuccess: true };
     } catch (error) {
@@ -62,7 +70,7 @@ export class MediaBasicInfoService {
     }
   }
 
-  async findTrailerById(id: string): Promise<MediaBasicInfo> {
+  async findMediaBasicInfoById(id: string): Promise<MediaBasicInfo> {
     try {
       const mediaBasicInfo = await this.mediaBasicInfoRepository.findMediaBasicInfoById(id);
       if (!mediaBasicInfo) {

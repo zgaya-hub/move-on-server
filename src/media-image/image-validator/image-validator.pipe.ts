@@ -10,7 +10,7 @@ export class ImageValidatorPipe implements PipeTransform {
   private readonly THUMBNAIL_MIN_RATIO_THRESHOLD = 1.2;
   private readonly BACKDROP_MAX_RATIO_THRESHOLD = 2.5;
   private readonly BACKDROP_MIN_RATIO_THRESHOLD = 2.0;
-  private readonly MAX_SIZE_IN_KB = 4096;
+  private readonly MAX_SIZE_IN_KB = 6144;
   private readonly VALID_IMAGE_MIME_TYPES: ImageMimeType[] = ['image/gif', 'image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
 
   transform(image: MediaImageInputDto.CreateMediaImageInput): MediaImageInputDto.CreateMediaImageInput {

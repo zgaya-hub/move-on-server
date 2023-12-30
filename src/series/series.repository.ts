@@ -14,11 +14,24 @@ export class SeriesRepository extends Repository<Series> {
     return this.findOneBy({ ID });
   }
 
-  findSeriesByManagerId(managerId: string): SelectQueryBuilder<Series> {
+  findManagerSeriesWithOneToOneJoins(managerId: string): SelectQueryBuilder<Series> {
     return this.createQueryBuilder('series')
       .leftJoinAndSelect('series.mediaBasicInfo', 'mediaBasicInfo')
       .leftJoinAndSelect('series.mediaImage', 'mediaImage')
+      .leftJoinAndSelect('series.mediaAdditionalInfo', 'mediaAdditionalInfo')
+      .leftJoinAndSelect('series.achievementInfo', 'achievementInfo')
+      .leftJoinAndSelect('series.financialInfo', 'financialInfo')
       .where('series.manager = :managerId', { managerId });
+  }
+
+  findSeriesByIdWithOneToOneJoins(seriesId: string): SelectQueryBuilder<Series> {
+    return this.createQueryBuilder('series')
+      .leftJoinAndSelect('series.mediaBasicInfo', 'mediaBasicInfo')
+      .leftJoinAndSelect('series.mediaImage', 'mediaImage')
+      .leftJoinAndSelect('series.mediaAdditionalInfo', 'mediaAdditionalInfo')
+      .leftJoinAndSelect('series.achievementInfo', 'achievementInfo')
+      .leftJoinAndSelect('series.financialInfo', 'financialInfo')
+      .where('series.ID = :seriesId', { seriesId });
   }
 
   getManagerSeriesForTable(pageSize: number, page: number, managerId: string): SelectQueryBuilder<Series> {
@@ -46,5 +59,9 @@ export class SeriesRepository extends Repository<Series> {
 
   public async deleteSeriesById(ID: string): Promise<void> {
     await this.delete({ ID });
+  }
+
+  public async deleteMultipleSeriesByIdz(seriesIdz: string[]): Promise<void> {
+    await this.createQueryBuilder('series').delete().where('ID IN (:...seriesIdz)', { seriesIdz }).execute();
   }
 }

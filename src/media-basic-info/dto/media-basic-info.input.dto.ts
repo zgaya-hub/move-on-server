@@ -24,7 +24,10 @@ export namespace MediaBasicInfoInputDto {
   }
 
   @InputType()
-  export class UpdateMediaBasicInfoInput extends PartialType(CreateMediaBasicInfoInput) {
+  export class UpdateMediaBasicInfoInput extends PartialType(CreateMediaBasicInfoInput) {}
+
+  @InputType()
+  export class UpdateMediaBasicInfoParams {
     @Field(() => String)
     @IsNotEmpty()
     @IsUUID()

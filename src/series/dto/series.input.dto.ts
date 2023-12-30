@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { Field, InputType, PartialType } from '@nestjs/graphql';
-import { IsNotEmpty, IsNumber, IsObject, IsOptional, IsUUID } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, IsObject, IsOptional, IsUUID } from 'class-validator';
 import { MediaBasicInfoInputDto } from 'src/media-basic-info/dto/media-basic-info.input.dto';
 import { MediaAdditionalInfoInputDto } from 'src/media-additional-info/dto/media-additional-info.input.dto';
+import { MediaImageInputDto } from 'src/media-image/dto/media-image.input.dto';
 
 export namespace SeriesInputDto {
   @InputType()
@@ -60,5 +61,37 @@ export namespace SeriesInputDto {
     @IsNotEmpty()
     @IsUUID()
     SeriesId: string;
+  }
+
+  @InputType()
+  export class DeleteMultipleSeriesByIdzParams {
+    @Field(() => [String])
+    @IsNotEmpty()
+    @IsArray()
+    @IsUUID('all', { each: true })
+    SeriesIdz: string[];
+  }
+
+  @InputType()
+  export class UpdateSeriesByIdInput {
+    @Field(() => String)
+    @IsNotEmpty()
+    @IsUUID()
+    SeriesId: string;
+
+    @Field(() => MediaBasicInfoInputDto.UpdateMediaBasicInfoInput)
+    @IsObject()
+    @IsNotEmpty()
+    MediaBasicInfo: MediaBasicInfoInputDto.UpdateMediaBasicInfoInput;
+
+    @Field(() => MediaAdditionalInfoInputDto.UpdateMediaAdditionalInfoInput)
+    @IsObject()
+    @IsNotEmpty()
+    MediaAdditionalInfo: MediaAdditionalInfoInputDto.UpdateMediaAdditionalInfoInput;
+
+    @Field(() => MediaImageInputDto.UpdateMediaImageInput)
+    @IsObject()
+    @IsNotEmpty()
+    MediaImage: MediaImageInputDto.UpdateMediaImageInput;
   }
 }

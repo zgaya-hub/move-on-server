@@ -48,10 +48,31 @@ export class SeriesResolver {
     }
   }
 
-  @Query(() => CommonOutputDto.SuccessOutput)
+  @Mutation(() => CommonOutputDto.SuccessOutput)
   async deleteSeriesById(@Args('DeleteSeriesByIdParams') param: SeriesInputDto.DeleteSeriesByIdParams): Promise<CommonOutputDto.SuccessOutput> {
     try {
       return this.seriesService.deleteSeriesById(param);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  @Mutation(() => CommonOutputDto.SuccessOutput)
+  async deleteMultipleSeriesByIdz(@Args('DeleteMultipleSeriesByIdzParams') param: SeriesInputDto.DeleteMultipleSeriesByIdzParams): Promise<CommonOutputDto.SuccessOutput> {
+    try {
+      return this.seriesService.deleteMultipleSeriesByIdz(param);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  @Mutation(() => CommonOutputDto.SuccessOutput)
+  async updateSeriesById(
+    @Args('UpdateSeriesByIdInput') input: SeriesInputDto.UpdateSeriesByIdInput,
+    @CurrentUser() manager: CurrentManagerType,
+  ): Promise<CommonOutputDto.SuccessOutput> {
+    try {
+      return this.seriesService.updateSeriesById(input, manager);
     } catch (error) {
       throw new Error(error);
     }

@@ -21,35 +21,30 @@ export class MediaImage extends EntityBase {
   mediaImageUrl: string;
 
   // is nullable possible
-  // TODO: changed relationship but not in DB will change in the future
   @Field(() => Movie)
   @OneToOne(() => Movie, (movie) => movie.mediaImage, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   movie: Movie;
 
   // is nullable possible
-  // TODO: changed relationship but not in DB will change in the future
   @Field(() => Series)
   @OneToOne(() => Series, (series) => series.mediaImage, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   series: Series;
 
   // is nullable possible
-  // TODO: changed relationship but not in DB will change in the future
   @Field(() => Season)
   @OneToOne(() => Season, (season) => season.mediaImage, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   season: Season;
 
   // is nullable possible
-  // TODO: changed relationship but not in DB will change in the future
   @Field(() => Episode)
   @OneToOne(() => Episode, (episode) => episode.mediaImage, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   episode: Episode;
 
   // is nullable possible
-  // TODO: changed relationship but not in DB will change in the future
   @Field(() => Trailer)
   @OneToOne(() => Trailer, (trailer) => trailer.mediaImage, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()

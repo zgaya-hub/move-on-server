@@ -2,7 +2,7 @@
 import { IsEnum, IsOptional } from 'class-validator';
 import { MediaCountriesEnum, MediaLanguagiesEnum } from 'src/common/enum/common.enum';
 import { MediaGenriesEnum, MediaStatusEnum } from '../enum/media-additional-info.enum';
-import { Field, InputType } from '@nestjs/graphql';
+import { Field, InputType, PartialType } from '@nestjs/graphql';
 
 export namespace MediaAdditionalInfoInputDto {
   @InputType()
@@ -27,4 +27,6 @@ export namespace MediaAdditionalInfoInputDto {
     @IsEnum(MediaStatusEnum)
     MediaStatus: MediaStatusEnum;
   }
+  @InputType()
+  export class UpdateMediaAdditionalInfoInput extends PartialType(CreateMediaAdditionalInfoInput) {}
 }
