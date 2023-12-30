@@ -67,12 +67,13 @@ export class SeriesResolver {
   }
 
   @Mutation(() => CommonOutputDto.SuccessOutput)
-  async updateSeriesById(
-    @Args('UpdateSeriesByIdInput') input: SeriesInputDto.UpdateSeriesByIdInput,
+  async updateSeries(
+    @Args('UpdateSeriesParams') param: SeriesInputDto.UpdateSeriesParams,
+    @Args('UpdateSeriesInput') input: SeriesInputDto.UpdateSeriesInput,
     @CurrentUser() manager: CurrentManagerType,
   ): Promise<CommonOutputDto.SuccessOutput> {
     try {
-      return this.seriesService.updateSeriesById(input, manager);
+      return this.seriesService.updateSeries(param.SeriesId, input, manager);
     } catch (error) {
       throw new Error(error);
     }

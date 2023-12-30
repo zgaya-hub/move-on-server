@@ -13,7 +13,7 @@ export class RadisService {
     try {
       const ID = uuid();
 
-      await this.redisClient.setex(`${input.service}:${ID}`, input.ttl, input.value);
+      await this.redisClient.setex(`${input.Service}:${ID}`, input.TTL, input.Value);
       return { ID };
     } catch (error) {
       throw new Error(error);
@@ -22,7 +22,7 @@ export class RadisService {
 
   async retrieveStringValueFromTempStorage(input: RadisInputDto.RetrieveStringValueFromTempStorageInput): Promise<RadisOutputDto.ValueOutput<string>> {
     try {
-      const storedValue = await this.redisClient.getex(`${input.service}:${input.key}`);
+      const storedValue = await this.redisClient.getex(`${input.Service}:${input.Key}`);
       return { Value: JSON.stringify(storedValue) };
     } catch (error) {
       throw new Error(error);

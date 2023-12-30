@@ -12,19 +12,19 @@ import { MediaGenriesEnum, MediaStatusEnum } from '../enum/media-additional-info
 export class MediaAdditionalInfo extends EntityBase {
   @Field()
   @EnumColumn({ enum: MediaCountriesEnum, default: MediaCountriesEnum.UNITED_KINGDOM })
-  mediaOriginCountry: MediaCountriesEnum;
+  originCountry: MediaCountriesEnum;
 
   @Field()
   @EnumColumn({ enum: MediaLanguagiesEnum, default: MediaLanguagiesEnum.ENGLISH })
-  mediaOriginalLanguage: MediaLanguagiesEnum;
+  originalLanguage: MediaLanguagiesEnum;
 
   @Field()
   @EnumColumn({ enum: MediaGenriesEnum, default: MediaGenriesEnum.ACTION })
-  mediaGenre: MediaGenriesEnum;
+  genre: MediaGenriesEnum;
 
   @Field()
   @EnumColumn({ enum: MediaStatusEnum, default: MediaStatusEnum.RELEASED })
-  mediaStatus: MediaStatusEnum;
+  status: MediaStatusEnum;
 
   @Field(() => Movie)
   @OneToOne(() => Movie, (movie) => movie.mediaAdditionalInfo, { nullable: true, onDelete: 'CASCADE' })

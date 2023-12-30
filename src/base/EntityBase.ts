@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { BaseEntity, BeforeInsert, BeforeSoftRemove, BeforeUpdate, PrimaryGeneratedColumn } from 'typeorm';
 import { BigIntColumn } from '../decorator/entity/entity.decorator';
 import { cloneDeep } from 'lodash';

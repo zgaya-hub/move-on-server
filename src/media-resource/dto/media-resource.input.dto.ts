@@ -4,7 +4,7 @@ import { IsNotEmpty, IsUUID } from 'class-validator';
 
 export namespace MediaResourceInputDto {
   @InputType()
-  export class CreateMediaInput {
+  export class CreateMediaResourceInput {
     @Field(() => String)
     @IsNotEmpty()
     @IsUUID()

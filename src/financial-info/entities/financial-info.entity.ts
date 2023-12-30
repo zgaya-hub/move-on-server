@@ -11,17 +11,17 @@ export class FinancialInfo extends EntityBase {
   // this should be in dollar in DB
   @Field()
   @DecimalColumn()
-  mediaNetProfit: number;
+  netProfit: number;
 
   // this should be in dollar in DB
   @Field()
   @DecimalColumn()
-  mediaBudget: number;
+  budget: number;
 
   // this should be in dollar in DB
   @Field()
   @DecimalColumn()
-  mediaRevenue: number;
+  revenue: number;
 
   @Field(() => Movie)
   @OneToOne(() => Movie, (movie) => movie.financialInfo, { nullable: true, onDelete: 'CASCADE' })

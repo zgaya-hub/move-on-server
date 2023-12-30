@@ -11,35 +11,35 @@ import { ArrayColumn, EnumColumn, IntColumn, JoinColumn, TextColumn, VarcharColu
 export class Cineast extends EntityBase {
   @Field()
   @VarcharColumn()
-  cineastFullName: string;
+  fullName: string;
 
   @Field()
   @VarcharColumn()
-  cineastEmail: string;
+  email: string;
 
   @Field()
   @VarcharColumn()
-  cineastContactNo: string;
+  contactNo: string;
 
   @Field()
   @IntColumn()
-  cineastDOB: number;
+  DOB: number;
 
   @Field()
   @TextColumn()
-  cineastBio: string;
+  bio: string;
 
   @Field()
   @EnumColumn({ enum: GenderEnum })
-  cineastGender: GenderEnum;
+  gender: GenderEnum;
 
   @Field()
   @EnumColumn({ enum: MediaCountriesEnum })
-  cineastCountry: MediaCountriesEnum;
+  country: MediaCountriesEnum;
 
   @Field(() => [String])
   @ArrayColumn()
-  cineastAward: Array<string>;
+  award: Array<string>;
 
   @Field(() => Cast)
   @OneToOne(() => Cast, (cast) => cast.cineast, { nullable: true })

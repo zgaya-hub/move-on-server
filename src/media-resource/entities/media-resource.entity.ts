@@ -11,11 +11,11 @@ import { EntityBase } from 'src/base/EntityBase';
 export class MediaResource extends EntityBase {
   @Field()
   @TextColumn()
-  mediaS3ObjectKey: string;
+  s3ObjectKey: string;
 
   @Field()
   @TextColumn()
-  mediaS3ObjectUrl: string;
+  s3ObjectUrl: string;
 
   // is nullable possible
   @Field(() => Movie)

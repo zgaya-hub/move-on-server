@@ -11,15 +11,15 @@ import { EntityBase } from 'src/base/EntityBase';
 export class UserActivity extends EntityBase {
   @Field()
   @EnumColumn({ enum: ActionsEnum })
-  userActivityAction: ActionsEnum;
+  action: ActionsEnum;
 
   @Field()
   @EnumColumn({ enum: ActivityStatusEnum })
-  userActivityStatus: ActivityStatusEnum;
+  status: ActivityStatusEnum;
 
   @Field()
   @UuidColumn()
-  userActivityContentId: string;
+  contentId: string;
 
   @Field(() => User)
   @ManyToOne(() => User, (user) => user.userActivity)

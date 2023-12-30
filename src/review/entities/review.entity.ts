@@ -13,11 +13,11 @@ import { Trailer } from 'src/trailer/entities/trailer.entity';
 export class Review extends EntityBase {
   @Field()
   @DecimalColumn()
-  reviewRating: number;
+  rating: number;
 
   @Field()
   @TextColumn()
-  reviewComment: string;
+  comment: string;
 
   @Field(() => User)
   @ManyToOne(() => User, (user) => user.review)

@@ -5,12 +5,12 @@ export namespace VideoOutputDto {
   @ObjectType()
   export class UploadVideoSignedUrlOutput {
     @Field(() => String)
-    SignedUrl: string;
+    signedUrl: string;
 
     @Field(() => String)
-    VideoId: string;
+    videoId: string;
 
     @Field(() => String)
-    SignedUrlKeyId: string;
+    signedUrlKeyId: string;
   }
 }

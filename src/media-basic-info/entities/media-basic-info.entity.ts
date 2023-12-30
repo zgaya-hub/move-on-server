@@ -13,16 +13,16 @@ import { Trailer } from 'src/trailer/entities/trailer.entity';
 export class MediaBasicInfo extends EntityBase {
   @Field()
   @VarcharColumn()
-  mediaTitle: string;
+  title: string;
 
   // have default value
   @Field()
   @TextColumn()
-  mediaPlotSummary: string;
+  plotSummary: string;
 
   @Field()
   @BigIntColumn()
-  mediaReleaseDate: number;
+  releaseDate: number;
 
   @Field(() => Movie)
   @OneToOne(() => Movie, (movie) => movie.mediaBasicInfo, { nullable: true, onDelete: 'CASCADE' })

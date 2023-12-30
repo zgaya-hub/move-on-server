@@ -9,7 +9,7 @@ export namespace SeasonInputDto {
     @Field(() => Number)
     @IsNotEmpty()
     @IsNumber()
-    SeasonNumber: number;
+    Number: number;
 
     @Field(() => String)
     @IsNotEmpty()
@@ -46,5 +46,13 @@ export namespace SeasonInputDto {
     @IsNotEmpty()
     @IsUUID()
     SeriesId: string;
+  }
+
+  @InputType()
+  export class GetNextSeasonNumberParams {
+    @Field(() => String)
+    @IsNotEmpty()
+    @IsUUID()
+    SeasonId: string;
   }
 }

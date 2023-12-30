@@ -19,25 +19,25 @@ export namespace SeriesOutputDto {
     ID: string;
 
     @Field(() => String)
-    mediaOriginCountry: MediaCountriesEnum;
+    originCountry: MediaCountriesEnum;
 
     @Field(() => String)
-    mediaOriginalLanguage: MediaLanguagiesEnum;
+    originalLanguage: MediaLanguagiesEnum;
 
     @Field(() => String)
-    mediaGenre: MediaGenriesEnum;
+    genre: MediaGenriesEnum;
 
     @Field(() => String)
-    mediaStatus: MediaStatusEnum;
+    status: MediaStatusEnum;
 
     @Field(() => String)
-    mediaTitle: string;
+    title: string;
 
     @Field(() => String)
-    mediaPlotSummary: string;
+    plotSummary: string;
 
     @Field(() => Number)
-    mediaReleaseDate: number;
+    releaseDate: number;
 
     @Field(() => String)
     mediaImageUrl: string;

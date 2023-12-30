@@ -44,14 +44,14 @@ export class SeriesRepository extends Repository<Series> {
       .skip(page * pageSize)
       .select([
         'series.ID',
-        'mediaAdditionalInfo.mediaOriginCountry',
-        'mediaAdditionalInfo.mediaOriginalLanguage',
-        'mediaAdditionalInfo.mediaGenre',
-        'mediaAdditionalInfo.mediaStatus',
-        'mediaBasicInfo.mediaTitle',
-        'mediaBasicInfo.mediaPlotSummary',
-        'mediaBasicInfo.mediaReleaseDate',
-        'mediaImage.mediaImageUrl',
+        'mediaAdditionalInfo.originCountry',
+        'mediaAdditionalInfo.originalLanguage',
+        'mediaAdditionalInfo.genre',
+        'mediaAdditionalInfo.status',
+        'mediaBasicInfo.title',
+        'mediaBasicInfo.plotSummary',
+        'mediaBasicInfo.releaseDate',
+        'mediaImage.url',
         'series.createdAt',
         'series.updatedAt',
       ]);

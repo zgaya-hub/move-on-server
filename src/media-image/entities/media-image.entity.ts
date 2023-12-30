@@ -7,18 +7,18 @@ import { Season } from 'src/season/entities/season.entity';
 import { Episode } from 'src/episode/entities/episode.entity';
 import { EntityBase } from 'src/base/EntityBase';
 import { Trailer } from 'src/trailer/entities/trailer.entity';
-import { MediaImageTypeEnum } from 'src/common/enum/common.enum';
+import { MediaImageVariantEnum } from 'src/common/enum/common.enum';
 
 @ObjectType()
 @Entity()
 export class MediaImage extends EntityBase {
   @Field()
-  @EnumColumn({ enum: MediaImageTypeEnum, default: MediaImageTypeEnum.THUMBNAIL })
-  mediaImageType: MediaImageTypeEnum;
+  @EnumColumn({ enum: MediaImageVariantEnum, default: MediaImageVariantEnum.THUMBNAIL })
+  variant: MediaImageVariantEnum;
 
   @Field()
   @VarcharColumn()
-  mediaImageUrl: string;
+  url: string;
 
   // is nullable possible
   @Field(() => Movie)

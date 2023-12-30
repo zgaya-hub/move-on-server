@@ -8,17 +8,17 @@ export namespace RadisInputDto {
     @Field(() => String)
     @IsNotEmpty()
     @IsString()
-    value: string;
+    Value: string;
 
     @Field(() => Number)
     @IsNotEmpty()
     @IsNumber()
-    ttl: number;
+    TTL: number;
 
     @Field(() => String)
     @IsNotEmpty()
     @IsString()
-    service: string;
+    Service: string;
   }
 
   @InputType()
@@ -26,11 +26,11 @@ export namespace RadisInputDto {
     @Field(() => String)
     @IsNotEmpty()
     @IsString()
-    key: string;
+    Key: string;
 
     @Field(() => String)
     @IsNotEmpty()
     @IsString()
-    service: string;
+    Service: string;
   }
 }

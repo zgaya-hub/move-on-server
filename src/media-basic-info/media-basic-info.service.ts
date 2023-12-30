@@ -24,9 +24,9 @@ export class MediaBasicInfoService {
     try {
       const mediaBasicInfo = new MediaBasicInfo();
 
-      mediaBasicInfo.mediaTitle = input.MediaTitle;
-      mediaBasicInfo.mediaPlotSummary = input.MediaPlotSummary;
-      mediaBasicInfo.mediaReleaseDate = input.MediaReleaseDate;
+      mediaBasicInfo.title = input.Title;
+      mediaBasicInfo.plotSummary = input.PlotSummary;
+      mediaBasicInfo.releaseDate = input.ReleaseDate;
 
       if (media instanceof Movie) mediaBasicInfo.movie = media;
       if (media instanceof Episode) mediaBasicInfo.episode = media;
@@ -46,17 +46,13 @@ export class MediaBasicInfoService {
     }
   }
 
-  async updateMediaBasicInfo(
-    mediaBasicInfoId: string,
-    input: MediaBasicInfoInputDto.UpdateMediaBasicInfoInput,
-    entitySaveService?: EntitySaveService,
-  ): Promise<CommonOutputDto.SuccessOutput> {
+  async updateMediaBasicInfo(ID: string, input: MediaBasicInfoInputDto.UpdateMediaBasicInfoInput, entitySaveService?: EntitySaveService): Promise<CommonOutputDto.SuccessOutput> {
     try {
-      const mediaBasicInfo = await this.findMediaBasicInfoById(mediaBasicInfoId);
+      const mediaBasicInfo = await this.findMediaBasicInfoById(ID);
 
-      if (input.MediaTitle) mediaBasicInfo.mediaTitle = input.MediaTitle;
-      if (input.MediaPlotSummary) mediaBasicInfo.mediaPlotSummary = input.MediaPlotSummary;
-      if (input.MediaReleaseDate) mediaBasicInfo.mediaReleaseDate = input.MediaReleaseDate;
+      if (input.Title) mediaBasicInfo.title = input.Title;
+      if (input.PlotSummary) mediaBasicInfo.plotSummary = input.PlotSummary;
+      if (input.ReleaseDate) mediaBasicInfo.releaseDate = input.ReleaseDate;
 
       if (entitySaveService) {
         entitySaveService.push(mediaBasicInfo);
@@ -73,6 +69,19 @@ export class MediaBasicInfoService {
   async findMediaBasicInfoById(id: string): Promise<MediaBasicInfo> {
     try {
       const mediaBasicInfo = await this.mediaBasicInfoRepository.findMediaBasicInfoById(id);
+      if (!mediaBasicInfo) {
+        throw new MediaBasicInfoNotFoundException();
+      }
+
+      return mediaBasicInfo;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async findMediaBasicInfoByMediaId(mediaId: string): Promise<MediaBasicInfo> {
+    try {
+      const mediaBasicInfo = await this.mediaBasicInfoRepository.findMediaBasicInfoByMediaId(mediaId).getOne();
       if (!mediaBasicInfo) {
         throw new MediaBasicInfoNotFoundException();
       }

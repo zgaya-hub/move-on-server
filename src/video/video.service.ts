@@ -23,20 +23,20 @@ export class VideoService {
     const signedUrl = await this.awsS3Service.generateVideoUploadUrl(input.Mime, currentManager, input.MediaType);
     const video = await this.createVideoInfo(input, currentManager);
 
-    return { ...signedUrl, VideoId: video.ID };
+    return { signedUrl: signedUrl.url, signedUrlKeyId: signedUrl.keyId, videoId: video.ID };
   }
 
   async createVideoInfo(input: VideoInputDto.GetUploadVideoSignedUrlInput, currentManager: CurrentManagerType): Promise<Video> {
     try {
       const video = new Video();
 
-      video.videoMime = input.Mime;
-      video.videoWidth = input.Width;
-      video.videoHeight = input.Height;
-      video.videoRunTime = input.RunTime;
-      video.videoSizeInKb = input.SizeInKb;
+      video.mime = input.Mime;
+      video.width = input.Width;
+      video.height = input.Height;
+      video.runTime = input.RunTime;
+      video.sizeInKb = input.SizeInKb;
       video.managerId = currentManager.ID;
-      video.videoQuality = handleOnGetVideoQualityBySize(input.Width, input.Height);
+      video.quality = handleOnGetVideoQualityBySize(input.Width, input.Height);
 
       await video.save();
 

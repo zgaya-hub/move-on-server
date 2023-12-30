@@ -21,10 +21,10 @@ export class MediaAdditionalInfoService {
     try {
       const mediaAdditionalInfo = new MediaAdditionalInfo();
 
-      mediaAdditionalInfo.mediaGenre = input.MediaGenre;
-      mediaAdditionalInfo.mediaOriginCountry = input.MediaOriginCountry;
-      mediaAdditionalInfo.mediaOriginalLanguage = input.MediaOriginalLanguage;
-      mediaAdditionalInfo.mediaStatus = input.MediaStatus;
+      mediaAdditionalInfo.genre = input.Genre;
+      mediaAdditionalInfo.originCountry = input.OriginCountry;
+      mediaAdditionalInfo.originalLanguage = input.OriginalLanguage;
+      mediaAdditionalInfo.status = input.Status;
 
       if (media instanceof Movie) mediaAdditionalInfo.movie = media;
       if (media instanceof Series) mediaAdditionalInfo.series = media;
@@ -49,10 +49,10 @@ export class MediaAdditionalInfoService {
     try {
       const mediaAdditionalInfo = await this.findMediaAdditionalInfoById(mediaAdditionalInfoId);
 
-      if (input.MediaGenre) mediaAdditionalInfo.mediaGenre = input.MediaGenre;
-      if (input.MediaOriginCountry) mediaAdditionalInfo.mediaOriginCountry = input.MediaOriginCountry;
-      if (input.MediaOriginalLanguage) mediaAdditionalInfo.mediaOriginalLanguage = input.MediaOriginalLanguage;
-      if (input.MediaStatus) mediaAdditionalInfo.mediaStatus = input.MediaStatus;
+      if (input.Genre) mediaAdditionalInfo.genre = input.Genre;
+      if (input.OriginCountry) mediaAdditionalInfo.originCountry = input.OriginCountry;
+      if (input.OriginalLanguage) mediaAdditionalInfo.originalLanguage = input.OriginalLanguage;
+      if (input.Status) mediaAdditionalInfo.status = input.Status;
 
       if (entitySaveService) {
         entitySaveService.push(mediaAdditionalInfo);
