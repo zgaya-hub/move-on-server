@@ -10,11 +10,13 @@ export class MediaBasicInfoResolver {
 
   @Mutation(() => CommonOutputDto.SuccessOutput)
   async updateMediaBasicInfo(
+    @Args('UpdateMediaBasicInfoParams')
+    params: MediaBasicInfoInputDto.UpdateMediaBasicInfoParams,
     @Args('UpdateMediaBasicInfoInput')
     input: MediaBasicInfoInputDto.UpdateMediaBasicInfoInput,
   ): Promise<CommonOutputDto.SuccessOutput> {
     try {
-      return this.mediaBasicInfoService.updateMediaBasicInfo(input);
+      return this.mediaBasicInfoService.updateMediaBasicInfo(params.MediaBasicInfoId, input);
     } catch (error) {
       throw new Error(error);
     }

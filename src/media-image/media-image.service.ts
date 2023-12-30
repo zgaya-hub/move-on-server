@@ -39,6 +39,25 @@ export class MediaImageService {
     }
   }
 
+  async updateMediaImage(mediaImageId: string, input: MediaImageInputDto.UpdateMediaImageInput, entitySaveService?: EntitySaveService): Promise<CommonOutputDto.SuccessOutput> {
+    try {
+      const mediaImage = await this.findMediaImageById(mediaImageId);
+
+      if (input.MediaImageUrl) mediaImage.mediaImageUrl = input.MediaImageUrl;
+      if (input.MediaImageType) mediaImage.mediaImageType = input.MediaImageType;
+
+      if (entitySaveService) {
+        entitySaveService.push(mediaImage);
+      } else {
+        await this.entitySaveService.save<MediaImage>(mediaImage);
+      }
+
+      return { isSuccess: true };
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   async changeThumbnailImage(input: MediaImageInputDto.ChangeThumbnailImageInput): Promise<CommonOutputDto.SuccessOutput> {
     try {
       const mediaImage = await this.findMediaImageById(input.MediaImageId);

@@ -9,7 +9,6 @@ import { ManagerService } from '../manager/manager.service';
 import { MediaImageService } from '../media-image/media-image.service';
 import { MediaBasicInfoService } from '../media-basic-info/media-basic-info.service';
 import { MediaAdditionalInfoService } from '../media-additional-info/media-additional-info.service';
-import { flatMap } from 'lodash';
 
 @Injectable()
 export class SeriesService {
@@ -43,6 +42,23 @@ export class SeriesService {
     }
   }
 
+  async updateSeriesById(input: SeriesInputDto.UpdateSeriesByIdInput, currentManage: CurrentManagerType): Promise<CommonOutputDto.SuccessOutput> {
+    try {
+      const series = await this.findSeriesByIdWithJoins(currentManage.email);
+
+      await this.mediaBasicInfoService.updateMediaBasicInfo(series.mediaBasicInfo.ID, input.MediaBasicInfo, this.entitySaveService);
+      await this.mediaAdditionalInfoService.updateMediaAdditionalInfo(series.mediaAdditionalInfo.ID, input.MediaAdditionalInfo, this.entitySaveService);
+      await this.mediaImageService.updateMediaImage(series.mediaImage.ID, input.MediaImage, this.entitySaveService);
+
+      this.entitySaveService.push(series);
+      await this.entitySaveService.saveMultiple();
+
+      return { isSuccess: true };
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   async findSeriesById(ID: string): Promise<Series> {
     try {
       const series = await this.seriesRepository.findSeriesById(ID);
@@ -58,7 +74,30 @@ export class SeriesService {
 
   async getManagerSeriesWithImageAndBasicInfo(currentManager: CurrentManagerType): Promise<Series[]> {
     try {
-      const series = await this.seriesRepository.findSeriesByManagerId(currentManager.ID).getMany();
+      const series = await this.seriesRepository
+        .findManagerSeriesWithOneToOneJoins(currentManager.ID)
+        .select([
+          'series.ID',
+          'series.seriesIsFree',
+          'mediaImage.ID',
+          'mediaImage.mediaImageType',
+          'mediaImage.mediaImageUrl',
+          'mediaBasicInfo.mediaPlotSummary',
+          'mediaBasicInfo.mediaReleaseDate',
+          'mediaBasicInfo.mediaTitle',
+          'mediaBasicInfo.ID',
+        ])
+        .getMany();
+
+      return series;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async findSeriesByIdWithJoins(seriesId: string): Promise<Series> {
+    try {
+      const series = await this.seriesRepository.findSeriesByIdWithOneToOneJoins(seriesId).getOne();
       return series;
     } catch (error) {
       throw new Error(error);
@@ -68,7 +107,7 @@ export class SeriesService {
   async getManagerSeriesForTable(input: SeriesInputDto.GetManagerSeriesForTableInput, currentManager: CurrentManagerType): Promise<SeriesOutputDto.GetManagerSeriesForTableOutput> {
     try {
       const series = await this.seriesRepository.getManagerSeriesForTable(input.PageSize, input.Page, currentManager.ID).getMany();
-      const totalRecords = await this.seriesRepository.findSeriesByManagerId(currentManager.ID).getCount();
+      const totalRecords = await this.seriesRepository.findManagerSeriesWithOneToOneJoins(currentManager.ID).select([]).getCount();
 
       const flatSeries = series.map((series) => {
         return {
@@ -95,6 +134,15 @@ export class SeriesService {
   async deleteSeriesById(params: SeriesInputDto.DeleteSeriesByIdParams): Promise<CommonOutputDto.SuccessOutput> {
     try {
       await this.seriesRepository.deleteSeriesById(params.SeriesId);
+      return { isSuccess: true };
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async deleteMultipleSeriesByIdz(params: SeriesInputDto.DeleteMultipleSeriesByIdzParams): Promise<CommonOutputDto.SuccessOutput> {
+    try {
+      await this.seriesRepository.deleteMultipleSeriesByIdz(params.SeriesIdz);
       return { isSuccess: true };
     } catch (error) {
       throw new Error(error);

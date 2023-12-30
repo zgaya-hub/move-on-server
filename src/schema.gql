@@ -196,6 +196,10 @@ type Crew {
   updatedAt: Float!
 }
 
+input DeleteMultipleSeriesByIdzParams {
+  SeriesIdz: [String!]!
+}
+
 input DeleteSeriesByIdParams {
   SeriesId: String!
 }
@@ -452,6 +456,8 @@ type Mutation {
   createSeriesCrew(createSeriesCrewInput: CreateSeriesCrewInput!): SeriesCrew!
   createTrailer(CreateTrailerInput: CreateTrailerInput!): SuccessOutput!
   createUserActivity(createUserActivityInput: CreateUserActivityInput!): UserActivity!
+  deleteMultipleSeriesByIdz(DeleteMultipleSeriesByIdzParams: DeleteMultipleSeriesByIdzParams!): SuccessOutput!
+  deleteSeriesById(DeleteSeriesByIdParams: DeleteSeriesByIdParams!): SuccessOutput!
   getManagerSeriesForTable(GetManagerSeriesForTableInput: GetManagerSeriesForTableInput!): GetManagerSeriesForTableOutput!
   getUploadVideoSignedUrl(GetUploadVideoSignedUrlInput: GetUploadVideoSignedUrlInput!): UploadVideoSignedUrlOutput!
   managerRegister(ManagerRegisterInput: ManagerRegisterInput!): AuthTokenOutput!
@@ -502,7 +508,6 @@ type Query {
   cast(id: Int!): Cast!
   cineast(id: Int!): Cineast!
   crew(id: Int!): Crew!
-  deleteSeriesById(DeleteSeriesByIdParams: DeleteSeriesByIdParams!): SuccessOutput!
   getLastEpisodeNumberBySeasonId(GetSeasonBySeriesIdParams: GetNextEpisodeNumberParams!): GetLastEpisodeNumberBySeasonIdOutput!
   getManagerSeriesWithImageAndBasicInfo: [Series!]!
   getSeasonBySeriesId(GetSeasonBySeriesIdParams: GetSeasonBySeriesIdParams!): [Season!]!
