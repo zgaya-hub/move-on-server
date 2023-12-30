@@ -9,13 +9,13 @@ import { Entity } from 'typeorm';
 export class ErrorLog extends EntityBase {
   @Field(() => String)
   @EnumColumn({ enum: ErrorLogTypeEnum })
-  errorLogType: ErrorLogTypeEnum;
+  type: ErrorLogTypeEnum;
 
   @Field(() => String)
   @VarcharColumn()
-  errorLogMessage: string;
+  message: string;
 
   @Field(() => Number)
   @IntColumn()
-  errorLogStatusCode: number;
+  statusCode: number;
 }

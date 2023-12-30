@@ -16,13 +16,17 @@ import { MediaBasicInfoNotFoundException } from './media-basic-info.exceptions';
 export class MediaBasicInfoService {
   constructor(private readonly entitySaveService: EntitySaveService, private readonly mediaBasicInfoRepository: MediaBasicInfoRepository) {}
 
-  async createMediaBasicInfo(input: MediaBasicInfoInputDto.CreateMediaBasicInfoInput, media: MovierMediaType, entitySaveService?: EntitySaveService): Promise<MediaBasicInfo> {
+  async createMediaBasicInfo(
+    input: MediaBasicInfoInputDto.CreateMediaBasicInfoInput,
+    media: MovierMediaType,
+    entitySaveService?: EntitySaveService,
+  ): Promise<CommonOutputDto.SuccessOutput> {
     try {
       const mediaBasicInfo = new MediaBasicInfo();
 
-      mediaBasicInfo.mediaTitle = input.Title;
-      mediaBasicInfo.mediaPlotSummary = input.PlotSummary;
-      mediaBasicInfo.mediaReleaseDate = input.ReleaseDate;
+      mediaBasicInfo.title = input.Title;
+      mediaBasicInfo.plotSummary = input.PlotSummary;
+      mediaBasicInfo.releaseDate = input.ReleaseDate;
 
       if (media instanceof Movie) mediaBasicInfo.movie = media;
       if (media instanceof Episode) mediaBasicInfo.episode = media;
@@ -36,21 +40,25 @@ export class MediaBasicInfoService {
         this.entitySaveService.save<MediaBasicInfo>(mediaBasicInfo);
       }
 
-      return mediaBasicInfo;
+      return { isSuccess: true };
     } catch (error) {
       throw new Error(error);
     }
   }
 
-  async updateMediaBasicInfo(input: MediaBasicInfoInputDto.UpdateMediaBasicInfoInput): Promise<CommonOutputDto.SuccessOutput> {
+  async updateMediaBasicInfo(ID: string, input: MediaBasicInfoInputDto.UpdateMediaBasicInfoInput, entitySaveService?: EntitySaveService): Promise<CommonOutputDto.SuccessOutput> {
     try {
-      const mediaBasicInfo = new MediaBasicInfo();
+      const mediaBasicInfo = await this.findMediaBasicInfoById(ID);
 
-      if (input.Title) mediaBasicInfo.mediaTitle = input.Title;
-      if (input.PlotSummary) mediaBasicInfo.mediaPlotSummary = input.PlotSummary;
-      if (input.ReleaseDate) mediaBasicInfo.mediaReleaseDate = input.ReleaseDate;
+      if (input.Title) mediaBasicInfo.title = input.Title;
+      if (input.PlotSummary) mediaBasicInfo.plotSummary = input.PlotSummary;
+      if (input.ReleaseDate) mediaBasicInfo.releaseDate = input.ReleaseDate;
 
-      await this.entitySaveService.save<MediaBasicInfo>(mediaBasicInfo);
+      if (entitySaveService) {
+        entitySaveService.push(mediaBasicInfo);
+      } else {
+        await this.entitySaveService.save<MediaBasicInfo>(mediaBasicInfo);
+      }
 
       return { isSuccess: true };
     } catch (error) {
@@ -58,9 +66,22 @@ export class MediaBasicInfoService {
     }
   }
 
-  async findTrailerById(id: string): Promise<MediaBasicInfo> {
+  async findMediaBasicInfoById(id: string): Promise<MediaBasicInfo> {
     try {
       const mediaBasicInfo = await this.mediaBasicInfoRepository.findMediaBasicInfoById(id);
+      if (!mediaBasicInfo) {
+        throw new MediaBasicInfoNotFoundException();
+      }
+
+      return mediaBasicInfo;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async findMediaBasicInfoByMediaId(mediaId: string): Promise<MediaBasicInfo> {
+    try {
+      const mediaBasicInfo = await this.mediaBasicInfoRepository.findMediaBasicInfoByMediaId(mediaId).getOne();
       if (!mediaBasicInfo) {
         throw new MediaBasicInfoNotFoundException();
       }

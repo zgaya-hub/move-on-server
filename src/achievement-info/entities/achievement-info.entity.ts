@@ -10,23 +10,23 @@ import { EntityBase } from 'src/base/EntityBase';
 export class AchievementInfo extends EntityBase {
   @Field()
   @DecimalColumn()
-  mediaIMDbRating: number;
+  IMDbRating: number;
 
   @Field()
   @DecimalColumn()
-  mediaOMDbRating: number;
+  OMDbRating: number;
 
   @Field(() => [String])
   @ArrayColumn()
-  mediaAward: Array<string>;
+  award: Array<string>;
 
   @Field(() => Movie)
-  @OneToOne(() => Movie, (movie) => movie.achievementInfo, { nullable: true })
+  @OneToOne(() => Movie, (movie) => movie.achievementInfo, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   movie: Movie;
 
   @Field(() => Series)
-  @OneToOne(() => Series, (series) => series.achievementInfo, { nullable: true })
+  @OneToOne(() => Series, (series) => series.achievementInfo, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   series: Series;
 }

@@ -1,7 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { EntityBase } from 'src/base/EntityBase';
 import { Entity, OneToOne } from 'typeorm';
-import { CountriesEnum, GenderEnum } from 'src/common/enum/common.enum';
+import { MediaCountriesEnum, GenderEnum } from 'src/common/enum/common.enum';
 import { Cast } from 'src/cast/entities/cast.entity';
 import { Crew } from 'src/crew/entities/crew.entity';
 import { ArrayColumn, EnumColumn, IntColumn, JoinColumn, TextColumn, VarcharColumn } from 'src/decorator/entity/entity.decorator';
@@ -11,35 +11,35 @@ import { ArrayColumn, EnumColumn, IntColumn, JoinColumn, TextColumn, VarcharColu
 export class Cineast extends EntityBase {
   @Field()
   @VarcharColumn()
-  cineastFullName: string;
+  fullName: string;
 
   @Field()
   @VarcharColumn()
-  cineastEmail: string;
+  email: string;
 
   @Field()
   @VarcharColumn()
-  cineastContactNo: string;
+  contactNo: string;
 
   @Field()
   @IntColumn()
-  cineastDOB: number;
+  DOB: number;
 
   @Field()
   @TextColumn()
-  cineastBio: string;
+  bio: string;
 
   @Field()
   @EnumColumn({ enum: GenderEnum })
-  cineastGender: GenderEnum;
+  gender: GenderEnum;
 
   @Field()
-  @EnumColumn({ enum: CountriesEnum })
-  cineastCountry: CountriesEnum;
+  @EnumColumn({ enum: MediaCountriesEnum })
+  country: MediaCountriesEnum;
 
   @Field(() => [String])
   @ArrayColumn()
-  cineastAward: Array<string>;
+  award: Array<string>;
 
   @Field(() => Cast)
   @OneToOne(() => Cast, (cast) => cast.cineast, { nullable: true })

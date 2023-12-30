@@ -1,9 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Manager } from './entities/manager.entity';
 import { ManagerInputDto } from './dto/manager.input.dto';
 import { ManagerRepository } from './manager.repository';
 import { ManagerAccountStatusEnum } from './enum/manager.enum';
-import { Transactional } from 'typeorm-transactional';
 import { comparePassword } from '../utilities/function/bcrypt';
 import { EmailAlreadyExistsException, InvalidCredentialsException } from './manager.exceptions';
 
@@ -23,11 +22,11 @@ export class ManagerService {
     try {
       const manager = new Manager();
 
-      const managerExist = await this.findByEmail(input.email);
+      const managerExist = await this.findByEmail(input.Email);
       if (managerExist) throw new EmailAlreadyExistsException();
 
-      manager.email = input.email;
-      manager.password = input.password;
+      manager.email = input.Email;
+      manager.password = input.Password;
       manager.accountStatus = ManagerAccountStatusEnum.ACTIVE;
 
       await this.managerRepository.save(manager);
@@ -39,10 +38,10 @@ export class ManagerService {
 
   async managerSignIn(input: ManagerInputDto.ManagerSignInInput): Promise<Manager> {
     try {
-      const user = await this.findByEmail(input.email);
+      const user = await this.findByEmail(input.Email);
       if (!user) throw new InvalidCredentialsException();
 
-      const isMatched = comparePassword(user.password, input.password);
+      const isMatched = comparePassword(user.password, input.Password);
       if (!isMatched) throw new InvalidCredentialsException();
 
       return user;

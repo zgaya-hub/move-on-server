@@ -1,4 +1,4 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { MediaBasicInfoService } from './media-basic-info.service';
 import { MediaBasicInfo } from './entities/media-basic-info.entity';
 import { CommonOutputDto } from 'src/common/dto/common.dto';
@@ -10,11 +10,25 @@ export class MediaBasicInfoResolver {
 
   @Mutation(() => CommonOutputDto.SuccessOutput)
   async updateMediaBasicInfo(
+    @Args('UpdateMediaBasicInfoParams')
+    params: MediaBasicInfoInputDto.UpdateMediaBasicInfoParams,
     @Args('UpdateMediaBasicInfoInput')
     input: MediaBasicInfoInputDto.UpdateMediaBasicInfoInput,
   ): Promise<CommonOutputDto.SuccessOutput> {
     try {
-      return this.mediaBasicInfoService.updateMediaBasicInfo(input);
+      return this.mediaBasicInfoService.updateMediaBasicInfo(params.ID, input);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  @Query(() => CommonOutputDto.SuccessOutput)
+  async getMediaBasicInfoByMediaId(
+    @Args('GetMediaBasicInfoByMediaIdParams')
+    params: MediaBasicInfoInputDto.GetMediaBasicInfoByMediaIdParams,
+  ): Promise<MediaBasicInfo> {
+    try {
+      return this.mediaBasicInfoService.findMediaBasicInfoByMediaId(params.MediaId);
     } catch (error) {
       throw new Error(error);
     }

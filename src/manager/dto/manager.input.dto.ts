@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { InputType, Field } from '@nestjs/graphql';
-import { IsEmail, IsNotEmpty, IsString, IsStrongPassword } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export namespace ManagerInputDto {
   @InputType()
@@ -8,12 +8,12 @@ export namespace ManagerInputDto {
     @Field(() => String)
     @IsNotEmpty()
     @IsEmail()
-    email: string;
+    Email: string;
 
     @Field(() => String)
     @IsNotEmpty()
     @IsString()
-    password: string;
+    Password: string;
   }
 
   @InputType()
@@ -21,11 +21,11 @@ export namespace ManagerInputDto {
     @Field(() => String)
     @IsNotEmpty()
     @IsString()
-    email: string;
+    Email: string;
 
     @Field(() => String)
     @IsNotEmpty()
     @IsString()
-    password: string;
+    Password: string;
   }
 }

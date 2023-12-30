@@ -14,14 +14,14 @@ import { MediaResourceOutputDto } from './dto/media-resource.output.dto';
 export class MediaResourceService {
   constructor(private readonly radisService: RadisService, private readonly awsS3Service: AwsS3Service, private readonly entitySaveService: EntitySaveService) {}
 
-  async createMediaResource(input: MediaResourceInputDto.CreateMediaInput, media: MovierMediaType, entitySaveService?: EntitySaveService): Promise<MediaResource> {
+  async createMediaResource(input: MediaResourceInputDto.CreateMediaResourceInput, media: MovierMediaType, entitySaveService?: EntitySaveService): Promise<MediaResource> {
     try {
       const mediaResource = new MediaResource();
 
       const objectKeyAndUrl = await this.retrieveObjectKeyAndUrl(input.SignedUrlKeyId);
 
-      mediaResource.mediaS3ObjectKey = objectKeyAndUrl.ObjectKey;
-      mediaResource.mediaS3ObjectKey = objectKeyAndUrl.ObjectUrl;
+      mediaResource.s3ObjectKey = objectKeyAndUrl.ObjectKey;
+      mediaResource.s3ObjectUrl = objectKeyAndUrl.ObjectUrl;
       if (media instanceof Movie) mediaResource.movie = media;
       if (media instanceof Episode) mediaResource.episode = media;
       if (media instanceof Trailer) mediaResource.trailer = media;
@@ -40,7 +40,7 @@ export class MediaResourceService {
 
   async retrieveObjectKeyAndUrl(keyId: string): Promise<MediaResourceOutputDto.RetrieveS3ObjectKeyAndUrlOutput> {
     try {
-      const storedKey = await this.radisService.retrieveStringValueFromTempStorage({ service: 'awsS3', key: keyId });
+      const storedKey = await this.radisService.retrieveStringValueFromTempStorage({ Service: 'awsS3', Key: keyId });
       const objectKey = await this.awsS3Service.getMediaObjectKey(storedKey.Value);
       return { ObjectKey: storedKey.Value, ObjectUrl: objectKey };
     } catch (error) {

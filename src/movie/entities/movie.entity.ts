@@ -22,12 +22,12 @@ export class Movie extends EntityBase {
   // have default value
   @Field()
   @DecimalColumn()
-  moviePriceInDollar: number;
+  priceInDollar: number;
 
   // have default value
   @Field()
   @TinyintColumn({ default: true })
-  movieIsFree: boolean;
+  isFree: boolean;
 
   // JOIN COLUMNS //
   @Field(() => AchievementInfo)
@@ -72,8 +72,8 @@ export class Movie extends EntityBase {
   movieCrew: MovieCrew[];
 
   @Field(() => MediaImage)
-  @OneToMany(() => MediaImage, (mediaImage) => mediaImage.movie)
-  mediaImage: MediaImage[];
+  @OneToOne(() => MediaImage, (mediaImage) => mediaImage.movie)
+  mediaImage: MediaImage;
 
   @Field(() => ExternalLink)
   @OneToMany(() => ExternalLink, (externalLink) => externalLink.movie)

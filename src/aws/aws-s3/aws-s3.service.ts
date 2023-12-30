@@ -32,7 +32,7 @@ export class AwsS3Service {
       const signedUrl = await this.getSignedUrl(command);
       const signedUrlKeyId = await this.storeS3KeyInTempStorage(key);
 
-      return { SignedUrl: signedUrl, SignedUrlKeyId: signedUrlKeyId };
+      return { url: signedUrl, keyId: signedUrlKeyId };
     } catch (error) {
       throw new Error(error);
     }
@@ -81,9 +81,9 @@ export class AwsS3Service {
   private async storeS3KeyInTempStorage(key: string): Promise<string> {
     try {
       const input: RadisInputDto.StoreStringValueInTempStorageInput = {
-        value: key,
-        service: 'awsS3',
-        ttl: this.linkTtl,
+        Value: key,
+        Service: 'awsS3',
+        TTL: this.linkTtl,
       };
 
       const storedKey = await this.radisService.storeStringValueInTempStorage(input);

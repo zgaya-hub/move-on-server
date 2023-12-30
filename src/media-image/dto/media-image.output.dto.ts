@@ -5,6 +5,6 @@ export namespace MediaImageOutputDto {
   @ObjectType()
   export class MediaImageIdOutput {
     @Field(() => String)
-    mediaImageId: string;
+    ID: string;
   }
 }

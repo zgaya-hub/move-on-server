@@ -13,6 +13,7 @@ async function bootstrap() {
 
   const adapter = new FastifyAdapter({
     logger: false,
+    bodyLimit: 1024 * 1024 * 10,
   });
 
   const app = await NestFactory.create(AppModule, adapter);

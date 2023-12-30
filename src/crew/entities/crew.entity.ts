@@ -13,7 +13,7 @@ import { Trailer } from 'src/trailer/entities/trailer.entity';
 export class Crew extends EntityBase {
   @Field()
   @EnumColumn({ enum: CrewRoleEnum })
-  crewRole: CrewRoleEnum;
+  role: CrewRoleEnum;
 
   @Field(() => MovieCrew)
   @OneToMany(() => MovieCrew, (movieCrew) => movieCrew.crew)

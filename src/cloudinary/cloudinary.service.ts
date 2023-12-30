@@ -21,19 +21,31 @@ export class CloudinaryService {
     });
   }
 
-  private async uploadToCloudinary(options: UploadApiOptions, imageBuffer: Buffer): Promise<UploadApiResponse> {
+  private writeChunksToStream(imageBuffer: Buffer, chunkSize: number, imageStream: PassThrough) {
+    for (let i = 0; i < imageBuffer.length; i += chunkSize) {
+      const chunk = imageBuffer.slice(i, i + chunkSize);
+      imageStream.write(chunk);
+    }
+    imageStream.end();
+  }
+
+  private async uploadToCloudinary(options: UploadApiOptions, imageBuffer: Buffer, chunkSize: number): Promise<UploadApiResponse> {
     return new Promise<UploadApiResponse>((resolve, reject) => {
+      const totalBytes = imageBuffer.length;
+      let bytesRead = 0;
+
       this.progressBar.start(100, 0);
 
       const progressTransform = new Transform({
         transform(chunk, _, callback) {
-          this.emit('progress', chunk.length);
+          bytesRead += chunk.length;
+          this.emit('progress', bytesRead);
           callback(null, chunk);
         },
       });
 
       progressTransform.on('progress', (progress) => {
-        this.showProgress(imageBuffer.length, progress);
+        this.showProgress(totalBytes, progress);
       });
 
       const uploadStream = cloudinary.uploader.upload_stream(options, (err, res) => {
@@ -45,8 +57,9 @@ export class CloudinaryService {
         }
       });
 
-      const imageStream = new PassThrough({ highWaterMark: 64 });
-      imageStream.end(imageBuffer);
+      const imageStream = new PassThrough({ highWaterMark: chunkSize });
+
+      this.writeChunksToStream(imageBuffer, chunkSize, imageStream);
 
       imageStream.pipe(progressTransform).pipe(uploadStream);
     });
@@ -54,7 +67,7 @@ export class CloudinaryService {
 
   async uploadImageOnCloudinary(input: CloudinaryInputDto.CloudinaryUploadInput): Promise<CloudinaryOutputDto.ImageUrlOutput> {
     try {
-      const imageBuffer = handleOnBase64ToBuffer(input.base64);
+      const imageBuffer = handleOnBase64ToBuffer(input.Base64);
       const uniqueImageId = uuid();
 
       const options: UploadApiOptions = {
@@ -62,7 +75,7 @@ export class CloudinaryService {
         resource_type: 'image',
       };
 
-      const res = await this.uploadToCloudinary(options, imageBuffer);
+      const res = await this.uploadToCloudinary(options, imageBuffer, 64);
 
       return { imageUrl: res.url };
     } catch (error) {

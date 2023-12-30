@@ -14,9 +14,9 @@ export class AchievementInfoService {
     try {
       const achievementInfo = new AchievementInfo();
 
-      achievementInfo.mediaIMDbRating = input.IMDbRating;
-      achievementInfo.mediaOMDbRating = input.OMDbRating;
-      achievementInfo.mediaAward = input.Award;
+      achievementInfo.IMDbRating = input.IMDbRating;
+      achievementInfo.OMDbRating = input.OMDbRating;
+      achievementInfo.award = input.Award;
 
       if (media instanceof Movie) achievementInfo.movie = media;
       if (media instanceof Series) achievementInfo.series = media;

@@ -25,7 +25,8 @@ export class MediaImageResolver {
   @Mutation(() => CommonOutputDto.SuccessOutput)
   async changeThumbnailImage(@Args('ChangeThumbnailImageInput', ImageValidatorPipe) input: MediaImageInputDto.ChangeThumbnailImageInput): Promise<CommonOutputDto.SuccessOutput> {
     try {
-      return this.mediaImageService.changeThumbnailImage(input);
+      // TODO: will change actual ID
+      return this.mediaImageService.changeThumbnailImage('', input);
     } catch (error) {
       throw new Error(error);
     }
