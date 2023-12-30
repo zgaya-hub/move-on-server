@@ -21,12 +21,12 @@ export class Series extends EntityBase {
   // have default value
   @Field()
   @DecimalColumn()
-  seriesPriceInDollar: number;
+  priceInDollar: number;
 
   // have default value
   @Field()
   @TinyintColumn({ default: true })
-  seriesIsFree: number;
+  isFree: number;
 
   @Field(() => AchievementInfo)
   @OneToOne(() => AchievementInfo, (achievementInfo) => achievementInfo.series)
@@ -61,9 +61,9 @@ export class Series extends EntityBase {
   @OneToMany(() => SeriesCrew, (seriesCrew) => seriesCrew.series)
   seriesCrew: SeriesCrew[];
 
-  @Field(() => [MediaImage])
-  @OneToMany(() => MediaImage, (mediaImage) => mediaImage.series)
-  mediaImage: MediaImage[];
+  @Field(() => MediaImage)
+  @OneToOne(() => MediaImage, (mediaImage) => mediaImage.series)
+  mediaImage: MediaImage;
 
   @Field(() => ExternalLink)
   @OneToMany(() => ExternalLink, (externalLink) => externalLink.series)

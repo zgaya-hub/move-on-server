@@ -4,7 +4,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import { IsNotEmpty, IsObject, IsOptional, IsUUID } from 'class-validator';
 import { MediaBasicInfoInputDto } from 'src/media-basic-info/dto/media-basic-info.input.dto';
 import { MediaAdditionalInfoInputDto } from 'src/media-additional-info/dto/media-additional-info.input.dto';
-import { MediaFinancialInfoInputDto } from 'src/financial-info/dto/financial-info.input.dto';
+import { FinancialInfoInputDto } from 'src/financial-info/dto/financial-info.input.dto';
 
 export namespace MovieInputDto {
   @InputType()
@@ -29,10 +29,10 @@ export namespace MovieInputDto {
     @IsNotEmpty()
     MediaBasicInfo: MediaBasicInfoInputDto.CreateMediaBasicInfoInput;
 
-    @Field(() => MediaFinancialInfoInputDto.CreateMediaFinancialInfoInput)
+    @Field(() => FinancialInfoInputDto.CreateFinancialInfoInput)
     @IsObject()
     @IsOptional()
-    MediaFinanacialInfo: MediaFinancialInfoInputDto.CreateMediaFinancialInfoInput;
+    MediaFinanacialInfo: FinancialInfoInputDto.CreateFinancialInfoInput;
 
     @Field(() => MediaAdditionalInfoInputDto.CreateMediaAdditionalInfoInput)
     @IsObject()

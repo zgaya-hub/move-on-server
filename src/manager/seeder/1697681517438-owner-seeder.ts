@@ -6,14 +6,14 @@ import { ManagerAccountStatusEnum } from '../enum/manager.enum';
 export class OwnerSeeder1697681517438 implements MigrationInterface {
   public async up(): Promise<void> {
     const input: ManagerInputDto.ManagerRegisterInput = {
-      email: process.env.OWNER_EMAIL,
-      password: process.env.OWNER_PASSWORD,
+      Email: process.env.OWNER_EMAIL,
+      Password: process.env.OWNER_PASSWORD,
     };
 
     const manager = new Manager();
 
-    manager.email = input.email;
-    manager.password = input.password;
+    manager.email = input.Email;
+    manager.password = input.Password;
     manager.accountStatus = ManagerAccountStatusEnum.ACTIVE;
 
     await manager.save();

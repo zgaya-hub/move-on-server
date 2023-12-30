@@ -16,30 +16,30 @@ export class Video extends EntityBase {
 
   @Field()
   @EnumColumn({ enum: VideoQualityEnum })
-  videoQuality: VideoQualityEnum;
+  quality: VideoQualityEnum;
 
   @Field()
   @IntColumn()
-  videoWidth: number;
+  width: number;
 
   @Field()
   @IntColumn()
-  videoHeight: number;
+  height: number;
 
   // in mbs
   @Field()
   @IntColumn()
-  videoSizeInKb: number;
+  sizeInKb: number;
 
   // in mbs
   @Field()
   @VarcharColumn()
-  videoMime: string;
+  mime: string;
 
   // in milliseconds
   @Field()
   @IntColumn()
-  videoRunTime: number;
+  runTime: number;
 
   // in milliseconds
   @Field()
@@ -47,17 +47,17 @@ export class Video extends EntityBase {
   isUsed: boolean;
 
   @Field(() => Movie)
-  @OneToOne(() => Movie, (movie) => movie.video, { nullable: true })
+  @OneToOne(() => Movie, (movie) => movie.video, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   movie: Movie;
 
   @Field(() => Episode)
-  @OneToOne(() => Episode, (episode) => episode.video, { nullable: true })
+  @OneToOne(() => Episode, (episode) => episode.video, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   episode: Episode;
 
   @Field(() => Trailer)
-  @OneToOne(() => Trailer, (trailer) => trailer.video, { nullable: true })
+  @OneToOne(() => Trailer, (trailer) => trailer.video, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   trailer: Trailer;
 }

@@ -5,6 +5,6 @@ export namespace CloudinaryInputDto {
   @InputType()
   export class CloudinaryUploadInput {
     @Field(() => String)
-    base64: string;
+    Base64: string;
   }
 }

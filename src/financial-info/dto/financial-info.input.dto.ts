@@ -2,23 +2,23 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { IsNotEmpty, IsNumber } from 'class-validator';
 
-export namespace MediaFinancialInfoInputDto {
+export namespace FinancialInfoInputDto {
   @InputType()
-  export class CreateMediaFinancialInfoInput {
+  export class CreateFinancialInfoInput {
     @Field(() => Number)
     @IsNumber()
     @IsNotEmpty()
-    MediaNetProfit: number;
+    NetProfit: number;
 
     @Field(() => Number)
     @IsNumber()
     @IsNotEmpty()
-    MediaBudget: number;
+    Budget: number;
 
     @Field(() => Number)
     @IsNumber()
     @IsNotEmpty()
-    MediaRevenue: number;
+    Revenue: number;
   }
 }
 

@@ -12,6 +12,7 @@ import { Series } from '../series/entities/series.entity';
 import { Season } from '../season/entities/season.entity';
 import { EntitySaveService } from '../adapter/save.service';
 import { CommonOutputDto } from '../common/dto/common.dto';
+import { MediaImageAlreadyAssignedException } from './media-image.exceptions';
 
 @Injectable()
 export class MediaImageService {
@@ -25,25 +26,44 @@ export class MediaImageService {
     try {
       const mediaImage = new MediaImage();
 
-      const uploadedImage = await this.cloudinaryService.uploadImageOnCloudinary({ base64: input.MediaImageBase64 });
+      const uploadedImage = await this.cloudinaryService.uploadImageOnCloudinary({ Base64: input.Base64 });
 
-      mediaImage.mediaImageType = input.MediaImageType;
-      mediaImage.mediaImageUrl = uploadedImage.imageUrl;
+      mediaImage.variant = input.Variant;
+      mediaImage.url = uploadedImage.imageUrl;
 
       await this.entitySaveService.save<MediaImage>(mediaImage);
 
-      return { mediaImageId: mediaImage.ID };
+      return { ID: mediaImage.ID };
     } catch (error) {
       throw new Error(error);
     }
   }
 
-  async changeThumbnailImage(input: MediaImageInputDto.ChangeThumbnailImageInput): Promise<CommonOutputDto.SuccessOutput> {
+  async updateMediaImage(mediaImageId: string, input: MediaImageInputDto.UpdateMediaImageInput, entitySaveService?: EntitySaveService): Promise<CommonOutputDto.SuccessOutput> {
     try {
-      const mediaImage = await this.findMediaImageById(input.MediaImageId);
+      const mediaImage = await this.findMediaImageById(mediaImageId);
 
-      const uploadedImage = await this.cloudinaryService.uploadImageOnCloudinary({ base64: input.MediaImageBase64 });
-      mediaImage.mediaImageUrl = uploadedImage.imageUrl;
+      if (input.Url) mediaImage.url = input.Url;
+      if (input.Variant) mediaImage.variant = input.Variant;
+
+      if (entitySaveService) {
+        entitySaveService.push(mediaImage);
+      } else {
+        await this.entitySaveService.save<MediaImage>(mediaImage);
+      }
+
+      return { isSuccess: true };
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async changeThumbnailImage(ID: string, input: MediaImageInputDto.ChangeThumbnailImageInput): Promise<CommonOutputDto.SuccessOutput> {
+    try {
+      const mediaImage = await this.findMediaImageById(ID);
+
+      const uploadedImage = await this.cloudinaryService.uploadImageOnCloudinary({ Base64: input.Base64 });
+      mediaImage.url = uploadedImage.imageUrl;
 
       await mediaImage.save();
 
@@ -53,9 +73,12 @@ export class MediaImageService {
     }
   }
 
-  async assignMediaImageToMedia(mediaImageId: string, media: MovierMediaType, entitySaveService?: EntitySaveService): Promise<MediaImage> {
+  async assignMediaImageToMedia(mediaImageId: string, media: MovierMediaType, entitySaveService?: EntitySaveService): Promise<CommonOutputDto.SuccessOutput> {
     try {
-      const mediaImage = await this.findMediaImageById(mediaImageId);
+      const mediaImage = await this.findMediaImageByIdWithMedia(mediaImageId);
+      if (mediaImage.series || mediaImage.movie || mediaImage.season || mediaImage.trailer || mediaImage.episode) {
+        throw new MediaImageAlreadyAssignedException();
+      }
 
       if (media instanceof Movie) mediaImage.movie = media;
       if (media instanceof Episode) mediaImage.episode = media;
@@ -64,12 +87,12 @@ export class MediaImageService {
       if (media instanceof Season) mediaImage.season = media;
 
       if (entitySaveService) {
-        entitySaveService.push(media);
+        entitySaveService.push(mediaImage);
       } else {
         await this.entitySaveService.save<MediaImage>(mediaImage);
       }
 
-      return mediaImage;
+      return { isSuccess: true };
     } catch (error) {
       throw new Error(error);
     }

@@ -1,28 +1,30 @@
 {
-  "achievement-info": "yarn migration:generate src/achievement-info/migrations/achievement-info &&",
-  "cast": "yarn migration:generate src/cast/migrations/cast &&",
-  "cineast": "yarn migration:generate src/cineast/migrations/cineast &&",
-  "error-log": "yarn migration:generate src/error-log/migrations/error-log &&",
-  "external-link": "yarn migration:generate src/external-link/migrations/external-link &&",
-  "financial-info": "yarn migration:generate src/financial-info/migrations/financial-info &&",
-  "manager": "yarn migration:generate src/manager/migrations/manager &&",
-  "manager-activity": "yarn migration:generate src/manager-activity/migrations/manager-activity &&",
-  "media": "yarn migration:generate src/media-resource/migrations/media-resource &&",
-  "media-image": "yarn migration:generate src/media-image/migrations/media-image &&",
-  "media-information": "yarn migration:generate src/media-information/migrations/media-information &&",
-  "movie": "yarn migration:generate src/movie/migrations/movie &&",
-  "movie-cast": "yarn migration:generate src/movie-cast/migrations/movie-cast &&",
-  "movie-crew": "yarn migration:generate src/movie-crew/migrations/movie-crew &&",
-  "profile-info": "yarn migration:generate src/profile-info/migrations/profile-info &&",
-  "review": "yarn migration:generate src/review/migrations/review &&",
-  "season": "yarn migration:generate src/season/migrations/season &&",
-  "series": "yarn migration:generate src/series/migrations/series &&",
-  "series-cast": "yarn migration:generate src/series-cast/migrations/series-cast &&",
-  "series-crew": "yarn migration:generate src/series-crew/migrations/series-crew &&",
-  "user": "yarn migration:generate src/user/migrations/user &&",
-  "user-activity": "yarn migration:generate src/user-activity/migrations/user-activity &&",
-  "video": "yarn migration:generate src/video/migrations/video",
-  "crew": "yarn migration:generate src/crew/migrations/crew",
-  "media-basic-info": "yarn migration:generate src/media-basic-info/migrations/media-basic-info &&",
-  "media-additional-info": "yarn migration:generate src/media-additional-info/migrations/media-additional-info"
-}
+  yarn migration:generate src/manager/migrations/manager &&
+  yarn migration:generate src/series/migrations/series &&
+  yarn migration:generate src/movie/migrations/movie &&
+  yarn migration:generate src/season/migrations/season &&
+  yarn migration:generate src/episode/migrations/episode &&
+  yarn migration:generate src/trailer/migrations/trailer &&
+  yarn migration:generate src/user/migrations/user &&
+  yarn migration:generate src/crew/migrations/crew
+  yarn migration:generate src/cast/migrations/cast &&
+  yarn migration:generate src/achievement-info/migrations/achievement-info &&
+  yarn migration:generate src/cineast/migrations/cineast &&
+  yarn migration:generate src/error-log/migrations/error-log &&
+  yarn migration:generate src/external-link/migrations/external-link &&
+  yarn migration:generate src/financial-info/migrations/financial-info &&
+  yarn migration:generate src/manager-activity/migrations/manager-activity &&
+  yarn migration:generate src/media-resource/migrations/media-resource &&
+  yarn migration:generate src/media-image/migrations/media-image &&
+  yarn migration:generate src/media-information/migrations/media-information &&
+  yarn migration:generate src/movie-cast/migrations/movie-cast &&
+  yarn migration:generate src/movie-crew/migrations/movie-crew &&
+  yarn migration:generate src/profile-info/migrations/profile-info &&
+  yarn migration:generate src/review/migrations/review &&
+  yarn migration:generate src/series-cast/migrations/series-cast &&
+  yarn migration:generate src/series-crew/migrations/series-crew &&
+  yarn migration:generate src/user-activity/migrations/user-activity &&
+  yarn migration:generate src/video/migrations/video
+  yarn migration:generate src/media-basic-info/migrations/media-basic-info &&
+  yarn migration:generate src/media-additional-info/migrations/media-additional-info
+

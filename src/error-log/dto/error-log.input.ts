@@ -9,16 +9,16 @@ export namespace ErrorLogInputDto {
     @Field(() => String)
     @IsNotEmpty()
     @IsString()
-    message: string;
+    Message: string;
 
     @Field(() => String)
     @IsNotEmpty()
     @IsEnum(ErrorLogTypeEnum)
-    type: ErrorLogTypeEnum;
+    Type: ErrorLogTypeEnum;
 
     @Field(() => Number)
     @IsNotEmpty()
     @IsNumber()
-    statusCode: number;
+    StatusCode: number;
   }
 }

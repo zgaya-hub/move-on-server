@@ -13,10 +13,10 @@ import { Trailer } from 'src/trailer/entities/trailer.entity';
 export class Season extends EntityBase {
   @Field()
   @IntColumn()
-  seasonNo: number;
+  number: number;
 
   @Field(() => Series)
-  @ManyToOne(() => Series, (series) => series.season)
+  @ManyToOne(() => Series, (series) => series.season, { onDelete: 'CASCADE' })
   @JoinColumn()
   series: Series;
 
@@ -28,9 +28,9 @@ export class Season extends EntityBase {
   @OneToOne(() => Trailer, (trailer) => trailer.season)
   trailer: Trailer;
 
-  @Field(() => [MediaImage])
-  @OneToMany(() => MediaImage, (mediaImage) => mediaImage.season)
-  mediaImage: MediaImage[];
+  @Field(() => MediaImage)
+  @OneToOne(() => MediaImage, (mediaImage) => mediaImage.season)
+  mediaImage: MediaImage;
 
   @Field(() => [Episode])
   @OneToMany(() => Episode, (episode) => episode.season)

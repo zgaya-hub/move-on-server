@@ -2,7 +2,7 @@ import { Injectable, NotAcceptableException, PayloadTooLargeException, PipeTrans
 import { MediaImageInputDto } from '../dto/media-image.input.dto';
 import { imageSize } from 'image-size';
 import { handleOnBase64ToBuffer } from 'src/utilities/function/base64ToBuffer';
-import { MediaImageTypeEnum } from 'src/common/enum/common.enum';
+import { MediaImageVariantEnum } from 'src/common/enum/common.enum';
 
 @Injectable()
 export class ImageValidatorPipe implements PipeTransform {
@@ -10,24 +10,24 @@ export class ImageValidatorPipe implements PipeTransform {
   private readonly THUMBNAIL_MIN_RATIO_THRESHOLD = 1.2;
   private readonly BACKDROP_MAX_RATIO_THRESHOLD = 2.5;
   private readonly BACKDROP_MIN_RATIO_THRESHOLD = 2.0;
-  private readonly MAX_SIZE_IN_KB = 4096;
+  private readonly MAX_SIZE_IN_KB = 6144;
   private readonly VALID_IMAGE_MIME_TYPES: ImageMimeType[] = ['image/gif', 'image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
 
   transform(image: MediaImageInputDto.CreateMediaImageInput): MediaImageInputDto.CreateMediaImageInput {
-    const { MediaImageBase64, MediaImageMime, MediaImageType } = image;
+    const { Base64, Mime, Variant } = image;
 
-    if (!this.VALID_IMAGE_MIME_TYPES.includes(MediaImageMime)) {
+    if (!this.VALID_IMAGE_MIME_TYPES.includes(Mime)) {
       throw new UnsupportedMediaTypeException('Invalid MIME type specified');
     }
 
-    switch (MediaImageType) {
-      case MediaImageTypeEnum.THUMBNAIL:
-        this.validateAspectRatio(MediaImageBase64, this.THUMBNAIL_MIN_RATIO_THRESHOLD, this.THUMBNAIL_MAX_RATIO_THRESHOLD, 'thumbnail');
-        this.validateSize(MediaImageBase64, 'thumbnail');
+    switch (Variant) {
+      case MediaImageVariantEnum.THUMBNAIL:
+        this.validateAspectRatio(Base64, this.THUMBNAIL_MIN_RATIO_THRESHOLD, this.THUMBNAIL_MAX_RATIO_THRESHOLD, 'thumbnail');
+        this.validateSize(Base64, 'thumbnail');
         break;
-      case MediaImageTypeEnum.BACKDROP:
-        this.validateAspectRatio(MediaImageBase64, this.BACKDROP_MIN_RATIO_THRESHOLD, this.BACKDROP_MAX_RATIO_THRESHOLD, 'backdrop');
-        this.validateSize(MediaImageBase64, 'backdrop');
+      case MediaImageVariantEnum.BACKDROP:
+        this.validateAspectRatio(Base64, this.BACKDROP_MIN_RATIO_THRESHOLD, this.BACKDROP_MAX_RATIO_THRESHOLD, 'backdrop');
+        this.validateSize(Base64, 'backdrop');
         break;
     }
 

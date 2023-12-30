@@ -11,15 +11,15 @@ import { EntityBase } from 'src/base/EntityBase';
 export class ManagerActivity extends EntityBase {
   @Field()
   @EnumColumn({ enum: ManagerActivityActionEnum })
-  managerActivityAction: ManagerActivityActionEnum;
+  action: ManagerActivityActionEnum;
 
   @Field()
   @EnumColumn({ enum: ActivityStatusEnum })
-  managerActivityStatus: ActivityStatusEnum;
+  status: ActivityStatusEnum;
 
   @Field()
   @VarcharColumn()
-  managerActivitContentId: string;
+  contentId: string;
 
   @Field(() => Manager)
   @ManyToOne(() => Manager, (manager) => manager.managerActivity)

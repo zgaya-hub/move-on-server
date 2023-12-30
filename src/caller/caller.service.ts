@@ -12,7 +12,7 @@ export class CallerService {
 
   async createErrorLog(input: ErrorLogInputDto.CreateErrorLogInput) {
     const query = `mutation{
-      createErrorLog(CreateErrorLogInput: {message: "${input.message}", statusCode: ${input.statusCode}, type: "${input.type}"}){
+      createErrorLog(CreateErrorLogInput: {message: "${input.Message}", statusCode: ${input.StatusCode}, type: "${input.Type}"}){
         message
       }
     }`;
