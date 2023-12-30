@@ -12,15 +12,15 @@ import { Trailer } from 'src/trailer/entities/trailer.entity';
 export class ExternalLink extends EntityBase {
   @Field()
   @VarcharColumn()
-  elResourceName: string;
+  resourceName: string;
 
   @Field()
   @VarcharColumn()
-  elUrl: string;
+  url: string;
 
   @Field()
   @VarcharColumn()
-  elType: string; // TODO: should be change into ENUM in future
+  type: string; // TODO: will change into ENUM in future
 
   @Field(() => Episode)
   @ManyToOne(() => Episode, (episode) => episode.externalLink, { nullable: true, onDelete: 'CASCADE' })

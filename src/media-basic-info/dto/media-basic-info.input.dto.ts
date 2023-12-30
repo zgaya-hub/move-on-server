@@ -9,18 +9,18 @@ export namespace MediaBasicInfoInputDto {
     @Field(() => String)
     @IsNotEmpty()
     @IsString()
-    MediaTitle: string;
+    Title: string;
 
     @Field(() => String)
     @IsNotEmpty()
     @IsString()
     @MinLength(15)
-    MediaPlotSummary: string;
+    PlotSummary: string;
 
     @Field(() => Number)
     @IsNotEmpty()
     @IsNumber()
-    MediaReleaseDate: number;
+    ReleaseDate: number;
   }
 
   @InputType()
@@ -31,6 +31,14 @@ export namespace MediaBasicInfoInputDto {
     @Field(() => String)
     @IsNotEmpty()
     @IsUUID()
-    MediaBasicInfoId: string;
+    ID: string;
+  }
+
+  @InputType()
+  export class GetMediaBasicInfoByMediaIdParams {
+    @Field(() => String)
+    @IsNotEmpty()
+    @IsUUID()
+    MediaId: string;
   }
 }

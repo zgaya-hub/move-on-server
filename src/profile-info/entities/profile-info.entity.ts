@@ -11,28 +11,28 @@ import { GenderEnum } from 'src/common/enum/common.enum';
 export class ProfileInfo extends EntityBase {
   @Field()
   @VarcharColumn()
-  participantFirstName: string;
+  firstName: string;
 
   @Field()
   @VarcharColumn()
-  participantLastName: string;
+  lastName: string;
 
   @Field()
   @VarcharColumn()
-  participantContactNumber: string;
+  contactNumber: string;
 
   @Field()
   @IntColumn()
-  participantDOB: number;
+  DOB: number;
 
   @Field()
   @EnumColumn({ enum: GenderEnum })
-  participantGender: GenderEnum;
+  gender: GenderEnum;
 
   // if user is not entered then we get it from (API by IP)
   @Field()
   @TextColumn()
-  participantAddress: string;
+  address: string;
 
   // JOIN COLUMNS //
 

@@ -22,12 +22,12 @@ export class Movie extends EntityBase {
   // have default value
   @Field()
   @DecimalColumn()
-  moviePriceInDollar: number;
+  priceInDollar: number;
 
   // have default value
   @Field()
   @TinyintColumn({ default: true })
-  movieIsFree: boolean;
+  isFree: boolean;
 
   // JOIN COLUMNS //
   @Field(() => AchievementInfo)

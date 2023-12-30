@@ -25,24 +25,6 @@ export namespace SeriesInputDto {
   }
 
   @InputType()
-  export class UpdateSeriesInput {
-    @Field(() => String)
-    @IsNotEmpty()
-    @IsUUID()
-    MediaImageId: string;
-
-    @Field(() => PartialType<MediaBasicInfoInputDto.CreateMediaBasicInfoInput>)
-    @IsObject()
-    @IsOptional()
-    MediaBasicInfo: Partial<MediaBasicInfoInputDto.CreateMediaBasicInfoInput>;
-
-    @Field(() => PartialType<MediaAdditionalInfoInputDto.CreateMediaAdditionalInfoInput>)
-    @IsObject()
-    @IsOptional()
-    MediaAdditionalInfo: Partial<MediaAdditionalInfoInputDto.CreateMediaAdditionalInfoInput>;
-  }
-
-  @InputType()
   export class GetManagerSeriesForTableInput {
     @Field(() => Number)
     @IsNotEmpty()
@@ -73,12 +55,7 @@ export namespace SeriesInputDto {
   }
 
   @InputType()
-  export class UpdateSeriesByIdInput {
-    @Field(() => String)
-    @IsNotEmpty()
-    @IsUUID()
-    SeriesId: string;
-
+  export class UpdateSeriesInput {
     @Field(() => MediaBasicInfoInputDto.UpdateMediaBasicInfoInput)
     @IsObject()
     @IsNotEmpty()
@@ -93,5 +70,13 @@ export namespace SeriesInputDto {
     @IsObject()
     @IsNotEmpty()
     MediaImage: MediaImageInputDto.UpdateMediaImageInput;
+  }
+
+  @InputType()
+  export class UpdateSeriesParams {
+    @Field(() => String)
+    @IsNotEmpty()
+    @IsUUID()
+    SeriesId: string;
   }
 }

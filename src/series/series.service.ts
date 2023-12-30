@@ -42,9 +42,9 @@ export class SeriesService {
     }
   }
 
-  async updateSeriesById(input: SeriesInputDto.UpdateSeriesByIdInput, currentManage: CurrentManagerType): Promise<CommonOutputDto.SuccessOutput> {
+  async updateSeries(seriesId: string, input: SeriesInputDto.UpdateSeriesInput, _currentManage: CurrentManagerType): Promise<CommonOutputDto.SuccessOutput> {
     try {
-      const series = await this.findSeriesByIdWithJoins(currentManage.email);
+      const series = await this.findSeriesByIdWithJoins(seriesId);
 
       await this.mediaBasicInfoService.updateMediaBasicInfo(series.mediaBasicInfo.ID, input.MediaBasicInfo, this.entitySaveService);
       await this.mediaAdditionalInfoService.updateMediaAdditionalInfo(series.mediaAdditionalInfo.ID, input.MediaAdditionalInfo, this.entitySaveService);
@@ -78,13 +78,14 @@ export class SeriesService {
         .findManagerSeriesWithOneToOneJoins(currentManager.ID)
         .select([
           'series.ID',
-          'series.seriesIsFree',
+          'series.isFree',
+          'series.priceInDollar',
           'mediaImage.ID',
-          'mediaImage.mediaImageType',
-          'mediaImage.mediaImageUrl',
-          'mediaBasicInfo.mediaPlotSummary',
-          'mediaBasicInfo.mediaReleaseDate',
-          'mediaBasicInfo.mediaTitle',
+          'mediaImage.variant',
+          'mediaImage.url',
+          'mediaBasicInfo.plotSummary',
+          'mediaBasicInfo.releaseDate',
+          'mediaBasicInfo.title',
           'mediaBasicInfo.ID',
         ])
         .getMany();
@@ -114,14 +115,14 @@ export class SeriesService {
           ID: series.ID,
           createdAt: series.createdAt,
           updatedAt: series.updatedAt,
-          mediaTitle: series.mediaBasicInfo.mediaTitle,
-          mediaPlotSummary: series.mediaBasicInfo.mediaPlotSummary,
-          mediaReleaseDate: series.mediaBasicInfo.mediaReleaseDate,
-          mediaOriginCountry: series.mediaAdditionalInfo.mediaOriginCountry,
-          mediaOriginalLanguage: series.mediaAdditionalInfo.mediaOriginalLanguage,
-          mediaGenre: series.mediaAdditionalInfo.mediaGenre,
-          mediaStatus: series.mediaAdditionalInfo.mediaStatus,
-          mediaImageUrl: series.mediaImage.mediaImageUrl,
+          title: series.mediaBasicInfo.title,
+          plotSummary: series.mediaBasicInfo.plotSummary,
+          releaseDate: series.mediaBasicInfo.releaseDate,
+          originCountry: series.mediaAdditionalInfo.originCountry,
+          originalLanguage: series.mediaAdditionalInfo.originalLanguage,
+          genre: series.mediaAdditionalInfo.genre,
+          status: series.mediaAdditionalInfo.status,
+          mediaImageUrl: series.mediaImage.url,
         };
       });
 

@@ -10,22 +10,22 @@ export namespace MediaAdditionalInfoInputDto {
     @Field(() => String, { nullable: true })
     @IsOptional()
     @IsEnum(MediaCountriesEnum)
-    MediaOriginCountry: MediaCountriesEnum;
+    OriginCountry: MediaCountriesEnum;
 
     @Field(() => String, { nullable: true })
     @IsOptional()
     @IsEnum(MediaLanguagiesEnum)
-    MediaOriginalLanguage: MediaLanguagiesEnum;
+    OriginalLanguage: MediaLanguagiesEnum;
 
     @Field(() => String, { nullable: true })
     @IsOptional()
     @IsEnum(MediaGenriesEnum)
-    MediaGenre: MediaGenriesEnum;
+    Genre: MediaGenriesEnum;
 
     @Field(() => String, { nullable: true })
     @IsOptional()
     @IsEnum(MediaStatusEnum)
-    MediaStatus: MediaStatusEnum;
+    Status: MediaStatusEnum;
   }
   @InputType()
   export class UpdateMediaAdditionalInfoInput extends PartialType(CreateMediaAdditionalInfoInput) {}

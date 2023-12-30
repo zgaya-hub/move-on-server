@@ -67,7 +67,7 @@ export class CloudinaryService {
 
   async uploadImageOnCloudinary(input: CloudinaryInputDto.CloudinaryUploadInput): Promise<CloudinaryOutputDto.ImageUrlOutput> {
     try {
-      const imageBuffer = handleOnBase64ToBuffer(input.base64);
+      const imageBuffer = handleOnBase64ToBuffer(input.Base64);
       const uniqueImageId = uuid();
 
       const options: UploadApiOptions = {

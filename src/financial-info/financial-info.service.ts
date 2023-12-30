@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { MediaFinancialInfoInputDto } from './dto/financial-info.input.dto';
+import { FinancialInfoInputDto } from './dto/financial-info.input.dto';
 import { EntitySaveService } from '../adapter/save.service';
 import { FinancialInfo } from './entities/financial-info.entity';
 import { MovierMediaType } from '../common/types/Common.type';
@@ -10,13 +10,13 @@ import { Series } from '../series/entities/series.entity';
 export class FinancialInfoService {
   constructor(private readonly entitySaveService: EntitySaveService) {}
 
-  async createFinancialInfo(input: MediaFinancialInfoInputDto.CreateMediaFinancialInfoInput, media: MovierMediaType, entitySaveService: EntitySaveService): Promise<FinancialInfo> {
+  async createFinancialInfo(input: FinancialInfoInputDto.CreateFinancialInfoInput, media: MovierMediaType, entitySaveService: EntitySaveService): Promise<FinancialInfo> {
     try {
       const financialInfo = new FinancialInfo();
 
-      financialInfo.mediaBudget = input.MediaBudget;
-      financialInfo.mediaNetProfit = input.MediaNetProfit;
-      financialInfo.mediaRevenue = input.MediaRevenue;
+      financialInfo.budget = input.Budget;
+      financialInfo.netProfit = input.NetProfit;
+      financialInfo.revenue = input.Revenue;
 
       if (media instanceof Movie) financialInfo.movie = media;
       if (media instanceof Series) financialInfo.series = media;

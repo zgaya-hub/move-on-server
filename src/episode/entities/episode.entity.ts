@@ -15,7 +15,7 @@ import { MediaResource } from 'src/media-resource/entities/media-resource.entity
 export class Episode extends EntityBase {
   @Field()
   @IntColumn()
-  episodeNumber: number;
+  number: number;
 
   // JOIN COLUMNS //
   @Field(() => MediaBasicInfo)

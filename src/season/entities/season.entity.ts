@@ -13,7 +13,7 @@ import { Trailer } from 'src/trailer/entities/trailer.entity';
 export class Season extends EntityBase {
   @Field()
   @IntColumn()
-  seasonNumber: number;
+  number: number;
 
   @Field(() => Series)
   @ManyToOne(() => Series, (series) => series.season, { onDelete: 'CASCADE' })

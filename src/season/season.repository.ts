@@ -20,4 +20,8 @@ export class SeasonRepository extends Repository<Season> {
       .leftJoinAndSelect('season.mediaImage', 'mediaImage')
       .where('season.series = :seriesId', { seriesId });
   }
+
+  findLastSeasonBySeriesId(seriesId: string): SelectQueryBuilder<Season> {
+    return this.createQueryBuilder('season').where('season.series = :seriesId', { seriesId }).orderBy('season.seasonNumber', 'DESC').take(1);
+  }
 }

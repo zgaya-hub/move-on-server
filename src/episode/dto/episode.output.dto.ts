@@ -3,8 +3,8 @@ import { Field, ObjectType } from '@nestjs/graphql';
 
 export namespace EpisodeOutputDto {
   @ObjectType()
-  export class GetLastEpisodeNumberBySeasonIdOutput {
+  export class GetNextEpisodeNumberOutput {
     @Field(() => Number)
-    EpisodeNumber: number;
+    number: number;
   }
 }

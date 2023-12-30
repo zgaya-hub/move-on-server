@@ -9,7 +9,7 @@ export namespace EpisodeInputDto {
     @Field(() => Number)
     @IsNotEmpty()
     @IsNumber()
-    EpisodeNumber: number;
+    Number: number;
 
     @Field(() => String)
     @IsNotEmpty()
@@ -36,6 +36,7 @@ export namespace EpisodeInputDto {
     @IsNotEmpty()
     MediaBasicInfo: MediaBasicInfoInputDto.CreateMediaBasicInfoInput;
   }
+
   @InputType()
   export class ChangeEpisodeSeasonInput {
     @Field(() => String)

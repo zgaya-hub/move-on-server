@@ -26,14 +26,14 @@ export class MediaImageService {
     try {
       const mediaImage = new MediaImage();
 
-      const uploadedImage = await this.cloudinaryService.uploadImageOnCloudinary({ base64: input.MediaImageBase64 });
+      const uploadedImage = await this.cloudinaryService.uploadImageOnCloudinary({ Base64: input.Base64 });
 
-      mediaImage.mediaImageType = input.MediaImageType;
-      mediaImage.mediaImageUrl = uploadedImage.imageUrl;
+      mediaImage.variant = input.Variant;
+      mediaImage.url = uploadedImage.imageUrl;
 
       await this.entitySaveService.save<MediaImage>(mediaImage);
 
-      return { mediaImageId: mediaImage.ID };
+      return { ID: mediaImage.ID };
     } catch (error) {
       throw new Error(error);
     }
@@ -43,8 +43,8 @@ export class MediaImageService {
     try {
       const mediaImage = await this.findMediaImageById(mediaImageId);
 
-      if (input.MediaImageUrl) mediaImage.mediaImageUrl = input.MediaImageUrl;
-      if (input.MediaImageType) mediaImage.mediaImageType = input.MediaImageType;
+      if (input.Url) mediaImage.url = input.Url;
+      if (input.Variant) mediaImage.variant = input.Variant;
 
       if (entitySaveService) {
         entitySaveService.push(mediaImage);
@@ -58,12 +58,12 @@ export class MediaImageService {
     }
   }
 
-  async changeThumbnailImage(input: MediaImageInputDto.ChangeThumbnailImageInput): Promise<CommonOutputDto.SuccessOutput> {
+  async changeThumbnailImage(ID: string, input: MediaImageInputDto.ChangeThumbnailImageInput): Promise<CommonOutputDto.SuccessOutput> {
     try {
-      const mediaImage = await this.findMediaImageById(input.MediaImageId);
+      const mediaImage = await this.findMediaImageById(ID);
 
-      const uploadedImage = await this.cloudinaryService.uploadImageOnCloudinary({ base64: input.MediaImageBase64 });
-      mediaImage.mediaImageUrl = uploadedImage.imageUrl;
+      const uploadedImage = await this.cloudinaryService.uploadImageOnCloudinary({ Base64: input.Base64 });
+      mediaImage.url = uploadedImage.imageUrl;
 
       await mediaImage.save();
 

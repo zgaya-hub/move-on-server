@@ -8,12 +8,12 @@ export namespace UserInputDto {
     @Field(() => String)
     @IsNotEmpty()
     @IsEmail()
-    email: string;
+    Email: string;
 
     @Field(() => String)
     @IsNotEmpty()
     @IsStrongPassword()
-    password: string;
+    Password: string;
   }
 
   @InputType()
@@ -21,11 +21,11 @@ export namespace UserInputDto {
     @Field(() => String)
     @IsNotEmpty()
     @IsEmail()
-    email: string;
+    Email: string;
 
     @Field(() => String)
     @IsNotEmpty()
     @IsString()
-    password: string;
+    Password: string;
   }
 }

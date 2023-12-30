@@ -21,11 +21,11 @@ export class UserService {
     try {
       const user = new User();
 
-      const existingUser = await this.findByEmail(input.email);
+      const existingUser = await this.findByEmail(input.Email);
       if (existingUser) throw new ConflictException('Email have registered');
 
-      user.email = input.email;
-      user.password = input.password;
+      user.email = input.Email;
+      user.password = input.Password;
 
       await this.userRepository.save(user);
 
@@ -37,10 +37,10 @@ export class UserService {
 
   async userSignIn(input: UserInputDto.UserSignInInput): Promise<User> {
     try {
-      const user = await this.findByEmail(input.email);
+      const user = await this.findByEmail(input.Email);
       if (!user) throw new NotFoundException('Invalid credentials specified');
 
-      const isMatched = comparePassword(user.password, input.password);
+      const isMatched = comparePassword(user.password, input.Password);
       if (!isMatched) throw new NotFoundException('Invalid credentials specified');
 
       return user;
