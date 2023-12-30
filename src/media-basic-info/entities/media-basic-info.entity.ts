@@ -25,27 +25,27 @@ export class MediaBasicInfo extends EntityBase {
   mediaReleaseDate: number;
 
   @Field(() => Movie)
-  @OneToOne(() => Movie, (movie) => movie.mediaBasicInfo, { nullable: true })
+  @OneToOne(() => Movie, (movie) => movie.mediaBasicInfo, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   movie: Movie;
 
   @Field(() => Series)
-  @OneToOne(() => Series, (series) => series.mediaBasicInfo, { nullable: true })
+  @OneToOne(() => Series, (series) => series.mediaBasicInfo, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   series: Series;
 
   @Field(() => Season)
-  @OneToOne(() => Season, (season) => season.mediaBasicInfo, { nullable: true })
+  @OneToOne(() => Season, (season) => season.mediaBasicInfo, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   season: Season;
 
   @Field(() => Episode)
-  @OneToOne(() => Episode, (episode) => episode.mediaBasicInfo, { nullable: true })
+  @OneToOne(() => Episode, (episode) => episode.mediaBasicInfo, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   episode: Episode;
 
   @Field(() => Trailer)
-  @OneToOne(() => Trailer, (trailer) => trailer.mediaBasicInfo, { nullable: true })
+  @OneToOne(() => Trailer, (trailer) => trailer.mediaBasicInfo, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   trailer: Trailer;
 }

@@ -5,7 +5,7 @@ import { DiskHealthIndicator, HealthCheck, HealthCheckService, HttpHealthIndicat
 @Controller('terminus')
 export class TerminusController {
   constructor(
-    private readonly terminusService: TerminusService,
+    private readonly _terminusService: TerminusService,
     private healthCheckService: HealthCheckService,
     private httpHealthIndicator: HttpHealthIndicator,
     private typeOrmHealthIndicator: TypeOrmHealthIndicator,

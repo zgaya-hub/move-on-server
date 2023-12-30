@@ -24,12 +24,12 @@ export class FinancialInfo extends EntityBase {
   mediaRevenue: number;
 
   @Field(() => Movie)
-  @OneToOne(() => Movie, (movie) => movie.financialInfo, { nullable: true })
+  @OneToOne(() => Movie, (movie) => movie.financialInfo, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   movie: Movie;
 
   @Field(() => Series)
-  @OneToOne(() => Series, (series) => series.financialInfo, { nullable: true })
+  @OneToOne(() => Series, (series) => series.financialInfo, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   series: Series;
 }

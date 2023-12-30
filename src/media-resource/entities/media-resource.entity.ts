@@ -19,19 +19,19 @@ export class MediaResource extends EntityBase {
 
   // is nullable possible
   @Field(() => Movie)
-  @OneToOne(() => Movie, (movie) => movie.mediaResource, { nullable: true })
+  @OneToOne(() => Movie, (movie) => movie.mediaResource, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   movie: Movie;
 
   // is nullable possible
   @Field(() => Episode)
-  @OneToOne(() => Episode, (episode) => episode.mediaResource, { nullable: true })
+  @OneToOne(() => Episode, (episode) => episode.mediaResource, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   episode: Episode;
 
   // is nullable possible
   @Field(() => Trailer)
-  @OneToOne(() => Trailer, (trailer) => trailer.mediaResource, { nullable: true })
+  @OneToOne(() => Trailer, (trailer) => trailer.mediaResource, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   trailer: Trailer;
 }

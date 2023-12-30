@@ -44,9 +44,9 @@ export class Trailer extends EntityBase {
   @ManyToMany(() => Crew, (crew) => crew.trailer)
   crew: Crew[];
 
-  @Field(() => [MediaImage])
-  @OneToMany(() => MediaImage, (mediaImage) => mediaImage.trailer)
-  mediaImage: MediaImage[];
+  @Field(() => MediaImage)
+  @OneToOne(() => MediaImage, (mediaImage) => mediaImage.trailer)
+  mediaImage: MediaImage;
 
   @Field(() => [ExternalLink])
   @OneToMany(() => ExternalLink, (externalLink) => externalLink.trailer)

@@ -21,12 +21,12 @@ export class AchievementInfo extends EntityBase {
   mediaAward: Array<string>;
 
   @Field(() => Movie)
-  @OneToOne(() => Movie, (movie) => movie.achievementInfo, { nullable: true })
+  @OneToOne(() => Movie, (movie) => movie.achievementInfo, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   movie: Movie;
 
   @Field(() => Series)
-  @OneToOne(() => Series, (series) => series.achievementInfo, { nullable: true })
+  @OneToOne(() => Series, (series) => series.achievementInfo, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   series: Series;
 }

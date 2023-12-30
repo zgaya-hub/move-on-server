@@ -16,13 +16,17 @@ import { MediaBasicInfoNotFoundException } from './media-basic-info.exceptions';
 export class MediaBasicInfoService {
   constructor(private readonly entitySaveService: EntitySaveService, private readonly mediaBasicInfoRepository: MediaBasicInfoRepository) {}
 
-  async createMediaBasicInfo(input: MediaBasicInfoInputDto.CreateMediaBasicInfoInput, media: MovierMediaType, entitySaveService?: EntitySaveService): Promise<MediaBasicInfo> {
+  async createMediaBasicInfo(
+    input: MediaBasicInfoInputDto.CreateMediaBasicInfoInput,
+    media: MovierMediaType,
+    entitySaveService?: EntitySaveService,
+  ): Promise<CommonOutputDto.SuccessOutput> {
     try {
       const mediaBasicInfo = new MediaBasicInfo();
 
-      mediaBasicInfo.mediaTitle = input.Title;
-      mediaBasicInfo.mediaPlotSummary = input.PlotSummary;
-      mediaBasicInfo.mediaReleaseDate = input.ReleaseDate;
+      mediaBasicInfo.mediaTitle = input.MediaTitle;
+      mediaBasicInfo.mediaPlotSummary = input.MediaPlotSummary;
+      mediaBasicInfo.mediaReleaseDate = input.MediaReleaseDate;
 
       if (media instanceof Movie) mediaBasicInfo.movie = media;
       if (media instanceof Episode) mediaBasicInfo.episode = media;
@@ -36,7 +40,7 @@ export class MediaBasicInfoService {
         this.entitySaveService.save<MediaBasicInfo>(mediaBasicInfo);
       }
 
-      return mediaBasicInfo;
+      return { isSuccess: true };
     } catch (error) {
       throw new Error(error);
     }
@@ -46,9 +50,9 @@ export class MediaBasicInfoService {
     try {
       const mediaBasicInfo = new MediaBasicInfo();
 
-      if (input.Title) mediaBasicInfo.mediaTitle = input.Title;
-      if (input.PlotSummary) mediaBasicInfo.mediaPlotSummary = input.PlotSummary;
-      if (input.ReleaseDate) mediaBasicInfo.mediaReleaseDate = input.ReleaseDate;
+      if (input.MediaTitle) mediaBasicInfo.mediaTitle = input.MediaTitle;
+      if (input.MediaPlotSummary) mediaBasicInfo.mediaPlotSummary = input.MediaPlotSummary;
+      if (input.MediaReleaseDate) mediaBasicInfo.mediaReleaseDate = input.MediaReleaseDate;
 
       await this.entitySaveService.save<MediaBasicInfo>(mediaBasicInfo);
 

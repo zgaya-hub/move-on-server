@@ -25,22 +25,22 @@ export class Review extends EntityBase {
   user: User;
 
   @Field(() => Episode)
-  @ManyToOne(() => Episode, (episode) => episode.review, { nullable: true })
+  @ManyToOne(() => Episode, (episode) => episode.review, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   episode: Episode;
 
   @Field(() => Series)
-  @ManyToOne(() => Series, (series) => series.review, { nullable: true })
+  @ManyToOne(() => Series, (series) => series.review, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   series: Series;
 
   @Field(() => Movie)
-  @ManyToOne(() => Movie, (movie) => movie.review, { nullable: true })
+  @ManyToOne(() => Movie, (movie) => movie.review, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   movie: Movie;
 
   @Field(() => Trailer)
-  @ManyToOne(() => Trailer, (trailer) => trailer.review, { nullable: true })
+  @ManyToOne(() => Trailer, (trailer) => trailer.review, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   trailer: Trailer;
 }

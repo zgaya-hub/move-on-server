@@ -9,7 +9,7 @@ export namespace EpisodeInputDto {
     @Field(() => Number)
     @IsNotEmpty()
     @IsNumber()
-    EpisodeNo: number;
+    EpisodeNumber: number;
 
     @Field(() => String)
     @IsNotEmpty()

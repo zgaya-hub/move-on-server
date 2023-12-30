@@ -15,7 +15,7 @@ import { MediaResource } from 'src/media-resource/entities/media-resource.entity
 export class Episode extends EntityBase {
   @Field()
   @IntColumn()
-  episodeNo: number;
+  episodeNumber: number;
 
   // JOIN COLUMNS //
   @Field(() => MediaBasicInfo)
@@ -23,7 +23,7 @@ export class Episode extends EntityBase {
   mediaBasicInfo: MediaBasicInfo;
 
   @Field(() => Season)
-  @ManyToOne(() => Season, (season) => season.episode)
+  @ManyToOne(() => Season, (season) => season.episode, { onDelete: 'CASCADE' })
   @JoinColumn()
   season: Season;
 
@@ -35,9 +35,9 @@ export class Episode extends EntityBase {
   @OneToOne(() => MediaResource, (mediaResource) => mediaResource.episode)
   mediaResource: MediaResource;
 
-  @Field(() => [MediaImage])
-  @OneToMany(() => MediaImage, (mediaImage) => mediaImage.episode)
-  mediaImage: MediaImage[];
+  @Field(() => MediaImage)
+  @OneToOne(() => MediaImage, (mediaImage) => mediaImage.episode)
+  mediaImage: MediaImage;
 
   @Field(() => [ExternalLink])
   @OneToMany(() => ExternalLink, (externalLink) => externalLink.episode)

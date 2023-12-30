@@ -7,7 +7,6 @@ import { CommonOutputDto } from '../common/dto/common.dto';
 import { SeriesService } from '../series/series.service';
 import { MediaBasicInfoService } from '../media-basic-info/media-basic-info.service';
 import { MediaImageService } from '../media-image/media-image.service';
-import { MockService } from 'src/mock/mock.service';
 
 @Injectable()
 export class SeasonService {
@@ -17,7 +16,6 @@ export class SeasonService {
     private readonly entitySaveService: EntitySaveService,
     private readonly mediaBasicInfoService: MediaBasicInfoService,
     private readonly mediaImageService: MediaImageService,
-    private readonly mockService: MockService,
   ) {}
 
   async createSeason(input: SeasonInputDto.CreateSeasonInput): Promise<CommonOutputDto.SuccessOutput> {
@@ -26,13 +24,14 @@ export class SeasonService {
 
       const series = await this.seriesService.findSeriesById(input.SeriesId);
 
-      await this.mediaImageService.assignMediaImageToMedia(input.MediaImageId, season, this.entitySaveService);
       await this.mediaBasicInfoService.createMediaBasicInfo(input.MediaBasicInfo, season, this.entitySaveService);
+      await this.mediaImageService.assignMediaImageToMedia(input.MediaImageId, season, this.entitySaveService);
 
-      season.seasonNo = input.SeasonNo;
+      season.seasonNumber = input.SeasonNumber;
       season.series = series;
 
-      await season.save();
+      this.entitySaveService.push(season);
+      await this.entitySaveService.saveMultiple();
 
       return { isSuccess: true };
     } catch (error) {

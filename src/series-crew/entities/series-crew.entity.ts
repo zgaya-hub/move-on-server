@@ -9,12 +9,12 @@ import { Crew } from 'src/crew/entities/crew.entity';
 @Entity()
 export class SeriesCrew extends EntityBase {
   @Field(() => Series)
-  @ManyToOne(() => Series, (series) => series.seriesCrew)
+  @ManyToOne(() => Series, (series) => series.seriesCrew, { onDelete: 'CASCADE' })
   @JoinColumn()
   series: Series;
 
   @Field(() => Crew)
-  @ManyToOne(() => Crew, (crew) => crew.seriesCrew)
+  @ManyToOne(() => Crew, (crew) => crew.seriesCrew, { onDelete: 'CASCADE' })
   @JoinColumn()
   crew: Crew;
 }

@@ -9,18 +9,18 @@ export namespace MediaBasicInfoInputDto {
     @Field(() => String)
     @IsNotEmpty()
     @IsString()
-    Title: string;
+    MediaTitle: string;
 
     @Field(() => String)
     @IsNotEmpty()
     @IsString()
     @MinLength(15)
-    PlotSummary: string;
+    MediaPlotSummary: string;
 
     @Field(() => Number)
     @IsNotEmpty()
     @IsNumber()
-    ReleaseDate: number;
+    MediaReleaseDate: number;
   }
 
   @InputType()

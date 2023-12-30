@@ -9,7 +9,7 @@ export namespace SeasonInputDto {
     @Field(() => Number)
     @IsNotEmpty()
     @IsNumber()
-    SeasonNo: number;
+    SeasonNumber: number;
 
     @Field(() => String)
     @IsNotEmpty()

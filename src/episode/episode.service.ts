@@ -35,7 +35,7 @@ export class EpisodeService {
       await this.mediaResourceService.createMediaResource({ SignedUrlKeyId: input.SignedUrlKeyId }, episode, this.entitySaveService);
 
       episode.season = season;
-      episode.episodeNo = input.EpisodeNo;
+      episode.episodeNumber = input.EpisodeNumber;
 
       this.entitySaveService.push(episode);
       await this.entitySaveService.saveMultiple();
@@ -65,7 +65,7 @@ export class EpisodeService {
     try {
       const episode = await this.episodeRepository.getLastEpisodeNumberBySeasonId(input.SeasonId).getOne();
 
-      return { EpisodeNo: episode.episodeNo };
+      return { EpisodeNumber: episode.episodeNumber };
     } catch (error) {
       throw new Error(error);
     }

@@ -23,22 +23,22 @@ export class ExternalLink extends EntityBase {
   elType: string; // TODO: should be change into ENUM in future
 
   @Field(() => Episode)
-  @ManyToOne(() => Episode, (episode) => episode.externalLink, { nullable: true })
+  @ManyToOne(() => Episode, (episode) => episode.externalLink, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   episode: Episode;
 
   @Field(() => Series)
-  @ManyToOne(() => Series, (series) => series.externalLink, { nullable: true })
+  @ManyToOne(() => Series, (series) => series.externalLink, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   series: Series;
 
   @Field(() => Movie)
-  @ManyToOne(() => Movie, (movie) => movie.externalLink, { nullable: true })
+  @ManyToOne(() => Movie, (movie) => movie.externalLink, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   movie: Movie;
 
   @Field(() => Trailer)
-  @ManyToOne(() => Trailer, (trailer) => trailer.externalLink, { nullable: true })
+  @ManyToOne(() => Trailer, (trailer) => trailer.externalLink, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   trailer: Trailer;
 }

@@ -72,8 +72,8 @@ export class Movie extends EntityBase {
   movieCrew: MovieCrew[];
 
   @Field(() => MediaImage)
-  @OneToMany(() => MediaImage, (mediaImage) => mediaImage.movie)
-  mediaImage: MediaImage[];
+  @OneToOne(() => MediaImage, (mediaImage) => mediaImage.movie)
+  mediaImage: MediaImage;
 
   @Field(() => ExternalLink)
   @OneToMany(() => ExternalLink, (externalLink) => externalLink.movie)

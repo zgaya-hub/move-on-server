@@ -1,7 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { EntityBase } from 'src/base/EntityBase';
 import { Entity, OneToOne } from 'typeorm';
-import { CountriesEnum, GenderEnum } from 'src/common/enum/common.enum';
+import { MediaCountriesEnum, GenderEnum } from 'src/common/enum/common.enum';
 import { Cast } from 'src/cast/entities/cast.entity';
 import { Crew } from 'src/crew/entities/crew.entity';
 import { ArrayColumn, EnumColumn, IntColumn, JoinColumn, TextColumn, VarcharColumn } from 'src/decorator/entity/entity.decorator';
@@ -34,8 +34,8 @@ export class Cineast extends EntityBase {
   cineastGender: GenderEnum;
 
   @Field()
-  @EnumColumn({ enum: CountriesEnum })
-  cineastCountry: CountriesEnum;
+  @EnumColumn({ enum: MediaCountriesEnum })
+  cineastCountry: MediaCountriesEnum;
 
   @Field(() => [String])
   @ArrayColumn()
