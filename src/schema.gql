@@ -521,7 +521,7 @@ type Query {
   cineast(id: Int!): Cineast!
   crew(id: Int!): Crew!
   getManagerSeriesWithImageAndBasicInfo: [Series!]!
-  getMediaBasicInfoByMediaId(GetMediaBasicInfoByMediaIdParams: GetMediaBasicInfoByMediaIdParams!): SuccessOutput!
+  getMediaBasicInfoByMediaId(GetMediaBasicInfoByMediaIdParams: GetMediaBasicInfoByMediaIdParams!): MediaBasicInfo!
   getNextEpisodeNumber(GetNextEpisodeNumberParams: GetNextEpisodeNumberParams!): GetNextEpisodeNumberOutput!
   getNextSeasonNumber(GetNextSeasonNumberParams: GetNextSeasonNumberParams!): GetNextSeasonNumberOutput!
   getSeasonBySeriesId(GetSeasonBySeriesIdParams: GetSeasonBySeriesIdParams!): [Season!]!

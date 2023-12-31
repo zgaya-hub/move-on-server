@@ -66,9 +66,9 @@ export class SeasonService {
 
   async getNextSeasonNumber(seriesId: string): Promise<SeasonOutputDto.GetNextSeasonNumberOutput> {
     try {
-      const season = await this.seasonRepository.findLastSeasonBySeriesId(seriesId).select(['number']).getOne();
+      const season = await this.seasonRepository.findLastSeasonBySeriesId(seriesId).getOne();
 
-      return { number: season?.number ?? 0 + 1 };
+      return { number: (season?.number ?? 0) + 1 };
     } catch (error) {
       throw new Error(error);
     }

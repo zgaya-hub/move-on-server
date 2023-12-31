@@ -63,9 +63,9 @@ export class EpisodeService {
 
   async getNextEpisodeNumber(seasonId: string): Promise<EpisodeOutputDto.GetNextEpisodeNumberOutput> {
     try {
-      const episode = await this.episodeRepository.findLastEpisodeBySeasonId(seasonId).select(['number']).getOne();
+      const episode = await this.episodeRepository.findLastEpisodeBySeasonId(seasonId).getOne();
 
-      return { number: episode?.number ?? 0 + 1 };
+      return { number: (episode?.number ?? 0) + 1 };
     } catch (error) {
       throw new Error(error);
     }

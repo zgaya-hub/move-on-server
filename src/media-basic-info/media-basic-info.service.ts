@@ -11,6 +11,7 @@ import { EntitySaveService } from '../adapter/save.service';
 import { CommonOutputDto } from 'src/common/dto/common.dto';
 import { MediaBasicInfoRepository } from './media-basic-info.repository';
 import { MediaBasicInfoNotFoundException } from './media-basic-info.exceptions';
+import { GraphQLError } from 'graphql';
 
 @Injectable()
 export class MediaBasicInfoService {
@@ -79,7 +80,7 @@ export class MediaBasicInfoService {
     }
   }
 
-  async findMediaBasicInfoByMediaId(mediaId: string): Promise<MediaBasicInfo> {
+  async getMediaBasicInfoByMediaId(mediaId: string): Promise<MediaBasicInfo> {
     try {
       const mediaBasicInfo = await this.mediaBasicInfoRepository.findMediaBasicInfoByMediaId(mediaId).getOne();
       if (!mediaBasicInfo) {
@@ -88,7 +89,9 @@ export class MediaBasicInfoService {
 
       return mediaBasicInfo;
     } catch (error) {
-      throw new Error(error);
+      throw new GraphQLError('error', {
+        extensions: { code: 'YOUR_ERROR_CODE' },
+      });
     }
   }
 }

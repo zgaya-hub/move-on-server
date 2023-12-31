@@ -22,13 +22,13 @@ export class MediaBasicInfoResolver {
     }
   }
 
-  @Query(() => CommonOutputDto.SuccessOutput)
+  @Query(() => MediaBasicInfo)
   async getMediaBasicInfoByMediaId(
     @Args('GetMediaBasicInfoByMediaIdParams')
     params: MediaBasicInfoInputDto.GetMediaBasicInfoByMediaIdParams,
   ): Promise<MediaBasicInfo> {
     try {
-      return this.mediaBasicInfoService.findMediaBasicInfoByMediaId(params.MediaId);
+      return this.mediaBasicInfoService.getMediaBasicInfoByMediaId(params.MediaId);
     } catch (error) {
       throw new Error(error);
     }

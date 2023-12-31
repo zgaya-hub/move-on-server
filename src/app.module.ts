@@ -43,6 +43,7 @@ import { MediaResourceModule } from './media-resource/media-resource.module';
 import { AdapterModule } from './adapter/adapter.module';
 import { MonitoringModule } from './monitoring/monitoring.module';
 import { MockModule } from './mock/mock.module';
+import { gqlErrorFormat } from './error/exception/gqlErrorFormat';
 
 @Module({
   imports: [
@@ -54,7 +55,7 @@ import { MockModule } from './mock/mock.module';
       includeStacktraceInErrorResponses: false,
       installSubscriptionHandlers: true,
       autoTransformHttpErrors: true,
-      // formatError: gqlErrorFormat,
+      formatError: gqlErrorFormat,
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
