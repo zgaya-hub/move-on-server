@@ -3,6 +3,6 @@ import { TrailerCineastService } from './trailer-cineast.service';
 import { TrailerCineastResolver } from './trailer-cineast.resolver';
 
 @Module({
-  providers: [TrailerCineastResolver, TrailerCineastService]
+  providers: [TrailerCineastResolver, TrailerCineastService],
 })
 export class TrailerCineastModule {}

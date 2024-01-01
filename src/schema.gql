@@ -127,11 +127,6 @@ input CreateSeasonInput {
   SeriesId: String!
 }
 
-input CreateSeriesCineastInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
 input CreateSeriesInput {
   MediaAdditionalInfo: CreateMediaAdditionalInfoInput!
   MediaBasicInfo: CreateMediaBasicInfoInput!
@@ -270,6 +265,10 @@ input GetNextSeasonNumberParams {
 }
 
 input GetSeasonBySeriesIdParams {
+  SeriesId: String!
+}
+
+input GetSeriesCineastBySeriesIdParams {
   SeriesId: String!
 }
 
@@ -421,7 +420,6 @@ type Mutation {
   createReview(createReviewInput: CreateReviewInput!): Review!
   createSeason(CreateSeasonInput: CreateSeasonInput!): SuccessOutput!
   createSeries(CreateSeriesInput: CreateSeriesInput!): SuccessOutput!
-  createSeriesCineast(createSeriesCineastInput: CreateSeriesCineastInput!): SeriesCineast!
   createTrailer(CreateTrailerInput: CreateTrailerInput!): SuccessOutput!
   createTrailerCineast(createTrailerCineastInput: CreateTrailerCineastInput!): TrailerCineast!
   createUserActivity(createUserActivityInput: CreateUserActivityInput!): UserActivity!
@@ -435,7 +433,6 @@ type Mutation {
   removeMovieCineast(id: Int!): MovieCineast!
   removeProfileInfo(id: Int!): ProfileInfo!
   removeReview(id: Int!): Review!
-  removeSeriesCineast(id: Int!): SeriesCineast!
   removeTrailerCineast(id: Int!): TrailerCineast!
   removeUserActivity(id: Int!): UserActivity!
   updateCineast(updateCineastInput: UpdateCineastInput!): Cineast!
@@ -445,7 +442,6 @@ type Mutation {
   updateProfileInfo(updateProfileInfoInput: UpdateProfileInfoInput!): ProfileInfo!
   updateReview(updateReviewInput: UpdateReviewInput!): Review!
   updateSeries(UpdateSeriesInput: UpdateSeriesInput!, UpdateSeriesParams: UpdateSeriesParams!): SuccessOutput!
-  updateSeriesCineast(updateSeriesCineastInput: UpdateSeriesCineastInput!): SeriesCineast!
   updateTrailerCineast(updateTrailerCineastInput: UpdateTrailerCineastInput!): TrailerCineast!
   updateUserActivity(updateUserActivityInput: UpdateUserActivityInput!): UserActivity!
   userRegister(UserRegisterInput: UserRegisterInput!): AuthTokenOutput!
@@ -477,11 +473,11 @@ type Query {
   getNextEpisodeNumber(GetNextEpisodeNumberParams: GetNextEpisodeNumberParams!): GetNextEpisodeNumberOutput!
   getNextSeasonNumber(GetNextSeasonNumberParams: GetNextSeasonNumberParams!): GetNextSeasonNumberOutput!
   getSeasonBySeriesId(GetSeasonBySeriesIdParams: GetSeasonBySeriesIdParams!): [Season!]!
+  getSeriesCineastBySeriesId(GetSeriesCineastBySeriesIdParams: GetSeriesCineastBySeriesIdParams!): Cineast!
   managerActivity(id: Int!): ManagerActivity!
   movieCineast(id: Int!): MovieCineast!
   profileInfo(id: Int!): ProfileInfo!
   review(id: Int!): Review!
-  seriesCineast(id: Int!): SeriesCineast!
   trailerCineast(id: Int!): TrailerCineast!
   userActivity(id: Int!): UserActivity!
 }
@@ -623,12 +619,6 @@ input UpdateReviewInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Float!
-}
-
-input UpdateSeriesCineastInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
 }
 
 input UpdateSeriesInput {

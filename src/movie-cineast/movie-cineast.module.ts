@@ -3,6 +3,6 @@ import { MovieCineastService } from './movie-cineast.service';
 import { MovieCineastResolver } from './movie-cineast.resolver';
 
 @Module({
-  providers: [MovieCineastResolver, MovieCineastService]
+  providers: [MovieCineastResolver, MovieCineastService],
 })
 export class MovieCineastModule {}

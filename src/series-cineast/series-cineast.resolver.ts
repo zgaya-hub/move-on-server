@@ -1,35 +1,22 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Args } from '@nestjs/graphql';
 import { SeriesCineastService } from './series-cineast.service';
 import { SeriesCineast } from './entities/series-cineast.entity';
-import { CreateSeriesCineastInput } from './dto/create-series-cineast.input';
-import { UpdateSeriesCineastInput } from './dto/update-series-cineast.input';
+import { SeriesCineastInputDto } from './dto/series-cineast.input.dto';
+import { Cineast } from 'src/cineast/entities/cineast.entity';
 
 @Resolver(() => SeriesCineast)
 export class SeriesCineastResolver {
   constructor(private readonly seriesCineastService: SeriesCineastService) {}
 
-  @Mutation(() => SeriesCineast)
-  createSeriesCineast(@Args('createSeriesCineastInput') createSeriesCineastInput: CreateSeriesCineastInput) {
-    return this.seriesCineastService.create(createSeriesCineastInput);
-  }
-
-  @Query(() => [SeriesCineast], { name: 'seriesCineast' })
-  findAll() {
-    return this.seriesCineastService.findAll();
-  }
-
-  @Query(() => SeriesCineast, { name: 'seriesCineast' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.seriesCineastService.findOne(id);
-  }
-
-  @Mutation(() => SeriesCineast)
-  updateSeriesCineast(@Args('updateSeriesCineastInput') updateSeriesCineastInput: UpdateSeriesCineastInput) {
-    return this.seriesCineastService.update(updateSeriesCineastInput.id, updateSeriesCineastInput);
-  }
-
-  @Mutation(() => SeriesCineast)
-  removeSeriesCineast(@Args('id', { type: () => Int }) id: number) {
-    return this.seriesCineastService.remove(id);
+  @Query(() => Cineast)
+  async getSeriesCineastBySeriesId(
+    @Args('GetSeriesCineastBySeriesIdParams')
+    params: SeriesCineastInputDto.GetSeriesCineastBySeriesIdParams,
+  ): Promise<Cineast> {
+    try {
+      return this.seriesCineastService.getSeriesCineastBySeriesId(params.SeriesId);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }

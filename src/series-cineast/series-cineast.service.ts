@@ -1,26 +1,21 @@
-import { Injectable } from '@nestjs/common';
-import { CreateSeriesCineastInput } from './dto/create-series-cineast.input';
-import { UpdateSeriesCineastInput } from './dto/update-series-cineast.input';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { SeriesCineastRepository } from './series-cineast.repository';
+import { NOT_FOUND_ERROR_ID } from './series-cineast.error-codes';
+import { Cineast } from 'src/cineast/entities/cineast.entity';
 
 @Injectable()
 export class SeriesCineastService {
-  create(createSeriesCineastInput: CreateSeriesCineastInput) {
-    return 'This action adds a new seriesCineast';
-  }
+  constructor(private readonly seriesCineastRepository: SeriesCineastRepository) {}
+  async getSeriesCineastBySeriesId(mediaId: string): Promise<Cineast> {
+    try {
+      const seriesCineast = await this.seriesCineastRepository.findSeriesCineastBySeriesId(mediaId).getOne();
+      if (!seriesCineast) {
+        throw new NotFoundException(NOT_FOUND_ERROR_ID);
+      }
 
-  findAll() {
-    return `This action returns all seriesCineast`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} seriesCineast`;
-  }
-
-  update(id: number, updateSeriesCineastInput: UpdateSeriesCineastInput) {
-    return `This action updates a #${id} seriesCineast`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} seriesCineast`;
+      return seriesCineast.cineast;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }
