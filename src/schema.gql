@@ -18,18 +18,6 @@ type AuthTokenOutput {
   token: String!
 }
 
-type Cast {
-  ID: String!
-  cineast: Cineast!
-  createdAt: Float!
-  deletedAt: Float!
-  movieCast: MovieCast!
-  role: String!
-  seriesCast: SeriesCast!
-  trailer: [Trailer!]!
-  updatedAt: Float!
-}
-
 input ChangeEpisodeSeasonInput {
   EpisodeId: String!
   SeasonId: String!
@@ -45,29 +33,20 @@ type Cineast {
   ID: String!
   award: [String!]!
   bio: String!
-  cast: Cast!
-  contactNo: String!
   country: String!
   createdAt: Float!
-  crew: Crew!
   deletedAt: Float!
-  email: String!
+  externalLink: ExternalLink!
   fullName: String!
   gender: String!
+  movieCineast: MovieCineast!
+  profession: String!
+  seriesCineast: SeriesCineast!
+  trailerCineast: TrailerCineast!
   updatedAt: Float!
 }
 
-input CreateCastInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
 input CreateCineastInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input CreateCrewInput {
   """Example field (placeholder)"""
   exampleField: Int!
 }
@@ -117,12 +96,7 @@ input CreateMediaImageInput {
   Variant: String!
 }
 
-input CreateMovieCastInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input CreateMovieCrewInput {
+input CreateMovieCineastInput {
   """Example field (placeholder)"""
   exampleField: Int!
 }
@@ -153,7 +127,7 @@ input CreateSeasonInput {
   SeriesId: String!
 }
 
-input CreateSeriesCastInput {
+input CreateSeriesCineastInput {
   """Example field (placeholder)"""
   exampleField: Int!
 }
@@ -162,6 +136,11 @@ input CreateSeriesInput {
   MediaAdditionalInfo: CreateMediaAdditionalInfoInput!
   MediaBasicInfo: CreateMediaBasicInfoInput!
   MediaImageId: String!
+}
+
+input CreateTrailerCineastInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
 }
 
 input CreateTrailerInput {
@@ -176,18 +155,6 @@ input CreateTrailerInput {
 input CreateUserActivityInput {
   """Example field (placeholder)"""
   exampleField: Int!
-}
-
-type Crew {
-  ID: String!
-  cineast: Cineast!
-  createdAt: Float!
-  deletedAt: Float!
-  movieCrew: MovieCrew!
-  role: String!
-  seriesCrew: SeriesCrew!
-  trailer: [Trailer!]!
-  updatedAt: Float!
 }
 
 input DeleteMultipleSeriesByIdzParams {
@@ -225,6 +192,7 @@ type ErrorLog {
 
 type ExternalLink {
   ID: String!
+  cineast: Cineast!
   createdAt: Float!
   deletedAt: Float!
   episode: Episode!
@@ -302,10 +270,6 @@ input GetNextSeasonNumberParams {
 }
 
 input GetSeasonBySeriesIdParams {
-  SeriesId: String!
-}
-
-input GetSeriesCrewByMediaIdParams {
   SeriesId: String!
 }
 
@@ -426,8 +390,7 @@ type Movie {
   mediaBasicInfo: MediaBasicInfo!
   mediaImage: MediaImage!
   mediaResource: MediaResource!
-  movieCast: MovieCast!
-  movieCrew: MovieCrew!
+  movieCineast: MovieCineast!
   priceInDollar: Float!
   review: Review!
   trailer: Trailer!
@@ -435,19 +398,10 @@ type Movie {
   video: Video!
 }
 
-type MovieCast {
+type MovieCineast {
   ID: String!
-  cast: Cast!
+  cineast: Cineast!
   createdAt: Float!
-  deletedAt: Float!
-  movie: Movie!
-  updatedAt: Float!
-}
-
-type MovieCrew {
-  ID: String!
-  createdAt: Float!
-  crew: Crew!
   deletedAt: Float!
   movie: Movie!
   updatedAt: Float!
@@ -456,49 +410,43 @@ type MovieCrew {
 type Mutation {
   changeEpisodeSeason(ChangeEpisodeSeasonInput: ChangeEpisodeSeasonInput!): SuccessOutput!
   changeThumbnailImage(ChangeThumbnailImageInput: ChangeThumbnailImageInput!): SuccessOutput!
-  createCast(createCastInput: CreateCastInput!): Cast!
   createCineast(createCineastInput: CreateCineastInput!): Cineast!
-  createCrew(createCrewInput: CreateCrewInput!): Crew!
   createEpisode(CreateEpisodeInput: CreateEpisodeInput!): SuccessOutput!
   createErrorLog(CreateErrorLogInput: CreateErrorLogInput!): ErrorLog!
   createManagerActivity(createManagerActivityInput: CreateManagerActivityInput!): ManagerActivity!
   createMediaImage(CreateMediaImageInput: CreateMediaImageInput!): MediaImageIdOutput!
   createMovie(CreateMovieInput: CreateMovieInput!): SuccessOutput!
-  createMovieCast(createMovieCastInput: CreateMovieCastInput!): MovieCast!
-  createMovieCrew(createMovieCrewInput: CreateMovieCrewInput!): MovieCrew!
+  createMovieCineast(createMovieCineastInput: CreateMovieCineastInput!): MovieCineast!
   createProfileInfo(createProfileInfoInput: CreateProfileInfoInput!): ProfileInfo!
   createReview(createReviewInput: CreateReviewInput!): Review!
   createSeason(CreateSeasonInput: CreateSeasonInput!): SuccessOutput!
   createSeries(CreateSeriesInput: CreateSeriesInput!): SuccessOutput!
-  createSeriesCast(createSeriesCastInput: CreateSeriesCastInput!): SeriesCast!
+  createSeriesCineast(createSeriesCineastInput: CreateSeriesCineastInput!): SeriesCineast!
   createTrailer(CreateTrailerInput: CreateTrailerInput!): SuccessOutput!
+  createTrailerCineast(createTrailerCineastInput: CreateTrailerCineastInput!): TrailerCineast!
   createUserActivity(createUserActivityInput: CreateUserActivityInput!): UserActivity!
   deleteMultipleSeriesByIdz(DeleteMultipleSeriesByIdzParams: DeleteMultipleSeriesByIdzParams!): SuccessOutput!
   deleteSeriesById(DeleteSeriesByIdParams: DeleteSeriesByIdParams!): SuccessOutput!
   getUploadVideoSignedUrl(GetUploadVideoSignedUrlInput: GetUploadVideoSignedUrlInput!): UploadVideoSignedUrlOutput!
   managerRegister(ManagerRegisterInput: ManagerRegisterInput!): AuthTokenOutput!
   managerSignIn(ManagerSignInInput: ManagerSignInInput!): AuthTokenOutput!
-  removeCast(id: Int!): Cast!
   removeCineast(id: Int!): Cineast!
-  removeCrew(id: Int!): Crew!
   removeManagerActivity(id: Int!): ManagerActivity!
-  removeMovieCast(id: Int!): MovieCast!
-  removeMovieCrew(id: Int!): MovieCrew!
+  removeMovieCineast(id: Int!): MovieCineast!
   removeProfileInfo(id: Int!): ProfileInfo!
   removeReview(id: Int!): Review!
-  removeSeriesCast(id: Int!): SeriesCast!
+  removeSeriesCineast(id: Int!): SeriesCineast!
+  removeTrailerCineast(id: Int!): TrailerCineast!
   removeUserActivity(id: Int!): UserActivity!
-  updateCast(updateCastInput: UpdateCastInput!): Cast!
   updateCineast(updateCineastInput: UpdateCineastInput!): Cineast!
-  updateCrew(updateCrewInput: UpdateCrewInput!): Crew!
   updateManagerActivity(updateManagerActivityInput: UpdateManagerActivityInput!): ManagerActivity!
   updateMediaBasicInfo(UpdateMediaBasicInfoInput: UpdateMediaBasicInfoInput!, UpdateMediaBasicInfoParams: UpdateMediaBasicInfoParams!): SuccessOutput!
-  updateMovieCast(updateMovieCastInput: UpdateMovieCastInput!): MovieCast!
-  updateMovieCrew(updateMovieCrewInput: UpdateMovieCrewInput!): MovieCrew!
+  updateMovieCineast(updateMovieCineastInput: UpdateMovieCineastInput!): MovieCineast!
   updateProfileInfo(updateProfileInfoInput: UpdateProfileInfoInput!): ProfileInfo!
   updateReview(updateReviewInput: UpdateReviewInput!): Review!
   updateSeries(UpdateSeriesInput: UpdateSeriesInput!, UpdateSeriesParams: UpdateSeriesParams!): SuccessOutput!
-  updateSeriesCast(updateSeriesCastInput: UpdateSeriesCastInput!): SeriesCast!
+  updateSeriesCineast(updateSeriesCineastInput: UpdateSeriesCineastInput!): SeriesCineast!
+  updateTrailerCineast(updateTrailerCineastInput: UpdateTrailerCineastInput!): TrailerCineast!
   updateUserActivity(updateUserActivityInput: UpdateUserActivityInput!): UserActivity!
   userRegister(UserRegisterInput: UserRegisterInput!): AuthTokenOutput!
   userSignIn(UserSignInInput: UserSignInInput!): AuthTokenOutput!
@@ -520,9 +468,7 @@ type ProfileInfo {
 }
 
 type Query {
-  cast(id: Int!): Cast!
   cineast(id: Int!): Cineast!
-  crew(id: Int!): Crew!
   getManagerSeriesForTable(GetManagerSeriesForTableInput: GetManagerSeriesForTableInput!): GetManagerSeriesForTableOutput!
   getManagerSeriesWithImageAndBasicInfo: [Series!]!
   getMediaAdditionalInfoByMediaId(GetMediaAdditionalInfoByMediaIdParams: GetMediaAdditionalInfoByMediaIdParams!): MediaAdditionalInfo!
@@ -531,13 +477,12 @@ type Query {
   getNextEpisodeNumber(GetNextEpisodeNumberParams: GetNextEpisodeNumberParams!): GetNextEpisodeNumberOutput!
   getNextSeasonNumber(GetNextSeasonNumberParams: GetNextSeasonNumberParams!): GetNextSeasonNumberOutput!
   getSeasonBySeriesId(GetSeasonBySeriesIdParams: GetSeasonBySeriesIdParams!): [Season!]!
-  getSeriesCrewBySeriesId(GetSeriesCrewByMediaIdParams: GetSeriesCrewByMediaIdParams!): Crew!
   managerActivity(id: Int!): ManagerActivity!
-  movieCast(id: Int!): MovieCast!
-  movieCrew(id: Int!): MovieCrew!
+  movieCineast(id: Int!): MovieCineast!
   profileInfo(id: Int!): ProfileInfo!
   review(id: Int!): Review!
-  seriesCast(id: Int!): SeriesCast!
+  seriesCineast(id: Int!): SeriesCineast!
+  trailerCineast(id: Int!): TrailerCineast!
   userActivity(id: Int!): UserActivity!
 }
 
@@ -583,25 +528,15 @@ type Series {
   priceInDollar: Float!
   review: Review!
   season: Season!
-  seriesCast: SeriesCast!
-  seriesCrew: SeriesCrew!
+  seriesCineast: SeriesCineast!
   trailer: Trailer!
   updatedAt: Float!
 }
 
-type SeriesCast {
+type SeriesCineast {
   ID: String!
-  cast: Cast!
+  cineast: Cineast!
   createdAt: Float!
-  deletedAt: Float!
-  series: Series!
-  updatedAt: Float!
-}
-
-type SeriesCrew {
-  ID: String!
-  createdAt: Float!
-  crew: Crew!
   deletedAt: Float!
   series: Series!
   updatedAt: Float!
@@ -613,9 +548,7 @@ type SuccessOutput {
 
 type Trailer {
   ID: String!
-  cast: [Cast!]!
   createdAt: Float!
-  crew: Crew!
   deletedAt: Float!
   externalLink: [ExternalLink!]!
   manager: Manager!
@@ -626,23 +559,21 @@ type Trailer {
   review: [Review!]!
   season: Season!
   series: Series!
+  trailerCineast: TrailerCineast!
   updatedAt: Float!
   video: Video!
 }
 
-input UpdateCastInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Float!
+type TrailerCineast {
+  ID: String!
+  cineast: Cineast!
+  createdAt: Float!
+  deletedAt: Float!
+  trailer: Trailer!
+  updatedAt: Float!
 }
 
 input UpdateCineastInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Float!
-}
-
-input UpdateCrewInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Float!
@@ -676,16 +607,10 @@ input UpdateMediaImageInput {
   Variant: String
 }
 
-input UpdateMovieCastInput {
+input UpdateMovieCineastInput {
   """Example field (placeholder)"""
   exampleField: Int
-  id: Float!
-}
-
-input UpdateMovieCrewInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Float!
+  id: Int!
 }
 
 input UpdateProfileInfoInput {
@@ -700,10 +625,10 @@ input UpdateReviewInput {
   id: Float!
 }
 
-input UpdateSeriesCastInput {
+input UpdateSeriesCineastInput {
   """Example field (placeholder)"""
   exampleField: Int
-  id: Float!
+  id: Int!
 }
 
 input UpdateSeriesInput {
@@ -714,6 +639,12 @@ input UpdateSeriesInput {
 
 input UpdateSeriesParams {
   SeriesId: String!
+}
+
+input UpdateTrailerCineastInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }
 
 input UpdateUserActivityInput {

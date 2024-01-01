@@ -1,10 +1,13 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { EntityBase } from 'src/base/EntityBase';
-import { Entity, OneToOne } from 'typeorm';
+import { Entity, OneToMany } from 'typeorm';
 import { MediaCountriesEnum, GenderEnum } from 'src/common/enum/common.enum';
-import { Cast } from 'src/cast/entities/cast.entity';
-import { Crew } from 'src/crew/entities/crew.entity';
-import { ArrayColumn, EnumColumn, IntColumn, JoinColumn, TextColumn, VarcharColumn } from 'src/decorator/entity/entity.decorator';
+import { ArrayColumn, EnumColumn, IntColumn, TextColumn, VarcharColumn } from 'src/decorator/entity/entity.decorator';
+import { CineastProfessionEnum } from '../enum/cineast.enum';
+import { MovieCineast } from 'src/movie-cineast/entities/movie-cineast.entity';
+import { SeriesCineast } from 'src/series-cineast/entities/series-cineast.entity';
+import { TrailerCineast } from 'src/trailer-cineast/entities/trailer-cineast.entity';
+import { ExternalLink } from 'src/external-link/entities/external-link.entity';
 
 @ObjectType()
 @Entity()
@@ -14,12 +17,8 @@ export class Cineast extends EntityBase {
   fullName: string;
 
   @Field()
-  @VarcharColumn()
-  email: string;
-
-  @Field()
-  @VarcharColumn()
-  contactNo: string;
+  @EnumColumn({ enum: CineastProfessionEnum })
+  profession: CineastProfessionEnum;
 
   @Field()
   @IntColumn()
@@ -41,13 +40,19 @@ export class Cineast extends EntityBase {
   @ArrayColumn()
   award: Array<string>;
 
-  @Field(() => Cast)
-  @OneToOne(() => Cast, (cast) => cast.cineast, { nullable: true })
-  @JoinColumn()
-  cast: Cast;
+  @Field(() => MovieCineast)
+  @OneToMany(() => MovieCineast, (movieCineast) => movieCineast.cineast)
+  movieCineast: MovieCineast[];
 
-  @Field(() => Crew)
-  @OneToOne(() => Crew, (crew) => crew.cineast, { nullable: true })
-  @JoinColumn()
-  crew: Crew;
+  @Field(() => SeriesCineast)
+  @OneToMany(() => SeriesCineast, (seriesCineast) => seriesCineast.cineast)
+  seriesCineast: SeriesCineast[];
+
+  @Field(() => TrailerCineast)
+  @OneToMany(() => TrailerCineast, (trailerCineast) => trailerCineast.cineast)
+  trailerCineast: TrailerCineast[];
+
+  @Field(() => ExternalLink)
+  @OneToMany(() => ExternalLink, (externalLink) => externalLink.cineast)
+  externalLink: ExternalLink[];
 }

@@ -6,6 +6,7 @@ import { Episode } from 'src/episode/entities/episode.entity';
 import { Series } from 'src/series/entities/series.entity';
 import { Movie } from 'src/movie/entities/movie.entity';
 import { Trailer } from 'src/trailer/entities/trailer.entity';
+import { Cineast } from 'src/cineast/entities/cineast.entity';
 
 @ObjectType()
 @Entity()
@@ -41,4 +42,9 @@ export class ExternalLink extends EntityBase {
   @ManyToOne(() => Trailer, (trailer) => trailer.externalLink, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   trailer: Trailer;
+
+  @Field(() => Cineast)
+  @ManyToOne(() => Cineast, (cineast) => cineast.externalLink, { nullable: true, onDelete: 'CASCADE' })
+  @JoinColumn()
+  cineast: Cineast;
 }

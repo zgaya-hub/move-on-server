@@ -1,12 +1,10 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { EntityBase } from 'src/base/EntityBase';
 import { JoinColumn } from 'src/decorator/entity/entity.decorator';
-import { Entity, ManyToMany, ManyToOne, OneToMany, OneToOne } from 'typeorm';
+import { Entity, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { MediaBasicInfo } from 'src/media-basic-info/entities/media-basic-info.entity';
 import { Video } from 'src/video/entities/video.entity';
 import { Manager } from 'src/manager/entities/manager.entity';
-import { Cast } from 'src/cast/entities/cast.entity';
-import { Crew } from 'src/crew/entities/crew.entity';
 import { MediaImage } from 'src/media-image/entities/media-image.entity';
 import { ExternalLink } from 'src/external-link/entities/external-link.entity';
 import { Review } from 'src/review/entities/review.entity';
@@ -14,6 +12,7 @@ import { MediaResource } from 'src/media-resource/entities/media-resource.entity
 import { Movie } from 'src/movie/entities/movie.entity';
 import { Series } from 'src/series/entities/series.entity';
 import { Season } from 'src/season/entities/season.entity';
+import { TrailerCineast } from 'src/trailer-cineast/entities/trailer-cineast.entity';
 
 @ObjectType()
 @Entity()
@@ -36,13 +35,9 @@ export class Trailer extends EntityBase {
   @OneToOne(() => MediaResource, (mediaResource) => mediaResource.trailer)
   mediaResource: MediaResource;
 
-  @Field(() => [Cast])
-  @ManyToMany(() => Cast, (cast) => cast.trailer)
-  cast: Cast[];
-
-  @Field(() => Crew)
-  @ManyToMany(() => Crew, (crew) => crew.trailer)
-  crew: Crew[];
+  @Field(() => TrailerCineast)
+  @OneToMany(() => TrailerCineast, (trailerCineast) => trailerCineast.cineast)
+  trailerCineast: TrailerCineast[];
 
   @Field(() => MediaImage)
   @OneToOne(() => MediaImage, (mediaImage) => mediaImage.trailer)

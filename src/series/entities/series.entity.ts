@@ -4,8 +4,6 @@ import { EntityBase } from 'src/base/EntityBase';
 import { Season } from 'src/season/entities/season.entity';
 import { Manager } from 'src/manager/entities/manager.entity';
 import { DecimalColumn, JoinColumn, TinyintColumn } from 'src/decorator/entity/entity.decorator';
-import { SeriesCast } from 'src/series-cast/entities/series-cast.entity';
-import { SeriesCrew } from 'src/series-crew/entities/series-crew.entity';
 import { MediaImage } from 'src/media-image/entities/media-image.entity';
 import { ExternalLink } from 'src/external-link/entities/external-link.entity';
 import { Review } from 'src/review/entities/review.entity';
@@ -14,6 +12,7 @@ import { FinancialInfo } from 'src/financial-info/entities/financial-info.entity
 import { MediaAdditionalInfo } from 'src/media-additional-info/entities/media-additional-info.entity';
 import { MediaBasicInfo } from 'src/media-basic-info/entities/media-basic-info.entity';
 import { Trailer } from 'src/trailer/entities/trailer.entity';
+import { SeriesCineast } from 'src/series-cineast/entities/series-cineast.entity';
 
 @ObjectType()
 @Entity()
@@ -53,13 +52,9 @@ export class Series extends EntityBase {
   @JoinColumn()
   manager: Manager;
 
-  @Field(() => SeriesCast)
-  @OneToMany(() => SeriesCast, (seriesCast) => seriesCast.series)
-  seriesCast: SeriesCast[];
-
-  @Field(() => SeriesCrew)
-  @OneToMany(() => SeriesCrew, (seriesCrew) => seriesCrew.series)
-  seriesCrew: SeriesCrew[];
+  @Field(() => SeriesCineast)
+  @OneToMany(() => SeriesCineast, (seriesCineast) => seriesCineast.series)
+  seriesCineast: SeriesCineast[];
 
   @Field(() => MediaImage)
   @OneToOne(() => MediaImage, (mediaImage) => mediaImage.series)

@@ -16,13 +16,7 @@ import { ManagerModule } from './manager/manager.module';
 import { ProfileInfoModule } from './profile-info/profile-info.module';
 import { UserActivityModule } from './user-activity/user-activity.module';
 import { ManagerActivityModule } from './manager-activity/manager-activity.module';
-import { CrewModule } from './crew/crew.module';
 import { CineastModule } from './cineast/cineast.module';
-import { CastModule } from './cast/cast.module';
-import { MovieCrewModule } from './movie-crew/movie-crew.module';
-import { MovieCastModule } from './movie-cast/movie-cast.module';
-import { SeriesCastModule } from './series-cast/series-cast.module';
-import { SeriesCrewModule } from './series-crew/series-crew.module';
 import { MediaImageModule } from './media-image/media-image.module';
 import { ExternalLinkModule } from './external-link/external-link.module';
 import { ReviewModule } from './review/review.module';
@@ -44,6 +38,9 @@ import { AdapterModule } from './adapter/adapter.module';
 import { MonitoringModule } from './monitoring/monitoring.module';
 import { MockModule } from './mock/mock.module';
 import { gqlErrorFormat } from './error/exception/gqlErrorFormat';
+import { MovieCineastModule } from './movie-cineast/movie-cineast.module';
+import { SeriesCineastModule } from './series-cineast/series-cineast.module';
+import { TrailerCineastModule } from './trailer-cineast/trailer-cineast.module';
 
 @Module({
   imports: [
@@ -96,13 +93,7 @@ import { gqlErrorFormat } from './error/exception/gqlErrorFormat';
     ProfileInfoModule,
     UserActivityModule,
     ManagerActivityModule,
-    CrewModule,
     CineastModule,
-    CastModule,
-    MovieCrewModule,
-    MovieCastModule,
-    SeriesCastModule,
-    SeriesCrewModule,
     MediaImageModule,
     ExternalLinkModule,
     ReviewModule,
@@ -121,6 +112,9 @@ import { gqlErrorFormat } from './error/exception/gqlErrorFormat';
     AdapterModule,
     MonitoringModule,
     MockModule,
+    MovieCineastModule,
+    SeriesCineastModule,
+    TrailerCineastModule,
   ],
   controllers: [AppController],
   providers: [AppService],
