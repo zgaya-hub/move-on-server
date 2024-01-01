@@ -158,11 +158,6 @@ input CreateSeriesCastInput {
   exampleField: Int!
 }
 
-input CreateSeriesCrewInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
 input CreateSeriesInput {
   MediaAdditionalInfo: CreateMediaAdditionalInfoInput!
   MediaBasicInfo: CreateMediaBasicInfoInput!
@@ -307,6 +302,10 @@ input GetNextSeasonNumberParams {
 }
 
 input GetSeasonBySeriesIdParams {
+  SeriesId: String!
+}
+
+input GetSeriesCrewByMediaIdParams {
   SeriesId: String!
 }
 
@@ -472,7 +471,6 @@ type Mutation {
   createSeason(CreateSeasonInput: CreateSeasonInput!): SuccessOutput!
   createSeries(CreateSeriesInput: CreateSeriesInput!): SuccessOutput!
   createSeriesCast(createSeriesCastInput: CreateSeriesCastInput!): SeriesCast!
-  createSeriesCrew(createSeriesCrewInput: CreateSeriesCrewInput!): SeriesCrew!
   createTrailer(CreateTrailerInput: CreateTrailerInput!): SuccessOutput!
   createUserActivity(createUserActivityInput: CreateUserActivityInput!): UserActivity!
   deleteMultipleSeriesByIdz(DeleteMultipleSeriesByIdzParams: DeleteMultipleSeriesByIdzParams!): SuccessOutput!
@@ -489,7 +487,6 @@ type Mutation {
   removeProfileInfo(id: Int!): ProfileInfo!
   removeReview(id: Int!): Review!
   removeSeriesCast(id: Int!): SeriesCast!
-  removeSeriesCrew(id: Int!): SeriesCrew!
   removeUserActivity(id: Int!): UserActivity!
   updateCast(updateCastInput: UpdateCastInput!): Cast!
   updateCineast(updateCineastInput: UpdateCineastInput!): Cineast!
@@ -502,7 +499,6 @@ type Mutation {
   updateReview(updateReviewInput: UpdateReviewInput!): Review!
   updateSeries(UpdateSeriesInput: UpdateSeriesInput!, UpdateSeriesParams: UpdateSeriesParams!): SuccessOutput!
   updateSeriesCast(updateSeriesCastInput: UpdateSeriesCastInput!): SeriesCast!
-  updateSeriesCrew(updateSeriesCrewInput: UpdateSeriesCrewInput!): SeriesCrew!
   updateUserActivity(updateUserActivityInput: UpdateUserActivityInput!): UserActivity!
   userRegister(UserRegisterInput: UserRegisterInput!): AuthTokenOutput!
   userSignIn(UserSignInInput: UserSignInInput!): AuthTokenOutput!
@@ -535,13 +531,13 @@ type Query {
   getNextEpisodeNumber(GetNextEpisodeNumberParams: GetNextEpisodeNumberParams!): GetNextEpisodeNumberOutput!
   getNextSeasonNumber(GetNextSeasonNumberParams: GetNextSeasonNumberParams!): GetNextSeasonNumberOutput!
   getSeasonBySeriesId(GetSeasonBySeriesIdParams: GetSeasonBySeriesIdParams!): [Season!]!
+  getSeriesCrewBySeriesId(GetSeriesCrewByMediaIdParams: GetSeriesCrewByMediaIdParams!): Crew!
   managerActivity(id: Int!): ManagerActivity!
   movieCast(id: Int!): MovieCast!
   movieCrew(id: Int!): MovieCrew!
   profileInfo(id: Int!): ProfileInfo!
   review(id: Int!): Review!
   seriesCast(id: Int!): SeriesCast!
-  seriesCrew(id: Int!): SeriesCrew!
   userActivity(id: Int!): UserActivity!
 }
 
@@ -705,12 +701,6 @@ input UpdateReviewInput {
 }
 
 input UpdateSeriesCastInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Float!
-}
-
-input UpdateSeriesCrewInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Float!

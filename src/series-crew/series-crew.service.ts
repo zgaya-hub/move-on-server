@@ -1,26 +1,21 @@
-import { Injectable } from '@nestjs/common';
-import { CreateSeriesCrewInput } from './dto/create-series-crew.input';
-import { UpdateSeriesCrewInput } from './dto/update-series-crew.input';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { SeriesCrewRepository } from './series-crew.repository';
+import { NOT_FOUND_ERROR_ID } from './media-image.error-codes';
+import { Crew } from 'src/crew/entities/crew.entity';
 
 @Injectable()
 export class SeriesCrewService {
-  create(createSeriesCrewInput: CreateSeriesCrewInput) {
-    return 'This action adds a new seriesCrew';
-  }
+  constructor(private readonly seriesCrewRepository: SeriesCrewRepository) {}
+  async getSeriesCrewBySeriesId(seriesId: string): Promise<Crew> {
+    try {
+      const seriesCrew = await this.seriesCrewRepository.findSeriesCrewBySeriesId(seriesId).getOne();
+      if (!seriesCrew) {
+        throw new NotFoundException(NOT_FOUND_ERROR_ID);
+      }
 
-  findAll() {
-    return `This action returns all seriesCrew`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} seriesCrew`;
-  }
-
-  update(id: number, updateSeriesCrewInput: UpdateSeriesCrewInput) {
-    return `This action updates a #${id} seriesCrew`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} seriesCrew`;
+      return seriesCrew.crew;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }
