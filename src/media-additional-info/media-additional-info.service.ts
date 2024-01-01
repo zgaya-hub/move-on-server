@@ -66,6 +66,19 @@ export class MediaAdditionalInfoService {
     }
   }
 
+  async getMediaAdditionalInfoByMediaId(mediaId: string): Promise<MediaAdditionalInfo> {
+    try {
+      const mediaAdditionalInfo = await this.mediaAdditionalInfoRepository.findMediaAdditionalInfoByMediaId(mediaId).getOne();
+      if (!mediaAdditionalInfo) {
+        throw new MediaAdditionalInfoNotFoundException();
+      }
+
+      return mediaAdditionalInfo;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   async findMediaAdditionalInfoById(ID: string): Promise<MediaAdditionalInfo> {
     try {
       const mediaAdditionalInfo = await this.mediaAdditionalInfoRepository.findMediaAdditionalInfoById(ID);

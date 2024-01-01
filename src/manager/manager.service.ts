@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { Manager } from './entities/manager.entity';
 import { ManagerInputDto } from './dto/manager.input.dto';
 import { ManagerRepository } from './manager.repository';
 import { ManagerAccountStatusEnum } from './enum/manager.enum';
 import { comparePassword } from '../utilities/function/bcrypt';
-import { EmailAlreadyExistsException, InvalidCredentialsException } from './manager.exceptions';
+import { EMAIL_ALREADY_REGISTERED_ERROR_ID, EMAIL_NOT_EXIST_ERROR_ID, INVALID_CREDENTIALS_ERROR_ID } from './manager.error-codes';
 
 @Injectable()
 export class ManagerService {
@@ -23,7 +23,9 @@ export class ManagerService {
       const manager = new Manager();
 
       const managerExist = await this.findByEmail(input.Email);
-      if (managerExist) throw new EmailAlreadyExistsException();
+      if (managerExist) {
+        throw new ConflictException(EMAIL_ALREADY_REGISTERED_ERROR_ID, { description: 'Email already registered' });
+      }
 
       manager.email = input.Email;
       manager.password = input.Password;
@@ -39,10 +41,12 @@ export class ManagerService {
   async managerSignIn(input: ManagerInputDto.ManagerSignInInput): Promise<Manager> {
     try {
       const user = await this.findByEmail(input.Email);
-      if (!user) throw new InvalidCredentialsException();
+      if (!user) {
+        throw new UnauthorizedException(EMAIL_NOT_EXIST_ERROR_ID, { description: 'Email not exist' });
+      }
 
       const isMatched = comparePassword(user.password, input.Password);
-      if (!isMatched) throw new InvalidCredentialsException();
+      if (!isMatched) throw new UnauthorizedException(INVALID_CREDENTIALS_ERROR_ID, { description: 'Password mismatch' });
 
       return user;
     } catch (error) {

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { MediaImageInputDto } from './dto/media-image.input.dto';
 import { MediaImage } from './entities/media-image.entity';
 import { MediaImageOutputDto } from './dto/media-image.output.dto';
@@ -12,7 +12,7 @@ import { Series } from '../series/entities/series.entity';
 import { Season } from '../season/entities/season.entity';
 import { EntitySaveService } from '../adapter/save.service';
 import { CommonOutputDto } from '../common/dto/common.dto';
-import { MediaImageAlreadyAssignedException } from './media-image.exceptions';
+import { ALREADY_IN_USE_ERROR_ID, NOT_FOUND_ERROR_ID } from './media-image.error-codes';
 
 @Injectable()
 export class MediaImageService {
@@ -77,7 +77,7 @@ export class MediaImageService {
     try {
       const mediaImage = await this.findMediaImageByIdWithMedia(mediaImageId);
       if (mediaImage.series || mediaImage.movie || mediaImage.season || mediaImage.trailer || mediaImage.episode) {
-        throw new MediaImageAlreadyAssignedException();
+        throw new ConflictException(ALREADY_IN_USE_ERROR_ID);
       }
 
       if (media instanceof Movie) mediaImage.movie = media;
@@ -93,6 +93,19 @@ export class MediaImageService {
       }
 
       return { isSuccess: true };
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async getMediaImageByMediaId(mediaId: string): Promise<MediaImage> {
+    try {
+      const mediaImage = await this.mediaImageRepository.findMediaImageByMediaId(mediaId).getOne();
+      if (!mediaImage) {
+        throw new NotFoundException(NOT_FOUND_ERROR_ID);
+      }
+
+      return mediaImage;
     } catch (error) {
       throw new Error(error);
     }

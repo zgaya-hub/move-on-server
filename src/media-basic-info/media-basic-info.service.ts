@@ -11,7 +11,6 @@ import { EntitySaveService } from '../adapter/save.service';
 import { CommonOutputDto } from 'src/common/dto/common.dto';
 import { MediaBasicInfoRepository } from './media-basic-info.repository';
 import { MediaBasicInfoNotFoundException } from './media-basic-info.exceptions';
-import { GraphQLError } from 'graphql';
 
 @Injectable()
 export class MediaBasicInfoService {
@@ -89,9 +88,7 @@ export class MediaBasicInfoService {
 
       return mediaBasicInfo;
     } catch (error) {
-      throw new GraphQLError('error', {
-        extensions: { code: 'YOUR_ERROR_CODE' },
-      });
+      throw new Error(error);
     }
   }
 }

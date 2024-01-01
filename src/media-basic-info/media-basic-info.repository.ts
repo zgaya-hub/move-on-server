@@ -16,7 +16,7 @@ export class MediaBasicInfoRepository extends Repository<MediaBasicInfo> {
 
   public findMediaBasicInfoByMediaId(mediaId: string): SelectQueryBuilder<MediaBasicInfo> {
     return this.createQueryBuilder('mediaBasicInfo').where(
-      'mediaBasicInfo.movie = :mediaId OR series = :mediaId OR mediaBasicInfo.season = :mediaId OR mediaBasicInfo.trailer = :mediaId OR mediaBasicInfo.episode = :mediaId',
+      'mediaBasicInfo.movie = :mediaId OR mediaBasicInfo.series = :mediaId OR mediaBasicInfo.season = :mediaId OR mediaBasicInfo.trailer = :mediaId OR mediaBasicInfo.episode = :mediaId',
       { mediaId },
     );
   }

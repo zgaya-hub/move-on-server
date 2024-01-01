@@ -53,6 +53,6 @@ export namespace SeasonInputDto {
     @Field(() => String)
     @IsNotEmpty()
     @IsUUID()
-    SeasonId: string;
+    SeriesId: string;
   }
 }

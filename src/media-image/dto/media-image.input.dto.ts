@@ -42,4 +42,12 @@ export namespace MediaImageInputDto {
     @IsUUID()
     Base64: string;
   }
+
+  @InputType()
+  export class GetMediaImageByMediaIdParams {
+    @Field(() => String)
+    @IsNotEmpty()
+    @IsUUID()
+    MediaId: string;
+  }
 }

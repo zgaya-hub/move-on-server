@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
 import { MediaImageService } from './media-image.service';
 import { MediaImage } from './entities/media-image.entity';
 import { MediaImageInputDto } from './dto/media-image.input.dto';
@@ -27,6 +27,18 @@ export class MediaImageResolver {
     try {
       // TODO: will change actual ID
       return this.mediaImageService.changeThumbnailImage('', input);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  @Query(() => MediaImage)
+  async getMediaImageByMediaId(
+    @Args('GetMediaImageByMediaIdParams')
+    params: MediaImageInputDto.GetMediaImageByMediaIdParams,
+  ): Promise<MediaImage> {
+    try {
+      return this.mediaImageService.getMediaImageByMediaId(params.MediaId);
     } catch (error) {
       throw new Error(error);
     }

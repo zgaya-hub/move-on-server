@@ -36,7 +36,7 @@ export class SeasonResolver {
   @Query(() => SeasonOutputDto.GetNextSeasonNumberOutput)
   async getNextSeasonNumber(@Args('GetNextSeasonNumberParams') param: SeasonInputDto.GetNextSeasonNumberParams): Promise<SeasonOutputDto.GetNextSeasonNumberOutput> {
     try {
-      return this.seasonService.getNextSeasonNumber(param.SeasonId);
+      return this.seasonService.getNextSeasonNumber(param.SeriesId);
     } catch (error) {
       throw new Error(error);
     }

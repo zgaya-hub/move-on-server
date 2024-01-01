@@ -23,4 +23,11 @@ export class MediaImageRepository extends Repository<MediaImage> {
       .leftJoinAndSelect('mediaImage.trailer', 'trailer')
       .where('mediaImage.ID = :ID', { ID });
   }
+
+  public findMediaImageByMediaId(mediaId: string): SelectQueryBuilder<MediaImage> {
+    return this.createQueryBuilder('mediaBasicInfo').where(
+      'mediaBasicInfo.movie = :mediaId OR mediaBasicInfo.series = :mediaId OR mediaBasicInfo.season = :mediaId OR mediaBasicInfo.trailer = :mediaId OR mediaBasicInfo.episode = :mediaId',
+      { mediaId },
+    );
+  }
 }

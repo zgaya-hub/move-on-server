@@ -278,7 +278,15 @@ type GetManagerTableOutputSeriesList {
   updatedAt: Float
 }
 
+input GetMediaAdditionalInfoByMediaIdParams {
+  MediaId: String!
+}
+
 input GetMediaBasicInfoByMediaIdParams {
+  MediaId: String!
+}
+
+input GetMediaImageByMediaIdParams {
   MediaId: String!
 }
 
@@ -295,7 +303,7 @@ type GetNextSeasonNumberOutput {
 }
 
 input GetNextSeasonNumberParams {
-  SeasonId: String!
+  SeriesId: String!
 }
 
 input GetSeasonBySeriesIdParams {
@@ -469,7 +477,6 @@ type Mutation {
   createUserActivity(createUserActivityInput: CreateUserActivityInput!): UserActivity!
   deleteMultipleSeriesByIdz(DeleteMultipleSeriesByIdzParams: DeleteMultipleSeriesByIdzParams!): SuccessOutput!
   deleteSeriesById(DeleteSeriesByIdParams: DeleteSeriesByIdParams!): SuccessOutput!
-  getManagerSeriesForTable(GetManagerSeriesForTableInput: GetManagerSeriesForTableInput!): GetManagerSeriesForTableOutput!
   getUploadVideoSignedUrl(GetUploadVideoSignedUrlInput: GetUploadVideoSignedUrlInput!): UploadVideoSignedUrlOutput!
   managerRegister(ManagerRegisterInput: ManagerRegisterInput!): AuthTokenOutput!
   managerSignIn(ManagerSignInInput: ManagerSignInInput!): AuthTokenOutput!
@@ -520,8 +527,11 @@ type Query {
   cast(id: Int!): Cast!
   cineast(id: Int!): Cineast!
   crew(id: Int!): Crew!
+  getManagerSeriesForTable(GetManagerSeriesForTableInput: GetManagerSeriesForTableInput!): GetManagerSeriesForTableOutput!
   getManagerSeriesWithImageAndBasicInfo: [Series!]!
+  getMediaAdditionalInfoByMediaId(GetMediaAdditionalInfoByMediaIdParams: GetMediaAdditionalInfoByMediaIdParams!): MediaAdditionalInfo!
   getMediaBasicInfoByMediaId(GetMediaBasicInfoByMediaIdParams: GetMediaBasicInfoByMediaIdParams!): MediaBasicInfo!
+  getMediaImageByMediaId(GetMediaImageByMediaIdParams: GetMediaImageByMediaIdParams!): MediaImage!
   getNextEpisodeNumber(GetNextEpisodeNumberParams: GetNextEpisodeNumberParams!): GetNextEpisodeNumberOutput!
   getNextSeasonNumber(GetNextSeasonNumberParams: GetNextSeasonNumberParams!): GetNextSeasonNumberOutput!
   getSeasonBySeriesId(GetSeasonBySeriesIdParams: GetSeasonBySeriesIdParams!): [Season!]!

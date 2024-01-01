@@ -35,7 +35,7 @@ export class SeriesResolver {
     }
   }
 
-  @Mutation(() => SeriesOutputDto.GetManagerSeriesForTableOutput)
+  @Query(() => SeriesOutputDto.GetManagerSeriesForTableOutput)
   async getManagerSeriesForTable(
     @Args('GetManagerSeriesForTableInput')
     input: SeriesInputDto.GetManagerSeriesForTableInput,

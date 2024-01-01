@@ -24,7 +24,7 @@ export class EntitySaveService {
   @Transactional()
   async saveMultiple(options?: SaveOptions): Promise<EntityBase[]> {
     try {
-      const savedEntities = await this.entityManager.save(this.entities);
+      const savedEntities = await this.entityManager.save(this.entities.reverse());
       if (options?.clear) this.clear();
 
       return savedEntities;

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
-import { EntityManager } from 'typeorm';
+import { EntityManager, SelectQueryBuilder } from 'typeorm';
 import { MediaAdditionalInfo } from './entities/media-additional-info.entity';
 import { Repository } from '../base/RepositoryBase';
 
@@ -12,5 +12,9 @@ export class MediaAdditionalInfoRepository extends Repository<MediaAdditionalInf
 
   public async findMediaAdditionalInfoById(ID: string): Promise<MediaAdditionalInfo> {
     return await this.findOneBy({ ID });
+  }
+
+  public findMediaAdditionalInfoByMediaId(mediaId: string): SelectQueryBuilder<MediaAdditionalInfo> {
+    return this.createQueryBuilder('mediaAdditionalInfo').where('mediaAdditionalInfo.movie = :mediaId OR mediaAdditionalInfo.series = :mediaId', { mediaId });
   }
 }
