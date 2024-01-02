@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { Field, ObjectType } from '@nestjs/graphql';
 
-export namespace MediaImageOutputDto {
+export namespace ImageOutputDto {
   @ObjectType()
-  export class MediaImageIdOutput {
+  export class ImageIdOutput {
     @Field(() => String)
     ID: string;
   }

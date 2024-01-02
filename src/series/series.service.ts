@@ -6,7 +6,7 @@ import { SeriesInputDto } from './dto/series.input.dto';
 import { SeriesOutputDto } from './dto/series.output.dto';
 import { CommonOutputDto } from '../common/dto/common.dto';
 import { ManagerService } from '../manager/manager.service';
-import { MediaImageService } from '../media-image/media-image.service';
+import { ImageService } from '../image/image.service';
 import { MediaBasicInfoService } from '../media-basic-info/media-basic-info.service';
 import { MediaAdditionalInfoService } from '../media-additional-info/media-additional-info.service';
 
@@ -15,7 +15,7 @@ export class SeriesService {
   constructor(
     private readonly seriesRepository: SeriesRepository,
     private readonly managerService: ManagerService,
-    private readonly mediaImageService: MediaImageService,
+    private readonly imageService: ImageService,
     private readonly mediaBasicInfoService: MediaBasicInfoService,
     private readonly mediaAdditionalInfoService: MediaAdditionalInfoService,
     private readonly entitySaveService: EntitySaveService,
@@ -27,7 +27,7 @@ export class SeriesService {
 
       const manager = await this.managerService.findByEmail(currentManage.email);
 
-      await this.mediaImageService.assignMediaImageToMedia(input.MediaImageId, series, this.entitySaveService);
+      await this.imageService.assignImageToMedia(input.ImageId, series, this.entitySaveService);
       await this.mediaBasicInfoService.createMediaBasicInfo(input.MediaBasicInfo, series, this.entitySaveService);
       await this.mediaAdditionalInfoService.createMediaAdditionalInfo(input.MediaAdditionalInfo, series, this.entitySaveService);
 
@@ -48,7 +48,7 @@ export class SeriesService {
 
       await this.mediaBasicInfoService.updateMediaBasicInfo(series.mediaBasicInfo.ID, input.MediaBasicInfo, this.entitySaveService);
       await this.mediaAdditionalInfoService.updateMediaAdditionalInfo(series.mediaAdditionalInfo.ID, input.MediaAdditionalInfo, this.entitySaveService);
-      await this.mediaImageService.updateMediaImage(series.mediaImage.ID, input.MediaImage, this.entitySaveService);
+      await this.imageService.updateImage(series.image.ID, input.Image, this.entitySaveService);
 
       this.entitySaveService.push(series);
       await this.entitySaveService.saveMultiple();
@@ -80,9 +80,9 @@ export class SeriesService {
           'series.ID',
           'series.isFree',
           'series.priceInDollar',
-          'mediaImage.ID',
-          'mediaImage.variant',
-          'mediaImage.url',
+          'image.ID',
+          'image.variant',
+          'image.url',
           'mediaBasicInfo.plotSummary',
           'mediaBasicInfo.releaseDate',
           'mediaBasicInfo.title',
@@ -122,7 +122,7 @@ export class SeriesService {
           originalLanguage: series.mediaAdditionalInfo.originalLanguage,
           genre: series.mediaAdditionalInfo.genre,
           status: series.mediaAdditionalInfo.status,
-          mediaImageUrl: series.mediaImage.url,
+          imageUrl: series.image.url,
         };
       });
 

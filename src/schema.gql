@@ -29,16 +29,17 @@ input ChangeThumbnailImageInput {
 }
 
 type Cineast {
-  DOB: Float!
   ID: String!
   award: [String!]!
   bio: String!
   country: String!
   createdAt: Float!
+  dateOfBirth: Float!
   deletedAt: Float!
   externalLink: ExternalLink!
   fullName: String!
   gender: String!
+  image: Image!
   movieCineast: MovieCineast!
   profession: String!
   seriesCineast: SeriesCineast!
@@ -47,13 +48,19 @@ type Cineast {
 }
 
 input CreateCineastInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  Award: String!
+  Bio: String!
+  Country: String!
+  DateOfBirth: String!
+  FullName: String!
+  Gender: String!
+  ImageId: String!
+  Profession: String!
 }
 
 input CreateEpisodeInput {
+  ImageId: String!
   MediaBasicInfo: CreateMediaBasicInfoInput!
-  MediaImageId: String!
   Number: Float!
   SeasonId: String!
   SignedUrlKeyId: String!
@@ -70,6 +77,12 @@ input CreateFinancialInfoInput {
   Budget: Float!
   NetProfit: Float!
   Revenue: Float!
+}
+
+input CreateImageInput {
+  Base64: String!
+  Mime: String!
+  Variant: String!
 }
 
 input CreateManagerActivityInput {
@@ -90,22 +103,16 @@ input CreateMediaBasicInfoInput {
   Title: String!
 }
 
-input CreateMediaImageInput {
-  Base64: String!
-  Mime: String!
-  Variant: String!
-}
-
 input CreateMovieCineastInput {
   """Example field (placeholder)"""
   exampleField: Int!
 }
 
 input CreateMovieInput {
+  ImageId: String!
   MediaAdditionalInfo: CreateMediaAdditionalInfoInput!
   MediaBasicInfo: CreateMediaBasicInfoInput!
   MediaFinanacialInfo: CreateFinancialInfoInput!
-  MediaImageId: String!
   SignedUrlKeyId: String!
   VideoId: String!
 }
@@ -121,16 +128,21 @@ input CreateReviewInput {
 }
 
 input CreateSeasonInput {
+  ImageId: String!
   MediaBasicInfo: CreateMediaBasicInfoInput!
-  MediaImageId: String!
   Number: Float!
   SeriesId: String!
 }
 
+input CreateSeriesCineastInput {
+  CineastId: String!
+  SeriesId: String!
+}
+
 input CreateSeriesInput {
+  ImageId: String!
   MediaAdditionalInfo: CreateMediaAdditionalInfoInput!
   MediaBasicInfo: CreateMediaBasicInfoInput!
-  MediaImageId: String!
 }
 
 input CreateTrailerCineastInput {
@@ -139,9 +151,9 @@ input CreateTrailerCineastInput {
 }
 
 input CreateTrailerInput {
+  ImageId: String!
   MediaBasicInfo: CreateMediaBasicInfoInput!
   MediaId: String!
-  MediaImageId: String!
   MediaType: String!
   SignedUrlKeyId: String!
   VideoId: String!
@@ -165,8 +177,8 @@ type Episode {
   createdAt: Float!
   deletedAt: Float!
   externalLink: [ExternalLink!]!
+  image: Image!
   mediaBasicInfo: MediaBasicInfo!
-  mediaImage: MediaImage!
   mediaResource: MediaResource!
   number: Float!
   review: [Review!]!
@@ -212,6 +224,14 @@ type FinancialInfo {
   updatedAt: Float!
 }
 
+input GetCineastsBySeriesIdParams {
+  SeriesId: String!
+}
+
+input GetImageByMediaIdParams {
+  MediaId: String!
+}
+
 input GetManagerSeriesForTableInput {
   Page: Float!
   PageSize: Float!
@@ -226,7 +246,7 @@ type GetManagerTableOutputSeriesList {
   ID: String!
   createdAt: Float!
   genre: String!
-  mediaImageUrl: String!
+  imageUrl: String!
   originCountry: String!
   originalLanguage: String!
   plotSummary: String!
@@ -241,10 +261,6 @@ input GetMediaAdditionalInfoByMediaIdParams {
 }
 
 input GetMediaBasicInfoByMediaIdParams {
-  MediaId: String!
-}
-
-input GetMediaImageByMediaIdParams {
   MediaId: String!
 }
 
@@ -268,10 +284,6 @@ input GetSeasonBySeriesIdParams {
   SeriesId: String!
 }
 
-input GetSeriesCineastBySeriesIdParams {
-  SeriesId: String!
-}
-
 input GetUploadVideoSignedUrlInput {
   Height: Float!
   MediaType: String!
@@ -279,6 +291,25 @@ input GetUploadVideoSignedUrlInput {
   RunTime: Float!
   SizeInKb: Float!
   Width: Float!
+}
+
+type Image {
+  ID: String!
+  cineast: Cineast!
+  createdAt: Float!
+  deletedAt: Float!
+  episode: Episode!
+  movie: Movie!
+  season: Season!
+  series: Series!
+  trailer: Trailer!
+  updatedAt: Float!
+  url: String!
+  variant: String!
+}
+
+type ImageIdOutput {
+  ID: String!
 }
 
 type Manager {
@@ -346,24 +377,6 @@ type MediaBasicInfo {
   updatedAt: Float!
 }
 
-type MediaImage {
-  ID: String!
-  createdAt: Float!
-  deletedAt: Float!
-  episode: Episode!
-  movie: Movie!
-  season: Season!
-  series: Series!
-  trailer: Trailer!
-  updatedAt: Float!
-  url: String!
-  variant: String!
-}
-
-type MediaImageIdOutput {
-  ID: String!
-}
-
 type MediaResource {
   ID: String!
   createdAt: Float!
@@ -383,11 +396,11 @@ type Movie {
   deletedAt: Float!
   externalLink: ExternalLink!
   financialInfo: FinancialInfo!
+  image: Image!
   isFree: Boolean!
   manager: Manager!
   mediaAdditionalInfo: MediaAdditionalInfo!
   mediaBasicInfo: MediaBasicInfo!
-  mediaImage: MediaImage!
   mediaResource: MediaResource!
   movieCineast: MovieCineast!
   priceInDollar: Float!
@@ -409,17 +422,18 @@ type MovieCineast {
 type Mutation {
   changeEpisodeSeason(ChangeEpisodeSeasonInput: ChangeEpisodeSeasonInput!): SuccessOutput!
   changeThumbnailImage(ChangeThumbnailImageInput: ChangeThumbnailImageInput!): SuccessOutput!
-  createCineast(createCineastInput: CreateCineastInput!): Cineast!
+  createCineast(CreateCineastInput: CreateCineastInput!): SuccessOutput!
   createEpisode(CreateEpisodeInput: CreateEpisodeInput!): SuccessOutput!
   createErrorLog(CreateErrorLogInput: CreateErrorLogInput!): ErrorLog!
+  createImage(CreateImageInput: CreateImageInput!): ImageIdOutput!
   createManagerActivity(createManagerActivityInput: CreateManagerActivityInput!): ManagerActivity!
-  createMediaImage(CreateMediaImageInput: CreateMediaImageInput!): MediaImageIdOutput!
   createMovie(CreateMovieInput: CreateMovieInput!): SuccessOutput!
   createMovieCineast(createMovieCineastInput: CreateMovieCineastInput!): MovieCineast!
   createProfileInfo(createProfileInfoInput: CreateProfileInfoInput!): ProfileInfo!
   createReview(createReviewInput: CreateReviewInput!): Review!
   createSeason(CreateSeasonInput: CreateSeasonInput!): SuccessOutput!
   createSeries(CreateSeriesInput: CreateSeriesInput!): SuccessOutput!
+  createSeriesCineast(CreateSeriesCineastInput: CreateSeriesCineastInput!): SuccessOutput!
   createTrailer(CreateTrailerInput: CreateTrailerInput!): SuccessOutput!
   createTrailerCineast(createTrailerCineastInput: CreateTrailerCineastInput!): TrailerCineast!
   createUserActivity(createUserActivityInput: CreateUserActivityInput!): UserActivity!
@@ -428,14 +442,12 @@ type Mutation {
   getUploadVideoSignedUrl(GetUploadVideoSignedUrlInput: GetUploadVideoSignedUrlInput!): UploadVideoSignedUrlOutput!
   managerRegister(ManagerRegisterInput: ManagerRegisterInput!): AuthTokenOutput!
   managerSignIn(ManagerSignInInput: ManagerSignInInput!): AuthTokenOutput!
-  removeCineast(id: Int!): Cineast!
   removeManagerActivity(id: Int!): ManagerActivity!
   removeMovieCineast(id: Int!): MovieCineast!
   removeProfileInfo(id: Int!): ProfileInfo!
   removeReview(id: Int!): Review!
   removeTrailerCineast(id: Int!): TrailerCineast!
   removeUserActivity(id: Int!): UserActivity!
-  updateCineast(updateCineastInput: UpdateCineastInput!): Cineast!
   updateManagerActivity(updateManagerActivityInput: UpdateManagerActivityInput!): ManagerActivity!
   updateMediaBasicInfo(UpdateMediaBasicInfoInput: UpdateMediaBasicInfoInput!, UpdateMediaBasicInfoParams: UpdateMediaBasicInfoParams!): SuccessOutput!
   updateMovieCineast(updateMovieCineastInput: UpdateMovieCineastInput!): MovieCineast!
@@ -449,7 +461,7 @@ type Mutation {
 }
 
 type ProfileInfo {
-  DOB: Float!
+  DateOfBirth: Float!
   ID: String!
   address: String!
   contactNumber: String!
@@ -464,16 +476,15 @@ type ProfileInfo {
 }
 
 type Query {
-  cineast(id: Int!): Cineast!
+  getCineastsBySeriesId(GetCineastsBySeriesIdParams: GetCineastsBySeriesIdParams!): [Cineast!]!
+  getImageByMediaId(GetImageByMediaIdParams: GetImageByMediaIdParams!): Image!
   getManagerSeriesForTable(GetManagerSeriesForTableInput: GetManagerSeriesForTableInput!): GetManagerSeriesForTableOutput!
   getManagerSeriesWithImageAndBasicInfo: [Series!]!
   getMediaAdditionalInfoByMediaId(GetMediaAdditionalInfoByMediaIdParams: GetMediaAdditionalInfoByMediaIdParams!): MediaAdditionalInfo!
   getMediaBasicInfoByMediaId(GetMediaBasicInfoByMediaIdParams: GetMediaBasicInfoByMediaIdParams!): MediaBasicInfo!
-  getMediaImageByMediaId(GetMediaImageByMediaIdParams: GetMediaImageByMediaIdParams!): MediaImage!
   getNextEpisodeNumber(GetNextEpisodeNumberParams: GetNextEpisodeNumberParams!): GetNextEpisodeNumberOutput!
   getNextSeasonNumber(GetNextSeasonNumberParams: GetNextSeasonNumberParams!): GetNextSeasonNumberOutput!
   getSeasonBySeriesId(GetSeasonBySeriesIdParams: GetSeasonBySeriesIdParams!): [Season!]!
-  getSeriesCineastBySeriesId(GetSeriesCineastBySeriesIdParams: GetSeriesCineastBySeriesIdParams!): Cineast!
   managerActivity(id: Int!): ManagerActivity!
   movieCineast(id: Int!): MovieCineast!
   profileInfo(id: Int!): ProfileInfo!
@@ -501,8 +512,8 @@ type Season {
   createdAt: Float!
   deletedAt: Float!
   episode: [Episode!]!
+  image: Image!
   mediaBasicInfo: MediaBasicInfo!
-  mediaImage: MediaImage!
   number: Float!
   series: Series!
   trailer: Trailer!
@@ -516,11 +527,11 @@ type Series {
   deletedAt: Float!
   externalLink: ExternalLink!
   financialInfo: FinancialInfo!
+  image: Image!
   isFree: Float!
   manager: Manager!
   mediaAdditionalInfo: MediaAdditionalInfo!
   mediaBasicInfo: MediaBasicInfo!
-  mediaImage: MediaImage!
   priceInDollar: Float!
   review: Review!
   season: Season!
@@ -547,9 +558,9 @@ type Trailer {
   createdAt: Float!
   deletedAt: Float!
   externalLink: [ExternalLink!]!
+  image: Image!
   manager: Manager!
   mediaBasicInfo: MediaBasicInfo!
-  mediaImage: MediaImage!
   mediaResource: MediaResource!
   movie: Movie!
   review: [Review!]!
@@ -569,10 +580,9 @@ type TrailerCineast {
   updatedAt: Float!
 }
 
-input UpdateCineastInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Float!
+input UpdateImageInput {
+  Url: String
+  Variant: String
 }
 
 input UpdateManagerActivityInput {
@@ -598,11 +608,6 @@ input UpdateMediaBasicInfoParams {
   ID: String!
 }
 
-input UpdateMediaImageInput {
-  Url: String
-  Variant: String
-}
-
 input UpdateMovieCineastInput {
   """Example field (placeholder)"""
   exampleField: Int
@@ -622,9 +627,9 @@ input UpdateReviewInput {
 }
 
 input UpdateSeriesInput {
+  Image: UpdateImageInput!
   MediaAdditionalInfo: UpdateMediaAdditionalInfoInput!
   MediaBasicInfo: UpdateMediaBasicInfoInput!
-  MediaImage: UpdateMediaImageInput!
 }
 
 input UpdateSeriesParams {

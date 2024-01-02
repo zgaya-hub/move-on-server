@@ -40,7 +40,7 @@ export namespace SeriesOutputDto {
     releaseDate: number;
 
     @Field(() => String)
-    mediaImageUrl: string;
+    imageUrl: string;
 
     @Field(() => Number)
     createdAt: number;

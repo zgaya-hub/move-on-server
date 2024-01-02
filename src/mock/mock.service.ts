@@ -43,7 +43,7 @@ export class MockService {
       return this.generateMockRecord(value);
     } else if (key === 'ID') {
       return uuid.v4();
-    } else if (key === 'mediaImageUrl') {
+    } else if (key === 'imageUrl') {
       return this.getRandomImageUrl();
     } else {
       // For other data types, generate random values

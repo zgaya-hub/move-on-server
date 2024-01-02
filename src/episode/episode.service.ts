@@ -6,7 +6,7 @@ import { CommonOutputDto } from '../common/dto/common.dto';
 import { MediaBasicInfoService } from '../media-basic-info/media-basic-info.service';
 import { MediaResourceService } from '../media-resource/media-resource.service';
 import { EntitySaveService } from '../adapter/save.service';
-import { MediaImageService } from '../media-image/media-image.service';
+import { ImageService } from '../image/image.service';
 import { SeasonService } from '../season/season.service';
 import { EpisodeRepository } from './episode.repository';
 import { EpisodeOutputDto } from './dto/episode.output.dto';
@@ -20,7 +20,7 @@ export class EpisodeService {
     private readonly mediaResourceService: MediaResourceService,
     private readonly entitySaveService: EntitySaveService,
     private readonly episodeRepository: EpisodeRepository,
-    private readonly mediaImageService: MediaImageService,
+    private readonly imageService: ImageService,
   ) {}
 
   async createEpisode(input: EpisodeInputDto.CreateEpisodeInput): Promise<CommonOutputDto.SuccessOutput> {
@@ -30,7 +30,7 @@ export class EpisodeService {
       const season = await this.seasonService.findSeasonById(input.SeasonId);
 
       await this.videoService.assignVideoToMedia(input.VideoId, episode, this.entitySaveService);
-      await this.mediaImageService.assignMediaImageToMedia(input.MediaImageId, episode, this.entitySaveService);
+      await this.imageService.assignImageToMedia(input.ImageId, episode, this.entitySaveService);
       await this.mediaBasicInfoService.createMediaBasicInfo(input.MediaBasicInfo, episode, this.entitySaveService);
       await this.mediaResourceService.createMediaResource({ SignedUrlKeyId: input.SignedUrlKeyId }, episode, this.entitySaveService);
 

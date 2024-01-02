@@ -15,7 +15,7 @@
   yarn migration:generate src/financial-info/migrations/financial-info &&
   yarn migration:generate src/manager-activity/migrations/manager-activity &&
   yarn migration:generate src/media-resource/migrations/media-resource &&
-  yarn migration:generate src/media-image/migrations/media-image &&
+  yarn migration:generate src/image/migrations/image &&
   yarn migration:generate src/media-information/migrations/media-information &&
   yarn migration:generate src/movie-cast/migrations/movie-cast &&
   yarn migration:generate src/movie-crew/migrations/movie-crew &&

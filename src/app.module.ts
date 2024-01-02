@@ -17,7 +17,7 @@ import { ProfileInfoModule } from './profile-info/profile-info.module';
 import { UserActivityModule } from './user-activity/user-activity.module';
 import { ManagerActivityModule } from './manager-activity/manager-activity.module';
 import { CineastModule } from './cineast/cineast.module';
-import { MediaImageModule } from './media-image/media-image.module';
+import { ImageModule } from './image/image.module';
 import { ExternalLinkModule } from './external-link/external-link.module';
 import { ReviewModule } from './review/review.module';
 import { AwsModule } from './aws/aws.module';
@@ -94,7 +94,7 @@ import { TrailerCineastModule } from './trailer-cineast/trailer-cineast.module';
     UserActivityModule,
     ManagerActivityModule,
     CineastModule,
-    MediaImageModule,
+    ImageModule,
     ExternalLinkModule,
     ReviewModule,
     AwsModule,

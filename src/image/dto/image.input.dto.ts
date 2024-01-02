@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import { MediaImageVariantEnum } from 'src/common/enum/common.enum';
+import { ImageVariantEnum } from 'src/common/enum/common.enum';
 import { Field, InputType, OmitType } from '@nestjs/graphql';
 import { IsEnum, IsMimeType, IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
+import { ImageMimeType } from '../types';
 
-export namespace MediaImageInputDto {
+export namespace ImageInputDto {
   @InputType()
-  export class CreateMediaImageInput {
+  export class CreateImageInput {
     @Field(() => String)
     @IsNotEmpty()
     @IsString()
@@ -18,12 +19,12 @@ export namespace MediaImageInputDto {
 
     @Field(() => String)
     @IsNotEmpty()
-    @IsEnum(MediaImageVariantEnum)
-    Variant: MediaImageVariantEnum;
+    @IsEnum(ImageVariantEnum)
+    Variant: ImageVariantEnum;
   }
 
   @InputType()
-  export class UpdateMediaImageInput {
+  export class UpdateImageInput {
     @Field(() => String, { nullable: true })
     @IsOptional()
     @IsString()
@@ -31,12 +32,12 @@ export namespace MediaImageInputDto {
 
     @Field(() => String, { nullable: true })
     @IsOptional()
-    @IsEnum(MediaImageVariantEnum)
-    Variant: MediaImageVariantEnum;
+    @IsEnum(ImageVariantEnum)
+    Variant: ImageVariantEnum;
   }
 
   @InputType()
-  export class ChangeThumbnailImageInput extends OmitType(CreateMediaImageInput, ['Variant']) {
+  export class ChangeThumbnailImageInput extends OmitType(CreateImageInput, ['Variant']) {
     @Field(() => String)
     @IsNotEmpty()
     @IsUUID()
@@ -44,7 +45,7 @@ export namespace MediaImageInputDto {
   }
 
   @InputType()
-  export class GetMediaImageByMediaIdParams {
+  export class GetImageByMediaIdParams {
     @Field(() => String)
     @IsNotEmpty()
     @IsUUID()

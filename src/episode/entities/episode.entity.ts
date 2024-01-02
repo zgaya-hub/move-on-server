@@ -2,7 +2,7 @@ import { ObjectType, Field } from '@nestjs/graphql';
 import { EntityBase } from 'src/base/EntityBase';
 import { Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { Season } from 'src/season/entities/season.entity';
-import { MediaImage } from 'src/media-image/entities/media-image.entity';
+import { Image } from 'src/image/entities/image.entity';
 import { ExternalLink } from 'src/external-link/entities/external-link.entity';
 import { Review } from 'src/review/entities/review.entity';
 import { IntColumn } from 'src/decorator/entity/entity.decorator';
@@ -35,9 +35,9 @@ export class Episode extends EntityBase {
   @OneToOne(() => MediaResource, (mediaResource) => mediaResource.episode)
   mediaResource: MediaResource;
 
-  @Field(() => MediaImage)
-  @OneToOne(() => MediaImage, (mediaImage) => mediaImage.episode)
-  mediaImage: MediaImage;
+  @Field(() => Image)
+  @OneToOne(() => Image, (image) => image.episode)
+  image: Image;
 
   @Field(() => [ExternalLink])
   @OneToMany(() => ExternalLink, (externalLink) => externalLink.episode)

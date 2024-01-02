@@ -3,7 +3,7 @@ import { ObjectType, Field } from '@nestjs/graphql';
 import { EntityBase } from 'src/base/EntityBase';
 import { Manager } from 'src/manager/entities/manager.entity';
 import { DecimalColumn, JoinColumn, TinyintColumn } from 'src/decorator/entity/entity.decorator';
-import { MediaImage } from 'src/media-image/entities/media-image.entity';
+import { Image } from 'src/image/entities/image.entity';
 import { ExternalLink } from 'src/external-link/entities/external-link.entity';
 import { Review } from 'src/review/entities/review.entity';
 import { AchievementInfo } from 'src/achievement-info/entities/achievement-info.entity';
@@ -66,9 +66,9 @@ export class Movie extends EntityBase {
   @OneToMany(() => MovieCineast, (movieCineast) => movieCineast.cineast)
   movieCineast: MovieCineast[];
 
-  @Field(() => MediaImage)
-  @OneToOne(() => MediaImage, (mediaImage) => mediaImage.movie)
-  mediaImage: MediaImage;
+  @Field(() => Image)
+  @OneToOne(() => Image, (image) => image.movie)
+  image: Image;
 
   @Field(() => ExternalLink)
   @OneToMany(() => ExternalLink, (externalLink) => externalLink.movie)

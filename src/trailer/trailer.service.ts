@@ -7,7 +7,7 @@ import { CommonOutputDto } from '../common/dto/common.dto';
 import { MediaBasicInfoService } from '../media-basic-info/media-basic-info.service';
 import { MediaResourceService } from '../media-resource/media-resource.service';
 import { EntitySaveService } from '../adapter/save.service';
-import { MediaImageService } from '../media-image/media-image.service';
+import { ImageService } from '../image/image.service';
 import { TrailerMediaEnum } from './enum/trailer.enum';
 import { MovieService } from 'src/movie/movie.service';
 import { SeriesService } from 'src/series/series.service';
@@ -26,7 +26,7 @@ export class TrailerService {
     private readonly managerService: ManagerService,
     private readonly mediaResourceService: MediaResourceService,
     private readonly entitySaveService: EntitySaveService,
-    private readonly mediaImageService: MediaImageService,
+    private readonly imageService: ImageService,
     private readonly movieService: MovieService,
     private readonly seriesService: SeriesService,
     private readonly seasonService: SeasonService,
@@ -40,7 +40,7 @@ export class TrailerService {
 
       const manager = await this.managerService.findByEmail(currentManager.email);
       await this.videoService.assignVideoToMedia(input.VideoId, trailer, this.entitySaveService);
-      await this.mediaImageService.assignMediaImageToMedia(input.MediaImageId, trailer, this.entitySaveService);
+      await this.imageService.assignImageToMedia(input.ImageId, trailer, this.entitySaveService);
 
       await this.mediaResourceService.createMediaResource({ SignedUrlKeyId: input.SignedUrlKeyId }, trailer, this.entitySaveService);
       await this.mediaBasicInfoService.createMediaBasicInfo(input.MediaBasicInfo, trailer, this.entitySaveService);

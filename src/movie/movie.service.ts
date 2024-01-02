@@ -8,7 +8,7 @@ import { MediaAdditionalInfoService } from '../media-additional-info/media-addit
 import { MediaBasicInfoService } from '../media-basic-info/media-basic-info.service';
 import { MediaResourceService } from '../media-resource/media-resource.service';
 import { EntitySaveService } from '../adapter/save.service';
-import { MediaImageService } from '../media-image/media-image.service';
+import { ImageService } from '../image/image.service';
 import { FinancialInfoService } from '../financial-info/financial-info.service';
 import { MovieRepository } from './movie.repository';
 
@@ -21,7 +21,7 @@ export class MovieService {
     private readonly managerService: ManagerService,
     private readonly mediaResourceService: MediaResourceService,
     private readonly entitySaveService: EntitySaveService,
-    private readonly mediaImageService: MediaImageService,
+    private readonly imageService: ImageService,
     private readonly financialInfoService: FinancialInfoService,
     private readonly movieRepository: MovieRepository,
   ) {}
@@ -33,7 +33,7 @@ export class MovieService {
       const manager = await this.managerService.findByEmail(currentManager.email);
 
       await this.videoService.assignVideoToMedia(input.VideoId, movie, this.entitySaveService);
-      await this.mediaImageService.assignMediaImageToMedia(input.MediaImageId, movie, this.entitySaveService);
+      await this.imageService.assignImageToMedia(input.ImageId, movie, this.entitySaveService);
       await this.mediaResourceService.createMediaResource({ SignedUrlKeyId: input.SignedUrlKeyId }, movie, this.entitySaveService);
       await this.mediaBasicInfoService.createMediaBasicInfo(input.MediaBasicInfo, movie, this.entitySaveService);
       if (input.MediaAdditionalInfo) {

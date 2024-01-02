@@ -3,7 +3,7 @@ import { Field, InputType, PartialType } from '@nestjs/graphql';
 import { IsArray, IsNotEmpty, IsNumber, IsObject, IsOptional, IsUUID } from 'class-validator';
 import { MediaBasicInfoInputDto } from 'src/media-basic-info/dto/media-basic-info.input.dto';
 import { MediaAdditionalInfoInputDto } from 'src/media-additional-info/dto/media-additional-info.input.dto';
-import { MediaImageInputDto } from 'src/media-image/dto/media-image.input.dto';
+import { ImageInputDto } from 'src/image/dto/image.input.dto';
 
 export namespace SeriesInputDto {
   @InputType()
@@ -11,7 +11,7 @@ export namespace SeriesInputDto {
     @Field(() => String)
     @IsNotEmpty()
     @IsUUID()
-    MediaImageId: string;
+    ImageId: string;
 
     @Field(() => MediaBasicInfoInputDto.CreateMediaBasicInfoInput)
     @IsObject()
@@ -66,10 +66,10 @@ export namespace SeriesInputDto {
     @IsNotEmpty()
     MediaAdditionalInfo: MediaAdditionalInfoInputDto.UpdateMediaAdditionalInfoInput;
 
-    @Field(() => MediaImageInputDto.UpdateMediaImageInput)
+    @Field(() => ImageInputDto.UpdateImageInput)
     @IsObject()
     @IsNotEmpty()
-    MediaImage: MediaImageInputDto.UpdateMediaImageInput;
+    Image: ImageInputDto.UpdateImageInput;
   }
 
   @InputType()

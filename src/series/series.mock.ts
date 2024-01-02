@@ -1,14 +1,14 @@
-import { MediaImageVariantEnum } from 'src/common/enum/common.enum';
+import { ImageVariantEnum } from 'src/common/enum/common.enum';
 
 export const MANAGER_SERIES_MOCK = {
   ID: '0d1b1c48-d535-49f2-971a-44e446c23d08',
   seriesPriceInDollar: 11100,
   seriesIsFree: true,
-  mediaImage: [
+  image: [
     {
       ID: 'e780d09e-32a7-4a4e-9f88-ca97d7b2b975',
-      mediaImageType: MediaImageVariantEnum.THUMBNAIL,
-      mediaImageUrl:
+      imageType: ImageVariantEnum.THUMBNAIL,
+      imageUrl:
         'https://media.istockphoto.com/id/1452604857/photo/businessman-touching-the-brain-working-of-artificial-intelligence-automation-predictive.webp?b=1&s=170667a&w=0&k=20&c=iJp6e2C-l2lRmyG3ColHMpXe0QYrPnrfQQc2O6PsYC4=',
     },
   ],

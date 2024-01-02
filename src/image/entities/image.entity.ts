@@ -7,14 +7,15 @@ import { Season } from 'src/season/entities/season.entity';
 import { Episode } from 'src/episode/entities/episode.entity';
 import { EntityBase } from 'src/base/EntityBase';
 import { Trailer } from 'src/trailer/entities/trailer.entity';
-import { MediaImageVariantEnum } from 'src/common/enum/common.enum';
+import { ImageVariantEnum } from 'src/common/enum/common.enum';
+import { Cineast } from 'src/cineast/entities/cineast.entity';
 
 @ObjectType()
 @Entity()
-export class MediaImage extends EntityBase {
+export class Image extends EntityBase {
   @Field()
-  @EnumColumn({ enum: MediaImageVariantEnum, default: MediaImageVariantEnum.THUMBNAIL })
-  variant: MediaImageVariantEnum;
+  @EnumColumn({ enum: ImageVariantEnum, default: ImageVariantEnum.THUMBNAIL })
+  variant: ImageVariantEnum;
 
   @Field()
   @VarcharColumn()
@@ -22,31 +23,37 @@ export class MediaImage extends EntityBase {
 
   // is nullable possible
   @Field(() => Movie)
-  @OneToOne(() => Movie, (movie) => movie.mediaImage, { nullable: true, onDelete: 'CASCADE' })
+  @OneToOne(() => Movie, (movie) => movie.image, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   movie: Movie;
 
   // is nullable possible
   @Field(() => Series)
-  @OneToOne(() => Series, (series) => series.mediaImage, { nullable: true, onDelete: 'CASCADE' })
+  @OneToOne(() => Series, (series) => series.image, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   series: Series;
 
   // is nullable possible
+  @Field(() => Cineast)
+  @OneToOne(() => Cineast, (cineast) => cineast.image, { nullable: true, onDelete: 'CASCADE' })
+  @JoinColumn()
+  cineast: Cineast;
+
+  // is nullable possible
   @Field(() => Season)
-  @OneToOne(() => Season, (season) => season.mediaImage, { nullable: true, onDelete: 'CASCADE' })
+  @OneToOne(() => Season, (season) => season.image, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   season: Season;
 
   // is nullable possible
   @Field(() => Episode)
-  @OneToOne(() => Episode, (episode) => episode.mediaImage, { nullable: true, onDelete: 'CASCADE' })
+  @OneToOne(() => Episode, (episode) => episode.image, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   episode: Episode;
 
   // is nullable possible
   @Field(() => Trailer)
-  @OneToOne(() => Trailer, (trailer) => trailer.mediaImage, { nullable: true, onDelete: 'CASCADE' })
+  @OneToOne(() => Trailer, (trailer) => trailer.image, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   trailer: Trailer;
 }

@@ -1,8 +1,12 @@
 import { Module } from '@nestjs/common';
 import { CineastService } from './cineast.service';
 import { CineastResolver } from './cineast.resolver';
+import { CineastRepository } from './cineast.repository';
+import { ImageModule } from 'src/image/image.module';
 
 @Module({
-  providers: [CineastResolver, CineastService],
+  imports: [ImageModule],
+  providers: [CineastResolver, CineastService, CineastRepository],
+  exports: [CineastService],
 })
 export class CineastModule {}

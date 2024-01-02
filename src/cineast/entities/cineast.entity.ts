@@ -1,6 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { EntityBase } from 'src/base/EntityBase';
-import { Entity, OneToMany } from 'typeorm';
+import { Entity, OneToMany, OneToOne } from 'typeorm';
 import { MediaCountriesEnum, GenderEnum } from 'src/common/enum/common.enum';
 import { ArrayColumn, EnumColumn, IntColumn, TextColumn, VarcharColumn } from 'src/decorator/entity/entity.decorator';
 import { CineastProfessionEnum } from '../enum/cineast.enum';
@@ -8,6 +8,7 @@ import { MovieCineast } from 'src/movie-cineast/entities/movie-cineast.entity';
 import { SeriesCineast } from 'src/series-cineast/entities/series-cineast.entity';
 import { TrailerCineast } from 'src/trailer-cineast/entities/trailer-cineast.entity';
 import { ExternalLink } from 'src/external-link/entities/external-link.entity';
+import { Image } from 'src/image/entities/image.entity';
 
 @ObjectType()
 @Entity()
@@ -22,7 +23,7 @@ export class Cineast extends EntityBase {
 
   @Field()
   @IntColumn()
-  DOB: number;
+  dateOfBirth: number;
 
   @Field()
   @TextColumn()
@@ -39,6 +40,10 @@ export class Cineast extends EntityBase {
   @Field(() => [String])
   @ArrayColumn()
   award: Array<string>;
+
+  @Field(() => Image)
+  @OneToOne(() => Image, (image) => image.cineast)
+  image: Image;
 
   @Field(() => MovieCineast)
   @OneToMany(() => MovieCineast, (movieCineast) => movieCineast.cineast)

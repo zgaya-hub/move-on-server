@@ -5,7 +5,7 @@ import { Entity, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { MediaBasicInfo } from 'src/media-basic-info/entities/media-basic-info.entity';
 import { Video } from 'src/video/entities/video.entity';
 import { Manager } from 'src/manager/entities/manager.entity';
-import { MediaImage } from 'src/media-image/entities/media-image.entity';
+import { Image } from 'src/image/entities/image.entity';
 import { ExternalLink } from 'src/external-link/entities/external-link.entity';
 import { Review } from 'src/review/entities/review.entity';
 import { MediaResource } from 'src/media-resource/entities/media-resource.entity';
@@ -39,9 +39,9 @@ export class Trailer extends EntityBase {
   @OneToMany(() => TrailerCineast, (trailerCineast) => trailerCineast.cineast)
   trailerCineast: TrailerCineast[];
 
-  @Field(() => MediaImage)
-  @OneToOne(() => MediaImage, (mediaImage) => mediaImage.trailer)
-  mediaImage: MediaImage;
+  @Field(() => Image)
+  @OneToOne(() => Image, (image) => image.trailer)
+  image: Image;
 
   @Field(() => [ExternalLink])
   @OneToMany(() => ExternalLink, (externalLink) => externalLink.trailer)

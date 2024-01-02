@@ -17,7 +17,7 @@ export class SeriesRepository extends Repository<Series> {
   findManagerSeriesWithOneToOneJoins(managerId: string): SelectQueryBuilder<Series> {
     return this.createQueryBuilder('series')
       .leftJoinAndSelect('series.mediaBasicInfo', 'mediaBasicInfo')
-      .leftJoinAndSelect('series.mediaImage', 'mediaImage')
+      .leftJoinAndSelect('series.image', 'image')
       .leftJoinAndSelect('series.mediaAdditionalInfo', 'mediaAdditionalInfo')
       .leftJoinAndSelect('series.achievementInfo', 'achievementInfo')
       .leftJoinAndSelect('series.financialInfo', 'financialInfo')
@@ -27,7 +27,7 @@ export class SeriesRepository extends Repository<Series> {
   findSeriesByIdWithOneToOneJoins(seriesId: string): SelectQueryBuilder<Series> {
     return this.createQueryBuilder('series')
       .leftJoinAndSelect('series.mediaBasicInfo', 'mediaBasicInfo')
-      .leftJoinAndSelect('series.mediaImage', 'mediaImage')
+      .leftJoinAndSelect('series.image', 'image')
       .leftJoinAndSelect('series.mediaAdditionalInfo', 'mediaAdditionalInfo')
       .leftJoinAndSelect('series.achievementInfo', 'achievementInfo')
       .leftJoinAndSelect('series.financialInfo', 'financialInfo')
@@ -38,7 +38,7 @@ export class SeriesRepository extends Repository<Series> {
     return this.createQueryBuilder('series')
       .leftJoinAndSelect('series.mediaBasicInfo', 'mediaBasicInfo')
       .leftJoinAndSelect('series.mediaAdditionalInfo', 'mediaAdditionalInfo')
-      .leftJoinAndSelect('series.mediaImage', 'mediaImage')
+      .leftJoinAndSelect('series.image', 'image')
       .where('series.manager = :managerId', { managerId })
       .take(pageSize)
       .skip(page * pageSize)
@@ -51,7 +51,7 @@ export class SeriesRepository extends Repository<Series> {
         'mediaBasicInfo.title',
         'mediaBasicInfo.plotSummary',
         'mediaBasicInfo.releaseDate',
-        'mediaImage.url',
+        'image.url',
         'series.createdAt',
         'series.updatedAt',
       ]);

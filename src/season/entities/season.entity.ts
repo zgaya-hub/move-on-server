@@ -4,7 +4,7 @@ import { Entity, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { Episode } from 'src/episode/entities/episode.entity';
 import { Series } from 'src/series/entities/series.entity';
 import { IntColumn, JoinColumn } from 'src/decorator/entity/entity.decorator';
-import { MediaImage } from 'src/media-image/entities/media-image.entity';
+import { Image } from 'src/image/entities/image.entity';
 import { MediaBasicInfo } from 'src/media-basic-info/entities/media-basic-info.entity';
 import { Trailer } from 'src/trailer/entities/trailer.entity';
 
@@ -28,9 +28,9 @@ export class Season extends EntityBase {
   @OneToOne(() => Trailer, (trailer) => trailer.season)
   trailer: Trailer;
 
-  @Field(() => MediaImage)
-  @OneToOne(() => MediaImage, (mediaImage) => mediaImage.season)
-  mediaImage: MediaImage;
+  @Field(() => Image)
+  @OneToOne(() => Image, (image) => image.season)
+  image: Image;
 
   @Field(() => [Episode])
   @OneToMany(() => Episode, (episode) => episode.season)

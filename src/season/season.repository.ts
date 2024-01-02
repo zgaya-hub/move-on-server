@@ -17,7 +17,7 @@ export class SeasonRepository extends Repository<Season> {
   getSeasonBySeriesId(seriesId: string): SelectQueryBuilder<Season> {
     return this.createQueryBuilder('season')
       .leftJoinAndSelect('season.mediaBasicInfo', 'mediaBasicInfo')
-      .leftJoinAndSelect('season.mediaImage', 'mediaImage')
+      .leftJoinAndSelect('season.image', 'image')
       .where('season.series = :seriesId', { seriesId });
   }
 

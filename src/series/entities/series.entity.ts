@@ -4,7 +4,7 @@ import { EntityBase } from 'src/base/EntityBase';
 import { Season } from 'src/season/entities/season.entity';
 import { Manager } from 'src/manager/entities/manager.entity';
 import { DecimalColumn, JoinColumn, TinyintColumn } from 'src/decorator/entity/entity.decorator';
-import { MediaImage } from 'src/media-image/entities/media-image.entity';
+import { Image } from 'src/image/entities/image.entity';
 import { ExternalLink } from 'src/external-link/entities/external-link.entity';
 import { Review } from 'src/review/entities/review.entity';
 import { AchievementInfo } from 'src/achievement-info/entities/achievement-info.entity';
@@ -56,9 +56,9 @@ export class Series extends EntityBase {
   @OneToMany(() => SeriesCineast, (seriesCineast) => seriesCineast.series)
   seriesCineast: SeriesCineast[];
 
-  @Field(() => MediaImage)
-  @OneToOne(() => MediaImage, (mediaImage) => mediaImage.series)
-  mediaImage: MediaImage;
+  @Field(() => Image)
+  @OneToOne(() => Image, (image) => image.series)
+  image: Image;
 
   @Field(() => ExternalLink)
   @OneToMany(() => ExternalLink, (externalLink) => externalLink.series)

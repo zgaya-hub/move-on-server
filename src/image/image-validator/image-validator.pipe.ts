@@ -1,8 +1,9 @@
 import { Injectable, NotAcceptableException, PayloadTooLargeException, PipeTransform, UnsupportedMediaTypeException } from '@nestjs/common';
-import { MediaImageInputDto } from '../dto/media-image.input.dto';
+import { ImageInputDto } from '../dto/image.input.dto';
 import { imageSize } from 'image-size';
 import { handleOnBase64ToBuffer } from 'src/utilities/function/base64ToBuffer';
-import { MediaImageVariantEnum } from 'src/common/enum/common.enum';
+import { ImageVariantEnum } from 'src/common/enum/common.enum';
+import { ImageMimeType } from '../types';
 
 @Injectable()
 export class ImageValidatorPipe implements PipeTransform {
@@ -13,7 +14,7 @@ export class ImageValidatorPipe implements PipeTransform {
   private readonly MAX_SIZE_IN_KB = 6144;
   private readonly VALID_IMAGE_MIME_TYPES: ImageMimeType[] = ['image/gif', 'image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
 
-  transform(image: MediaImageInputDto.CreateMediaImageInput): MediaImageInputDto.CreateMediaImageInput {
+  transform(image: ImageInputDto.CreateImageInput): ImageInputDto.CreateImageInput {
     const { Base64, Mime, Variant } = image;
 
     if (!this.VALID_IMAGE_MIME_TYPES.includes(Mime)) {
@@ -21,11 +22,11 @@ export class ImageValidatorPipe implements PipeTransform {
     }
 
     switch (Variant) {
-      case MediaImageVariantEnum.THUMBNAIL:
+      case ImageVariantEnum.THUMBNAIL:
         this.validateAspectRatio(Base64, this.THUMBNAIL_MIN_RATIO_THRESHOLD, this.THUMBNAIL_MAX_RATIO_THRESHOLD, 'thumbnail');
         this.validateSize(Base64, 'thumbnail');
         break;
-      case MediaImageVariantEnum.BACKDROP:
+      case ImageVariantEnum.BACKDROP:
         this.validateAspectRatio(Base64, this.BACKDROP_MIN_RATIO_THRESHOLD, this.BACKDROP_MAX_RATIO_THRESHOLD, 'backdrop');
         this.validateSize(Base64, 'backdrop');
         break;

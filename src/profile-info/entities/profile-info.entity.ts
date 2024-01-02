@@ -23,7 +23,7 @@ export class ProfileInfo extends EntityBase {
 
   @Field()
   @IntColumn()
-  DOB: number;
+  DateOfBirth: number;
 
   @Field()
   @EnumColumn({ enum: GenderEnum })

@@ -72,7 +72,8 @@ export enum MovierMediaEnum {
   MOVIE = 'Movie',
 }
 
-export enum MediaImageVariantEnum {
+export enum ImageVariantEnum {
   BACKDROP = 'Backdrop',
   THUMBNAIL = 'Thumbnail',
+  PROFILE = 'Profile',
 }

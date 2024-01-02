@@ -20,7 +20,7 @@ export namespace TrailerInputDto {
     @Field(() => String)
     @IsNotEmpty()
     @IsUUID()
-    MediaImageId: string;
+    ImageId: string;
 
     @Field(() => MediaBasicInfoInputDto.CreateMediaBasicInfoInput)
     @IsObject()
