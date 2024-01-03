@@ -7,4 +7,10 @@ export namespace EpisodeOutputDto {
     @Field(() => Number)
     number: number;
   }
+
+  @ObjectType()
+  export class EpisodeIdOutput {
+    @Field(() => String)
+    ID: string;
+  }
 }

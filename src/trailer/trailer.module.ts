@@ -14,5 +14,6 @@ import { SeasonModule } from '../season/season.module';
 @Module({
   imports: [VideoModule, MediaBasicInfoModule, ManagerModule, MediaResourceModule, ImageModule, MovieModule, SeriesModule, SeasonModule],
   providers: [TrailerResolver, TrailerService, TrailerRepository],
+  exports: [TrailerService],
 })
 export class TrailerModule {}

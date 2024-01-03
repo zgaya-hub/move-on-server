@@ -11,5 +11,6 @@ import { EpisodeRepository } from './episode.repository';
 @Module({
   imports: [VideoModule, MediaBasicInfoModule, SeasonModule, MediaResourceModule, ImageModule],
   providers: [EpisodeResolver, EpisodeService, EpisodeRepository],
+  exports: [EpisodeService],
 })
 export class EpisodeModule {}

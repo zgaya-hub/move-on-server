@@ -12,11 +12,11 @@ import { EpisodeOutputDto } from './dto/episode.output.dto';
 export class EpisodeResolver {
   constructor(private readonly episodeService: EpisodeService) {}
 
-  @Mutation(() => CommonOutputDto.SuccessOutput)
+  @Mutation(() => EpisodeOutputDto.EpisodeIdOutput)
   async createEpisode(
     @Args('CreateEpisodeInput')
     input: EpisodeInputDto.CreateEpisodeInput,
-  ): Promise<CommonOutputDto.SuccessOutput> {
+  ): Promise<EpisodeOutputDto.EpisodeIdOutput> {
     try {
       return this.episodeService.createEpisode(input);
     } catch (error) {

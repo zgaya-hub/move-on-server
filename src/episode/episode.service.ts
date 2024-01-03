@@ -23,7 +23,7 @@ export class EpisodeService {
     private readonly imageService: ImageService,
   ) {}
 
-  async createEpisode(input: EpisodeInputDto.CreateEpisodeInput): Promise<CommonOutputDto.SuccessOutput> {
+  async createEpisode(input: EpisodeInputDto.CreateEpisodeInput): Promise<EpisodeOutputDto.EpisodeIdOutput> {
     try {
       const episode = new Episode();
 
@@ -40,7 +40,7 @@ export class EpisodeService {
       this.entitySaveService.push(episode);
       await this.entitySaveService.saveMultiple();
 
-      return { isSuccess: true };
+      return { ID: episode.ID };
     } catch (error) {
       throw new Error(error);
     }

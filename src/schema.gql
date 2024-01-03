@@ -73,6 +73,13 @@ input CreateErrorLogInput {
   Type: String!
 }
 
+input CreateExternalLinkInput {
+  ParentId: String!
+  ParentType: String!
+  ResourceName: String!
+  Url: String!
+}
+
 input CreateFinancialInfoInput {
   Budget: Float!
   NetProfit: Float!
@@ -187,6 +194,10 @@ type Episode {
   video: Video!
 }
 
+type EpisodeIdOutput {
+  ID: String!
+}
+
 type ErrorLog {
   ID: String!
   createdAt: Float!
@@ -207,7 +218,6 @@ type ExternalLink {
   resourceName: String!
   series: Series!
   trailer: Trailer!
-  type: String!
   updatedAt: Float!
   url: String!
 }
@@ -423,8 +433,9 @@ type Mutation {
   changeEpisodeSeason(ChangeEpisodeSeasonInput: ChangeEpisodeSeasonInput!): SuccessOutput!
   changeThumbnailImage(ChangeThumbnailImageInput: ChangeThumbnailImageInput!): SuccessOutput!
   createCineast(CreateCineastInput: CreateCineastInput!): SuccessOutput!
-  createEpisode(CreateEpisodeInput: CreateEpisodeInput!): SuccessOutput!
+  createEpisode(CreateEpisodeInput: CreateEpisodeInput!): EpisodeIdOutput!
   createErrorLog(CreateErrorLogInput: CreateErrorLogInput!): ErrorLog!
+  createExternalLink(CreateExternalLinkInput: CreateExternalLinkInput!): SuccessOutput!
   createImage(CreateImageInput: CreateImageInput!): ImageIdOutput!
   createManagerActivity(createManagerActivityInput: CreateManagerActivityInput!): ManagerActivity!
   createMovie(CreateMovieInput: CreateMovieInput!): SuccessOutput!
@@ -439,6 +450,7 @@ type Mutation {
   createUserActivity(createUserActivityInput: CreateUserActivityInput!): UserActivity!
   deleteMultipleSeriesByIdz(DeleteMultipleSeriesByIdzParams: DeleteMultipleSeriesByIdzParams!): SuccessOutput!
   deleteSeriesById(DeleteSeriesByIdParams: DeleteSeriesByIdParams!): SuccessOutput!
+  getSeasonBySeriesId(GetSeasonBySeriesIdParams: GetSeasonBySeriesIdParams!): [Season!]!
   getUploadVideoSignedUrl(GetUploadVideoSignedUrlInput: GetUploadVideoSignedUrlInput!): UploadVideoSignedUrlOutput!
   managerRegister(ManagerRegisterInput: ManagerRegisterInput!): AuthTokenOutput!
   managerSignIn(ManagerSignInInput: ManagerSignInInput!): AuthTokenOutput!
@@ -484,7 +496,6 @@ type Query {
   getMediaBasicInfoByMediaId(GetMediaBasicInfoByMediaIdParams: GetMediaBasicInfoByMediaIdParams!): MediaBasicInfo!
   getNextEpisodeNumber(GetNextEpisodeNumberParams: GetNextEpisodeNumberParams!): GetNextEpisodeNumberOutput!
   getNextSeasonNumber(GetNextSeasonNumberParams: GetNextSeasonNumberParams!): GetNextSeasonNumberOutput!
-  getSeasonBySeriesId(GetSeasonBySeriesIdParams: GetSeasonBySeriesIdParams!): [Season!]!
   managerActivity(id: Int!): ManagerActivity!
   movieCineast(id: Int!): MovieCineast!
   profileInfo(id: Int!): ProfileInfo!

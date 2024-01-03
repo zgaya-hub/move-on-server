@@ -19,10 +19,6 @@ export class ExternalLink extends EntityBase {
   @VarcharColumn()
   url: string;
 
-  @Field()
-  @VarcharColumn()
-  type: string; // TODO: will change into ENUM in future
-
   @Field(() => Episode)
   @ManyToOne(() => Episode, (episode) => episode.externalLink, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()

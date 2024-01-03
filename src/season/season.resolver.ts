@@ -24,7 +24,7 @@ export class SeasonResolver {
     }
   }
 
-  @Query(() => [Season])
+  @Mutation(() => [Season])
   async getSeasonBySeriesId(@Args('GetSeasonBySeriesIdParams') param: SeasonInputDto.GetSeasonBySeriesIdParams): Promise<Season[]> {
     try {
       return this.seasonService.getSeasonBySeriesId(param);

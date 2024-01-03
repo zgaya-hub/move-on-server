@@ -16,6 +16,7 @@ export class ImageResolver {
   @Mutation(() => ImageOutputDto.ImageIdOutput)
   async createImage(@Args('CreateImageInput', ImageValidatorPipe) input: ImageInputDto.CreateImageInput): Promise<ImageOutputDto.ImageIdOutput> {
     try {
+      // const pubSub = new PubSub();
       return this.imageService.createImage(input);
     } catch (error) {
       throw new Error(error);

@@ -23,7 +23,7 @@ export class Episode extends EntityBase {
   mediaBasicInfo: MediaBasicInfo;
 
   @Field(() => Season)
-  @ManyToOne(() => Season, (season) => season.episode, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Season, (season) => season.episode)
   @JoinColumn()
   season: Season;
 
